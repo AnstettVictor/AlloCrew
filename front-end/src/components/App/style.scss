@@ -1,6 +1,13 @@
 @import 'style/vars.scss';
 
 
-body {
-  background-color: $blue;
+.app__header, .app__main, .app__footer {
+  height: fit-content;
+  width: fit-content
+}
+
+.test {
+  width: 100vw;
+  height: 20vh;
+  background-color: #00f;
 }

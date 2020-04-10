@@ -3,9 +3,9 @@ import './style.scss';
 
 const App = () => (
   <>
-    <header></header>
-    <main></main>
-    <footer></footer>
+    <header className="app__header"><div className="test"></div></header>
+    <main className="app__main"></main>
+    <footer className="app__footer"></footer>
   </>
 )
 ;
