@@ -2,7 +2,11 @@ import React from 'react';
 import './style.scss';
 
 const App = () => (
-  <h1>Hello Allocrew</h1>
+  <>
+    <header></header>
+    <main></main>
+    <footer></footer>
+  </>
 )
 ;
 
