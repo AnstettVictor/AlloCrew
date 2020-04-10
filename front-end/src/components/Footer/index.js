@@ -2,11 +2,12 @@ import React from 'react';
 import './style.scss';
 
 const Footer = () => (
-  <div className="Footer__container">
-    <a className="Footer__link" href="#">Mentions légales</a>
-    <a className="Footer__link" href="#">Contacter le support</a>
-    <a className="Footer__link" href="#">Informations</a>
-    <a className="Footer__link"href="#">FAQ</a>
+  <div className="footer__container">       
+    <a className="footer__link" href="#">Mentions légales</a>
+    <a className="footer__link" href="#">Contacter le support</a>
+    <a className="footer__link" href="#">Informations</a>
+    <a className="footer__link" href="#">FAQ</a>
+    <p className="footer__p">&copy;2020 AlloCrew All rights reserved</p> 
   </div>
 )
 ;

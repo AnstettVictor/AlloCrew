@@ -1,0 +1,23 @@
+@import 'style/vars.scss';
+
+.footer__container {
+    background-color: #292929;
+    text-align: center;
+    padding: 1rem 0rem;
+    margin: 1rem 0rem;
+}
+
+.footer__p{
+    color:#FFFFFF;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;    
+}
+
+.footer__link{
+    color:#FFFFFF;
+    font-size: 0.9rem;    
+    margin: 0rem 0.4rem;
+    &:hover {
+        color:#FFD000;
+    }
+}
