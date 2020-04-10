@@ -1,0 +1,15 @@
+App\Entity\User:
+    user{1..500}:
+        firstname: '<firstName()>'
+        lastname: '<lastName()>'
+        email: '<email()>'
+        age: '<numberBetween(20,99)>'
+        password: '\$argon2id\$v=19\$m=65536,t=4,p=1\$nxzNHdwlZKDPvZWUX0v+VA\$HiulehZHIreKvmpxpdq4gxBYnbpWh1R2Na9qDXPdARU'
+        location: '<city()>'
+        picture: '<word()>'
+        bannerpicture: '<word()>'
+        created_at: <(new DateTime("1980-10-10"))>
+        title: '<word(3)>'
+        description: '<word(10)>'
+        experience: '<word(15)>'
+        portfolio: '<word()>'
