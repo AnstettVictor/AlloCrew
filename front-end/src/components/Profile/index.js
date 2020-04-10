@@ -1,5 +1,5 @@
 import React from 'react';
-import './style.css';
+import './style.scss';
 
 const Profile = () => (
   <h1>Profile</h1>

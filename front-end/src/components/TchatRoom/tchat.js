@@ -1,5 +1,5 @@
 import React from 'react';
-import './style.css';
+import './style.scss';
 
 const Tchat = () => (
   <h1>Tchat</h1>
