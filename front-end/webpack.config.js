@@ -2,10 +2,16 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
+
 module.exports = {
+  resolve: {
+    alias: {
+      images: path.resolve(__dirname, './src/assets/images/'),
+      style: path.resolve(__dirname, './src/assets/style/')
+    }
+  },
   entry: './src/index.js',
   output: {
-    publicPath: process.env.ASSET_PATH,
     path: path.join(__dirname, './dist'),
     filename: './js/main-[hash].js'
   },
@@ -23,15 +29,35 @@ module.exports = {
             loader: 'file-loader',
             options: {
               name: 'images/[name].[ext]',
-              publicPath: '../',
-              useRelativePaths: true,
             },
           },
         ],
       },
       {
-        test: /\.css$/i,
-        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+        test: /\.scss$/i,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+              importLoaders: 2,
+            },
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              sourceMap: true,
+            },
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true,
+              implementation: require('sass'),
+            },
+          },
+        ],
       },
     ]  
   },

@@ -1,5 +1,5 @@
 import React from 'react';
-import './style.css';
+import './style.scss';
 
 const FirstLoggin = () => (
   <h1>FirstLoggin</h1>
