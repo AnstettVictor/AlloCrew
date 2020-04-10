@@ -1,10 +1,11 @@
 @import 'style/vars.scss';
 
 .footer__container {
+    width: 100vw;
+    height: fit-content;
     background-color: #292929;
     text-align: center;
-    padding: 1rem 0rem;
-    margin: 1rem 0rem;
+    padding: 1rem;
 }
 
 .footer__p{
@@ -16,7 +17,7 @@
 .footer__link{
     color:#FFFFFF;
     font-size: 0.9rem;    
-    margin: 0rem 0.4rem;
+    margin: 0.4rem;
     &:hover {
         color:#FFD000;
     }
