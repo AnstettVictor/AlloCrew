@@ -7,7 +7,7 @@ const Footer = () => (
     <a className="footer__link" href="#">Contacter le support</a>
     <a className="footer__link" href="#">Informations</a>
     <a className="footer__link" href="#">FAQ</a>
-    <p className="footer__p">&copy;2020 AlloCrew All rights reserved</p> 
+    <p className="footer__text">&copy;2020 AlloCrew All rights reserved</p> 
   </div>
 )
 ;
