@@ -1,6 +1,7 @@
 import React from 'react';
 import './style.scss';
 import Profile from './HomeProfile';
+import Announcement from './Announcement';
 
 const Home = () => (
   <div className="home__container">
@@ -16,50 +17,12 @@ const Home = () => (
         <li>Mes favoris</li>
         <li>Rehercher une annonce</li>
       </ul>
-
-      <div className="home__announcement">
-        <div className="home__announcement__img">
-          <img src="" alt="announcement"/>
-        </div>
-        <div className="home__announcement__avatar">
-          <img src="" alt="avatar"/>
-        </div>
-        <p>Nom du posteur</p>
-        <p>Role du posteur</p>
-        <p>Titre de l'annonce</p>
-        <p>Description de l'annonce</p>
-        <p>Date de création de l'annonce</p>
-        <input type="button" value="Voir l'annonce"/>
-      </div>
-      <div className="home__announcement">
-        <div className="home__announcement__img">
-          <img src="" alt="announcement"/>
-        </div>
-        <div className="home__announcement__avatar">
-          <img src="" alt="avatar"/>
-        </div>
-        <p>Nom du posteur</p>
-        <p>Role du posteur</p>
-        <p>Titre de l'annonce</p>
-        <p>Description de l'annonce</p>
-        <p>Date de création de l'annonce</p>
-        <input type="button" value="Voir l'annonce"/>
-      </div>
-      <div className="home__announcement">
-        <div className="home__announcement__img">
-          <img src="" alt="announcement"/>
-        </div>
-        <div className="home__announcement__avatar">
-          <img src="" alt="avatar"/>
-        </div>
-        <p>Nom du posteur</p>
-        <p>Role du posteur</p>
-        <p>Titre de l'annonce</p>
-        <p>Description de l'annonce</p>
-        <p>Date de création de l'annonce</p>
-        <input type="button" value="Voir l'annonce"/>
-      </div>
-
+      <Announcement />
+      <Announcement />
+      <Announcement />
+      <Announcement />
+      <Announcement />
+      <Announcement />
     </div>
   </div>
 )
