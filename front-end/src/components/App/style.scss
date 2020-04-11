@@ -1,6 +1,21 @@
 @import 'style/vars.scss';
 
 
-body {
-  background-color: $blue;
+
+.app__header {
+  background-color: violet;
+  height: 3rem;
+  position: sticky;
+  top: 0;
+}
+
+.app__footer {
+  background-color: darkcyan;
+  height: 3rem;
+}
+.app__main {
+  background-color: khaki;
+  max-width: 1100px;
+  min-height: 100vh;
+  margin: 0 auto;
 }
