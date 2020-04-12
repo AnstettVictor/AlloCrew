@@ -71,7 +71,7 @@ class UserController extends AbstractController
     /**
      * @Route("/password/{id}", name="account_edit_password", methods={"PATCH"})
      */
-    public function passwordEdit(User $user, Request $request,UserPasswordEncoderInterface $encoder, $id)
+    public function passwordEdit(User $user, Request $request,UserPasswordEncoderInterface $encoder)
     {
         // On décode les données envoyées
         $donnees = json_decode($request->getContent());
@@ -93,7 +93,7 @@ class UserController extends AbstractController
     /**
      * @Route("/", name="browse", methods={"GET"})
      */
-    public function browse(UserRepository $UserRepository, Request $request, SerializerInterface $serializer)
+    public function browse(UserRepository $UserRepository, SerializerInterface $serializer)
     {
 
         $user = $UserRepository->findAllForUsers();
@@ -107,7 +107,7 @@ class UserController extends AbstractController
     /**
      * @Route("/{id}", name="read", requirements={"id": "\d+"},  methods={"GET"})
      */
-    public function read(UserRepository $UserRepository, $id, Request $request, SerializerInterface $serializer)
+    public function read(UserRepository $UserRepository, $id, SerializerInterface $serializer)
     {
 
         $user = $UserRepository->findAllForUsersById($id);
@@ -162,7 +162,7 @@ class UserController extends AbstractController
         if (isset($donnees->bannerpicture)) {
             $user->setBannerpicture($donnees->bannerpicture);
         }
-        $user->setUpdatedat(new \Datetime());
+        $user->setUpdatedAt(new \Datetime());
 
         $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(["id" => $id]);
 
@@ -173,5 +173,24 @@ class UserController extends AbstractController
 
         // On retourne la confirmation
         return new Response('ok', 201);
+    }
+
+     /**
+     * @Route("/announcement/{id}", name="read_announcement", requirements={"id": "\d+"},  methods={"GET"})
+     */
+    public function readAnnouncement(User $user, SerializerInterface $serializer)
+    {
+
+        $announcement = $user->getAnnouncements();
+
+
+        if (!empty($user)) {
+            return $this->json($serializer->normalize(
+                $announcement,
+                null, ['groups' => ['announcement']]
+            ));
+        } else {
+            return new Response("l'utilisateur n'est pas en base de données ", 404);
+        }
     }
 }
