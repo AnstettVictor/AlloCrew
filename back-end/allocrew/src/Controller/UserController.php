@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
 /**
@@ -17,34 +18,77 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/account/{id}", name="account", methods={"GET"})
+     * @Route("/account/{id}", name="account", requirements={"id": "\d+"}, methods={"GET"})
      */
-    public function account()
+    public function account(UserRepository $UserRepository , SerializerInterface $serializer,  $id)
     {
-        return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
+            
+        $user = $UserRepository->findAllForUsersAccount($id);
+        if (!empty($user)) { 
+            return $this->json($serializer->normalize(
+                $user,
+                null
+            ));
+        } else {
+            return new Response("l'utilisateur n'est pas en base de données ", 404);
+        }
+       
     }
 
     /**
-     * @Route("/account/{id}", name="account_edit", methods={"GET","PATCH"})
+     * @Route("/account/{id}", name="account_edit",requirements={"id": "\d+"}, methods={"PATCH"})
      */
-    public function accountEdit()
+    public function accountEdit(User $user, Request $request, $id)
     {
-        return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
+
+          // On décode les données envoyées
+          $donnees = json_decode($request->getContent());
+          /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
+           * sinon on passe à la suite */   
+          if (isset($donnees->email)) {
+            $user->setEmail($donnees->email);
+        }     
+          if (isset($donnees->firstname)) {
+              $user->setFirstname($donnees->firstname);
+          };
+          if (isset($donnees->lastname)) {
+              $user->setLastname($donnees->lastname);
+          }
+         
+          $user->setUpdatedat(new \Datetime());
+
+          $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(["id" => $id]);
+  
+          // On sauvegarde en base
+          $entityManager = $this->getDoctrine()->getManager();
+          $entityManager->persist($user);
+          $entityManager->flush();
+  
+          // On retourne la confirmation
+          return new Response('ok', 201);
     }
-    
+
     /**
-     * @Route("/password/{id}", name="account_edit_password", methods={"GET","PATCH"})
+     * @Route("/password/{id}", name="account_edit_password", methods={"PATCH"})
      */
-    public function passwordEdit()
+    public function passwordEdit(User $user, Request $request,UserPasswordEncoderInterface $encoder, $id)
     {
-        return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
+        // On décode les données envoyées
+        $donnees = json_decode($request->getContent());
+        /** On verifie si la propriété est envoyé dans le json si oui encode le mot de passe  
+         * sinon on passe à la suite */   
+      if (isset($donnees->password)) {
+        $user->setPassword($encoder->encodePassword($user, $donnees->password));
+      }
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->flush();
+
+        // On retourne la confirmation
+        return new Response('password modifié', 201);
     }
+
+
+    
 
     /**
      * @Route("/", name="browse", methods={"GET"})
@@ -67,21 +111,14 @@ class UserController extends AbstractController
     {
 
         $user = $UserRepository->findAllForUsersById($id);
-
-        return $this->json($serializer->normalize(
-            $user,
-            null
-        ));
-    }
-
-    /**
-     * @Route("/", name="add", methods={"GET", "POST"})
-     */
-    public function add()
-    {
-        return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
+        if (!empty($user)) {
+            return $this->json($serializer->normalize(
+                $user,
+                null
+            ));
+        } else {
+            return new Response("l'utilisateur n'est pas en base de données ", 404);
+        }
     }
 
     /**
@@ -89,15 +126,46 @@ class UserController extends AbstractController
      */
     public function edit(User $user, Request $request, $id)
     {
+        
+    
         // On décode les données envoyées
         $donnees = json_decode($request->getContent());
-    
-        // On hydrate l'objet
-        $user->setFirstname($donnees->firstname);
-        $user->setLastname($donnees->lastname);
-        $user->setAge($donnees->age);
+        /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
+         * sinon on passe à la suite */        
+        if (isset($donnees->firstname)) {
+            $user->setFirstname($donnees->firstname);
+        };
+        if (isset($donnees->lastname)) {
+            $user->setLastname($donnees->lastname);
+        }
+        if (isset($donnees->age)) {
+            $user->setAge($donnees->age);
+        }
+        if (isset($donnees->location)) {
+            $user->setLocation($donnees->location);
+        }
+        if (isset($donnees->title)) {
+            $user->setTitle($donnees->title);
+        }
+        if (isset($donnees->description)) {
+            $user->setDescription($donnees->description);
+        }
+        if (isset($donnees->experience)) {
+            $user->setExperience($donnees->experience);
+        }
+        if (isset($donnees->portfolio)) {
+            $user->setPortfolio($donnees->portfolio);
+        }
+        if (isset($donnees->picture)) {
+            $user->setPicture($donnees->picture);
+        }
+        if (isset($donnees->bannerpicture)) {
+            $user->setBannerpicture($donnees->bannerpicture);
+        }
+        $user->setUpdatedat(new \Datetime());
+
         $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(["id" => $id]);
-       
+
         // On sauvegarde en base
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($user);
@@ -106,5 +174,4 @@ class UserController extends AbstractController
         // On retourne la confirmation
         return new Response('ok', 201);
     }
-
 }
