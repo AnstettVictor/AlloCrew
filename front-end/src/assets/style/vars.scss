@@ -1,5 +1,7 @@
 // Put Vars here:
 $blue:#132D7D;
+$red: #FA425A;
+$shadow: 2px 3px 3px 0 rgba(0,0,0, .2);
 
 
 
@@ -15,12 +17,13 @@ $blue:#132D7D;
 }
 
 @mixin inputStyle {
-  border: 2px solid rgba(0,0,0, .3);
+  border: 2px solid $blue;
+  background-color: #efefef;
   font-size: 1rem;
   padding: 1rem;
   border-radius: 0.4rem;
   &:hover {
-    border: 2px solid  rgb(48, 109, 189);
+    opacity: .9;
     cursor: pointer;
   }
 }
