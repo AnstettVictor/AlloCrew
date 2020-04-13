@@ -62,7 +62,8 @@
     color: #000;
     &:hover {
       cursor: pointer;
-      background-color:#efefef;
+      background-color:$red;
+      color: #fff;
     }
   }
 }
