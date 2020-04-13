@@ -1,0 +1,170 @@
+@import 'style/vars.scss';
+
+.home__announcement {
+  box-shadow: $shadow;
+}
+.home__container {
+  background-color: #fff;
+  padding: 1.5rem;
+}
+
+.home__left {
+  display: none;
+}
+
+.home__navlink {
+  z-index: 999;
+  font-weight: bold;
+  color: #fff;
+  padding: .5rem;
+  background-color: rgba(0,0,0, .5);
+  position: sticky;
+  top: 3rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  li {
+    text-align: center;
+    margin: 0 1.5rem;
+    list-style: none;
+    &:hover {
+      color: yellow;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
+}
+
+
+.home__announcementlist {
+  background-color: #fff;
+  max-width: 35rem;
+  margin: 0 auto;
+}
+
+.home__announcement {
+  border-radius: 5px;
+  margin: 0 auto;
+  background-color: #fff;
+  height: 65vh;
+  margin-bottom: 1.5rem;
+}
+
+.home__announcement__banner {
+  position: relative;
+  height: 50%;
+  background-color: #eee;
+}
+.home__announcement__avatar {
+  left: 1rem;
+  bottom: -30px;
+  position: absolute;
+  height:60px;
+  width:60px;
+  border-radius: 50%;
+  background-color: #ddd;
+}
+
+.home__announcement__user {
+  margin-left: calc(60px + 2rem);
+  margin-top: .5rem;
+}
+
+
+.home__announcement__bot {
+  padding: 1rem;
+  font-size: 1.2;
+  line-height: 1.6;
+  height: 40%;
+  display: flex;
+  input {
+    @include buttonStyle;
+    color: $blue;
+    background-color: #fff;
+    border-color: $blue;
+    margin-top: 1rem;
+  }
+  h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  &left {
+    flex:4;
+  }
+  &right {
+    flex:1;
+  }
+}
+
+@media (min-width: 900px) and (min-height: 500px) {
+  .home__left {
+    position: fixed;
+    display: block;
+    width: 15rem;
+  }
+
+  .home__profile {
+    line-height: 1.6;
+    text-align: center;
+    background-color: #fff;
+    height: 33rem;
+    margin-bottom: 1.5rem;
+    ul {
+      margin-left: 1rem;
+      list-style: none;
+      text-align: left;
+      li {
+        padding: .2rem;
+      }
+    }
+    input {
+      @include buttonStyle;
+      background-color: $blue;
+      color: #fff;
+      margin-top: 1rem;
+
+    }
+    .homeprofile__text {
+      padding: 1rem;
+      padding-top: calc(60px + 1rem);
+      &--name {
+        font-size: 1.3rem;
+        font-weight: bold;
+        
+      }
+      &--role {
+        font-size: 1.2rem;
+        border-bottom: 1px solid black;
+        margin-bottom: 1rem;
+      }
+    }
+    .homeprofile__banner {
+      position: relative;
+      background-color: lavender;
+      height: 25%;
+      .homeprofile__avatar {
+        position: absolute;
+        background-color: lawngreen;
+        background-size: cover;
+        border-radius: 50%;
+        left: calc(15rem / 2 - 60px);
+        bottom: -60px;
+        height: 120px;
+        width: 120px;
+      }
+    }
+  }
+  .home__news {
+    background-color: lightblue;
+    margin-top: .5rem;
+    height: 50vh;
+  }
+
+  .home__announcementlist {
+    max-width: unset;
+    margin-left: calc(15rem + 1.5rem);
+  }
+
+}
