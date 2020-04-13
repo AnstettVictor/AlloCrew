@@ -2,10 +2,12 @@
 
 body {
   font-family: 'Rubik', sans-serif;
+  background-color: #F3F4F8;
+  overflow-x: hidden;
 }
 
 .app__header {
-  background: linear-gradient(90deg, $blue, $red 60%);
+  background: linear-gradient(90deg, $blue, $red 75%);
   height: 3rem;
   position: sticky;
   top: 0;
@@ -14,9 +16,15 @@ body {
 .app__footer {
   background-color: darkcyan;
   height: 3rem;
+  position: absolute;
 }
+
+.app__footer, .app__header {
+  z-index: 9999;
+}
+
 .app__main {
-  background-color: khaki;
+  background-color: #F3F4F8;
   max-width: 1100px;
   min-height: 100vh;
   margin: 0 auto;

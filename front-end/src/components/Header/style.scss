@@ -86,6 +86,7 @@
     width: fit-content;
   }
   .header__links {
+    height: 3rem;
     margin-right: 6rem;
     opacity: 1;
     position: unset;
@@ -98,10 +99,10 @@
         color: #fff;
         transition: 100ms;
         &:hover {
-        background-color: unset;
-        border-bottom: 2px solid #fff;
-        transform: translateY(-2px);
-        transition: 100ms;
+          background-color: unset;
+          border-bottom: 2px solid #fff;
+          transform: translateY(-2px);
+          transition: 100ms;
         }
       }
     }

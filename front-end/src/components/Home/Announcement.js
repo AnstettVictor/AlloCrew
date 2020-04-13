@@ -18,7 +18,7 @@ const Announcement = () => (
         <p>Date de création de l'annonce</p>
         <p>Lieu</p>
         <p>bénévole</p>
-        <input type="button" value="Voir l'annonce"/>
+        <input className="button" type="button" value="Voir l'annonce"/>
       </div>
     </div>
   </div>

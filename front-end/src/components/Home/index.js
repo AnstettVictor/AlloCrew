@@ -13,9 +13,9 @@ const Home = () => (
     </div>
     <div className="home__announcementlist">
       <ul className="home__navlink">
-        <li>Dernieres annonces</li>
-        <li>Mes favoris</li>
-        <li>Rehercher une annonce</li>
+        <li className="home__navlink-links">Bénévoles</li>
+        <li className="home__navlink-links">Rémunérées</li>
+        <li className="home__navlink-links">Toutes les annonces</li>
       </ul>
       <Announcement />
       <Announcement />
