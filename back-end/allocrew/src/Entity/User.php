@@ -108,12 +108,24 @@ class User implements UserInterface
      */
     private $messages;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Discussion", mappedBy="receiver")
+     */
+    private $discussionsReceived;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Discussion", mappedBy="creator")
+     */
+    private $discussionsCreated;
+
     public function __construct()
     {
         $this->announcements = new ArrayCollection();
         $this->createdAt = new DateTime();
         $this->roles[] = 'ROLE_USER';
         $this->messages = new ArrayCollection();
+        $this->discussionsReceived = new ArrayCollection();
+        $this->discussionsCreated = new ArrayCollection();
         
     }
 
@@ -395,6 +407,68 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($message->getUser() === $this) {
                 $message->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Discussion[]
+     */
+    public function getDiscussionsReceived(): Collection
+    {
+        return $this->discussionsReceived;
+    }
+
+    public function addDiscussionsReceived(Discussion $discussionsReceived): self
+    {
+        if (!$this->discussionsReceived->contains($discussionsReceived)) {
+            $this->discussionsReceived[] = $discussionsReceived;
+            $discussionsReceived->setReceiver($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDiscussionsReceived(Discussion $discussionsReceived): self
+    {
+        if ($this->discussionsReceived->contains($discussionsReceived)) {
+            $this->discussionsReceived->removeElement($discussionsReceived);
+            // set the owning side to null (unless already changed)
+            if ($discussionsReceived->getReceiver() === $this) {
+                $discussionsReceived->setReceiver(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Discussion[]
+     */
+    public function getDiscussionsCreated(): Collection
+    {
+        return $this->discussionsCreated;
+    }
+
+    public function addDiscussionsCreated(Discussion $discussionsCreated): self
+    {
+        if (!$this->discussionsCreated->contains($discussionsCreated)) {
+            $this->discussionsCreated[] = $discussionsCreated;
+            $discussionsCreated->setCreator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDiscussionsCreated(Discussion $discussionsCreated): self
+    {
+        if ($this->discussionsCreated->contains($discussionsCreated)) {
+            $this->discussionsCreated->removeElement($discussionsCreated);
+            // set the owning side to null (unless already changed)
+            if ($discussionsCreated->getCreator() === $this) {
+                $discussionsCreated->setCreator(null);
             }
         }
 

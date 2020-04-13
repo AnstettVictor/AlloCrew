@@ -29,6 +29,22 @@ class Discussion
      */
     private $messages;
 
+   
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="discussionsReceived")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $receiver;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="discussionsCreated")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $creator;
+
+   
+
     public function __construct()
     {
         $this->messages = new ArrayCollection();
@@ -81,4 +97,32 @@ class Discussion
 
         return $this;
     }
+
+    
+
+    public function getReceiver(): ?User
+    {
+        return $this->receiver;
+    }
+
+    public function setReceiver(?User $receiver): self
+    {
+        $this->receiver = $receiver;
+
+        return $this;
+    }
+
+    public function getCreator(): ?User
+    {
+        return $this->creator;
+    }
+
+    public function setCreator(?User $creator): self
+    {
+        $this->creator = $creator;
+
+        return $this;
+    }
+
+    
 }
