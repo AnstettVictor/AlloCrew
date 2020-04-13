@@ -2,14 +2,17 @@ import React, {useState} from 'react';
 import './style.scss';
 import DatePicker from 'react-datepicker';
 import '../../../node_modules/react-datepicker/src/stylesheets/datepicker.scss';
+import Accept from './DropZone'
 
 const CreateAnnouncement = () => {
 
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
 
-  return (
+  return (    
     <div className="createAnnouncement__container">
+    <div>
+    
     <h2 className="createAnnouncement__title">Création de votre annonce</h2> 
     <input className="createAnnouncement__input title input" type="text" placeholder="Titre de l'annonce" />
     <p className="createAnnouncement__text">Date de début</p>
@@ -39,7 +42,13 @@ const CreateAnnouncement = () => {
     </div>    
     
     <textarea className="createAnnouncement__textarea input" placeholder="Description de votre projet" cols="40" rows="15"/>
+    </div>
+    <div className="createAnnouncement__input input">
+    <Accept />
+    </div>
+    <div>
     <button className="createAnnouncement__button button">Créer</button>
+    </div>
   </div>);    
 }
 ;
