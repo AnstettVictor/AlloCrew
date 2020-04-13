@@ -19,3 +19,11 @@
   min-height: 100vh;
   margin: 0 auto;
 }
+
+.button {
+  @include buttonStyle;
+}
+
+.input {
+  @include inputStyle;
+}
