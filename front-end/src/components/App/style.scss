@@ -5,7 +5,7 @@ body {
 }
 
 .app__header {
-  background-color: violet;
+  background: linear-gradient(90deg, $blue, $red 60%);
   height: 3rem;
   position: sticky;
   top: 0;
