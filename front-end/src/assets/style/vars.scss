@@ -1,1 +1,46 @@
-$blue: #00f;
+// Put Vars here:
+$blue:#132D7D;
+$red: #FA425A;
+$shadow: 2px 3px 3px 0 rgba(0,0,0, .2);
+
+
+
+
+
+
+// end vars
+@mixin center {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin inputStyle {
+  border: 2px solid $blue;
+  background-color: #efefef;
+  font-size: 1rem;
+  padding: 1rem;
+  border-radius: 0.4rem;
+  &:hover {
+    opacity: .9;
+    cursor: pointer;
+  }
+}
+
+@mixin buttonStyle {
+  width: fit-content;
+  font-size: 1rem;
+  padding: 1rem;
+  border-radius: 0.4rem;
+  appearance: none;
+  border: 2px solid transparent;
+  background-color: $blue;
+  color: #fff;
+  box-shadow: 2px 3px 3px 0 rgba(0,0,0, .2);
+  &:hover {
+    opacity: .9;
+    cursor: pointer;
+  }
+}
+

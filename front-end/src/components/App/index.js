@@ -1,8 +1,16 @@
 import React from 'react';
 import './style.scss';
+import Home from '../Home';
 
 const App = () => (
-  <h1>Hello Allocrew</h1>
+  <>
+    <div className="app__header" >
+    </ div>
+    <div className="app__main">
+    </div>
+    <div className="app__footer">
+    </div>
+  </>
 )
 ;
 
