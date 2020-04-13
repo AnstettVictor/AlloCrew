@@ -1,0 +1,65 @@
+@import 'style/vars.scss';
+
+.announcement__container{
+  margin: 0rem 0.7rem;
+  font-size:1rem;
+  font-weight: bolder;   
+}
+
+.announcement__img{
+    background-image: url('https://tagrawlaineqqiqi.files.wordpress.com/2015/05/url2.jpeg');
+    background-size:cover;
+    display: inline-block;
+    background-position: center;    
+    height: 18vh; 
+    width: max-content;   
+    margin: auto;
+    margin:0rem -0.7rem;
+    
+}
+
+.announcement__title{
+    font-size:1.4rem;    
+    text-align: center;    
+    padding: 0.3rem 0rem;
+    border-bottom: 1px solid rgba(199, 199, 199, 0.418);
+}
+
+.announcement__author{
+    text-align: center;
+    margin: 0.2rem 0rem 1rem 0rem;
+    font-size: 1.2rem;
+}
+
+.announcement__paid, .announcement__online{
+    color: rgb(33, 218, 88);
+    font-size:0.9rem;
+}
+
+.announcement__volunteer{
+    color: #FA425A;    
+}
+
+.announcement__description {
+    margin: 1rem 0rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid rgba(199, 199, 199, 0.418);
+}
+
+.announcement__text{
+    font-weight: normal;
+    margin-bottom: 1rem;
+}
+
+
+.button {
+    margin-top: 1rem;
+    display: block;
+    margin: auto;
+    background-color: #132D7D;
+    color: #FFFF;
+}
+
+@media (min-width: 900px) and (min-height: 500px) {
+    
+}
