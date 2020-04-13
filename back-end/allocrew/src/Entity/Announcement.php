@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -88,9 +90,15 @@ class Announcement
      */
     private $user;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Discussion", mappedBy="announcement", orphanRemoval=true)
+     */
+    private $discussions;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
+        $this->discussions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -238,6 +246,37 @@ class Announcement
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Discussion[]
+     */
+    public function getDiscussions(): Collection
+    {
+        return $this->discussions;
+    }
+
+    public function addDiscussion(Discussion $discussion): self
+    {
+        if (!$this->discussions->contains($discussion)) {
+            $this->discussions[] = $discussion;
+            $discussion->setAnnouncement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDiscussion(Discussion $discussion): self
+    {
+        if ($this->discussions->contains($discussion)) {
+            $this->discussions->removeElement($discussion);
+            // set the owning side to null (unless already changed)
+            if ($discussion->getAnnouncement() === $this) {
+                $discussion->setAnnouncement(null);
+            }
+        }
 
         return $this;
     }
