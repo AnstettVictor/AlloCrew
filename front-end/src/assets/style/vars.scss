@@ -15,15 +15,15 @@ $shadow: 2px 3px 3px 0 rgba(0,0,0, .2);
 }
 
 @mixin inputStyle {
-  margin: .5rem;
-  border: 1px solid $blue;
+  margin: .5rem .7rem;
+  border: 2px solid rgba(150, 150, 150, 0.788);
   background-color: #efefef;
   font-size: 1rem;
   padding: .5rem;
   border-radius: 0.4rem;
   opacity: .8;
   &:hover {
-    border: 2px solid rgba(19,45,125,.7);
+    border-color:rgba(19,45,125,.7);
     opacity: 1;
     cursor: pointer;
   }
