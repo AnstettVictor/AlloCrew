@@ -19,6 +19,17 @@ class DiscussionRepository extends ServiceEntityRepository
         parent::__construct($registry, Discussion::class);
     }
 
+
+
+    public function findAllForDiscussions($id){
+
+        $rawSql = "SELECT * FROM  discussion  WHERE id = " .$id;
+
+        $stmt = $this->getEntityManager()->getConnection()->prepare($rawSql);
+        $stmt->execute([]);
+    
+        return $stmt->fetchAll();
+    }
     // /**
     //  * @return Discussion[] Returns an array of Discussion objects
     //  */

@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Message;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\Discussion;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Message|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,6 +18,17 @@ class MessageRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Message::class);
+    }
+
+
+    public function findByDiscussion($id){
+
+        $rawSql = "SELECT `content`,`user_id` FROM message LEFT JOIN discussion ON message.discussion_id = discussion.id WHERE discussion.id = " .$id;
+
+        $stmt = $this->getEntityManager()->getConnection()->prepare($rawSql);
+        $stmt->execute([]);
+    
+        return $stmt->fetchAll();
     }
 
     // /**

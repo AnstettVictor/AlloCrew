@@ -43,7 +43,6 @@ class Discussion
      */
     private $creator;
 
-   
 
     public function __construct()
     {
