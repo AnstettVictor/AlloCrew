@@ -1,0 +1,85 @@
+.tchatRoom__Container {
+    margin-top: 20px;
+    padding: 30px;
+    border: 1px solid lightgray;
+
+}
+
+.tchatRoom__TitlePage {
+    text-align: center;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid lightgray;
+}
+
+.tchatRoom__Tchat-Container {
+    display: flex;
+    justify-content: space-between;
+}
+
+// ==== Conversation side ====
+.tchatRoom__Conversations-Container {
+    border: 1px solid lightgray;
+    width: 25%;
+}
+
+.tchatRoom__Conversations-Title {
+    text-align: center;
+    padding-bottom: 3px;
+    margin: 10px;
+    border-bottom: 1px solid lightgray;
+}
+
+.tchatRoom__Conversations-List {
+    margin: 0px 10px 10px 10px;
+}
+
+.tchatRoom__Conversations-Card {
+    padding-bottom: 3px;
+    border-bottom: 1px solid lightgray;
+}
+
+.tchatRoom__Conversations-Card-AvatarAutorTitle {
+    display: flex;
+}
+
+.tchatRoom__Conversations-Card-AuthorAvatar {
+    border-radius: 50%;
+}
+
+.tchatRoom__Conversations-Card-AvatarAuthorTitle-NameAndTitle {
+    margin: 1px;
+    margin-left: 5px;
+}
+
+.tchatRoom__Conversations-Card-Author {
+    text-transform: capitalize;
+    &-Span {
+        text-transform: uppercase;
+    }
+}
+
+.tchatRoom__Conversations-Card-TitleAnnonce {
+    font-size: smaller;
+}
+
+.tchatRoom__Conversations-Card-PreviwAndTime {
+    display: flex;
+    justify-content: space-between;
+}
+
+.tchatRoom__Conversations-Card-Preview {
+    // todo
+}
+
+.tchatRoom__Conversations-Card-Time {
+    font-size: smaller;
+}
+
+
+
+// ===== Chat Side =====
+.tchatRoom__Chat-Container {
+    border: 1px solid lightgray;
+    width: 73%;
+}
