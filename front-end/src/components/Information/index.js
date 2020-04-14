@@ -1,6 +1,6 @@
 import React from 'react';
 import './style.scss';
-import Avatar from '../../assets/images/avatar.png';
+import Avatar from 'images/avatar.png';
 
 const Information = () => (
   <div className="information__container">

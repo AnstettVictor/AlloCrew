@@ -1,5 +1,6 @@
 @import 'style/vars.scss';
 @import "~react-datepicker/dist/react-datepicker.css";
+@import '~utils/dropzone.css';
 
 body {
   font-family: 'Rubik', sans-serif;
@@ -37,4 +38,19 @@ body {
 
 .input {
   @include inputStyle;
+}
+
+.dropzone-element {
+  border-radius: 10px;
+  border: 2px dotted $blue;
+  height: 100px;
+  width: 300px;
+  background-color: #fff;
+  form {
+    width: 100%;
+    height: 100%;
+    img {
+      width: 20px;
+    }
+  }
 }
