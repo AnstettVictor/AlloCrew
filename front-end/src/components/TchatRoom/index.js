@@ -42,37 +42,38 @@ const TchatRoom = () => (
           <img className="tchatRoom__Chat-Annonce-Avatar" src={Avatar} alt="annonce avatar" />
           <h2><a className="tchatRoom__Chat-Annonce-Title" href="#">Annonce Title</a></h2>
         </div>
-
-        {/* Message Received Block */}
-        <div className="tchatRoom__Chat-Message-Received">
-          <div className="tchatRoom__Chat-Card-Received">
-            <img className="tchatRoom__Chat-Card-ProfilAvatar" src={Avatar} alt="profile avatar" />
-            <h4 className="tchatRoom__Chat-Card-Author">Prenom</h4>
+        {/* TODO!!!!!!!!================== */}
+        <div className="messages">
+          {/* Message Received Block */}
+          <div className="tchatRoom__Chat-Message-Received">
+            <div className="tchatRoom__Chat-Card-Received">
+              <img className="tchatRoom__Chat-Card-ProfilAvatar" src={Avatar} alt="profile avatar" />
+              <h4 className="tchatRoom__Chat-Card-Author">Prenom</h4>
+            </div>
+            <p className="tchatRoom__Chat-Message-Received-Content speech-bubble">Message Received</p>
           </div>
-          <p className="tchatRoom__Chat-Message-Received-Content">Message Received</p>
-        </div>
-        {/* End of Message Received Block */}
+          {/* End of Message Received Block */}
 
-        {/* Message Sended Block */}
-        <div className="tchatRoom__Chat-Message-Sended">
-          <div className="tchatRoom__Chat-Card-Sended">
-            <img className="tchatRoom__Chat-Card-ProfilAvatar" src={Avatar} alt="profile avatar" />
-            <h4 className="tchatRoom__Chat-Card-Author">Prenom</h4>
+          {/* Message Sended Block */}
+          <div className="tchatRoom__Chat-Message-Sended">
+            <p className="tchatRoom__Chat-Message-Sended-Content">Message Sended</p>
+            <div className="tchatRoom__Chat-Card-Sended">
+              <img className="tchatRoom__Chat-Card-ProfilAvatar" src={Avatar} alt="profile avatar" />
+              <h4 className="tchatRoom__Chat-Card-Author">Prenom</h4>
+            </div>
           </div>
-          <p className="tchatRoom__Chat-Message-Sended-Content">Message Received</p>
-        </div>
-        {/* End of Message Sended Block */}
+          {/* End of Message Sended Block */}
 
-        {/* New message area */}
-        <div className="tchatRoom__Chat__Input-Container">
-          <form onSubmit={console.log('This Form was submited')}>
-            <label>
-              <input className="tchatRoom__Chat__InputArea" type="text" value="Your Message here" onChange={console.log('this input was changed')} />
-            </label>
+          {/* New message area */}
+
+          <form className="tchatRoom__Chat__Input-Container" onSubmit={console.log('This Form was submited')}>
+
+            <input className="tchatRoom__Chat__InputArea" type="text" value="Type here..." onChange={console.log('this input was changed')} />
+
             <input className="tchatRoom__Chat__Button button" type="submit" value="Sent" />
           </form>
+          {/* End of new message area */}
         </div>
-        {/* End of new message area */}
 
       </div>
       {/* ========= End of Chat Container ========= */}
