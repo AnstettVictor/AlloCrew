@@ -52,7 +52,6 @@ class DiscussionController extends AbstractController
     * data stocke toutes les données qui seront transformées en json
     */
 
-
         $arr = array();
         foreach ($discussions as $row) {
             $arr['discussion'] = $row;
