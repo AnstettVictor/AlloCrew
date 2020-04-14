@@ -33,6 +33,7 @@ App\Entity\Discussion:
         receiver: '@user_*'
         creator: '@user_*'
         
+        
 
 App\Entity\Message:
     message_{1..50}:
