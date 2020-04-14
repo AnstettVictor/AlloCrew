@@ -23,7 +23,7 @@ class MessageRepository extends ServiceEntityRepository
 
     public function findByDiscussion($id){
 
-        $rawSql = "SELECT `content`,`user_id` FROM message LEFT JOIN discussion ON message.discussion_id = discussion.id WHERE discussion.id = " .$id;
+        $rawSql = "SELECT `content`,`user_id` , `discussion_id` FROM message LEFT JOIN discussion ON message.discussion_id = discussion.id WHERE discussion.id = " .$id;
 
         $stmt = $this->getEntityManager()->getConnection()->prepare($rawSql);
         $stmt->execute([]);

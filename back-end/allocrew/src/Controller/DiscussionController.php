@@ -46,26 +46,31 @@ class DiscussionController extends AbstractController
     {
 
 
-        $discussions = $discussionRepository->findAllForDiscussions($id);
-        $messages = $messageRepository->findByDiscussion($id);
-        /**
-    * data stocke toutes les données qui seront transformées en json
-    */
-
+        $discussions = $discussionRepository->findAllByUser($id);
+       // $messages = $messageRepository->findByDiscussion(11);
+      
+    
         $arr = array();
         foreach ($discussions as $row) {
-            $arr['discussion'] = $row;
-        }
-
-
+            $arr['discussion'][] = $row;
+            
+            $messages = $messageRepository->findByDiscussion($row['id']);
 
         foreach ($messages as $rows) {
 
             $arr['discussion']['message'][] = $rows;
         }
-        // Crée un tableau imbriqué
+        }
 
-        // Chaque tableau sera converti en objet
+
+
+        // foreach ($messages as $rows) {
+
+        //     $arr['discussion']['message'][] = $rows;
+        // }
+
+        
+           //$arr[]['discussion']['messages'] = $messageRepository->findAllByDiscussion($id);
 
 
         return new JsonResponse($arr);

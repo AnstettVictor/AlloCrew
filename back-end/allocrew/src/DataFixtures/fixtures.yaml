@@ -1,5 +1,5 @@
 App\Entity\User:
-    user_{1..500}:
+    user_{1..10}:
         firstname: '<firstName()>'
         lastname: '<lastName()>'
         email: '<email()>'
@@ -15,7 +15,7 @@ App\Entity\User:
         portfolio: '<word()>'
 
 App\Entity\Announcement:
-    announcement_{1..50}:
+    announcement_{1..10}:
         category: '<word()>'
         active: '<boolean()>'
         voluntary: '<boolean()>'
@@ -36,7 +36,7 @@ App\Entity\Discussion:
         
 
 App\Entity\Message:
-    message_{1..50}:
+    message_{1..10}:
         content: '<word(25)>'
         discussion: '@discussion_*'
         user: '@user_*'
