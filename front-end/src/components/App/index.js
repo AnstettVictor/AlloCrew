@@ -3,15 +3,9 @@ import './style.scss';
 import Header from '../Header';
 import Footer from '../Footer';
 import Home from '../Home';
-import DatePicker from 'react-datepicker';
-import Dropzone from 'utils/dropzone.js';
-
-
 
 
 const App = () => {
-
-const [startDate, setStartDate] = useState(new Date());
 
 return(
   <>
@@ -26,7 +20,6 @@ return(
     </div>
   </>
 )
-}
-;
+};
 
 export default App;
