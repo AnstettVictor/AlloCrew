@@ -22,15 +22,15 @@ function Accept(props) {
     <section className="container">
       <div {...getRootProps({className: 'dropzone'})}>
         <input className="createAnnouncement__input input"{...getInputProps()} />
-        <p className="createAnnouncement__text">Drag 'n' drop your files here, or click to select files</p>
-        <em className="createAnnouncement__text">(Only *.jpeg and *.png images will be accepted)</em>
+        <p className="createAnnouncement__text drop">Drag 'n' drop your files here, or click to select files</p>
+        <em className="createAnnouncement__text drop">(Only *.jpeg and *.png images will be accepted)</em>
       
       <aside>
-        <h4 className="createAnnouncement__text drap">Fichier accepté</h4>
+        <h4 className="createAnnouncement__text drap drop">Fichier accepté</h4>
         <ul>
           {acceptedFilesItems}
         </ul>
-        <h4 className="createAnnouncement__text drap">Fichier rejeté</h4>
+        <h4 className="createAnnouncement__text drap drop">Fichier rejeté</h4>
         <ul>
           {rejectedFilesItems}
         </ul>
