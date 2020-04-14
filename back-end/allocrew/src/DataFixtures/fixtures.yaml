@@ -15,7 +15,7 @@ App\Entity\User:
         portfolio: '<word()>'
 
 App\Entity\Announcement:
-    announcement{1..50}:
+    announcement_{1..50}:
         category: '<word()>'
         active: '<boolean()>'
         voluntary: '<boolean()>'
@@ -26,3 +26,17 @@ App\Entity\Announcement:
         description: '<word(10)>'
         picture: '<word()>'
         user: '@user_*'
+
+App\Entity\Discussion:
+    discussion_{1..10}:
+        announcement: '@announcement_*'
+        receiver: '@user_*'
+        creator: '@user_*'
+        
+
+App\Entity\Message:
+    message_{1..50}:
+        content: '<word(25)>'
+        discussion: '@discussion_*'
+        user: '@user_*'
+        
