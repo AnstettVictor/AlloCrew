@@ -31,6 +31,28 @@ class MessageRepository extends ServiceEntityRepository
         return $stmt->fetchAll();
     }
 
+    public function findAllByUser($id){
+
+        $rawSql = "SELECT * FROM message WHERE user_id =" . $id
+        ;
+
+        $stmt = $this->getEntityManager()->getConnection()->prepare($rawSql);
+        $stmt->execute([]);
+    
+        return $stmt->fetchAll();
+    }
+
+    public function findAllByDiscussion($id){
+
+        $rawSql = "SELECT * FROM message WHERE `discussion_id` =" . $id
+        ;
+
+        $stmt = $this->getEntityManager()->getConnection()->prepare($rawSql);
+        $stmt->execute([]);
+    
+        return $stmt->fetchAll();
+    }
+
     // /**
     //  * @return Message[] Returns an array of Message objects
     //  */
