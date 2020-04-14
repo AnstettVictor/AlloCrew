@@ -30,7 +30,7 @@ class DiscussionController extends AbstractController
        
       
     $arr = array();
-    foreach($discussions as $row) {
+        foreach($discussions as $row) {
     $arr['discussion'] = $row;
     }
 
