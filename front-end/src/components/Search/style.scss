@@ -94,21 +94,16 @@
 }
 
 .announcementList {
-  .announce {
-    max-width: 30rem;
-  }
+  padding: 1rem;
 }
 
 @media (min-width: 900px) and (min-height: 500px) {
 
   .announcementList {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    .announce {
-
-      margin: 2rem 1rem;
-      max-width: 30rem;
-    }
+    max-width: unset;
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    grid-gap: 1rem;
   }
 }
