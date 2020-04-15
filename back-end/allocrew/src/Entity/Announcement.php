@@ -17,6 +17,7 @@ class Announcement
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      * @Groups("announcement")
+     * @Groups("discussion")
      */
     private $id;
 
@@ -40,6 +41,7 @@ class Announcement
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups("announcement")
      */
     private $dateStart;
 
@@ -81,12 +83,14 @@ class Announcement
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups("announcement")
      */
     private $updatedAt;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="announcements")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("announcement")
      */
     private $user;
 

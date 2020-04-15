@@ -26,54 +26,34 @@ class DiscussionController extends AbstractController
      */
     public function browse(DiscussionRepository $discussionRepository,  SerializerInterface $serializer, Request $request)
     {
-        // On décode les données envoyées
-        $donnees = json_decode($request->getContent());
-        /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
-         * sinon on passe à la suite */
-        $discussions = $discussionRepository->findAllByUser($donnees->user);
+        $discussions = $discussionRepository->findAll();
 
         return $this->json($serializer->normalize(
             $discussions,
-            null
+            null,
+            ['groups' => ['discussion']]
         ));
     }
-
 
     /**
      * @Route("/{id}", requirements={"id": "\d+"}, name="read", methods={"GET"})
      */
-    public function read(MessageRepository $messageRepository, DiscussionRepository $discussionRepository, $id)
+    public function read(MessageRepository $messageRepository, DiscussionRepository $discussionRepository, $id, SerializerInterface $serializer)
     {
 
-
-        $discussions = $discussionRepository->findAllByUser($id);
-       // $messages = $messageRepository->findByDiscussion(11);
-      
+        $data = [];
+        $creator = $discussionRepository->findBy(array('creator' => $id ));
+       
+       $receiver = $discussionRepository->findBy(array('receiver' => $id ));
     
-        $arr = array();
-        foreach ($discussions as $row) {
-            $arr['discussion'][] = $row;
-            
-            $messages = $messageRepository->findByDiscussion($row['id']);
-
-        foreach ($messages as $rows) {
-
-            $arr['discussion']['message'][] = $rows;
-        }
-        }
-
-
-
-        // foreach ($messages as $rows) {
-
-        //     $arr['discussion']['message'][] = $rows;
-        // }
-
-        
-           //$arr[]['discussion']['messages'] = $messageRepository->findAllByDiscussion($id);
-
-
-        return new JsonResponse($arr);
+       $data['by_creator'] = $creator;
+       $data['by_receiver'] = $receiver;
+    
+        return $this->json($serializer->normalize(
+            $data,
+            null,
+            ['groups' => ['discussion']]
+        ));
     }
 
     /**
@@ -120,7 +100,6 @@ class DiscussionController extends AbstractController
          * // Cette fonction va émettre une exception Access Forbidden pour interdire l'accès au reste du contrôleur
          * // Les conditions pour lesquelles le droit MOVIE_DELETE est applicable sur $movie pour l'utilisateur connecté
          * // sont définies dans les voters, dans leurs méthodes voteOnAttribute()*/
-
 
         // $this->denyAccessUnlessGranted('MOVIE_DELETE', $movie);
 

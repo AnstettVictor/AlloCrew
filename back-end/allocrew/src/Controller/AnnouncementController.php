@@ -27,29 +27,30 @@ class AnnouncementController extends AbstractController
      */
     public function browse(AnnouncementRepository $announcementRepository,  SerializerInterface $serializer)
     {
-        $announcements = $announcementRepository->findAllForAnnouncements();
+        $announcements = $announcementRepository->findAll();
 
         return $this->json($serializer->normalize(
             $announcements,
-            null
+            null,
+            ['groups' => ['announcement']]
         ));
     }
-
 
     /**
      * @Route("/{id}", name="read", requirements={"id": "\d+"},  methods={"GET"})
      */
     public function read(AnnouncementRepository $AnnouncementRepository, $id, SerializerInterface $serializer)
     {
+        $announcement = $AnnouncementRepository->findBy(array('id' => $id));
 
-        $announcement = $AnnouncementRepository->findAllForAnnouncementById($id);
         if (!empty($announcement)) {
             return $this->json($serializer->normalize(
                 $announcement,
-                null
+                null,
+                ['groups' => ['announcement']]
             ));
         } else {
-            return new Response("l'utilisateur n'est pas en base de données ", 404);
+            return new Response("l'annonce n'est pas en base de données  ", 404);
         }
     }
 
@@ -71,11 +72,13 @@ class AnnouncementController extends AbstractController
         if (isset($donnees->voluntary)) {
             $announcement->setVoluntary($donnees->voluntary);
         };
-        if (isset($donnees->dateStart)) {
-            $announcement->setDateStart($donnees->dateStart);
+        if (isset($donnees->date_start)) {
+            $date = new DateTime($donnees->date_start);
+            $announcement->setDateStart($date);
         };
-        if (isset($donnees->dateEnd)) {
-            $announcement->setDateEnd($donnees->dateEnd);
+        if (isset($donnees->date_end)) {
+            $date = new DateTime($donnees->date_end);
+            $announcement->setDateEnd($date);
         }
         if (isset($donnees->location)) {
             $announcement->setLocation($donnees->location);
@@ -103,13 +106,11 @@ class AnnouncementController extends AbstractController
         return new Response('ok', 204);
     }
 
-    
     /**
      * @Route("/", name="add", methods={"POST"})
      */
     public function add(Request $request, UserRepository $userRepository )
     {
-        
         $announcement = new Announcement();
 
         // On décode les données envoyées
@@ -167,13 +168,12 @@ class AnnouncementController extends AbstractController
       */
      public function delete(Announcement $announcement)
     {
-   /**  // Ici on utilise un voter
+        // TODO VOTER 
+    /**  // Ici on utilise un voter
    * // Cette fonction va émettre une exception Access Forbidden pour interdire l'accès au reste du contrôleur
    * // Les conditions pour lesquelles le droit MOVIE_DELETE est applicable sur $movie pour l'utilisateur connecté
    * // sont définies dans les voters, dans leurs méthodes voteOnAttribute()*/
-
-
-        // $this->denyAccessUnlessGranted('MOVIE_DELETE', $movie);
+     // $this->denyAccessUnlessGranted('MOVIE_DELETE', $movie);
 
         $em = $this->getDoctrine()->getManager();
 
@@ -183,6 +183,4 @@ class AnnouncementController extends AbstractController
          // On retourne la confirmation
         return new Response('supression ok', 200);
      }
-
-   
 }
