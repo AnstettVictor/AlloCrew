@@ -4,7 +4,7 @@ import searchlogo from 'images/svg/search.svg';
 import AnnouncementList from '../AnnouncementList';
 import ProfileList from './ProfileList';
 
-const Search = () => (
+const Search = ({list}) => (
   <div>
 
     <div className="search__header">
@@ -20,12 +20,24 @@ const Search = () => (
     </div>
     
     <div className="announcementList">
-      <ProfileList />
+      <ProfileList {...list}/>
     </div>
 
 
   </div>
 )
 ;
+
+Search.propTypes = {
+  list: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      firstname: PropTypes.string.isRequired,
+      lastname: PropTypes.string.isRequired,        
+      title: PropTypes.string.isRequired,
+      picture: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
+}
 
 export default Search;

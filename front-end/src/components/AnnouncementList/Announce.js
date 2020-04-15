@@ -1,23 +1,23 @@
 import React from 'react';
 import './style.scss';
+import Proptypes from 'prop-types';
 
-
-const Announce = () => (
+const Announce = ({ title, location, description, picture, voluntary, id, dateEnd, dateStart, active, user,createdAt }) => (
   <div className="announce">
-    <div className="announce__banner" >
-      <div className="announce__avatar"/>
+    <div className="announce__banner" style={{backgroundImage: `url(${picture})`}} >
+      <div className="announce__avatar" style={{backgroundImage: `url(${user.picture})`}}/>
     </div>
-    <p className="announce__user">Prénom NOM - Role</p>
+    <p className="announce__user">{user.firstname} {user.lastname}</p>
     <div className="announce__bot">
       <div className="announce__botleft">
-        <h2>Titre de l'annonce</h2>
-        <p>Description de l'annonce</p>
+        <h2>{title}</h2>
+        <p>{description}</p>
       </div>
       <div className="announce__botright">
-        <p>Date du tournage</p>
-        <p>Date de création de l'annonce</p>
-        <p>Lieu</p>
-        <p>bénévole</p>
+        <p>{dateStart} au {dateEnd}</p>
+        <p>Créée le : {createdAt}</p>
+        <p>{location}</p>
+        <p>{voluntary}</p>
         <input className="button see" type="button" value="Voir l'annonce"/>
         <input className="button seeAndEdit" type="button" value="Voir / Modifier"/>
       </div>
@@ -25,5 +25,25 @@ const Announce = () => (
   </div>
 )
 ;
+
+Announce.propTypes = {   
+  title: Proptypes.string.isRequired,
+  location: Proptypes.string.isRequired,
+  description: Proptypes.string.isRequired,
+  picture: Proptypes.string.isRequired,
+  voluntary: Proptypes.bool.isRequired,
+  id: Proptypes.number.isRequired,
+  dateStart: Proptypes.string.isRequired,
+  dateEnd: Proptypes.string.isRequired, 
+  active: Proptypes.bool.isRequired,
+  createdAt: Proptypes.string.isRequired,
+  user: Proptypes.shape({
+      id: Proptypes.number.isRequired,
+      firstname: Proptypes.string.isRequired,
+      lastname: Proptypes.string.isRequired,
+      picture: Proptypes.string.isRequired,
+  })      
+}
+
 
 export default Announce;

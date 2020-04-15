@@ -2,10 +2,10 @@ import React, {useState, Component} from 'react';
 import './style.scss';
 import DatePicker from 'react-datepicker';
 import { Editor } from 'react-draft-wysiwyg';
+import Accept from './DropZone';
+import Proptypes from 'prop-types';
 
-
-
-const EditAnnouncement = () => {
+const EditAnnouncement = ({title, location, description, id}) => {
 
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
@@ -16,10 +16,10 @@ const EditAnnouncement = () => {
       <h2 className="editAnnouncement__title">Modifier votre annonce</h2>
       <form method="get" type="submit">
         <div className="editAnnouncement__input drop desktop input">
-        
+        <Accept />
         </div> 
         <h2 className="editAnnouncement__desktop--Title">Titre de l'annonce</h2>  
-        <input className="editAnnouncement__input title input" type="text" placeholder="Titre de l'annonce" />
+        <input className="editAnnouncement__input title input" type="text" placeholder={title} />
         <p className="editAnnouncement__text editAnnouncement__desktop--Title">Date de début</p>
         <DatePicker className="editAnnouncement__input input"
           showPopperArrow={false}
@@ -36,7 +36,7 @@ const EditAnnouncement = () => {
         />
         <br/>
         <h2 className="editAnnouncement__desktop--Title">Lieu</h2>
-        <input className="editAnnouncement__input input" type="text" placeholder="Lieu" />
+        <input className="editAnnouncement__input input" type="text" placeholder={location} />
         <div>
           <input className="editAnnouncement__volunteer" type="radio" id="volonteer" name="drone" value="volonteer"  />
           <label className="editAnnouncement__volunteer">Bénévole</label>
@@ -47,11 +47,11 @@ const EditAnnouncement = () => {
         </div>    
 
         <div className="editAnnouncement__textarea input">
-        <Editor placeholder="Description de votre projet" />
+        <Editor placeholder={description} />
         </div>
         
         <div className="editAnnouncement__input mobile drop input">
-        
+        <Accept />
         </div>    
       <div className="editAnnouncement__flex">
       <button className="editAnnouncement__button button">Retour</button>
@@ -61,5 +61,12 @@ const EditAnnouncement = () => {
   </div>);    
 }
 ;
+
+EditAnnouncement.propTypes = {   
+  title: Proptypes.string.isRequired,
+  location: Proptypes.string.isRequired,
+  description: Proptypes.string.isRequired,  
+  id: Proptypes.number.isRequired,
+}
 
 export default EditAnnouncement;
