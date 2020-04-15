@@ -33,9 +33,9 @@ $shadow: 2px 3px 3px 0 rgba(0,0,0, .2);
 @mixin buttonStyle {
   text-align: center;
   width: fit-content;
-  font-size: 1rem;
-  padding: 1rem;
-  border-radius: 0.4rem;
+  font-size: 1em;
+  padding: 1em;
+  border-radius: 0.4em;
   appearance: none;
   border: 2px solid transparent;
   background-color: $blue;
