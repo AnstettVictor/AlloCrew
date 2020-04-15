@@ -18,12 +18,12 @@ const EditProfile = () => (
         </div>
       </div>
     <div> 
-      <input type="number" className="editProfile__age input" placeholder="45"/>
-      <input type="text" className="editProfile__place input" placeholder="Paris"/>
-      <input type="text" className="editProfile__firstname input" placeholder="Ludovic"/>
-      <input type="text" className="editProfile__lastname input" placeholder="Argenty"/>      
+      <input type="number" className="editProfile__age input" placeholder="votre âge"/>
+      <input type="text" className="editProfile__place input" placeholder="Lieu actuel"/>
+      <input type="text" className="editProfile__firstname input" placeholder="Prénom"/>
+      <input type="text" className="editProfile__lastname input" placeholder="Nom"/>      
     </div>
-    <input type="text" className="editProfile__job input" placeholder="Opérateur de prise de vue"/>
+    <input type="text" className="editProfile__job input" placeholder="Votre poste"/>
     <div className="editProfile__text">    
     </div>
     
