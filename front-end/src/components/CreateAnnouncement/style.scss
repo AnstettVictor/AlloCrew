@@ -65,16 +65,7 @@
     margin: 1rem;
 }
 
-.createAnnouncement__textarea{
-    padding:0.5rem;
-    margin: 0.5rem 0.7rem;
-    border-color:rgba(150, 150, 150, 0.788);
-    
-}
 
-.createAnnouncement__textarea--deskTop{
-  display:none;
-}
 
 @media (min-width: 900px) and (min-height: 500px) {
   .drop{
@@ -106,11 +97,5 @@
   .createAnnouncement__input{
     margin-top: 0.2rem;
   }
-  .createAnnouncement__textarea{
-    display:none;
-  }
-  .createAnnouncement__textarea--deskTop{
-    display:inline-block;
-    margin-top:1rem;
-  }
+ 
 }

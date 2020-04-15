@@ -29,13 +29,13 @@ const EditProfile = () => (
     
       <div>
         <h3 className="editProfile__description">Description</h3>
-        <div className="editor">
+        <div className="editor input">
         <Editor />
         </div>
       </div>
       <div>
         <h3 className="editProfile__exp">Expérience</h3>
-        <div className="editor">
+        <div className="editor input">
         <Editor />
         </div>
       </div>
