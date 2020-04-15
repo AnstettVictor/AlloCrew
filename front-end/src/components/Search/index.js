@@ -2,6 +2,7 @@ import React from 'react';
 import './style.scss';
 import searchlogo from 'images/svg/search.svg';
 import AnnouncementList from '../AnnouncementList';
+import ProfileList from './ProfileList';
 
 const Search = () => (
   <div>
@@ -11,15 +12,15 @@ const Search = () => (
           <p>Rechercher une annonce</p>
           <p>Rechercher un profil</p>
         
-        <form>
-          <input className=" search__input" />
-          <input style={{backgroundImage: `url(${searchlogo})` }} className=" search__button" type="submit" 
-          />
+        <form className="search__form">
+            <input className=" search__input" placeholder="Rechercher..."/>
+            <input style={{backgroundImage: `url(${searchlogo})` }} className=" search__button" type="submit" value="." 
+            />
         </form>
     </div>
     
     <div className="announcementList">
-      <AnnouncementList />
+      <ProfileList />
     </div>
 
 
