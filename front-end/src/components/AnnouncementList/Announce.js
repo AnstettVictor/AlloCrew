@@ -5,7 +5,7 @@ import './style.scss';
 const Announce = () => (
   <div className="announce">
     <div className="announce__banner" >
-        <div className="announce__avatar"/>
+      <div className="announce__avatar"/>
     </div>
     <p className="announce__user">Prénom NOM - Role</p>
     <div className="announce__bot">
@@ -18,7 +18,8 @@ const Announce = () => (
         <p>Date de création de l'annonce</p>
         <p>Lieu</p>
         <p>bénévole</p>
-        <input className="button" type="button" value="Voir l'annonce"/>
+        <input className="button see" type="button" value="Voir l'annonce"/>
+        <input className="button seeAndEdit" type="button" value="Voir / Modifier"/>
       </div>
     </div>
   </div>

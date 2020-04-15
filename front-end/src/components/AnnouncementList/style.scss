@@ -1,6 +1,14 @@
 @import 'style/vars.scss';
 
 
+.see {
+  display: none;
+}
+
+.seeAndEdit {
+  display: block;
+}
+
 .announce {
   border-radius: 5px;
   box-shadow: $shadow;

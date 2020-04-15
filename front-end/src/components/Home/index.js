@@ -16,6 +16,7 @@ const Home = () => (
         <li className="home__navlink-links">Bénévoles</li>
         <li className="home__navlink-links">Rémunérées</li>
         <li className="home__navlink-links">Toutes les annonces</li>
+        <li className="home__navlink-links">Mes annonces</li>
       </ul>
       <AnnouncementList />
     </div>

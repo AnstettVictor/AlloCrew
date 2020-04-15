@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import './style.scss';
 import Header from '../Header';
 import Footer from '../Footer';
-import Search from '../Search';
+import Home from '../Home';
 
 
 const App = () => {
@@ -13,7 +13,7 @@ return(
       <Header />
     </ div>
     <div className="app__main">
-      <Search />
+      <Home />
       </div>
     <div className="app__footer">
       <Footer />
