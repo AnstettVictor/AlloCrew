@@ -23,11 +23,13 @@ class User implements UserInterface
      * @Groups("discussion")
      * @Groups("announcement")
      * @Groups("message")
+     * @Groups("userProfile")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Groups("userAccount")
      */
     private $email;
 
@@ -45,52 +47,64 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups("discussion")
+     * @Groups("userAccount")
+     * @Groups("userProfile")
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups("discussion")
+     * @Groups("userAccount")
+     * @Groups("userProfile")
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="smallint", nullable=true)
+     * @Groups("userProfile")
      */
     private $age;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("userProfile")
      */
     private $location;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("userProfile")
      */
     private $title;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups("userProfile")
      */
     private $description;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups("userProfile")
      */
     private $experience;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("userProfile")
      */
     private $portfolio;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("userProfile")
      */
     private $picture;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("userProfile")
      */
     private $bannerpicture;
 

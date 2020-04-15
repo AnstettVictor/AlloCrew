@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
+use App\Repository\AnnouncementRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,19 +21,21 @@ class UserController extends AbstractController
     /**
      * @Route("/account/{id}", name="account", requirements={"id": "\d+"}, methods={"GET"})
      */
-    public function account(UserRepository $UserRepository , SerializerInterface $serializer,  $id)
+    public function account(UserRepository $userRepository , SerializerInterface $serializer,  $id)
     {
             
-        $user = $UserRepository->findAllForUsersAccount($id);
-        if (!empty($user)) { 
+        $user = $userRepository->findBy(array('id' => $id));
+
+        if (!empty($user)) {
             return $this->json($serializer->normalize(
                 $user,
-                null
+                null,
+                ['groups' => ['userAccount']]
             ));
         } else {
-            return new Response("l'utilisateur n'est pas en base de données ", 404);
+            return new Response("l'utilisateur n'est pas en base de données  ", 404);
         }
-       
+
     }
 
     /**
@@ -77,18 +80,17 @@ class UserController extends AbstractController
         $donnees = json_decode($request->getContent());
         /** On verifie si la propriété est envoyé dans le json si oui encode le mot de passe  
          * sinon on passe à la suite */   
-      if (isset($donnees->password)) {
+        if (isset($donnees->password)) {
         $user->setPassword($encoder->encodePassword($user, $donnees->password));
-      }
+         }
+        $user->setUpdatedat(new \Datetime());
+
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->flush();
 
         // On retourne la confirmation
         return new Response('password modifié', 201);
     }
-
-
-    
 
     /**
      * @Route("/", name="browse", methods={"GET"})
@@ -109,12 +111,13 @@ class UserController extends AbstractController
      */
     public function read(UserRepository $UserRepository, $id, SerializerInterface $serializer)
     {
-
-        $user = $UserRepository->findAllForUsersById($id);
+            
+        $user = $UserRepository->findBy(array('id' => $id));
         if (!empty($user)) {
             return $this->json($serializer->normalize(
                 $user,
-                null
+                null,
+                ['groups' => ['userProfile']]
             ));
         } else {
             return new Response("l'utilisateur n'est pas en base de données ", 404);
@@ -126,8 +129,6 @@ class UserController extends AbstractController
      */
     public function edit(User $user, Request $request, $id)
     {
-        
-    
         // On décode les données envoyées
         $donnees = json_decode($request->getContent());
         /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
@@ -178,19 +179,18 @@ class UserController extends AbstractController
      /**
      * @Route("/announcement/{id}", name="read_announcement", requirements={"id": "\d+"},  methods={"GET"})
      */
-    public function readAnnouncement(User $user, SerializerInterface $serializer)
+    public function readAnnouncement(AnnouncementRepository $announcementRepository, User $user, SerializerInterface $serializer, $id)
     {
+        $announcement = $announcementRepository->findBy(array('user' => $id));
 
-        $announcement = $user->getAnnouncements();
-
-
-        if (!empty($user)) {
+        if (!empty($announcement)) {
             return $this->json($serializer->normalize(
                 $announcement,
-                null, ['groups' => ['announcement']]
+                null,
+                ['groups' => ['announcement']]
             ));
         } else {
-            return new Response("l'utilisateur n'est pas en base de données ", 404);
+            return new Response("l'annonce n'est pas en base de données  ", 404);
         }
     }
 }
