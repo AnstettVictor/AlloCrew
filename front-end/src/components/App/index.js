@@ -22,6 +22,11 @@ import EditProfile from '../EditProfile';
 import TchatRoom from '../TchatRoom';
 import MyAnnouncements from '../MyAnnouncements';
 import EditUser from '../EditUser';
+import LegalNotice from '../LegalNotice';
+import Contact from '../Contact';
+import Information from '../Information';
+import FAQ from '../FAQ';
+
 
 
 const App = () => {
@@ -39,12 +44,16 @@ return(
         <Route path="/home" component={Home} />
         <Route path="/register" exact component={Register} />
         <Route path="/login" exact component={Login} />
-        <Route path="/search" exact component={Search} />
         <Route path="/profile" exact component={Profile} />
-        <Route path="/edit-profile" exact component={EditProfile} />
-        <Route path="/tchat-room" exact component={TchatRoom} />
-        <Route path="/my-announcements" exact component={MyAnnouncements} />
         <Route path="/edit-user" exact component={EditUser} />
+        <Route path="/edit-profile" exact component={EditProfile} />
+        <Route path="/my-announcements" exact component={MyAnnouncements} />
+        <Route path="/search" exact component={Search} />
+        <Route path="/tchat-room" exact component={TchatRoom} />
+        <Route path="/legal-notice" exact component={LegalNotice} />
+        <Route path="/contact" exact component={Contact} />
+        <Route path="/information" exact component={Information} />
+        <Route path="/faq" exact component={FAQ} />
       </Switch>
     </div>
     <div className="app__footer">
