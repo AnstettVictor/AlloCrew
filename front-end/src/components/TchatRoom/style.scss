@@ -107,6 +107,16 @@
 }
 
 
+.tchatRoom__Chat-Messages-Block {
+    display: flex;
+    // put elements in column direction
+    flex-direction: column;
+    // justify the content to the end of the div
+    justify-content: flex-end;
+    // height = parent height minus the margins/paddins and title height
+    height: calc(70vh - 35px - 3rem);
+}
+
 // === message received ===
 .tchatRoom__Chat-Message-Received {
     //border: 1px solid lightgray;
@@ -231,17 +241,4 @@
 
 .tchatRoom__Chat__Button {
     // todo
-}
-
-// todo: trying to align the messages and input area to the buttom of the container
-.messages {
-    border: 1px solid black;
-    background-color: lightyellow;
-    display: flex;
-    // put elements in column direction
-    flex-direction: column;
-    // justify the content to the end of the div
-    justify-content: flex-end;
-    // height = parent height minus the margins/paddins and title height
-    height: calc(70vh - 35px - 3rem);
 }

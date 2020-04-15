@@ -43,7 +43,7 @@ const TchatRoom = () => (
           <h2><a className="tchatRoom__Chat-Annonce-Title" href="#">Annonce Title</a></h2>
         </div>
         {/* TODO!!!!!!!!================== */}
-        <div className="messages">
+        <div className="tchatRoom__Chat-Messages-Block">
           {/* Message Received Block */}
           <div className="tchatRoom__Chat-Message-Received">
             <div className="tchatRoom__Chat-Card-Received">
