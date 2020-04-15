@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
 import './style.scss';
 import DatePicker from 'react-datepicker';
-import '../../../node_modules/react-datepicker/src/stylesheets/datepicker.scss';
-import Accept from './DropZone'
 
 const CreateAnnouncement = () => {
 
@@ -14,7 +12,7 @@ const CreateAnnouncement = () => {
              
       <h2 className="createAnnouncement__title">Création de votre annonce</h2>
       <div className="createAnnouncement__input drop desktop input">
-        <Accept  />
+        {/* <Accept  /> */}
       </div> 
       <h2 className="createAnnouncement__desktop--Title">Titre de l'annonce</h2>  
       <input className="createAnnouncement__input title input" type="text" placeholder="Titre de l'annonce" />
@@ -33,8 +31,6 @@ const CreateAnnouncement = () => {
         onChange={date => setEndDate(date)}
       />
       <br/>
-      <h2 className="createAnnouncement__desktop--Title">Expérience requise</h2>
-      <input className="createAnnouncement__input input" type="text" placeholder="Expérience requise" /><br/>
       <h2 className="createAnnouncement__desktop--Title">Lieu</h2>
       <input className="createAnnouncement__input input" type="text" placeholder="Lieu" />
       <div>
@@ -51,7 +47,7 @@ const CreateAnnouncement = () => {
       <textarea className="createAnnouncement__textarea--deskTop input" placeholder="Description de votre projet" cols="120" rows="15"/>
       
       <div className="createAnnouncement__input mobile drop input">
-        <Accept  />
+        {/* <Accept  /> */}
       </div>    
     <div className="createAnnouncement__flex">
     <button className="createAnnouncement__button button">Créer</button>

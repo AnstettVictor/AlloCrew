@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import './style.scss';
 import Header from '../Header';
 import Footer from '../Footer';
-import Login from '../Login';
+import CreateAnnouncement from '../CreateAnnouncement';
 
 
 const App = () => {
@@ -13,7 +13,7 @@ return(
       <Header />
     </ div>
     <div className="app__main">
-      <Login />
+      <CreateAnnouncement />
       </div>
     <div className="app__footer">
       <Footer />
