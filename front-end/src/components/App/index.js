@@ -1,13 +1,15 @@
-import React, {useState} from 'react';
-import './style.scss';
-import exemple from './exemple.json';
+//import Yarn
+import React from 'react';
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
 
+//import local
+import './style.scss';
+import exemple from './exemple.json';
+
+//import Components
 import Header from '../Header';
 import Footer from '../Footer';
 import LandPage from '../LandPage';
@@ -21,7 +23,6 @@ import TchatRoom from '../TchatRoom';
 import MyAnnouncements from '../MyAnnouncements';
 import EditUser from '../EditUser';
 
-console.log(exemple);
 
 const App = () => {
 
@@ -31,6 +32,8 @@ return(
       <Header />
     </ div>
     <div className="app__main">
+      
+      {/* Routes */}
       <Switch>
         <Route path="/" exact component={LandPage} />
         <Route path="/home" component={Home} />
