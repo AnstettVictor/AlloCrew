@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import './style.scss';
 import DatePicker from 'react-datepicker';
 import '../../../node_modules/react-datepicker/src/stylesheets/datepicker.scss';
-import Accept from './DropZone'
+
 
 const EditAnnouncement = () => {
 
@@ -14,7 +14,7 @@ const EditAnnouncement = () => {
              
       <h2 className="editAnnouncement__title">Modifier votre annonce</h2>
       <div className="editAnnouncement__input drop desktop input">
-        <Accept  />
+      
       </div> 
       <h2 className="editAnnouncement__desktop--Title">Titre de l'annonce</h2>  
       <input className="editAnnouncement__input title input" type="text" placeholder="Titre de l'annonce" />
@@ -33,8 +33,6 @@ const EditAnnouncement = () => {
         onChange={date => setEndDate(date)}
       />
       <br/>
-      <h2 className="editAnnouncement__desktop--Title">Expérience requise</h2>
-      <input className="editAnnouncement__input input" type="text" placeholder="Expérience requise" /><br/>
       <h2 className="editAnnouncement__desktop--Title">Lieu</h2>
       <input className="editAnnouncement__input input" type="text" placeholder="Lieu" />
       <div>
@@ -51,7 +49,7 @@ const EditAnnouncement = () => {
       <textarea className="editAnnouncement__textarea--deskTop input" placeholder="Description de votre projet" cols="120" rows="15"/>
       
       <div className="editAnnouncement__input mobile drop input">
-        <Accept  />
+      
       </div>    
     <div className="editAnnouncement__flex">
     <button className="editAnnouncement__button button">Retour</button>
