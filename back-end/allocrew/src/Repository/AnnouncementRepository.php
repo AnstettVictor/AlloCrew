@@ -19,26 +19,6 @@ class AnnouncementRepository extends ServiceEntityRepository
         parent::__construct($registry, Announcement::class);
     }
 
-    public function findAllForAnnouncements(){
-
-        $rawSql = "SELECT * FROM `announcement`";
-
-        $stmt = $this->getEntityManager()->getConnection()->prepare($rawSql);
-        $stmt->execute([]);
-    
-        return $stmt->fetchAll();
-    }
-
-
-    public function findAllForAnnouncementById($id){
-
-        $rawSql = "SELECT `id`,`user_id`,`category`,`active`,`voluntary`,`date_start`,`date_end`,`location`,`title`,`description`,`picture` FROM `announcement` WHERE `id` =" .$id;
-
-        $stmt = $this->getEntityManager()->getConnection()->prepare($rawSql);
-        $stmt->execute([]);
-    
-        return $stmt->fetchAll();
-    }
     // /**
     //  * @return Announcement[] Returns an array of Announcement objects
     //  */

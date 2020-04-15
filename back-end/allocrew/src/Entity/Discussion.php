@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DiscussionRepository")
@@ -15,17 +16,21 @@ class Discussion
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("discussion")
+     * @Groups("message")
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Announcement", inversedBy="discussions")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("discussion")
      */
     private $announcement;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="discussion", orphanRemoval=true)
+     * @Groups("discussion")
      */
     private $messages;
 
@@ -34,12 +39,15 @@ class Discussion
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="discussionsReceived")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("discussion")
      */
     private $receiver;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="discussionsCreated")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("discussion")
+     * 
      */
     private $creator;
 
