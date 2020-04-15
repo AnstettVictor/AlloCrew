@@ -17,7 +17,7 @@ class Discussion
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      * @Groups("discussion")
-     * 
+     * @Groups("message")
      */
     private $id;
 

@@ -22,6 +22,7 @@ class User implements UserInterface
      * @ORM\Column(type="integer")
      * @Groups("discussion")
      * @Groups("announcement")
+     * @Groups("message")
      */
     private $id;
 

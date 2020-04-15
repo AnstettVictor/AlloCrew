@@ -21,37 +21,6 @@ class MessageRepository extends ServiceEntityRepository
     }
 
 
-    public function findByDiscussion($id){
-
-        $rawSql = "SELECT `content`,`user_id` , `discussion_id` FROM message LEFT JOIN discussion ON message.discussion_id = discussion.id WHERE discussion.id = " .$id;
-
-        $stmt = $this->getEntityManager()->getConnection()->prepare($rawSql);
-        $stmt->execute([]);
-    
-        return $stmt->fetchAll();
-    }
-
-    public function findAllByUser($id){
-
-        $rawSql = "SELECT * FROM message WHERE user_id =" . $id
-        ;
-
-        $stmt = $this->getEntityManager()->getConnection()->prepare($rawSql);
-        $stmt->execute([]);
-    
-        return $stmt->fetchAll();
-    }
-
-    public function findAllByDiscussion($id){
-
-        $rawSql = "SELECT * FROM message WHERE `discussion_id` =" . $id
-        ;
-
-        $stmt = $this->getEntityManager()->getConnection()->prepare($rawSql);
-        $stmt->execute([]);
-    
-        return $stmt->fetchAll();
-    }
 
     // /**
     //  * @return Message[] Returns an array of Message objects

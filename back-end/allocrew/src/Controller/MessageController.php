@@ -25,16 +25,12 @@ class MessageController extends AbstractController
     public function browse(MessageRepository $messageRepository,  SerializerInterface $serializer, Request $request)
     {
 
-        // On décode les données envoyées
-        $donnees = json_decode($request->getContent());
-        /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
-         * sinon on passe à la suite */
-        
-        $messages = $messageRepository->findAllByDiscussion($this);
+        $messages = $messageRepository->findAll();
 
         return $this->json($serializer->normalize(
             $messages,
-            null
+            null,
+            ['groups' => ['message']]
         ));
     }
 
@@ -45,15 +41,18 @@ class MessageController extends AbstractController
      */
     public function read(MessageRepository $messageRepository,  SerializerInterface $serializer, $id)
     {
-        $messages = $messageRepository->findByDiscussion($id);
+        $message = $messageRepository->findBy(array('id' => $id));
 
-        return $this->json($serializer->normalize(
-            $messages,
-            null
-        ));
+        if (!empty($message)) {
+            return $this->json($serializer->normalize(
+                $message,
+                null,
+                ['groups' => ['message']]
+            ));
+        } else {
+            return new Response("le message n'est pas en base de données  ", 404);
+        }
     }
-
-// browse 
 
     /**
      * @Route("/", name="add", methods={"POST"})
@@ -71,10 +70,10 @@ class MessageController extends AbstractController
             $message->setContent($donnees->content);
         };
         
-        $user = $userRepository->find($donnees->user);
+        $user = $userRepository->find($donnees->user_id);
         $message->setUser($user);
 
-        $discussion = $discussionRepository->find($donnees->discussion);
+        $discussion = $discussionRepository->find($donnees->discussion_id);
         $message->setDiscussion($discussion);
       
         $message->setCreatedAt(new \Datetime());
@@ -102,8 +101,6 @@ class MessageController extends AbstractController
             $message->setContent($donnees->content);
         };
         
-        
-        
         $message->setUpdatedAt(new \Datetime());
 
         $message = $this->getDoctrine()->getRepository(Message::class)->findOneBy(["id" => $id]);
@@ -122,14 +119,13 @@ class MessageController extends AbstractController
      */
     public function delete(Message $message)
     {
+        // TODOO VOTER 
         /**  // Ici on utilise un voter
          * // Cette fonction va émettre une exception Access Forbidden pour interdire l'accès au reste du contrôleur
          * // Les conditions pour lesquelles le droit MOVIE_DELETE est applicable sur $movie pour l'utilisateur connecté
          * // sont définies dans les voters, dans leurs méthodes voteOnAttribute()*/
 
-
         // $this->denyAccessUnlessGranted('MOVIE_DELETE', $movie);
-
         $em = $this->getDoctrine()->getManager();
 
         $em->remove($message);

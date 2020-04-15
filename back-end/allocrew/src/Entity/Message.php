@@ -14,18 +14,22 @@ class Message
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("discussion")
+     * @Groups("message")
      */
     private $id;
 
     /**
      * @ORM\Column(type="text")
      * @Groups("discussion")
+     * @Groups("message")
      */
     private $content;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Discussion", inversedBy="messages")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("message")
      */
     private $discussion;
 
@@ -33,17 +37,19 @@ class Message
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="messages")
      * @ORM\JoinColumn(nullable=false)
      * @Groups("discussion")
-     * @Groups("Userdiscussion")
+     * @Groups("message")
      */
     private $user;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups("message")
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups("message")
      */
     private $updatedAt;
 
