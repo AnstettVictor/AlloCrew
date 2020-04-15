@@ -18,14 +18,14 @@ const Header = () => (
         <ul className="">
           <NavLink to="/home" ><li>Accueil</li></NavLink>
           <NavLink to="/search" ><li>Rechercher</li></NavLink>
-          <NavLink to="" ><li>Messagerie</li></NavLink>
+          <NavLink to="/tchat-room" ><li>Messagerie</li></NavLink>
         </ul>
       </div>
       <div className="header__links-2">
         <ul className="">
-          <li>Voir mon profil</li>
-          <li>Modifier mon profil</li>
-          <li>Parametres</li>
+          <Link to="/profile"><li>Voir mon profil</li></Link>
+          <Link to="/edit-profile"><li>Modifier mon profil</li></Link>
+          <Link to="/edit-user"><li>Parametres</li></Link>
         </ul>
     </div>
   </nav>

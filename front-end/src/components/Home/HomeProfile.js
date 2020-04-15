@@ -16,10 +16,10 @@ const HomeProfile = () => (
       <p className="homeprofile__text--role">Role</p>
       <ul>
         <Link to="/profile"><li>Voir mon profil</li></Link>
-        <Link><li>Modifier mon profil</li></Link>
-        <Link><li>Mes annonces</li></Link>
-        <Link><li>Mes messages</li></Link>
-        <Link><li>Deconnexion</li></Link>
+        <Link to="/edit-profile"><li>Modifier mon profil</li></Link>
+        <Link to="/my-announcements"><li>Mes annonces</li></Link>
+        <Link to="/tchat-room"><li>Messagerie</li></Link>
+        <Link to="/"><li>Deconnexion</li></Link>
       </ul>
       <input className="button" type="button" value="Poster une annonce" />
     </div>

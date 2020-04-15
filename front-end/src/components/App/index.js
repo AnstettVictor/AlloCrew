@@ -16,6 +16,10 @@ import Login from '../Login';
 import Home from '../Home';
 import Profile from '../Profile';
 import Search from '../Search';
+import EditProfile from '../EditProfile';
+import TchatRoom from '../TchatRoom';
+import MyAnnouncements from '../MyAnnouncements';
+import EditUser from '../EditUser';
 
 console.log(exemple);
 
@@ -34,9 +38,10 @@ return(
         <Route path="/login" exact component={Login} />
         <Route path="/search" exact component={Search} />
         <Route path="/profile" exact component={Profile} />
-
-
-
+        <Route path="/edit-profile" exact component={EditProfile} />
+        <Route path="/tchat-room" exact component={TchatRoom} />
+        <Route path="/my-announcements" exact component={MyAnnouncements} />
+        <Route path="/edit-user" exact component={EditUser} />
       </Switch>
     </div>
     <div className="app__footer">
