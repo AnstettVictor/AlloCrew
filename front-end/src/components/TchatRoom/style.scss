@@ -1,0 +1,282 @@
+.tchatRoom__Container {
+    margin-top: 20px;
+    padding: 30px;
+    border: 1px solid lightgray;
+
+}
+
+.tchatRoom__TitlePage {
+    text-align: center;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid lightgray;
+}
+
+.tchatRoom__Tchat-Container {
+    display: flex;
+    justify-content: space-between;
+    height: 70vh;
+}
+
+// ==== Conversation side ====
+.tchatRoom__Conversations-Container {
+    border: 1px solid lightgray;
+    width: 25%;
+}
+
+.tchatRoom__Conversations-Title {
+    text-align: center;
+    padding-bottom: 3px;
+    margin: 10px;
+    border-bottom: 1px solid lightgray;
+}
+
+.tchatRoom__Conversations-List {
+    margin: 0px 10px 10px 10px;
+}
+
+.tchatRoom__Conversations-Card {
+    padding-bottom: 3px;
+    border-bottom: 1px solid lightgray;
+}
+
+.tchatRoom__Conversations-Card-AvatarAutorTitle {
+    display: flex;
+}
+
+.tchatRoom__Conversations-Card-AuthorAvatar {
+    border-radius: 50%;
+    background-color: lightgray;
+    width: 40px;
+}
+
+.tchatRoom__Conversations-Card-AvatarAuthorTitle-NameAndTitle {
+    margin: 1px;
+    margin-left: 5px;
+}
+
+.tchatRoom__Conversations-Card-Author {
+    text-transform: capitalize;
+    &-Span {
+        text-transform: uppercase;
+    }
+}
+
+.tchatRoom__Conversations-Card-TitleAnnonce {
+    font-size: smaller;
+}
+
+.tchatRoom__Conversations-Card-PreviwAndTime {
+    display: flex;
+    justify-content: space-between;
+}
+
+.tchatRoom__Conversations-Card-Preview {
+    // todo
+}
+
+.tchatRoom__Conversations-Card-Time {
+    font-size: smaller;
+}
+
+// ===== Chat Side =====
+.tchatRoom__Chat-Container {
+    border: 1px solid lightgray;
+    width: 73%;
+    padding: 10px 10px 10px 10px;
+}
+
+.tchatRoom__Chat-Info {
+    border: 1px solid lightgray;
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    height: 3rem;
+}
+
+.tchatRoom__Chat-Annonce-Avatar {
+    height: 30px;
+    width: 35px;
+    margin: 3px;
+}
+
+.tchatRoom__Chat-Annonce-Title {
+    margin: 3px;
+}
+
+
+.tchatRoom__Chat-Messages-Block {
+    display: flex;
+    // put elements in column direction
+    flex-direction: column;
+    // justify the content to the end of the div
+    justify-content: flex-end;
+    // height = parent height minus the margins/paddins and title height
+    height: calc(70vh - 35px - 3rem);
+}
+
+// === message received ===
+.tchatRoom__Chat-Message-Received {
+    //border: 1px solid lightgray;
+    max-width: 70%;
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.tchatRoom__Chat-Card-Received {
+    margin-right: 5px;
+}
+
+.tchatRoom__Chat-Card-ProfilAvatar {
+    border-radius: 50%;
+    background-color: lightgray;
+    width: 40px;
+}
+
+.tchatRoom__Chat-Card-Author {
+    text-transform: capitalize;
+    font-size: smaller;
+}
+
+.tchatRoom__Chat-Message-Received-Content {
+    background-color: rgb(212, 212, 212);
+    border-radius: 7px;
+    padding: 7px;
+    height: auto;
+    min-width: 50%;
+    max-width: 70%;
+
+    position: relative;
+    border-radius: .4em;
+
+}
+
+.tchatRoom__Chat-Message-Received-Content:after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 15px solid transparent;
+	border-right-color:  rgb(212, 212, 212);
+	border-left: 0;
+	border-top: 0;
+	margin-top: -7.5px;
+	margin-left: -10px;
+}
+
+// message sended
+.tchatRoom__Chat-Message-Sended {
+    //border: 1px solid lightgray;
+    max-width: -70%;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.tchatRoom__Chat-Card-Sended {
+    margin-right: 5px;
+}
+
+.tchatRoom__Chat-Card-ProfilAvatar {
+    border-radius: 50%;
+    background-color: lightgray;
+    width: 40px;
+}
+
+.tchatRoom__Chat-Card-Author {
+    text-transform: capitalize;
+    font-size: smaller;
+}
+
+.tchatRoom__Chat-Message-Sended-Content {
+    text-align: right;
+    background-color: rgb(212, 212, 212);
+    border-radius: 7px;
+    padding: 7px;
+    height: auto;
+    min-width: 40%;
+    max-width: 70%;
+
+    position: relative;
+    border-radius: .4em;
+    margin-right: 5px;
+}
+
+.tchatRoom__Chat-Message-Sended-Content:after {
+    content: '';
+	position: absolute;
+	right: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 15px solid transparent;
+	border-left-color:  rgb(212, 212, 212);
+	border-right: 0;
+	border-bottom: 0;
+	margin-top: -7.5px;
+	margin-right: -10px;
+}
+
+// === input ===
+.tchatRoom__Chat__Input-Container {
+    //border: 1px solid lightgray;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.tchatRoom__Chat__InputArea {
+    border: 1px solid lightgray;
+    background-color: transparent;
+    width: 89%;
+    height: 3em;
+    padding: 3px;
+}
+
+.tchatRoom__Chat__Button {
+    // todo
+}
+
+@media only screen and (max-width: 800px) {
+    body {
+        background-color: fuchsia;
+    }
+    .tchatRoom__Container {
+        margin-top: 0;
+        padding: 15px;
+        border: none
+    }
+    .tchatRoom__TitlePage {
+        display: none;
+    }
+
+    .tchatRoom__Tchat-Container {
+        margin: 0 5px 0 5px;
+        height: 90vh;
+    }
+
+    .tchatRoom__Conversations-Container {
+        display: none;
+        width: 100%;
+        
+    }
+
+
+    .tchatRoom__Chat-Container {
+        // display: none;
+        width: 100%;
+    }
+
+    .tchatRoom__Chat-Messages-Block {
+        display: flex;
+        // put elements in column direction
+        flex-direction: column;
+        // justify the content to the end of the div
+        justify-content: flex-end;
+        // height = parent height minus the margins/paddins and title height
+        height: calc(90vh - 35px - 3rem);
+    }
+}
