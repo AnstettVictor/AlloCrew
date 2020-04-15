@@ -1,13 +1,4 @@
-body {
-    background-image: url( https://images.squarespace-cdn.com/content/v1/50f457bfe4b06f99b6404e78/1476666470930-HOV38K1YZB193RVJLNN4/ke17ZwdGBToddI8pDm48kPTrHXgsMrSIMwe6YW3w1AZ7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z4YTzHvnKhyp6Da-NYroOW3ZGjoBKy3azqku80C789l0k5fwC0WRNFJBIXiBeNI5fKTrY37saURwPBw8fO2esROAxn-RKSrlQamlL27g22X2A/STUDIO+FILM.jpg?format=1500w);
-    background-color: #ddd; /* Used if the image is unavailable */
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Do not repeat the image */
-    background-size: cover; /* Resize the background image to cover the entire container */
-}
-.app__main {
-  background-color: unset;
-}
+@import 'style/vars.scss';
 
 .landPage__Container {
   height: 100vh;
@@ -15,7 +6,18 @@ body {
   position: absolute;
   top: 3rem;
   left: 0;
-  background-color: rgba(0,0,0, .45);
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+}
+
+.landpage__filter {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0,0,0, .55);
 }
 
 .landPage__InfoContainer {
