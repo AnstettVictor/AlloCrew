@@ -1,6 +1,56 @@
 @import 'style/vars.scss';
-
+@import "~react-datepicker/dist/react-datepicker.css";
+@import '~utils/dropzone.css';
 
 body {
-  background-color: $blue;
+  font-family: 'Rubik', sans-serif;
+  background-color: #F3F4F8;
+  overflow-x: hidden;
+}
+
+.app__header {
+  background: linear-gradient(90deg, $blue, $red 75%);
+  height: 3rem;
+  position: sticky;
+  top: 0;
+}
+
+.app__footer {
+  background-color: darkcyan;
+  height: 3rem;
+  position: absolute;
+}
+
+.app__footer, .app__header {
+  z-index: 9999;
+}
+
+.app__main {
+  background-color: #F3F4F8;
+  max-width: 1100px;
+  min-height: 100vh;
+  margin: 0 auto;
+}
+
+.button {
+  @include buttonStyle;
+}
+
+.input {
+  @include inputStyle;
+}
+
+.dropzone-element {
+  border-radius: 10px;
+  border: 2px dotted $blue;
+  height: 100px;
+  width: 300px;
+  background-color: #fff;
+  form {
+    width: 100%;
+    height: 100%;
+    img {
+      width: 20px;
+    }
+  }
 }

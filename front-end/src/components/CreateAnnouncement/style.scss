@@ -1,0 +1,119 @@
+@import 'style/vars.scss';
+
+.createAnnouncement__container{  
+  font-size:1rem;
+  font-weight: 400;
+  height:100vh;
+} 
+
+.createAnnouncement__desktop--Title{
+    font-size: 0rem;
+}
+
+.drop{
+    margin:1rem auto;
+}
+
+.title {
+    margin-top:1rem;
+}
+
+.desktop{
+  display:none;
+}
+
+.createAnnouncement__flex{
+    display:flex;
+    justify-content: center;
+    align-content: flex-end;
+}
+
+.createAnnouncement__title{
+    margin:0rem 0.7rem;    
+    font-size:1.4rem;    
+    text-align: center;    
+    padding: 0.3rem 0rem;
+    border-bottom: 1px solid rgba(199, 199, 199, 0.418);
+    font-weight: 500;
+}
+
+.createAnnouncement__input{
+    padding:0.5rem;
+    margin: 0.5rem 0.7rem;
+    border-color:rgba(150, 150, 150, 0.788);
+}
+
+.createAnnouncement__paid, .createAnnouncement__volunteer{
+    margin:0rem 0.7rem;
+}
+
+.createAnnouncement__description {
+    margin: 1rem 0.7rem;
+    padding-bottom: 0.3rem;    
+}
+
+.createAnnouncement__text{
+    font-weight: 300;
+    margin:0rem 0.7rem;    
+    text-align: justify;    
+}
+
+.createAnnouncement__button {    
+    display: inline-block;        
+    background-color: $blue;
+    color: #FFFF;    
+    width:15rem;    
+    bottom: 5px;
+    font-weight:400;
+    margin: 1rem;
+}
+
+.createAnnouncement__textarea{
+    padding:0.5rem;
+    margin: 0.5rem 0.7rem;
+    border-color:rgba(150, 150, 150, 0.788);
+    
+}
+
+.createAnnouncement__textarea--deskTop{
+  display:none;
+}
+
+@media (min-width: 900px) and (min-height: 500px) {
+  .drop{
+      text-align: center;
+  }
+  .createAnnouncement__title{
+    margin-bottom: 1rem;  
+  }
+
+  .createAnnouncement__title, .createAnnouncement__input, .createAnnouncement__paid, .createAnnouncement__volunteer, .createAnnouncement__description, .createAnnouncement__textarea--deskTop{
+    margin-left: 2rem;    
+  }
+  .createAnnouncement__desktop--Title{
+    font-size: 1.1rem;
+    margin:0.1rem 2rem;        
+    padding: 0.3rem 0rem;    
+    font-weight: 400;
+  }
+  .desktop{
+    display:block;
+    float:right;
+    padding:5rem;
+    margin:2rem 5rem;
+    font-size: 1.2rem;
+  }
+  .mobile{
+    display:none;
+  }
+  .createAnnouncement__input{
+    margin-top: 0.2rem;
+  }
+  .createAnnouncement__textarea{
+    display:none;
+  }
+  .createAnnouncement__textarea--deskTop{
+    display:inline-block;
+    margin-top:1rem;
+  }
+}

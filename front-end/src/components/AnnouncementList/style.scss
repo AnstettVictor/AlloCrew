@@ -1,0 +1,59 @@
+@import 'style/vars.scss';
+
+
+.announce {
+  border-radius: 5px;
+  box-shadow: $shadow;
+  margin: 0 auto;
+  background-color: #fff;
+  height: 65vh;
+  margin-bottom: 1.5rem;
+}
+
+.announce__banner {
+  position: relative;
+  height: 50%;
+  background-color: #eee;
+}
+.announce__avatar {
+  left: 1rem;
+  bottom: -30px;
+  position: absolute;
+  height:60px;
+  width:60px;
+  border-radius: 50%;
+  background-color: #ddd;
+}
+
+.announce__user {
+  margin-left: calc(60px + 2rem);
+  margin-top: .5rem;
+}
+
+
+.announce__bot {
+  padding: 1rem;
+  font-size: 1.2;
+  line-height: 1.6;
+  height: 40%;
+  display: flex;
+  input {
+    color: $blue;
+    background-color: #fff;
+    border: 1px solid $blue;
+    margin-top: 1rem;
+  }
+  h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  &left {
+    flex:4;
+    p {
+      display: none;
+    }
+  }
+  &right {
+    flex:1;
+  }
+}
