@@ -29,7 +29,8 @@ class MessageController extends AbstractController
         $donnees = json_decode($request->getContent());
         /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
          * sinon on passe à la suite */
-        $messages = $messageRepository->findAllByDiscussion($donnees->discussion);
+        
+        $messages = $messageRepository->findAllByDiscussion($this);
 
         return $this->json($serializer->normalize(
             $messages,
