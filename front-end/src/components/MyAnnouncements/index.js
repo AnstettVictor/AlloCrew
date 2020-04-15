@@ -1,9 +1,16 @@
 import React from 'react';
 import './style.scss';
+import AnnouncementList from '../AnnouncementList';
 
-const MyAnnouncement = () => (
-  <h1>MyAnnouncement</h1>
+const MyAnnouncements = () => (
+  <div className="myAnnouncements">
+    <h1>Mes annonces</h1>
+    <div className="myAnnouncements__container">
+      
+      <AnnouncementList />
+    </div>
+  </div>
 )
 ;
 
-export default MyAnnouncement;
+export default MyAnnouncements;

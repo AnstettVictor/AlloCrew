@@ -1,11 +1,15 @@
 @import 'style/vars.scss';
 @import "~react-datepicker/dist/react-datepicker.css";
 @import '~utils/dropzone.css';
+@import '~react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 body {
   font-family: 'Rubik', sans-serif;
   background-color: #F3F4F8;
   overflow-x: hidden;
+  a {
+    text-decoration: none;
+  }
 }
 
 .app__header {
@@ -38,6 +42,14 @@ body {
 
 .input {
   @include inputStyle;
+}
+
+.cursor {
+  cursor: pointer;
+  border: 1px solid transparent;
+  &:hover {
+    border: 1px solid $blue;
+  }
 }
 
 .dropzone-element {

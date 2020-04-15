@@ -1,0 +1,48 @@
+[
+  {
+    "discussion_id": "1",
+    "announcement_id": "2",
+    "receiver_id": "2267",
+    "creator_id": "2137",
+    "messages":[
+      {
+        "id": "1231",
+        "content": "beatae",
+        "user_id": "2137"
+      },
+      {
+        "id": "1231",
+        "content": "beatae",
+        "user_id": "2137"
+      },      
+      {
+        "id": "1231",
+        "content": "beatae",
+        "user_id": "2137"
+      }
+    ]
+  },
+  {
+    "discussion_id": "1",
+    "announcement_id": "2",
+    "receiver_id": "2267",
+    "creator_id": "2137",
+    "message":[
+      {
+        "id": "1231",
+        "content": "beatae",
+        "user_id": "2137"
+      },
+      {
+        "id": "1231",
+        "content": "beatae",
+        "user_id": "2137"
+      },      
+      {
+        "id": "1231",
+        "content": "beatae",
+        "user_id": "2137"
+      }
+    ]
+  }    
+]

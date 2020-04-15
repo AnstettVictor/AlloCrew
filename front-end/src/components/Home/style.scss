@@ -53,6 +53,13 @@
     line-height: 1.6;
     text-align: center;
     height: 33rem;
+    a {
+      color: #000;
+      &:hover {
+        text-decoration: underline;
+        color: $blue;
+      }
+    }
     ul {
       margin-left: 1rem;
       list-style: none;

@@ -1,8 +1,27 @@
-import React, {useState} from 'react';
+//import Yarn
+import React from 'react';
+import {
+  Switch,
+  Route,
+} from "react-router-dom";
+
+//import local
 import './style.scss';
+import exemple from './exemple.json';
+
+//import Components
 import Header from '../Header';
 import Footer from '../Footer';
+import LandPage from '../LandPage';
+import Register from '../Register';
+import Login from '../Login';
 import Home from '../Home';
+import Profile from '../Profile';
+import Search from '../Search';
+import EditProfile from '../EditProfile';
+import TchatRoom from '../TchatRoom';
+import MyAnnouncements from '../MyAnnouncements';
+import EditUser from '../EditUser';
 
 
 const App = () => {
@@ -13,8 +32,21 @@ return(
       <Header />
     </ div>
     <div className="app__main">
-      <Home />
-      </div>
+      
+      {/* Routes */}
+      <Switch>
+        <Route path="/" exact component={LandPage} />
+        <Route path="/home" component={Home} />
+        <Route path="/register" exact component={Register} />
+        <Route path="/login" exact component={Login} />
+        <Route path="/search" exact component={Search} />
+        <Route path="/profile" exact component={Profile} />
+        <Route path="/edit-profile" exact component={EditProfile} />
+        <Route path="/tchat-room" exact component={TchatRoom} />
+        <Route path="/my-announcements" exact component={MyAnnouncements} />
+        <Route path="/edit-user" exact component={EditUser} />
+      </Switch>
+    </div>
     <div className="app__footer">
       <Footer />
     </div>

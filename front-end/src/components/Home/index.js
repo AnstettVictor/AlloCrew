@@ -1,4 +1,6 @@
 import React from 'react';
+
+//import local
 import './style.scss';
 import Profile from './HomeProfile';
 import AnnouncementList from '../AnnouncementList';

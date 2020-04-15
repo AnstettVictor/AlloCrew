@@ -1,0 +1,17 @@
+.myAnnouncements__container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  .announce {
+    width: 30rem;
+    margin: 1rem;
+  }
+}
+
+.myAnnouncements {
+  h1 {
+    text-align: center;
+    margin: 2rem;
+    font-size: 2rem;
+  }
+}

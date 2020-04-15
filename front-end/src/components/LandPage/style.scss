@@ -1,66 +1,64 @@
-body {
-    background-image: url( https://images.squarespace-cdn.com/content/v1/50f457bfe4b06f99b6404e78/1476666470930-HOV38K1YZB193RVJLNN4/ke17ZwdGBToddI8pDm48kPTrHXgsMrSIMwe6YW3w1AZ7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z4YTzHvnKhyp6Da-NYroOW3ZGjoBKy3azqku80C789l0k5fwC0WRNFJBIXiBeNI5fKTrY37saURwPBw8fO2esROAxn-RKSrlQamlL27g22X2A/STUDIO+FILM.jpg?format=1500w);
-    background-color: #f0f; /* Used if the image is unavailable */
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Do not repeat the image */
-    background-size: cover; /* Resize the background image to cover the entire container */
-}
-
-.app__main {
-    background: none;
-}
-
+@import 'style/vars.scss';
 
 .landPage__Container {
-    margin-left: 25px;
-    
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 3rem;
+  left: 0;
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+}
 
+.landpage__filter {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0,0,0, .55);
+}
+
+.landPage__InfoContainer {
+  max-width: 1100px;
+  margin: 3rem auto;
 }
 
 .landPage__Description {
-    background-color: rgba(0, 0, 0, 0.45);
-    color: white;
-    margin-top: 100px;
-    margin-bottom: 50px;
-    padding: 10px;
-    width: 55%;
-    text-align: justify;
-    
+  font-size: .8rem;
+  color: #fff;
+  p{
+    margin: 1rem;
+  }
 }
 
 .landPage__button {
-    display: block;
-    margin-bottom: 20px;
-    margin-left: 20px;
-    width: 30%;
-    text-decoration: none;
-    text-align: center;
+  margin: 2rem auto;
+  display: block;
+  text-decoration: none;
+  width: 15rem;
 }
 
-@media only screen and (max-width: 800px) {
-    .landPage__Container {
-        margin-left: 10px;
-        margin-right: 10px;
-        width: auto;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
+@media (min-width: 900px) and (min-height: 500px) {
 
-    .landPage__Description {
-        margin-top: 20px;
-        margin-bottom: 20px;
-        padding: 10px;
-        width: 100%;
-    }
+  .landPage__InfoContainer {
 
-    .landPage__button {
-        display: block;
-        margin-bottom: 20px;
-        margin-left: 0;
-        width: 100%;
-        text-decoration: none;
-        text-align: center;
+    padding-top: 7rem;
+  }
+
+  .landPage__button {
+    display: inline-block;
+    margin: 4rem 1rem;
+  }
+
+  .landPage__Description {
+    max-width: 50rem;
+    font-size: 1rem;
+    color: #fff;
+    p{
+      margin: 1rem;
     }
+  }
 
 }

@@ -1,16 +1,25 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './style.scss';
 import searchlogo from 'images/svg/search.svg';
 import AnnouncementList from '../AnnouncementList';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  NavLink
+} from "react-router-dom";
 import ProfileList from './ProfileList';
 
-const Search = () => (
+const Search = () => {
+  const [searchSwitch, setSearchSwitch] = useState(true);
+  return (
   <div>
 
     <div className="search__header">
      
-          <p>Rechercher une annonce</p>
-          <p>Rechercher un profil</p>
+          <p onClick={() => setSearchSwitch(true)}>Rechercher une annonce</p>
+          <p onClick={() => setSearchSwitch(false)}>Rechercher un profil</p>
         
         <form className="search__form">
             <input className=" search__input" placeholder="Rechercher..."/>
@@ -20,12 +29,10 @@ const Search = () => (
     </div>
     
     <div className="announcementList">
-      <ProfileList />
+      {searchSwitch? <AnnouncementList /> : <ProfileList />} 
     </div>
-
-
   </div>
 )
-;
+};
 
 export default Search;
