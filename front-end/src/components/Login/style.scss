@@ -1,0 +1,28 @@
+@import 'style/vars.scss';
+
+.login__container {
+  height: 100vh;
+}
+
+
+.login__form {
+  @include center;
+  height: 100%;
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+  }
+
+}
+ .login__input {
+    @include inputStyle;
+ }
+
+ .login__button {
+    @include buttonStyle;
+ }
+
+ .login__input, .login__button {
+    margin: 1rem;
+    width: 20rem;
+ }
