@@ -1,0 +1,48 @@
+.landPage__Container {
+    margin-left: 25px;
+}
+
+.landPage__Description {
+    border: 1px solid lightgray;
+    margin-top: 100px;
+    margin-bottom: 50px;
+    padding: 10px;
+    width: 70%;
+}
+
+.landPage__button {
+    display: block;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    width: 30%;
+    text-decoration: none;
+    text-align: center;
+}
+
+@media only screen and (max-width: 800px) {
+    .landPage__Container {
+        margin-left: 10px;
+        margin-right: 10px;
+        width: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .landPage__Description {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        padding: 10px;
+        width: 100%;
+    }
+
+    .landPage__button {
+        display: block;
+        margin-bottom: 20px;
+        margin-left: 0;
+        width: 100%;
+        text-decoration: none;
+        text-align: center;
+    }
+
+}
