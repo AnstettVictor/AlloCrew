@@ -7,7 +7,8 @@ module.exports = {
   resolve: {
     alias: {
       images: path.resolve(__dirname, './src/assets/images/'),
-      style: path.resolve(__dirname, './src/assets/style/')
+      style: path.resolve(__dirname, './src/assets/style/'),
+      utils: path.resolve(__dirname, './src/assets/utils/')
     }
   },
   entry: './src/index.js',

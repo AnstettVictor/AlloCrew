@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import './style.scss';
 import Header from '../Header';
 import Footer from '../Footer';
-import Home from '../Home';
+import Login from '../Login';
 
 
 const App = () => {
@@ -13,7 +13,7 @@ return(
       <Header />
     </ div>
     <div className="app__main">
-      <Home />
+      <Login />
       </div>
     <div className="app__footer">
       <Footer />
