@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {useState, Component} from 'react';
 import './style.scss';
 import DatePicker from 'react-datepicker';
-import '../../../node_modules/react-datepicker/src/stylesheets/datepicker.scss';
+import { Editor } from 'react-draft-wysiwyg';
+
 
 
 const EditAnnouncement = () => {
@@ -44,9 +45,9 @@ const EditAnnouncement = () => {
         <label className="editAnnouncement__paid" >Rémunéré</label>
       </div>    
       
-      <textarea className="editAnnouncement__textarea input" placeholder="Description de votre projet" cols="40" rows="15"/>
-      
-      <textarea className="editAnnouncement__textarea--deskTop input" placeholder="Description de votre projet" cols="120" rows="15"/>
+      <div className="editAnnouncement__textarea input">
+      <Editor placeholder="Description de votre projet" />
+      </div>
       
       <div className="editAnnouncement__input mobile drop input">
       
