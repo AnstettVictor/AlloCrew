@@ -60,6 +60,7 @@ class Announcement
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups("announcement")
+     * @Groups("discussion")
      */
     private $title;
 

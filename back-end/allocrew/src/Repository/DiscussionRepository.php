@@ -20,29 +20,6 @@ class DiscussionRepository extends ServiceEntityRepository
     }
 
 
-
-    public function findAllByUser($id)
-    {
-        $rawSql = "SELECT * FROM `discussion` WHERE creator_id =" . $id ." OR receiver_id=" . $id;
-
-
-        $stmt = $this->getEntityManager()->getConnection()->prepare($rawSql);
-
-        $stmt->execute([]);
-
-    
-        return $stmt->fetchAll();
-    }
-
-    public function findAllForDiscussions($id){
-
-        $rawSql = "SELECT * FROM  discussion  WHERE id = " .$id;
-
-        $stmt = $this->getEntityManager()->getConnection()->prepare($rawSql);
-        $stmt->execute([]);
-    
-        return $stmt->fetchAll();
-    }
     // /**
     //  * @return Discussion[] Returns an array of Discussion objects
     //  */

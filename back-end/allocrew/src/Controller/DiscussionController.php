@@ -66,20 +66,17 @@ class DiscussionController extends AbstractController
 
         // On décode les données envoyées
         $donnees = json_decode($request->getContent());
-        /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
-         * sinon on passe à la suite */
-        $creator = $userRepository->find($donnees->creator);
+        
+        $creator = $userRepository->find($donnees->creator_id);
         $discussion->setCreator($creator);
-
-        $receiver = $userRepository->find($donnees->receiver);
+        
+        $receiver = $userRepository->find($donnees->receiver_id);
         $discussion->setReceiver($receiver);
 
-        $announcement = $announcementRepository->find($donnees->announcement);
+        $announcement = $announcementRepository->find($donnees->announcement_id);
         $discussion->setAnnouncement($announcement);
 
-
         $discussion->setCreatedAt(new \Datetime());
-
 
         // On sauvegarde en base
         $entityManager = $this->getDoctrine()->getManager();
@@ -96,6 +93,7 @@ class DiscussionController extends AbstractController
      */
     public function delete(Discussion $discussion)
     {
+        //TOODOO le VOTER 
         /**  // Ici on utilise un voter
          * // Cette fonction va émettre une exception Access Forbidden pour interdire l'accès au reste du contrôleur
          * // Les conditions pour lesquelles le droit MOVIE_DELETE est applicable sur $movie pour l'utilisateur connecté
