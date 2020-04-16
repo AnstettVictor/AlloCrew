@@ -25,6 +25,7 @@ import EditUser from '../EditUser';
 import LegalNotice from '../LegalNotice';
 import Contact from '../Contact';
 import Information from '../Information';
+import Announcement from '../../containers/Announcement';
 import FAQ from '../FAQ';
 
 
@@ -53,6 +54,9 @@ return(
         <Route path="/legal-notice" exact component={LegalNotice} />
         <Route path="/contact" exact component={Contact} />
         <Route path="/information" exact component={Information} />
+        <Route path="/announcement" exact >
+          <Announcement  />
+        </ Route>
         <Route path="/faq" exact component={FAQ} />
       </Switch>
     </div>
