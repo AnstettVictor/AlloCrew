@@ -1,5 +1,5 @@
 App\Entity\User:
-    user{1..500}:
+    user_{1..10}:
         firstname: '<firstName()>'
         lastname: '<lastName()>'
         email: '<email()>'
@@ -13,3 +13,31 @@ App\Entity\User:
         description: '<word(10)>'
         experience: '<word(15)>'
         portfolio: '<word()>'
+
+App\Entity\Announcement:
+    announcement_{1..10}:
+        category: '<word()>'
+        active: '<boolean()>'
+        voluntary: '<boolean()>'
+        date_start: <(new DateTime("1980-10-10"))>
+        date_end: <(new DateTime("1990-10-10"))>
+        location: '<city()>'
+        title: '<word(3)>'
+        description: '<word(10)>'
+        picture: '<word()>'
+        user: '@user_*'
+
+App\Entity\Discussion:
+    discussion_{1..10}:
+        announcement: '@announcement_*'
+        receiver: '@user_*'
+        creator: '@user_*'
+        
+        
+
+App\Entity\Message:
+    message_{1..10}:
+        content: '<word(25)>'
+        discussion: '@discussion_*'
+        user: '@user_*'
+        

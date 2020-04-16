@@ -11,41 +11,33 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+
+
 class RegistrationController extends AbstractController
 {
     /**
-     * @Route("/register", name="app_register")
+     * @Route("/register", name="app_register", methods={"POST"})
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {  
 
         $user = new User();
-        $form = $this->createForm(RegistrationFormType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
+       
+        $donnees = json_decode($request->getContent());
+       
+            if (isset($donnees->email)) {
+            $user->setEmail($donnees->email);}     
             $user->setCreatedAt(new DateTime());
             $roles[] = 'ROLE_USER';
             $user->setRoles($roles);
-            $user->setPassword(
-                $passwordEncoder->encodePassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );
-
+            if (isset($donnees->password)) {
+            $user->setPassword($passwordEncoder->encodePassword($user, $donnees->password));}
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // do anything else you need here, like send an email
-
-            return $this->redirectToRoute('fake_controller_main');
-        }
-
-        return $this->render('registration/register.html.twig', [
-            'registrationForm' => $form->createView(),
-        ]);
+        // On retourne la confirmation
+        return new Response('ok', 201);
+        
     }
 }
