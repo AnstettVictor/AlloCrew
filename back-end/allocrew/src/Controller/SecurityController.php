@@ -10,7 +10,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends AbstractController
 {
     /**
-     * @Route("/login/symfony", name="app_login")
+     * @Route("api/login_check", name="app_login")
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
@@ -23,10 +23,9 @@ class SecurityController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-
         // On retourne la confirmation
-        return new Response('ok, utilisateur connecter', 201);
-        //return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        //return new Response('ok, utilisateur connecter', 201);
+        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
     /**
