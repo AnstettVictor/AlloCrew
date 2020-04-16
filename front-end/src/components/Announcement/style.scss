@@ -44,13 +44,17 @@
     font-weight: 400;
 }
 
+
+
 .announcement__paid, .announcement__online{
     margin:0rem 0.7rem;
     color: rgb(33, 218, 88);
     font-size:0.8rem;
 }
 
-.announcement__volunteer{
+
+
+.announcement__volunteer, .endded{
     margin:0rem 0.7rem;
     color: #FA425A;    
 }
@@ -79,9 +83,6 @@
     font-weight:400;
 }
 
-.volunteer{
-    color: $red;
-}
 
 @media (min-width: 900px) and (min-height: 500px) {
 
@@ -96,7 +97,7 @@
         margin-right: 2rem;
     }
 
-    .announcement__date, .announcement__place, .announcement__description, .announcement__exp, .announcement__text, .announcement__volunteer, .announcement__title{
+    .announcement__date, .announcement__place, .announcement__description, .announcement__exp, .announcement__text, .announcement__volunteer, .announcement__title, .endded{
         margin-left: 2rem;
         margin-right: 2rem;
     }    

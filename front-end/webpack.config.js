@@ -13,6 +13,7 @@ module.exports = {
   },
   entry: './src/index.js',
   output: {
+    publicPath: '/',
     path: path.join(__dirname, './dist'),
     filename: './js/main-[hash].js'
   },

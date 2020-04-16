@@ -3,6 +3,7 @@ import React from 'react';
 import {
   Switch,
   Route,
+  useParams,
 } from "react-router-dom";
 
 //import local
@@ -54,9 +55,7 @@ return(
         <Route path="/legal-notice" exact component={LegalNotice} />
         <Route path="/contact" exact component={Contact} />
         <Route path="/information" exact component={Information} />
-        <Route path="/announcement" exact >
-          <Announcement  />
-        </ Route>
+        <Route path="/announcement/:id" exact component={Announcement} /> 
         <Route path="/faq" exact component={FAQ} />
       </Switch>
     </div>
