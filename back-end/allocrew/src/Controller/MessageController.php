@@ -74,12 +74,22 @@ class MessageController extends AbstractController
             $message->setContent($donnees->content);
         };
         
-        $user = $userRepository->find($donnees->user);
-        $message->setUser($user);
+        if (isset($donnees->user)) {
+            $user = $userRepository->find($donnees->user);
+            $users = $user->getId();
+            $message->setUser($users);
+        }
 
-        $discussion = $discussionRepository->find($donnees->discussion);
-        $message->setDiscussion($discussion);
+
+        if (isset($donnees->discussion)) {
+            $discussion = $userRepository->find($donnees->discussion);
+            $discussions = $discussion->getId();
+            $message->setDiscussion($discussions);
+        }
       
+
+
+
         $message->setCreatedAt(new \Datetime());
         
         // On sauvegarde en base
