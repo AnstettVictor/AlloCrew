@@ -2,30 +2,32 @@
 
 namespace App\Form;
 
-use App\Entity\Announcement;
 use App\Entity\User;
+use App\Entity\Message;
 use App\Entity\Discussion;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
-class DiscussionType extends AbstractType
+class MessageType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('announcement', EntityType::class, [
+            ->add('content', TextareaType::class, [
+                'constraints' => [
+                    new NotBlank(),
+                    
+                ]])
+            ->add('discussion', EntityType::class, [
                 // looks for choices from this entity
-                'class' => Announcement::class,
+                'class' => Discussion::class,
                
                 ])
-            ->add('receiver', EntityType::class, [
-                // looks for choices from this entity
-                'class' => User::class,
-               
-                ])
-            ->add('creator', EntityType::class, [
+            ->add('user', EntityType::class, [
                 // looks for choices from this entity
                 'class' => User::class,
                
@@ -36,7 +38,7 @@ class DiscussionType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Discussion::class,
+            'data_class' => Message::class,
         ]);
     }
 }

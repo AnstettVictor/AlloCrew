@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Message;
-
+use App\Form\MessageType;
 use App\Repository\UserRepository;
 use App\Repository\MessageRepository;
 use App\Repository\DiscussionRepository;
@@ -62,18 +62,22 @@ class MessageController extends AbstractController
         
         $message = new Message();
 
+
         // On décode les données envoyées
-        $donnees = json_decode($request->getContent());
+        $donnees = json_decode($request->getContent(), true);
         /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
          * sinon on passe à la suite */
+        $form = $this->createForm(MessageType::class, $message);
+        $donnees = $form->submit($donnees);
+
         if (isset($donnees->content)) {
             $message->setContent($donnees->content);
         };
         
-        $user = $userRepository->find($donnees->user_id);
+        $user = $userRepository->find($donnees->user);
         $message->setUser($user);
 
-        $discussion = $discussionRepository->find($donnees->discussion_id);
+        $discussion = $discussionRepository->find($donnees->discussion);
         $message->setDiscussion($discussion);
       
         $message->setCreatedAt(new \Datetime());
@@ -94,9 +98,11 @@ class MessageController extends AbstractController
     public function edit(Message $message, Request $request, $id)
     {
         // On décode les données envoyées
-        $donnees = json_decode($request->getContent());
+        $donnees = json_decode($request->getContent(), true);
         /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
          * sinon on passe à la suite */
+        $form = $this->createForm(MessageType::class, $message);
+        $donnees = $form->submit($donnees);
         if (isset($donnees->content)) {
             $message->setContent($donnees->content);
         };

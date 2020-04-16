@@ -123,7 +123,6 @@ class AnnouncementController extends AbstractController
         /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
          * sinon on passe à la suite */
         $form = $this->createForm(AnnouncementType::class, $announcement);
-
         $donnees = $form->submit($donnees);
 
         if (isset($donnees->category)) {
@@ -156,8 +155,8 @@ class AnnouncementController extends AbstractController
         if (isset($donnees->picture)) {
             $announcement->setPicture($donnees->picture);
         }
-        if (isset($donnees->user_id)) {
-            $user = $userRepository->find($donnees->user_id);
+        if (isset($donnees->user)) {
+            $user = $userRepository->find($donnees->user);
             $users = $user->getId();
             $announcement->setUser($users);
         }

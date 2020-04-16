@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Discussion;
+use App\Form\DiscussionType;
 use App\Repository\AnnouncementRepository;
 use App\Repository\UserRepository;
 use App\Repository\MessageRepository;
@@ -65,16 +66,28 @@ class DiscussionController extends AbstractController
         $discussion = new Discussion();
 
         // On décode les données envoyées
-        $donnees = json_decode($request->getContent());
-        
-        $creator = $userRepository->find($donnees->creator);
-        $discussion->setCreator($creator);
-        
-        $receiver = $userRepository->find($donnees->receiver);
-        $discussion->setReceiver($receiver);
+        $donnees = json_decode($request->getContent(), true);
+     /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
+      * sinon on passe à la suite */
+        $form = $this->createForm(DiscussionType::class, $discussion);
+     
+        $donnees = $form->submit($donnees);
 
-        $announcement = $announcementRepository->find($donnees->announcement);
-        $discussion->setAnnouncement($announcement);
+        if (isset($donnees->creator)) {
+            $creator = $userRepository->find($donnees->creator);
+            $creators = $creator->getId();
+            $discussion->setCreator($creators);
+        }
+        if (isset($donnees->receiver)) {
+            $receiver = $userRepository->find($donnees->receiver);
+            $receivers = $receiver->getId();
+            $discussion->setCreator($receivers);
+        }
+        if (isset($donnees->announcement)) {
+            $announcement = $userRepository->find($donnees->announcement);
+            $announcements = $announcement->getId();
+            $discussion->setCreator($announcements);
+        }
 
         $discussion->setCreatedAt(new \Datetime());
 
