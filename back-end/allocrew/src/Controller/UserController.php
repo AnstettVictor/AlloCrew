@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\UserType;
 use App\Repository\UserRepository;
 use App\Repository\AnnouncementRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -131,6 +132,8 @@ class UserController extends AbstractController
     {
         // On décode les données envoyées
         $donnees = json_decode($request->getContent());
+        $form = $this->createForm(UserType::class, $user);
+        $donnees = $form->submit($donnees);
         /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
          * sinon on passe à la suite */        
         if (isset($donnees->firstname)) {
