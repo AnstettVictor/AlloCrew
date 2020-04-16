@@ -1,31 +1,45 @@
 import React from 'react';
 import './style.scss';
-
-
-const Announce = () => (
+import Proptypes from 'prop-types';
+const Announce = ({ title, location, description, picture, voluntary, id, dateEnd, dateStart, active, user,createdAt }) => (
   <div className="announce">
-    <div className="announce__banner" >
-      <div className="announce__avatar"/>
+    <div className="announce__banner" style={{backgroundImage: `url(${picture})`}} >
+      <div className="announce__avatar" style={{backgroundImage: `url(${user.picture})`}}/>
     </div>
-
-    <p className="announce__user">Prénom NOM, Role - <span className="announce__creation">créé le 02/54/1456</span></p>
+    <p className="announce__user">{user.firstname} {user.lastname}</p>
     <div className="announce__bot">
       <div className="announce__botleft">
-        <h2>Cherche quelque chose</h2>
-        <p className="announce__description">Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre</p>
+        <h2>{title}</h2>
+        <p>{description}</p>
       </div>
       <div className="announce__botright">
-        <div className="announce__details">
-          <p>du 01/02/1235 au 02/03/2314</p>
-          <p>à Paris</p>
-          <p>Rémunérée</p>
-        </div>
-        <input className="announce__button button see" type="button" value="Voir l'annonce"/>
-        <input className="announce__button button seeAndEdit" type="button" value="Voir / Modifier"/>
+        <p>{dateStart} au {dateEnd}</p>
+        <p>Créée le : {createdAt}</p>
+        <p>{location}</p>
+        <p>{voluntary}</p>
+        <input className="button see" type="button" value="Voir l'annonce"/>
+        <input className="button seeAndEdit" type="button" value="Voir / Modifier"/>
       </div>
     </div>
   </div>
 )
 ;
-
+Announce.propTypes = {   
+  title: Proptypes.string.isRequired,
+  location: Proptypes.string.isRequired,
+  description: Proptypes.string.isRequired,
+  picture: Proptypes.string.isRequired,
+  voluntary: Proptypes.bool.isRequired,
+  id: Proptypes.number.isRequired,
+  dateStart: Proptypes.string.isRequired,
+  dateEnd: Proptypes.string.isRequired, 
+  active: Proptypes.bool.isRequired,
+  createdAt: Proptypes.string.isRequired,
+  user: Proptypes.shape({
+      id: Proptypes.number.isRequired,
+      firstname: Proptypes.string.isRequired,
+      lastname: Proptypes.string.isRequired,
+      picture: Proptypes.string.isRequired,
+  })      
+}
 export default Announce;

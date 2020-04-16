@@ -1,4 +1,4 @@
-import {CHANGE_ANNOUNCEMENT} from '../actions';
+import {CHANGE_ANNOUNCEMENT, CHANGE_PROFILE} from '../actions';
 
 const initialState = {
   announcement: {
@@ -17,6 +17,19 @@ const initialState = {
       lastname:"",
       picture:"",
     },
+  },
+
+  profile: {
+    firstname:"",
+    lastname: "",
+    age: 0,
+    location: "",  
+    title: "",
+    description: "",
+    experience: "",
+    portfolio: "",
+    picture: "",
+    bannerpicture: "",
   }
 };
 
@@ -26,6 +39,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         announcement: {...action.payload}, 
+      };
+
+    case CHANGE_PROFILE:
+      return {
+        ...state,
+        profile: {...action.payload}, 
       };
       default:
         return state;
