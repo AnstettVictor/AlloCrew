@@ -67,13 +67,13 @@ class DiscussionController extends AbstractController
         // On décode les données envoyées
         $donnees = json_decode($request->getContent());
         
-        $creator = $userRepository->find($donnees->creator_id);
+        $creator = $userRepository->find($donnees->creator);
         $discussion->setCreator($creator);
         
-        $receiver = $userRepository->find($donnees->receiver_id);
+        $receiver = $userRepository->find($donnees->receiver);
         $discussion->setReceiver($receiver);
 
-        $announcement = $announcementRepository->find($donnees->announcement_id);
+        $announcement = $announcementRepository->find($donnees->announcement);
         $discussion->setAnnouncement($announcement);
 
         $discussion->setCreatedAt(new \Datetime());
