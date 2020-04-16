@@ -51,21 +51,23 @@ class AnnouncementController extends AbstractController
                 ['groups' => ['announcement']]
             ));
         } else {
-            return new Response("l'annonce n'est pas en base de données  ", 404);
+            return new Response("L'annonce n'est pas en base de données  ", 404);
         }
     }
 
-
-
      /**
      * @Route("/{id}", name="edit", methods={"PATCH"}, requirements={"id": "\d+"})
+     *
      */
     public function edit(Announcement $announcement, Request $request, $id)
     {
         // On décode les données envoyées
-        $donnees = json_decode($request->getContent());
+        $donnees = json_decode($request->getContent(), true);
         /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
          * sinon on passe à la suite */
+        $form = $this->createForm(AnnouncementType::class, $announcement);
+        
+        $donnees = $form->submit($donnees);
         if (isset($donnees->category)) {
             $announcement->setCategory($donnees->category);
         };
@@ -121,7 +123,6 @@ class AnnouncementController extends AbstractController
         /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
          * sinon on passe à la suite */
         $form = $this->createForm(AnnouncementType::class, $announcement);
-
 
         $donnees = $form->submit($donnees);
 
