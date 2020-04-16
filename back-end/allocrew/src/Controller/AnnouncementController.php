@@ -5,6 +5,7 @@ namespace App\Controller;
 use DateTime;
 use App\Entity\User;
 use App\Entity\Announcement;
+use App\Form\AnnouncementType;
 use App\Repository\UserRepository;
 use App\Repository\AnnouncementRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -53,6 +54,8 @@ class AnnouncementController extends AbstractController
             return new Response("l'annonce n'est pas en base de données  ", 404);
         }
     }
+
+
 
      /**
      * @Route("/{id}", name="edit", methods={"PATCH"}, requirements={"id": "\d+"})
@@ -114,9 +117,14 @@ class AnnouncementController extends AbstractController
         $announcement = new Announcement();
 
         // On décode les données envoyées
-        $donnees = json_decode($request->getContent());
+        $donnees = json_decode($request->getContent(), true);
         /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
          * sinon on passe à la suite */
+        $form = $this->createForm(AnnouncementType::class, $announcement);
+
+
+        $donnees = $form->submit($donnees);
+
         if (isset($donnees->category)) {
             $announcement->setCategory($donnees->category);
         };
@@ -149,7 +157,8 @@ class AnnouncementController extends AbstractController
         }
         if (isset($donnees->user_id)) {
             $user = $userRepository->find($donnees->user_id);
-            $announcement->setUser($user);
+            $users = $user->getId();
+            $announcement->setUser($users);
         }
       
         $announcement->setCreatedAt(new \Datetime());

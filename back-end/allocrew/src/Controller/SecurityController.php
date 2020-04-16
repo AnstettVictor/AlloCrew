@@ -25,7 +25,7 @@ class SecurityController extends AbstractController
 
 
         // On retourne la confirmation
-        return new Response('ok, utilisateur connecter', 201);
+        return new Response('ok, utilisateur connecté', 201);
         //return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 

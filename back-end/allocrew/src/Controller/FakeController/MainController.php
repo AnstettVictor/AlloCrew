@@ -2,18 +2,36 @@
 
 namespace App\Controller\FakeController;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Form\AnnouncementType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class MainController extends AbstractController
 {
+  
     /**
-     * @Route("/", name="fake_controller_main")
+     * @Route("/form", name="demo")
      */
-    public function index()
+    public function Form(Request $request)
     {
-        return $this->render('fake_controller/main/index.html.twig', [
-            'controller_name' => 'MainController',
+        $form = $this->createForm(AnnouncementType::class);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+
+
+            $em->flush();
+            
+        }
+
+
+        return $this->render('announcement/index.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
+
+
 }
