@@ -49,6 +49,7 @@ class User implements UserInterface
      * @Groups("discussion")
      * @Groups("userAccount")
      * @Groups("userProfile")
+     * @Groups("announcement")
      */
     private $firstname;
 
@@ -57,6 +58,7 @@ class User implements UserInterface
      * @Groups("discussion")
      * @Groups("userAccount")
      * @Groups("userProfile")
+     * @Groups("announcement")
      */
     private $lastname;
 
@@ -99,6 +101,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups("userProfile")
+     * @Groups("announcement")
      */
     private $picture;
 
