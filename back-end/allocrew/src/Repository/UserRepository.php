@@ -36,26 +36,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->flush();
     }
 
-    public function findAllForUsers(){
-
-        $rawSql = "SELECT `id`,`email`,`firstname`, `lastname`, `age`, `location`, `title`, `description`, `experience`, `portfolio`, `picture`, `bannerpicture` FROM `user`";
-
-        $stmt = $this->getEntityManager()->getConnection()->prepare($rawSql);
-        $stmt->execute([]);
-    
-        return $stmt->fetchAll();
-    }
-
-    public function findAllForUsersById($id){
-
-        $rawSql = "SELECT `id`,`email`,`firstname`, `lastname`, `age`, `location`, `title`, `description`, `experience`, `portfolio`, `picture`, `bannerpicture` FROM `user` WHERE `id` =" . $id;
-
-        $stmt = $this->getEntityManager()->getConnection()->prepare($rawSql);
-        $stmt->execute([]);
-    
-        return $stmt->fetchAll();
-    }
-
     // /**
     //  * @return User[] Returns an array of User objects
     //  */

@@ -4,8 +4,11 @@ namespace App\Entity;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -17,11 +20,16 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("discussion")
+     * @Groups("announcement")
+     * @Groups("message")
+     * @Groups("userProfile")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Groups("userAccount")
      */
     private $email;
 
@@ -38,51 +46,65 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("discussion")
+     * @Groups("userAccount")
+     * @Groups("userProfile")
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("discussion")
+     * @Groups("userAccount")
+     * @Groups("userProfile")
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="smallint", nullable=true)
+     * @Groups("userProfile")
      */
     private $age;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("userProfile")
      */
     private $location;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("userProfile")
      */
     private $title;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups("userProfile")
      */
     private $description;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups("userProfile")
      */
     private $experience;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("userProfile")
      */
     private $portfolio;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("userProfile")
      */
     private $picture;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("userProfile")
      */
     private $bannerpicture;
 
@@ -96,13 +118,38 @@ class User implements UserInterface
      */
     private $updatedAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Announcement", mappedBy="user")
+     */
+    private $announcements;
 
-    public function __contruct()
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="user")
+     */
+    private $messages;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Discussion", mappedBy="receiver")
+     */
+    private $discussionsReceived;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Discussion", mappedBy="creator")
+     */
+    private $discussionsCreated;
+
+    public function __construct()
     {
+        $this->announcements = new ArrayCollection();
         $this->createdAt = new DateTime();
-        $this->roles = 'ROLE_USER';
+        $this->roles[] = 'ROLE_USER';
+        $this->messages = new ArrayCollection();
+        $this->discussionsReceived = new ArrayCollection();
+        $this->discussionsCreated = new ArrayCollection();
+        
     }
 
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -320,6 +367,130 @@ class User implements UserInterface
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Announcement[]
+     */
+    public function getAnnouncements(): Collection
+    {
+        return $this->announcements;
+    }
+
+    public function addAnnouncement(Announcement $announcement): self
+    {
+        if (!$this->announcements->contains($announcement)) {
+            $this->announcements[] = $announcement;
+            $announcement->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAnnouncement(Announcement $announcement): self
+    {
+        if ($this->announcements->contains($announcement)) {
+            $this->announcements->removeElement($announcement);
+            // set the owning side to null (unless already changed)
+            if ($announcement->getUser() === $this) {
+                $announcement->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
+    public function addMessage(Message $message): self
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages[] = $message;
+            $message->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Message $message): self
+    {
+        if ($this->messages->contains($message)) {
+            $this->messages->removeElement($message);
+            // set the owning side to null (unless already changed)
+            if ($message->getUser() === $this) {
+                $message->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Discussion[]
+     */
+    public function getDiscussionsReceived(): Collection
+    {
+        return $this->discussionsReceived;
+    }
+
+    public function addDiscussionsReceived(Discussion $discussionsReceived): self
+    {
+        if (!$this->discussionsReceived->contains($discussionsReceived)) {
+            $this->discussionsReceived[] = $discussionsReceived;
+            $discussionsReceived->setReceiver($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDiscussionsReceived(Discussion $discussionsReceived): self
+    {
+        if ($this->discussionsReceived->contains($discussionsReceived)) {
+            $this->discussionsReceived->removeElement($discussionsReceived);
+            // set the owning side to null (unless already changed)
+            if ($discussionsReceived->getReceiver() === $this) {
+                $discussionsReceived->setReceiver(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Discussion[]
+     */
+    public function getDiscussionsCreated(): Collection
+    {
+        return $this->discussionsCreated;
+    }
+
+    public function addDiscussionsCreated(Discussion $discussionsCreated): self
+    {
+        if (!$this->discussionsCreated->contains($discussionsCreated)) {
+            $this->discussionsCreated[] = $discussionsCreated;
+            $discussionsCreated->setCreator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDiscussionsCreated(Discussion $discussionsCreated): self
+    {
+        if ($this->discussionsCreated->contains($discussionsCreated)) {
+            $this->discussionsCreated->removeElement($discussionsCreated);
+            // set the owning side to null (unless already changed)
+            if ($discussionsCreated->getCreator() === $this) {
+                $discussionsCreated->setCreator(null);
+            }
+        }
 
         return $this;
     }
