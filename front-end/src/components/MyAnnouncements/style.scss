@@ -1,0 +1,24 @@
+.myAnnouncements__container {
+  margin: 1rem auto;
+  padding: 1rem;
+  max-width: 600px;
+}
+
+.myAnnouncements {
+  h1 {
+    text-align: center;
+    margin: 2rem;
+    font-size: 2rem;
+  }
+}
+
+@media (min-width: 900px) and (min-height: 500px) {
+
+  .myAnnouncements__container {
+    max-width: unset;
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    grid-gap: 1rem;
+  }
+}

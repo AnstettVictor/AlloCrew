@@ -1,0 +1,97 @@
+@import 'style/vars.scss';
+
+:root {
+  --thumbnail-size: 70px;
+}
+
+.see {
+  display: none;
+}
+
+.seeAndEdit {
+  display: block;
+}
+
+.announce {
+  line-height: 1.6;
+  min-height: fit-content;
+  font-size: 1rem;
+  border-radius: 5px;
+  box-shadow: $shadow;
+  margin: 0 auto;
+  background-color: #fff;
+  height: 65vh;
+  margin-bottom: 1.5rem;
+}
+
+.announce__banner {
+  position: relative;
+  height: 50%;
+  background-color: #eee;
+}
+.announce__avatar {
+  left: 2%;
+  bottom: calc((var(--thumbnail-size) / -2));
+  position: absolute;
+  height: var(--thumbnail-size);
+  width: var(--thumbnail-size);
+  border-radius: 50%;
+  background-color: #ddd;
+}
+
+.announce__user {
+  margin-left: calc(var(--thumbnail-size) + 2%);
+  margin-top: 1%;
+}
+
+.announce__creation {
+  color: #777;
+  font-style: italic;
+}
+
+
+.announce__bot {
+  padding: 1em;
+  display: flex;
+  h2 {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  &left {
+    padding-right: 1em;
+    flex:4;
+  }
+  &right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex:1;
+  }
+}
+
+.announce__details {
+  padding-left: 1rem;
+  border-left: 1px solid #bbb;
+}
+
+.announce__button {
+  margin: 0;
+  margin-top: 1rem;
+  color: $blue;
+  background-color: #fff;
+  border: 1px solid $blue;
+}
+
+.announce__description {
+  display: none;
+}
+
+@media (min-width: 900px) and (min-height: 500px) {
+  .announce__description {
+    display: block;
+  }
+}
+ 
+
+
+

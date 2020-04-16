@@ -1,0 +1,27 @@
+@import 'style/vars.scss';
+
+.footer__container {
+    width: 100vw;
+    height: fit-content;
+    background-color: #292929;
+    text-align: center;
+    padding: 1rem;
+}
+
+.footer__text{
+    color:#FFFFFF;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;    
+}
+
+.footer__link{
+    margin: 1rem;
+    list-style: none;
+    display: inline;
+    color:#FFFFFF;
+    font-size: 0.9rem;    
+    padding: 0rem 0.2rem;
+    &:hover {
+        color:#FFD000;
+    }
+}

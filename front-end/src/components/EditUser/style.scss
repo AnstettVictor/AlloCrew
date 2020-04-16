@@ -1,0 +1,121 @@
+.editUser__pict{
+    position: relative;
+  }
+  
+  .editUser__button,  .editUser__buttonRetour{
+    position:absolute;
+    padding:0.3rem 0.6rem;
+    right:1rem;
+    bottom:-1.8rem;
+    font-size: 0.8rem;
+    
+  }
+
+  .editUser__buttonRetour{
+    bottom: -4rem;
+  }
+
+  .editUser__pict__cover { 
+    background-image: url('https://images.squarespace-cdn.com/content/v1/5769549829687f86bd673a16/1569548616695-5IGYAGRCUMM7DZNOTCO7/ke17ZwdGBToddI8pDm48kLkXF2pIyv_F2eUT9F60jBl7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z4YTzHvnKhyp6Da-NYroOW3ZGjoBKy3azqku80C789l0iyqMbMesKd95J-X4EagrgU9L3Sa3U8cogeb0tjXbfawd0urKshkc5MgdBeJmALQKw/5400929-red-red-dragon-camera-video-camera-videography-video-technology-anamorphic-tech-equipment-gear-lens-red-camera-jakob-owen-music-video-videography-gear-photography-gear-cooke-vintage.jpg?format=2500w');
+    background-size: cover;  
+    height: 25vh;
+    background-color: #eee;
+    width: 100%;
+    border-bottom:2px solid #fff;
+  }
+  
+  .editUser__pict__profile {  
+    left:35%;
+    bottom:-3.5rem;
+    right:-1rem;
+    position: absolute;
+    height:120px;
+    max-width:120px;
+    border-radius: 50%;
+    background-color: #ddd;
+    border:2px solid #fff;
+  }
+  
+  .editUser__name{
+    font-size: 1.2rem;
+    margin-left: 0.8rem;
+    margin-top:1rem;
+    font-weight: 700;
+    text-align: center;
+  }
+  
+  .editUser__age, .editUser__place{
+    font-size: 1rem;
+    margin-left: 0.8rem;
+    font-weight: 500;
+  }
+  
+  .editUser__info{
+    margin-bottom: 0.3rem;
+  }
+  
+  .editUser__title{
+    font-size: 1.4rem;
+    margin-left: 0.8rem;
+    
+    font-weight: 700;
+    text-align:center;
+  } 
+
+  .editUser__input{
+      margin:0.8rem 0.5rem;
+      margin-bottom: 0rem;
+      width: 95%;
+  }
+
+  .editUser__mdp{  
+    margin: 0.8rem 0.8rem;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: left;    
+  }
+
+  .desktop{
+    display:none;
+  }
+  
+  @media (min-width: 900px) and (min-height: 500px) {
+  
+    .editUser__pict__cover{
+      height: 37.5vh;
+      background-position-y:center ;
+    }
+    .editUser__pict__profile{
+      left:5%;
+      bottom:-4.5rem;    
+      position: absolute;
+      height:150px;
+      max-width:150px;    
+    }
+  
+    .editUser__age, .editUser__place{
+      display:none;
+    }
+  
+    .desktop{
+      display:inherit;
+      text-align: center;
+    }
+  
+    .editUser__titles{
+        margin-top: 0.8rem;
+        margin-left:0.8rem;
+        font-size: 1rem;
+        font-weight: 500;
+        text-align: left;    
+      }
+
+     
+    .editUser__input{
+        margin-left: 0.8rem;
+    }
+    
+  
+  }

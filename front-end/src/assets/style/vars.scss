@@ -1,0 +1,51 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+
+// Put Vars here:
+$blue:#132D7D;
+$red: #FA425A;
+$shadow: 2px 3px 3px 0 rgba(0,0,0, .2);
+
+
+// end vars
+@mixin center {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin inputStyle {
+  margin: .5rem .7rem;
+  border: 2px solid rgba(150, 150, 150, 0.788);
+  background-color: #efefef;
+  font-size: 1rem;
+  padding: .5rem;
+  border-radius: 0.4rem;
+  opacity: .8;
+  &:hover {
+    border-color:rgba(19,45,125,.7);
+    opacity: 1;
+    cursor: pointer;
+  }
+}
+
+@mixin buttonStyle {
+  text-align: center;
+  width: fit-content;
+  font-size: 1em;
+  padding: 1em;
+  border-radius: 0.4em;
+  appearance: none;
+  border: 2px solid transparent;
+  background-color: $blue;
+  color: #fff;
+  box-shadow: 2px 3px 5px 0 rgba(0,0,0, .2);
+  transition: 200ms;
+  &:hover {
+    cursor: pointer;
+    transform: translateY(-2px);
+    box-shadow: 2px 3px 5px 0 rgba(0,0,0, .4);
+    transition: 200ms;
+  }
+}
