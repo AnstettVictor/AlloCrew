@@ -13,9 +13,10 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Validator\Constraints\Length;
 
 class AnnouncementType extends AbstractType
 {
@@ -23,7 +24,13 @@ class AnnouncementType extends AbstractType
     {
         $builder
             ->add('category', TextType::class, [
-                'constraints' => new NotBlank(),
+                'constraints' => [
+                    new NotBlank(),
+                    new Length([
+                        'min' => 0,
+                        'max' => 2,
+                    ])
+                    ]
             ])
             ->add('active', ChoiceType::class, [
                 'choices' => [
@@ -62,7 +69,15 @@ class AnnouncementType extends AbstractType
                 'attr' => ['class' => 'js-datepicker']
             ])
             ->add('location')
-            ->add('title')
+            ->add('title', TextType::class, [
+                'constraints' => [
+                    new NotBlank(),
+                    new Length([
+                        'min' => 0,
+                        'max' => 3,
+                    ])
+                    ]
+            ])
             ->add('description')
             ->add('picture', FileType::class, [
                 'constraints' => new File(),

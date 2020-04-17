@@ -13,7 +13,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-
+use App\Services\ImageUpload;
 
 /**
  * @Route("/api/users", name="api_users_")
@@ -161,6 +161,7 @@ class UserController extends AbstractController
         if (isset($donnees->portfolio)) {
             $user->setPortfolio($donnees->portfolio);
         }
+     
         if (isset($donnees->picture)) {
             /** @var UploadImage 
              * $uploadedFile */

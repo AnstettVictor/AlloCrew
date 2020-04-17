@@ -31,9 +31,4 @@ services:
         class: App\Services\ImageUpload
         arguments: ['%images_directory%']
 
-    doctrine_image_listener:
-        class: App\EventListener\ImageUploadListener
-        arguments: ['@image_uploader']
-        tags:
-            - { name: doctrine.event_listener, event: prePersist }
-            - { name: doctrine.event_listener, event: preUpdate }
+  
