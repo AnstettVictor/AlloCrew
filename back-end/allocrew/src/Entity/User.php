@@ -24,6 +24,7 @@ class User implements UserInterface
      * @Groups("announcement")
      * @Groups("message")
      * @Groups("userProfile")
+     * @Groups("userAccount")
      */
     private $id;
 
@@ -65,36 +66,42 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="smallint", nullable=true)
      * @Groups("userProfile")
+     * @Groups("userAccount")
      */
     private $age;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups("userProfile")
+     * @Groups("userAccount")
      */
     private $location;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups("userProfile")
+     * @Groups("userAccount")
      */
     private $title;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      * @Groups("userProfile")
+     * @Groups("userAccount")
      */
     private $description;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      * @Groups("userProfile")
+     * @Groups("userAccount")
      */
     private $experience;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups("userProfile")
+     * @Groups("userAccount")
      */
     private $portfolio;
 
@@ -102,12 +109,14 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups("userProfile")
      * @Groups("announcement")
+     * @Groups("userAccount")
      */
     private $picture;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups("userProfile")
+     * @Groups("userAccount")
      */
     private $bannerpicture;
 
