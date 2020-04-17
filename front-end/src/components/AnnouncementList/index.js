@@ -6,7 +6,7 @@ import Proptypes from 'prop-types';
 const AnnouncementList = ({list}) => (
   <> 
     {
-      list.map((announcement) => <Announce {...announcement}/>)
+      list.map((announcement) => <Announce key={announcement.id} {...announcement}/>)
     }
   </>
 )
