@@ -2,19 +2,19 @@ import Announcement from '../components/Announcement';
 import {changeName, fetchAnnouncement} from '../Redux/actions'
 import {connect} from 'react-redux';
 
-const mapStateToProps = ({ announcement }) => {
+const mapStateToProps = ({ announcements }) => {
   console.log(announcement.user)
   return({
-    title: announcement.title,
-    location: announcement.location,
-    description: announcement.description,
-    picture: announcement.picture,
-    voluntary: announcement.voluntary,
-    id: announcement.id,
-    dateStart: announcement.dateStart,
-    dateEnd: announcement.dateEnd,
-    active: announcement.active,
-    user: announcement.user
+    title: announcements.title,
+    location: announcements.location,
+    description: announcements.description,
+    picture: announcements.picture,
+    voluntary: announcements.voluntary,
+    id: announcements.id,
+    dateStart: announcements.dateStart,
+    dateEnd: announcements.dateEnd,
+    active: announcements.active,
+    user: announcements.user
   })
 };
 
@@ -23,6 +23,6 @@ const mapDispatchToProps = (dispatch, {match}) => ({
 })
 ;
 
-const announcement = connect(mapStateToProps, mapDispatchToProps)(Announcement);
+const announcements = connect(mapStateToProps, mapDispatchToProps)(Announcement);
 
-export default announcement;
+export default announcements;

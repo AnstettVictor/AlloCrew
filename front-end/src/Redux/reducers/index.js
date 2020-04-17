@@ -1,23 +1,8 @@
 import {CHANGE_ANNOUNCEMENT, CHANGE_PROFILE} from '../actions';
 
 const initialState = {
-  announcement: {
-    title:"", 
-    location:"", 
-    description:"", 
-    picture:"", 
-    voluntary: true,
-    id: 0,
-    dateStart:"",
-    dateEnd:"", 
-    active:true,
-    user: {
-      id: 0,
-      firstname:"",
-      lastname:"",
-      picture:"",
-    },
-  },
+
+  
 
   profile: {
     firstname:"",
