@@ -2,6 +2,7 @@ import React from 'react';
 import './style.scss';
 import Proptypes from 'prop-types';
 import {Link} from 'react-router-dom';
+import {date} from 'utils/functions';
 
 const Announce = ({ title, location, description, picture, voluntary, id, dateEnd, dateStart, active, user, createdAt }) =>  (
   <div className="announce">
@@ -9,7 +10,7 @@ const Announce = ({ title, location, description, picture, voluntary, id, dateEn
       <div className="announce__avatar"/>
     </div>
 
-    <p className="announce__user">{user.firstname} {user.lastname} - user.title  <span className="announce__creation">créée le {createdAt}</span></p>
+    <p className="announce__user">{user.firstname} {user.lastname} - user.title  <span className="announce__creation">créée le {date(createdAt)}</span></p>
     <div className="announce__bot">
       <div className="announce__botleft">
         <h2>{title}</h2>
@@ -17,7 +18,7 @@ const Announce = ({ title, location, description, picture, voluntary, id, dateEn
       </div>
       <div className="announce__botright">
         <div className="announce__details">
-          <p>du {dateStart} au {dateEnd}</p>
+          <p>du {date(dateStart)} au {date(dateEnd)}</p>
           <p>à {location}</p>
           <p> {voluntary? "Bénévole": "Rémunérée"}</p>
         </div>
