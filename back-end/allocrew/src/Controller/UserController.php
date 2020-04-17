@@ -19,12 +19,12 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/account/{id}", name="account", requirements={"id": "\d+"}, methods={"GET"})
+     * @Route("/account/{id}", name="account", methods={"GET"})
      */
     public function account(UserRepository $userRepository , SerializerInterface $serializer,  $id)
     {
             
-        $user = $userRepository->findBy(array('id' => $id));
+        $user = $userRepository->findBy(array('email' => $id));
 
         if (!empty($user)) {
             return $this->json($serializer->normalize(
