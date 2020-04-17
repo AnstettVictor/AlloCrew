@@ -3,9 +3,11 @@
 namespace App\Controller\FakeController;
 
 use App\Form\AnnouncementType;
+use App\Form\UserType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class MainController extends AbstractController
 {
@@ -15,13 +17,13 @@ class MainController extends AbstractController
      */
     public function Form(Request $request)
     {
-        $form = $this->createForm(AnnouncementType::class);
+        $form = $this->createForm(UserType::class);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
 
+            $em = $this->getDoctrine()->getManager();
 
             $em->flush();
             

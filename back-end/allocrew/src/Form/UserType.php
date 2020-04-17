@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
@@ -67,6 +68,9 @@ class UserType extends AbstractType
             ])
             ->add('bannerpicture', FileType::class, [
                 'constraints' => new File(),
+            ])
+            ->add('submit', SubmitType::class, [
+                'label' => 'Envoyer'
             ])
         ;
     }

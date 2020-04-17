@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -161,10 +162,30 @@ class UserController extends AbstractController
             $user->setPortfolio($donnees->portfolio);
         }
         if (isset($donnees->picture)) {
-            $user->setPicture($donnees->picture);
+            /** @var UploadImage 
+             * $uploadedFile */
+            $uploadedFile = $donnees->picture->getData();
+            $destination = $this->getParameter('kernel.project_dir').'/public/uploads/Picture';
+            $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+            $newFilename = ($originalFilename->camel()).'-'.uniqid().'.'.$uploadedFile->guessExtension();
+            $uploadedFile->move(
+                $destination,
+                $newFilename
+            );
+            $user->setPicture($newFilename);
         }
         if (isset($donnees->bannerpicture)) {
-            $user->setBannerpicture($donnees->bannerpicture);
+            /** @var UploadImage 
+             * $uploadedFile */
+            $uploadedFile = $donnees->bannerpicture->getData();
+            $destination = $this->getParameter('kernel.project_dir').'/public/uploads/BannerPicture';
+            $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+            $newFilename = ($originalFilename->camel()).'-'.uniqid().'.'.$uploadedFile->guessExtension();
+            $uploadedFile->move(
+                $destination,
+                $newFilename
+            );
+            $user->setBannerPicture($newFilename);
         }
         $user->setUpdatedAt(new \Datetime());
 
@@ -193,7 +214,7 @@ class UserController extends AbstractController
                 ['groups' => ['announcement']]
             ));
         } else {
-            return new Response("l'annonce n'est pas en base de données  ", 404);
+            return new Response("L'annonce n'est pas en base de données  ", 404);
         }
     }
 }
