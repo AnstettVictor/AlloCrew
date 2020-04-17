@@ -5,13 +5,13 @@ import './style.scss';
 import Profile from './HomeProfile';
 import AnnouncementList from '../AnnouncementList';
 
-const Home = () => (
+const Home = ({list}) => (
   <div className="home__container">
     <div className="home__left">
       <div className="home__profile">
         <Profile />
       </div>
-      <div className="home__news"/>
+      <div className="home__news" />
     </div>
     <div className="home__list">
       <ul className="home__navlink">
@@ -20,10 +20,14 @@ const Home = () => (
         <li className="home__navlink-links">Toutes les annonces</li>
         <li className="home__navlink-links">Mes annonces</li>
       </ul>
-      <AnnouncementList />
+      
+
+      <AnnouncementList list={list} />
+
     </div>
   </div>
 )
 ;
 
 export default Home;
+

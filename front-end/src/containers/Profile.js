@@ -2,9 +2,10 @@ import Profile from '../components/Profile';
 import {fetchProfile} from '../Redux/actions'
 import {connect} from 'react-redux';
 
-const mapStateToProps = ({ profile }) => {
-  console.log(profile.firstname)
+const mapStateToProps = ({ data }) => {
+  const profile = data.profiles[0];
   return({
+    id: profile.id,
     firstname: profile.firstname,
     lastname: profile.lastname,
     age: profile.age,
@@ -24,6 +25,6 @@ const mapDispatchToProps = (dispatch, {match}) => ({
 })
 ;
 
-const profile = connect(mapStateToProps, mapDispatchToProps)(Profile);
+const profiles = connect(mapStateToProps, mapDispatchToProps)(Profile);
 
-export default profile;
+export default profiles;

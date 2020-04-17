@@ -1,10 +1,11 @@
 import EditProfile from '../components/EditProfile';
-import {fetchProfile} from '../Redux/actions'
+import {fetchProfile, inputProfileChange} from '../Redux/actions'
 import {connect} from 'react-redux';
 
-const mapStateToProps = ({ profile }) => {
-  console.log(profile.firstname)
+const mapStateToProps = ({ data }) => {
+  const profile = data.profiles[0];
   return({
+    id: profile.id,
     firstname: profile.firstname,
     lastname: profile.lastname,
     age: profile.age,
@@ -15,16 +16,15 @@ const mapStateToProps = ({ profile }) => {
     portfolio: profile.portfolio,
     picture: profile.picture,
     bannerpicture: profile.bannerpicture,
-    id: profile.id,
   })
 };
 
 const mapDispatchToProps = (dispatch, {match}) => ({
-    
+  handleChange: (e) => dispatch(inputProfileChange({[e.target.name]: e.target.value})), 
   fetchData: dispatch(fetchProfile(match.params.id))
 })
 ;
 
-const profile = connect(mapStateToProps, mapDispatchToProps)(EditProfile);
+const profiles = connect(mapStateToProps, mapDispatchToProps)(EditProfile);
 
-export default profile;
+export default profiles;

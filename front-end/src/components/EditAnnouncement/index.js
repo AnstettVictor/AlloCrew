@@ -36,7 +36,7 @@ const EditAnnouncement = ({title, location, description, voluntary, picture, id}
         />
         <br/>
         <h2 className="editAnnouncement__desktop--Title">Lieu</h2>
-        <input className="editAnnouncement__input input" type="text" placeholder={location?location:"Titre de l'annonce"} />
+        <input className="editAnnouncement__input input" type="text" placeholder={location?location:"Lieu"} />
         
         <div>        
         <input className="editAnnouncement__volunteer" type="radio" id="volonteer" name="drone" value="volonteer" defaultChecked={voluntary} />

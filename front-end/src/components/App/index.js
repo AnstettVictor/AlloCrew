@@ -16,9 +16,9 @@ import Footer from '../Footer';
 import LandPage from '../LandPage';
 import Register from '../Register';
 import Login from '../Login';
-import Home from '../Home';
+import Home from '../../containers/Home';
 import Profile from '../../containers/Profile';
-import Search from '../Search';
+import Search from '../../containers/Search';
 import EditProfile from '../../containers/EditProfile';
 import EditAnnouncement from '../../containers/EditAnnouncement'
 import TchatRoom from '../TchatRoom';

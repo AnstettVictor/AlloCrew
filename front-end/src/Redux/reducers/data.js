@@ -1,12 +1,12 @@
-import {UPDATE_ANNOUNCEMENT} from '../actions';
+import {UPDATE_ANNOUNCEMENT, UPDATE_PROFILE, INPUT_PROFILE_CHANGE, INPUT_ANNOUNCEMENT_CHANGE} from '../actions';
 
 const initialState = {
   announcements: [
     {
       id: 0,
       category: "",
-      active: null,
-      voluntary: null,
+      active: true,
+      voluntary: true,
       dateStart: "",
       dateEnd: "",
       location: "",
@@ -14,7 +14,7 @@ const initialState = {
       description: "",
       picture: "",
       createdAt: "",
-      updatedAt: null,
+      updatedAt: "",
       user: {
         id: 0,
         firstname: "",
@@ -30,7 +30,7 @@ const initialState = {
       firstname:"",
       lastname: "",
       age: 0,
-      location: "",  
+      location: "gffd",  
       title: "",
       description: "",
       experience: "",
@@ -47,7 +47,22 @@ const reducer = (state = initialState, action) => {
     case UPDATE_ANNOUNCEMENT:
       return {
         ...state,
-        announcements: {...action.payload}, 
+        announcements: action.payload, 
+      };
+    case UPDATE_PROFILE:
+      return {
+        ...state,
+        profiles: action.payload, 
+      };
+    case INPUT_PROFILE_CHANGE:
+      return {
+        ...state,
+        profiles: [{...state.profiles[0], ...action.payload}], 
+      };
+    case INPUT_ANNOUNCEMENT_CHANGE:
+      return {
+        ...state,
+        announcements: [{...state.announcements[0], ...action.payload}], 
       };
       default:
         return state;

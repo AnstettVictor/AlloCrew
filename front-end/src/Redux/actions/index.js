@@ -1,9 +1,11 @@
 import axios from 'axios';
 
-
 export const LOG_USER = 'LOG_USER';
 export const UPDATE_ANNOUNCEMENT = 'UPDATE_ANNOUNCEMENT';
 export const UPDATE_PROFILE= 'UPDATE_PROFILE';
+export const INPUT_LOGIN_CHANGE= 'INPUT_LOGIN_CHANGE';
+export const INPUT_ANNOUNCEMENT_CHANGE= 'INPUT_ANNOUNCEMENT_CHANGE';
+export const INPUT_PROFILE_CHANGE= 'INPUT_PROFILE_CHANGE';
 
 
 
@@ -24,12 +26,20 @@ export const updateProfile = (payload) => ({
 })
 ;
 
+export const inputLoginChange = (payload) => ({
+  type: INPUT_LOGIN_CHANGE,
+  payload
+})
 
+export const inputAnnouncementChange = (payload) => ({
+  type: INPUT_ANNOUNCEMENT_CHANGE,
+  payload
+})
 
-
-
-
-
+export const inputProfileChange = (payload) => ({
+  type: INPUT_PROFILE_CHANGE,
+  payload
+})
 
 
 //Appels Ajax
@@ -72,8 +82,9 @@ export const fetchProfile = (id) => (dispatch) => {
 
 // For finding an announcement List
 export const fetchAnnouncementList = () => (dispatch) => {
-  axios.get(`http://3.88.40.169/api/announcements`)
+  axios.get(`https://raw.githubusercontent.com/Largenty/testallo/master/announcement.json`)
     .then((res) => {
+      console.log(res.data)
       const announcementListData = res.data
       dispatch(updateAnnouncement(announcementListData))
     })
@@ -81,9 +92,10 @@ export const fetchAnnouncementList = () => (dispatch) => {
 
 // For finding a profile List
 export const fetchProfileList = () => (dispatch) => {
-  axios.get(`http://3.88.40.169/api/users`)
+  axios.get(`https://raw.githubusercontent.com/Largenty/testallo/master/profile.json`)
     .then((res) => {
       const profileListData = res.data
       dispatch(updateProfile(profileListData))
     })
 };
+
