@@ -11,7 +11,7 @@ import {
 } from "react-router-dom";
 import ProfileList from './ProfileList';
 
-const Search = () => {
+const Search = ({announceList, profileList}) => {
   const [searchSwitch, setSearchSwitch] = useState(true);
   return (
   <div>
@@ -29,7 +29,7 @@ const Search = () => {
     </div>
     
     <div className="announcementList">
-      {searchSwitch? <AnnouncementList /> : <ProfileList />} 
+      {searchSwitch? <AnnouncementList list={announceList} /> : <ProfileList list={profileList} />} 
     </div>
   </div>
 )

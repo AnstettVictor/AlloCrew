@@ -21,8 +21,8 @@ const LandPage = () => {
             Aenean enim quam, blandit quis turpis quis, imperdiet pellentesque ligula. Vestibulum tristique nibh id enim suscipit, eget lobortis mi iaculis.
             </p>
           </div>
-          <Link to="/login"><a href="#" className="landPage__button button">Connexion</a></Link>
-          <Link to="/register"><a href="#" className="landPage__button button">Inscription</a></Link>
+          <Link to="/login"><span className="landPage__button button">Connexion</span></Link>
+          <Link to="/register"><span className="landPage__button button">Inscription</span></Link>
         </div>
       </div>
     </div>
