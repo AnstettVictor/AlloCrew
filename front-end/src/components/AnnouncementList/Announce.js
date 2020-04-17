@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import './style.scss';
 
 
@@ -21,7 +22,7 @@ const Announce = () => (
           <p>Rémunérée</p>
         </div>
         <input className="announce__button button see" type="button" value="Voir l'annonce"/>
-        <input className="announce__button button seeAndEdit" type="button" value="Voir / Modifier"/>
+        <Link to="/announcement/1" ><input className="announce__button button seeAndEdit" type="button" value="Voir / Modifier"/></Link>
       </div>
     </div>
   </div>

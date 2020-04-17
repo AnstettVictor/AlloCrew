@@ -3,7 +3,8 @@ import React from 'react';
 import {
   Switch,
   Route,
-  useParams,
+  useLocation,
+  Redirect
 } from "react-router-dom";
 
 //import local
@@ -15,7 +16,7 @@ import Header from '../Header';
 import Footer from '../Footer';
 import LandPage from '../LandPage';
 import Register from '../Register';
-import Login from '../Login';
+import Login from '../../containers/Login';
 import Home from '../Home';
 import Profile from '../Profile';
 import Search from '../Search';
@@ -31,8 +32,8 @@ import FAQ from '../FAQ';
 
 
 
-const App = () => {
-
+const App = ({isLogged}, truc) => {
+if(useLocation().pathname != '/login' && useLocation().pathname != '/' && !isLogged){return <Redirect to='/'/>}
 return(
   <>
     <div className="app__header" >
