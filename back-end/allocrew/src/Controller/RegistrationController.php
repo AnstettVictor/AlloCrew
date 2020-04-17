@@ -20,7 +20,6 @@ class RegistrationController extends AbstractController
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {  
-
         $user = new User();
        
         $donnees = json_decode($request->getContent());

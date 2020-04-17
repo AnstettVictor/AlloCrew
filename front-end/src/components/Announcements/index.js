@@ -1,9 +1,9 @@
 import React from 'react';
 import Announcement from './Announcement';
-import './style.css';
+import './style.scss';
 
 const Announcements = () => (
-  <h1>Announcements</h1>
+  <Announcement />
 )
 ;
 

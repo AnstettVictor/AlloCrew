@@ -1,0 +1,64 @@
+@import 'style/vars.scss';
+
+.landPage__Container {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 3rem;
+  left: 0;
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+}
+
+.landpage__filter {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0,0,0, .55);
+}
+
+.landPage__InfoContainer {
+  max-width: 1100px;
+  margin: 3rem auto;
+}
+
+.landPage__Description {
+  font-size: .8rem;
+  color: #fff;
+  p{
+    margin: 1rem;
+  }
+}
+
+.landPage__button {
+  margin: 2rem auto;
+  display: block;
+  text-decoration: none;
+  width: 15rem;
+}
+
+@media (min-width: 900px) and (min-height: 500px) {
+
+  .landPage__InfoContainer {
+
+    padding-top: 7rem;
+  }
+
+  .landPage__button {
+    display: inline-block;
+    margin: 4rem 1rem;
+  }
+
+  .landPage__Description {
+    max-width: 50rem;
+    font-size: 1rem;
+    color: #fff;
+    p{
+      margin: 1rem;
+    }
+  }
+
+}
