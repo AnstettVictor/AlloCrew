@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 
 
-const Header = ({connectedUser, isLogged}) => {
+const Header = ({connectedUser, logout}) => {
 
   const ref = useRef(null)
   //State du menu burger
@@ -58,7 +58,7 @@ const Header = ({connectedUser, isLogged}) => {
             <Link to={`/profile/${connectedUser.id}`}><li>Voir mon profil</li></Link>
             <Link to={`/edit-profile/${connectedUser.id}`}><li>Modifier mon profil</li></Link>
             <Link to={`/edit-user/${connectedUser.id}`}><li>Paramètres</li></Link>
-            <Link to="/"><li >Déconnexion</li></Link>
+            <Link to="/"><li onClick={logout} >Déconnexion</li></Link>
           </ul>
         </div>
       )

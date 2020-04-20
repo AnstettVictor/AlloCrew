@@ -1,5 +1,5 @@
 import Header from '../components/Header';
-import {logUser} from '../Redux/actions';
+import {logoutUser} from '../Redux/actions';
 import {connect} from 'react-redux';
 
 const mapStateToProps = ({login}) => ({
@@ -7,7 +7,9 @@ const mapStateToProps = ({login}) => ({
   connectedUser: login.connectedUser,
 });
 
-const mapDispatchToProps = () => ({});
+const mapDispatchToProps = (dispatch) => ({
+  logout: () => dispatch(logoutUser())
+});
 
 const logins = connect(mapStateToProps, mapDispatchToProps)(Header);
 

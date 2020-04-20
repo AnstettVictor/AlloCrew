@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export const LOGIN_OK = 'LOGIN_OK';
+export const LOGOUT = 'LOGOUT';
 export const UPDATE_ANNOUNCEMENT = 'UPDATE_ANNOUNCEMENT';
 export const UPDATE_PROFILE= 'UPDATE_PROFILE';
 export const INPUT_LOGIN_CHANGE= 'INPUT_LOGIN_CHANGE';
@@ -11,6 +12,11 @@ export const INPUT_PROFILE_CHANGE= 'INPUT_PROFILE_CHANGE';
 
 export const loginOk = () => ({
   type: LOGIN_OK,  
+})
+;
+
+export const logout = () => ({
+  type: LOGOUT,  
 })
 ;
 
@@ -58,7 +64,33 @@ export const logUser = () => (dispatch, getState) => {
     console.log(userId);
     dispatch(loginOk());
   })
-  .catch((err) => console.log(err))
+  .catch((err) => {
+    console.log(err)
+    dispatch(logoutUser());
+  })
+};
+
+export const logoutUser = () => (dispatch) => {
+  localStorage.removeItem('token');
+  dispatch(logout())
+};
+
+
+export const checkAuth = () => (dispatch) => {
+  axios({
+    headers: {
+      Authorization: `bearer ${localStorage.getItem('token')}`,
+    },
+    method: 'post',
+    url: 'http://3.88.40.169/api/token_check', 
+  })
+  .then(() => {
+    dispatch(loginOk())
+  })
+  .catch((err) => {
+    console.log(err)
+    dispatch(logoutUser());
+  })
 };
 
 

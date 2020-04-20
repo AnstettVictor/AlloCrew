@@ -1,4 +1,4 @@
-import {LOGIN_OK, INPUT_LOGIN_CHANGE} from '../actions';
+import {LOGIN_OK, LOGOUT, INPUT_LOGIN_CHANGE} from '../actions';
 
 const initialState = {
   isLogged:false,
@@ -23,6 +23,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         isLogged: true,
+                 
+      };
+      case LOGOUT:
+      return {
+        ...state,
+        isLogged: false,
                  
       };
     case INPUT_LOGIN_CHANGE:
