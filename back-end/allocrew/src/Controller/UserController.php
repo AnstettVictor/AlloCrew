@@ -143,6 +143,12 @@ class UserController extends AbstractController
                 } else return new Response('Prénom Invalide', 400);
             }
 
+            if (isset($form['email'])) {
+                if ($form['email']->isValid()) {
+                    $user->setEmail($form['email']->getData());
+                } else return new Response('Email Invalide', 400);
+            }
+
             if (isset($form['lastname'])) {
                 if ($form['lastname']->isValid()) {
                     $user->setLastname($form['lastname']->getData());
@@ -186,40 +192,40 @@ class UserController extends AbstractController
                     $user->setPortfolio($form['portfolio']->getData());
                 } else return new Response('Portfolio Invalide', 400);
             }
-            if (isset($form['picture'])) {
-                if ($form['picture']->isValid()) {
-                    /** @var UploadImage 
-                     * $uploadedFile */
-                    $uploadedFile = $form['picture']->getData();
+            // if (isset($form['picture'])) {
+            //     if ($form['picture']->isValid()) {
+            //         /** @var UploadImage 
+            //          * $uploadedFile */
+            //         $uploadedFile = $form['picture']->getData();
 
-                    dd($form['picture']);
-                    $destination = $this->getParameter('kernel.project_dir') . '/public/uploads/Picture';
-                    $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-                    $newFilename = $originalFilename . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
-                    $uploadedFile->move(
-                        $destination,
-                        $newFilename
-                    );
-                    $user->setPicture($newFilename);
-                } else return new Response('Photo Invalide', 400);
-            }
-            if (isset($form['bannerpicture'])) {
-                if ($form['bannerpicture']->isValid()) {
-                    /** @var UploadImage 
-                     * $uploadedFile */
-                    $uploadedFile = $form['bannerpicture']->getData();
+            //         dd($form['picture']);
+            //         $destination = $this->getParameter('kernel.project_dir') . '/public/uploads/Picture';
+            //         $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+            //         $newFilename = $originalFilename . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
+            //         $uploadedFile->move(
+            //             $destination,
+            //             $newFilename
+            //         );
+            //         $user->setPicture($newFilename);
+            //     } else return new Response('Photo Invalide', 400);
+            // }
+            // if (isset($form['bannerpicture'])) {
+            //     if ($form['bannerpicture']->isValid()) {
+            //         /** @var UploadImage 
+            //          * $uploadedFile */
+            //         $uploadedFile = $form['bannerpicture']->getData();
 
-                    dd($form['bannerpicture']);
-                    $destination = $this->getParameter('kernel.project_dir') . '/public/uploads/BannerPicture';
-                    $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-                    $newFilename = $originalFilename . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
-                    $uploadedFile->move(
-                        $destination,
-                        $newFilename
-                    );
-                    $user->setBannerpicture($newFilename);
-                } else return new Response('Bannière Invalide', 400);
-            }
+            //         dd($form['bannerpicture']);
+            //         $destination = $this->getParameter('kernel.project_dir') . '/public/uploads/BannerPicture';
+            //         $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+            //         $newFilename = $originalFilename . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
+            //         $uploadedFile->move(
+            //             $destination,
+            //             $newFilename
+            //         );
+            //         $user->setBannerpicture($newFilename);
+            //     } else return new Response('Bannière Invalide', 400);
+            // }
         }
 
         $user->setUpdatedAt(new \Datetime());
