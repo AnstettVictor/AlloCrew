@@ -24,6 +24,8 @@ Login.proptypes = {
   isLogged: PropTypes.bool.isRequired,
   login: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
+  email: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired
 }
 
 export default Login; 

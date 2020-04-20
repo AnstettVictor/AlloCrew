@@ -1,19 +1,27 @@
 import Home from '../components/Home';
-import {fetchAnnouncementList} from '../Redux/actions'
+import {fetchProfile} from '../Redux/actions'
 import {connect} from 'react-redux';
 
-const mapStateToProps = (state) => {
-  console.log(state)
+const mapStateToProps = ({data, login}) => {
   return({
-    list: state.data.announcements,
-    homeProfile: state.login.connectedUser
+    userId: login.userId,
+    homeProfile: data.profiles[0]
   })
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  fetchAnnouncementList: dispatch(fetchAnnouncementList()) 
+//fonction intermediaire pour passer le state à mapdispatchtoprops en utilisant thunk
+const passId = () => (dispatch, getState) => {
+  dispatch(fetchProfile(getState().login.userId))
+}
+
+const mapDispatchToProps = (dispatch) =>{
+ return ({
+  fetchHomeProfile : dispatch(passId())
 })
+}
 ;
+
+
 
 const home = connect(mapStateToProps, mapDispatchToProps)(Home);
 

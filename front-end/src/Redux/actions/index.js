@@ -1,4 +1,10 @@
+//imports
 import axios from 'axios';
+//vars
+const token = localStorage.getItem('token');
+const userId = JSON.parse(atob(token.split('.')[1])).id;
+
+
 
 export const LOGIN_OK = 'LOGIN_OK';
 export const LOGOUT = 'LOGOUT';
@@ -9,9 +15,9 @@ export const INPUT_ANNOUNCEMENT_CHANGE= 'INPUT_ANNOUNCEMENT_CHANGE';
 export const INPUT_PROFILE_CHANGE= 'INPUT_PROFILE_CHANGE';
 
 
-
-export const loginOk = () => ({
-  type: LOGIN_OK,  
+export const loginOk = (payload) => ({
+  type: LOGIN_OK, 
+  payload 
 })
 ;
 
@@ -58,11 +64,9 @@ export const logUser = () => (dispatch, getState) => {
     data: getState().login.data
   })
   .then((res) => {
-    localStorage.setItem('token', res.data.token);
-    const token = localStorage.getItem('token');
-    const userId = JSON.parse(atob(token.split('.')[1])).id;
-    console.log(userId);
-    dispatch(loginOk());
+    const _token = res.data.token;
+    localStorage.setItem('token', _token);
+    dispatch(loginOk(userId));
   })
   .catch((err) => {
     console.log(err)
@@ -79,13 +83,13 @@ export const logoutUser = () => (dispatch) => {
 export const checkAuth = () => (dispatch) => {
   axios({
     headers: {
-      Authorization: `bearer ${localStorage.getItem('token')}`,
+      Authorization: `bearer ${token}`,
     },
     method: 'post',
     url: 'http://3.88.40.169/api/token_check', 
   })
   .then(() => {
-    dispatch(loginOk())
+    dispatch(loginOk(userId))
   })
   .catch((err) => {
     console.log(err)
@@ -106,13 +110,21 @@ export const fetchAnnouncement = (id) => (dispatch) => {
 
 // For finding one profile with id
 export const fetchProfile = (id) => (dispatch) => {
-  axios.get(`http://3.88.40.169/api/users/${id}`)
-    .then((res) => {
-      console.log('notre id',id);
-      const profileData = res.data
-      dispatch(updateProfile(profileData))
-    })
+  axios({
+    headers: {
+      Authorization: `bearer ${token}`,
+    },
+    method: 'get',
+    url: `http://3.88.40.169/api/users/${id}`, 
+  })
+  .then((res) => {
+    dispatch(updateProfile(res.data))
+  })
+  .catch((err) => {
+    console.log(err)
+  })
 };
+
 
 // For finding an announcement List
 export const fetchAnnouncementList = () => (dispatch) => {

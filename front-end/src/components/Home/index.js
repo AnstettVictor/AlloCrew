@@ -5,11 +5,11 @@ import './style.scss';
 import Profile from './HomeProfile';
 import AnnouncementList from '../AnnouncementList';
 
-const Home = ({list, homeProfile}) => (
+const Home = ({list, homeProfile, userId}) => (
   <div className="home__container">
     <div className="home__left">
       <div className="home__profile">
-        <Profile connectedUser={homeProfile} />
+        <Profile {...homeProfile} id={userId} />
       </div>
       <div className="home__news" />
     </div>
@@ -22,7 +22,7 @@ const Home = ({list, homeProfile}) => (
       </ul>
       
 
-      <AnnouncementList list={list} />
+      {/* <AnnouncementList list={list} /> */}
 
     </div>
   </div>
