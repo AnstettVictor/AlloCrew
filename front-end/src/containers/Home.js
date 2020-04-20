@@ -1,11 +1,12 @@
 import Home from '../components/Home';
-import {fetchProfile} from '../Redux/actions'
+import {fetchProfile, fetchAnnouncementList} from '../Redux/actions'
 import {connect} from 'react-redux';
 
 const mapStateToProps = ({data, login}) => {
   return({
     userId: login.userId,
-    homeProfile: data.profiles[0]
+    homeProfile: data.profiles[0],
+    list: data.announcements
   })
 };
 
@@ -16,10 +17,10 @@ const passId = () => (dispatch, getState) => {
 
 const mapDispatchToProps = (dispatch) =>{
  return ({
-  fetchHomeProfile : dispatch(passId())
+  fetchHomeProfile: dispatch(passId()),
+  fetchAnnouncements: dispatch(fetchAnnouncementList())
 })
-}
-;
+};
 
 
 

@@ -21,8 +21,7 @@ const Home = ({list, homeProfile, userId}) => (
         <li className="home__navlink-links">Mes annonces</li>
       </ul>
       
-
-      {/* <AnnouncementList  /> */}
+     <AnnouncementList list={list} />
 
     </div>
   </div>

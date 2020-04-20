@@ -6,8 +6,8 @@ import {date} from 'utils/functions';
 
 const Announce = ({ title, location, description, picture, voluntary, id, dateEnd, dateStart, active, user, createdAt }) =>  (
   <div className="announce">
-    <div className="announce__banner" >
-      <div className="announce__avatar"/>
+    <div className="announce__banner" style={{backgroundImage: `url(${picture})`}}  >
+      <div className="announce__avatar" style={{backgroundImage: `url(${user.picture})`}} />
     </div>
 
     <p className="announce__user">{user.firstname} {user.lastname} - user.title  <span className="announce__creation">créée le {date(createdAt)}</span></p>

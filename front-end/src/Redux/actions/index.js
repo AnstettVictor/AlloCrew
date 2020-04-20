@@ -131,12 +131,17 @@ export const fetchProfile = (id) => (dispatch) => {
 
 // For finding an announcement List
 export const fetchAnnouncementList = () => (dispatch) => {
-  axios.get(`https://raw.githubusercontent.com/Largenty/testallo/master/announcement.json`)
-    .then((res) => {
-      console.log(res.data)
-      const announcementListData = res.data
-      dispatch(updateAnnouncement(announcementListData))
-    })
+  axios({
+    headers: {
+      Authorization: `bearer ${token()}`,
+    },
+    method: 'get',
+    url: `http://3.88.40.169/api/announcements/`, 
+  })
+  .then((res) => {
+    const announcementListData = res.data
+    dispatch(updateAnnouncement(announcementListData))
+  })
 };
 
 // For finding a profile List

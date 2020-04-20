@@ -3,7 +3,7 @@ import './style.scss';
 import Announce from './Announce';
 import Proptypes from 'prop-types';
 
-const AnnouncementList = ({}) => (
+const AnnouncementList = ({list}) => (
   <> 
     {
       list.map((announcement) => <Announce key={announcement.id} {...announcement}/>)
