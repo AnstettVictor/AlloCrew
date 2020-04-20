@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const LOG_USER = 'LOG_USER';
+export const LOGIN_OK = 'LOGIN_OK';
 export const UPDATE_ANNOUNCEMENT = 'UPDATE_ANNOUNCEMENT';
 export const UPDATE_PROFILE= 'UPDATE_PROFILE';
 export const INPUT_LOGIN_CHANGE= 'INPUT_LOGIN_CHANGE';
@@ -9,8 +9,8 @@ export const INPUT_PROFILE_CHANGE= 'INPUT_PROFILE_CHANGE';
 
 
 
-export const saveUser = () => ({
-  type: LOG_USER,  
+export const loginOk = () => ({
+  type: LOGIN_OK,  
 })
 ;
 
@@ -56,6 +56,7 @@ export const logUser = () => (dispatch, getState) => {
     const token = localStorage.getItem('token');
     const userId = JSON.parse(atob(token.split('.')[1])).id;
     console.log(userId);
+    dispatch(loginOk());
   })
   .catch((err) => console.log(err))
 };

@@ -1,11 +1,11 @@
-import {LOG_USER, INPUT_LOGIN_CHANGE} from '../actions';
+import {LOGIN_OK, INPUT_LOGIN_CHANGE} from '../actions';
 
 const initialState = {
+  isLogged:false,
   data: {
     username:"",
     password:""
   },
-  isLogged:false,
   connectedUser: {
     id: 0,
     firstname: "",
@@ -19,7 +19,7 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   console.log(action.payload)
   switch (action.type) {
-    case LOG_USER:
+    case LOGIN_OK:
       return {
         ...state,
         isLogged: true,

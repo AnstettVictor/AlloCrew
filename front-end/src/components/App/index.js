@@ -3,6 +3,7 @@ import React from 'react';
 import {
   Switch,
   Route,
+  Redirect
 } from "react-router-dom";
 
 //import local
@@ -35,7 +36,7 @@ import FAQ from '../FAQ';
 
 
 
-const App = ({}) => {
+const App = ({isLogged}) => {
 
 return(
   <>
@@ -47,22 +48,29 @@ return(
       {/* Routes */}
       <Switch>
         <Route path="/" exact component={LandPage} />
-        <Route path="/home" component={Home} />
         <Route path="/register" exact component={Register} />
         <Route path="/login" exact component={Login} />
-        <Route path="/profile/:id" exact component={Profile} />
-        <Route path="/edit-user/:id" exact component={EditUser} />
-        <Route path="/edit-announcement/:id" exact component={EditAnnouncement} />
-        <Route path="/create-announcement" exact component={CreateAnnouncement} />
-        <Route path="/edit-profile/:id" exact component={EditProfile} />
-        <Route path="/my-announcements" exact component={MyAnnouncements} />
-        <Route path="/search" exact component={Search} />
-        <Route path="/tchat-room" exact component={TchatRoom} />
-        <Route path="/legal-notice" exact component={LegalNotice} />
-        <Route path="/contact" exact component={Contact} />
-        <Route path="/information" exact component={Information} />
-        <Route path="/announcement/:id" exact component={Announcement} /> 
-        <Route path="/faq" exact component={FAQ} />
+        {
+          isLogged &&
+
+          (<>
+          <Route path="/home" component={Home} />
+          <Route path="/profile/:id" exact component={Profile} />
+          <Route path="/edit-user/:id" exact component={EditUser} />
+          <Route path="/edit-announcement/:id" exact component={EditAnnouncement} />
+          <Route path="/create-announcement" exact component={CreateAnnouncement} />
+          <Route path="/edit-profile/:id" exact component={EditProfile} />
+          <Route path="/my-announcements" exact component={MyAnnouncements} />
+          <Route path="/search" exact component={Search} />
+          <Route path="/tchat-room" exact component={TchatRoom} />
+          <Route path="/legal-notice" exact component={LegalNotice} />
+          <Route path="/contact" exact component={Contact} />
+          <Route path="/information" exact component={Information} />
+          <Route path="/announcement/:id" exact component={Announcement} /> 
+          <Route path="/faq" exact component={FAQ} />
+          </>)
+        }
+        <Route path="*" render={() => (<Redirect to="/" />)} />
       </Switch>
     </div>
     <div className="app__footer">

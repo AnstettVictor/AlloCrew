@@ -1,8 +1,8 @@
 import {connect} from 'react-redux';
 import App from '../components/App'
 
-const mapStateToProps = () => ({
-  
+const mapStateToProps = ({login}) => ({
+  isLogged: login.isLogged
 });
 
 const mapDispatchToProps = () => ({
