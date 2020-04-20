@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use App\Entity\Announcement;
+use DateTime;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -28,7 +29,7 @@ class AnnouncementType extends AbstractType
                     new NotBlank(),
                     new Length([
                         'min' => 0,
-                        'max' => 2,
+                        'max' => 30,
                     ])
                     ]
             ])
@@ -43,20 +44,11 @@ class AnnouncementType extends AbstractType
                 'label' => 'Evènement rémunéré ou bénévole ?',
             ])
             ->add('date_start', DateTimeType::class, [
-                'constraints' => new Date(),
+               
                 'label' => 'Cet évènement commencera le  ',
-                'widget' => 'single_text',
-                //default format of the date 
-                'format' => 'yyyy-MM-dd',
-
-                // prevents rendering it as type="date", to avoid HTML5 date pickers
-                'html5' => false,
-
-                // adds a class that can be selected in JavaScript
-                'attr' => ['class' => 'js-datetimepicker']
+                
             ])
-            ->add('date_end', DateType::class, [
-                'constraints' => new Date(),
+            ->add('date_end', DateTimeType::class, [
                 'label' => 'Cet évènement se terminera le ',
                 'widget' => 'single_text',
                 //default format of the date 
@@ -71,13 +63,10 @@ class AnnouncementType extends AbstractType
             ->add('location')
             ->add('title', TextType::class, [
                 'constraints' => [
-                    new NotBlank(),
-                    new Length([
-                        'min' => 0,
-                        'max' => 3,
-                    ])
+                    new NotBlank()
+                ]
                     ]
-            ])
+            )
             ->add('description')
             ->add('picture', FileType::class, [
                 'constraints' => new File(),

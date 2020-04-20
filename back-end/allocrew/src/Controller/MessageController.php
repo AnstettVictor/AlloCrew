@@ -15,8 +15,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 /**
-     * @Route("/api/messages", name="api_messages")
-     */
+ * @Route("/api/messages", name="api_messages")
+ */
 class MessageController extends AbstractController
 {
     /**
@@ -59,7 +59,7 @@ class MessageController extends AbstractController
      */
     public function add(Request $request, UserRepository $userRepository, DiscussionRepository $discussionRepository)
     {
-        
+
         $message = new Message();
 
 
@@ -70,28 +70,22 @@ class MessageController extends AbstractController
         $form = $this->createForm(MessageType::class, $message);
         $donnees = $form->submit($donnees);
 
-        if (isset($donnees->content)) {
-            $message->setContent($donnees->content);
-        };
-        
-        if (isset($donnees->user)) {
-            $user = $userRepository->find($donnees->user);
-            $users = $user->getId();
-            $message->setUser($users);
+        if ($form->isSubmitted()) {
+            if ($form['content']->isValid()) {
+                $message->setContent($form['content']->getData());
+            } else return new Response('Contenu Invalide', 400);
+            if ($form['user']->isValid()) {
+                $user = $userRepository->find($form['user']->getData());
+                $message->setUser($user);
+            } else return new Response('Utilisateur Invalide', 400);
+            if ($form['discussion']->isValid()) {
+                $discussion = $discussionRepository->find($form['discussion']->getData());
+                $message->setDiscussion($discussion);
+            } else return new Response('Discussion Invalide', 400);
         }
-
-
-        if (isset($donnees->discussion)) {
-            $discussion = $userRepository->find($donnees->discussion);
-            $discussions = $discussion->getId();
-            $message->setDiscussion($discussions);
-        }
-      
-
-
 
         $message->setCreatedAt(new \Datetime());
-        
+
         // On sauvegarde en base
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($message);
@@ -102,7 +96,7 @@ class MessageController extends AbstractController
     }
 
 
-     /**
+    /**
      * @Route("/{id}", name="edit", methods={"PATCH"}, requirements={"id": "\d+"})
      */
     public function edit(Message $message, Request $request, $id)
@@ -113,10 +107,12 @@ class MessageController extends AbstractController
          * sinon on passe à la suite */
         $form = $this->createForm(MessageType::class, $message);
         $donnees = $form->submit($donnees);
-        if (isset($donnees->content)) {
-            $message->setContent($donnees->content);
-        };
-        
+        if ($form->isSubmitted()) {
+            if ($form['content']->isValid()) {
+                $message->setContent($form['content']->getData());
+            } else return new Response('Contenu Invalide', 400);
+        }
+
         $message->setUpdatedAt(new \Datetime());
 
         $message = $this->getDoctrine()->getRepository(Message::class)->findOneBy(["id" => $id]);
@@ -130,7 +126,7 @@ class MessageController extends AbstractController
         return new Response('ok', 204);
     }
 
-     /**
+    /**
      * @Route("/{id}", name="delete", requirements={"id": "\d+"}, methods={"DELETE"})
      */
     public function delete(Message $message)

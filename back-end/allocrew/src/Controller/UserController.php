@@ -23,9 +23,9 @@ class UserController extends AbstractController
     /**
      * @Route("/account/{id}", name="account", requirements={"id": "\d+"}, methods={"GET"})
      */
-    public function account(UserRepository $userRepository , SerializerInterface $serializer,  $id)
+    public function account(UserRepository $userRepository, SerializerInterface $serializer,  $id)
     {
-            
+
         $user = $userRepository->findBy(array('id' => $id));
 
         if (!empty($user)) {
@@ -37,7 +37,6 @@ class UserController extends AbstractController
         } else {
             return new Response("l'utilisateur n'est pas en base de données  ", 404);
         }
-
     }
 
     /**
@@ -46,45 +45,45 @@ class UserController extends AbstractController
     public function accountEdit(User $user, Request $request, $id)
     {
 
-          // On décode les données envoyées
-          $donnees = json_decode($request->getContent());
-          /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
-           * sinon on passe à la suite */   
-          if (isset($donnees->email)) {
+        // On décode les données envoyées
+        $donnees = json_decode($request->getContent());
+        /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
+         * sinon on passe à la suite */
+        if (isset($donnees->email)) {
             $user->setEmail($donnees->email);
-        }     
-          if (isset($donnees->firstname)) {
-              $user->setFirstname($donnees->firstname);
-          };
-          if (isset($donnees->lastname)) {
-              $user->setLastname($donnees->lastname);
-          }
-         
-          $user->setUpdatedat(new \Datetime());
+        }
+        if (isset($donnees->firstname)) {
+            $user->setFirstname($donnees->firstname);
+        };
+        if (isset($donnees->lastname)) {
+            $user->setLastname($donnees->lastname);
+        }
 
-          $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(["id" => $id]);
-  
-          // On sauvegarde en base
-          $entityManager = $this->getDoctrine()->getManager();
-          $entityManager->persist($user);
-          $entityManager->flush();
-  
-          // On retourne la confirmation
-          return new Response('ok', 201);
+        $user->setUpdatedat(new \Datetime());
+
+        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(["id" => $id]);
+
+        // On sauvegarde en base
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        // On retourne la confirmation
+        return new Response('ok', 201);
     }
 
     /**
      * @Route("/password/{id}", name="account_edit_password", methods={"PATCH"})
      */
-    public function passwordEdit(User $user, Request $request,UserPasswordEncoderInterface $encoder)
+    public function passwordEdit(User $user, Request $request, UserPasswordEncoderInterface $encoder)
     {
         // On décode les données envoyées
         $donnees = json_decode($request->getContent());
         /** On verifie si la propriété est envoyé dans le json si oui encode le mot de passe  
-         * sinon on passe à la suite */   
+         * sinon on passe à la suite */
         if (isset($donnees->password)) {
-        $user->setPassword($encoder->encodePassword($user, $donnees->password));
-         }
+            $user->setPassword($encoder->encodePassword($user, $donnees->password));
+        }
         $user->setUpdatedat(new \Datetime());
 
         $entityManager = $this->getDoctrine()->getManager();
@@ -113,7 +112,7 @@ class UserController extends AbstractController
      */
     public function read(UserRepository $UserRepository, $id, SerializerInterface $serializer)
     {
-            
+
         $user = $UserRepository->findBy(array('id' => $id));
         if (!empty($user)) {
             return $this->json($serializer->normalize(
@@ -136,58 +135,93 @@ class UserController extends AbstractController
         $form = $this->createForm(UserType::class, $user);
         $donnees = $form->submit($donnees);
         /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
-         * sinon on passe à la suite */        
-        if (isset($donnees->firstname)) {
-            $user->setFirstname($donnees->firstname);
-        };
-        if (isset($donnees->lastname)) {
-            $user->setLastname($donnees->lastname);
+         * sinon on passe à la suite */
+        if ($form->isSubmitted()) {
+            if (isset($form['firstname'])) {
+                if ($form['firstname']->isValid()) {
+                    $user->setFirstname($form['firstname']->getData());
+                } else return new Response('Prénom Invalide', 400);
+            }
+
+            if (isset($form['lastname'])) {
+                if ($form['lastname']->isValid()) {
+                    $user->setLastname($form['lastname']->getData());
+                } else return new Response('Nom de Famille Invalide', 400);
+            }
+
+            if (isset($form['age'])) {
+                if ($form['age']->isValid()) {
+
+                    $user->setAge($form['age']->getData());
+                } else return new Response('Age Invalide', 400);
+            }
+
+            if (isset($form['location'])) {
+                if ($form['location']->isValid()) {
+
+                    $user->setLocation($form['location']->getData());
+                } else return new Response('Ville Invalide', 400);
+            }
+            if (isset($form['title'])) {
+                if ($form['title']->isValid()) {
+
+                    $user->setTitle($form['title']->getData());
+                } else return new Response('Titre Invalide', 400);
+            }
+            if (isset($form['description'])) {
+                if ($form['description']->isValid()) {
+
+                    $user->setDescription($form['description']->getData());
+                } else return new Response('Description Invalide', 400);
+            }
+            if (isset($form['experience'])) {
+                if ($form['experience']->isValid()) {
+
+                    $user->setExperience($form['experience']->getData());
+                } else return new Response('Expérience Invalide', 400);
+            }
+            if (isset($form['portfolio'])) {
+                if ($form['portfolio']->isValid()) {
+
+                    $user->setPortfolio($form['portfolio']->getData());
+                } else return new Response('Portfolio Invalide', 400);
+            }
+            if (isset($form['picture'])) {
+                if ($form['picture']->isValid()) {
+                    /** @var UploadImage 
+                     * $uploadedFile */
+                    $uploadedFile = $form['picture']->getData();
+
+                    dd($form['picture']);
+                    $destination = $this->getParameter('kernel.project_dir') . '/public/uploads/Picture';
+                    $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+                    $newFilename = $originalFilename . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
+                    $uploadedFile->move(
+                        $destination,
+                        $newFilename
+                    );
+                    $user->setPicture($newFilename);
+                } else return new Response('Photo Invalide', 400);
+            }
+            if (isset($form['bannerpicture'])) {
+                if ($form['bannerpicture']->isValid()) {
+                    /** @var UploadImage 
+                     * $uploadedFile */
+                    $uploadedFile = $form['bannerpicture']->getData();
+
+                    dd($form['bannerpicture']);
+                    $destination = $this->getParameter('kernel.project_dir') . '/public/uploads/BannerPicture';
+                    $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+                    $newFilename = $originalFilename . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
+                    $uploadedFile->move(
+                        $destination,
+                        $newFilename
+                    );
+                    $user->setBannerpicture($newFilename);
+                } else return new Response('Bannière Invalide', 400);
+            }
         }
-        if (isset($donnees->age)) {
-            $user->setAge($donnees->age);
-        }
-        if (isset($donnees->location)) {
-            $user->setLocation($donnees->location);
-        }
-        if (isset($donnees->title)) {
-            $user->setTitle($donnees->title);
-        }
-        if (isset($donnees->description)) {
-            $user->setDescription($donnees->description);
-        }
-        if (isset($donnees->experience)) {
-            $user->setExperience($donnees->experience);
-        }
-        if (isset($donnees->portfolio)) {
-            $user->setPortfolio($donnees->portfolio);
-        }
-     
-        if (isset($donnees->picture)) {
-            /** @var UploadImage 
-             * $uploadedFile */
-            $uploadedFile = $donnees->picture->getData();
-            $destination = $this->getParameter('kernel.project_dir').'/public/uploads/Picture';
-            $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-            $newFilename = ($originalFilename->camel()).'-'.uniqid().'.'.$uploadedFile->guessExtension();
-            $uploadedFile->move(
-                $destination,
-                $newFilename
-            );
-            $user->setPicture($newFilename);
-        }
-        if (isset($donnees->bannerpicture)) {
-            /** @var UploadImage 
-             * $uploadedFile */
-            $uploadedFile = $donnees->bannerpicture->getData();
-            $destination = $this->getParameter('kernel.project_dir').'/public/uploads/BannerPicture';
-            $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-            $newFilename = ($originalFilename->camel()).'-'.uniqid().'.'.$uploadedFile->guessExtension();
-            $uploadedFile->move(
-                $destination,
-                $newFilename
-            );
-            $user->setBannerPicture($newFilename);
-        }
+
         $user->setUpdatedAt(new \Datetime());
 
         $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(["id" => $id]);
@@ -201,7 +235,7 @@ class UserController extends AbstractController
         return new Response('ok', 201);
     }
 
-     /**
+    /**
      * @Route("/announcement/{id}", name="read_announcement", requirements={"id": "\d+"},  methods={"GET"})
      */
     public function readAnnouncement(AnnouncementRepository $announcementRepository, User $user, SerializerInterface $serializer, $id)

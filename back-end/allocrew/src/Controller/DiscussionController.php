@@ -43,13 +43,13 @@ class DiscussionController extends AbstractController
     {
 
         $data = [];
-        $creator = $discussionRepository->findBy(array('creator' => $id ));
-       
-       $receiver = $discussionRepository->findBy(array('receiver' => $id ));
-    
-       $data['by_creator'] = $creator;
-       $data['by_receiver'] = $receiver;
-    
+        $creator = $discussionRepository->findBy(array('creator' => $id));
+
+        $receiver = $discussionRepository->findBy(array('receiver' => $id));
+
+        $data['by_creator'] = $creator;
+        $data['by_receiver'] = $receiver;
+
         return $this->json($serializer->normalize(
             $data,
             null,
@@ -67,26 +67,25 @@ class DiscussionController extends AbstractController
 
         // On décode les données envoyées
         $donnees = json_decode($request->getContent(), true);
-     /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
-      * sinon on passe à la suite */
+        /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
+         * sinon on passe à la suite */
         $form = $this->createForm(DiscussionType::class, $discussion);
-     
+
         $donnees = $form->submit($donnees);
 
-        if (isset($donnees->creator)) {
-            $creator = $userRepository->find($donnees->creator);
-            $creators = $creator->getId();
-            $discussion->setCreator($creators);
-        }
-        if (isset($donnees->receiver)) {
-            $receiver = $userRepository->find($donnees->receiver);
-            $receivers = $receiver->getId();
-            $discussion->setCreator($receivers);
-        }
-        if (isset($donnees->announcement)) {
-            $announcement = $userRepository->find($donnees->announcement);
-            $announcements = $announcement->getId();
-            $discussion->setCreator($announcements);
+        if ($form->isSubmitted()) {
+            if ($form['creator']->isValid()) {
+                $user = $userRepository->find($form['creator']->getData());
+                $discussion->setCreator($user);
+            } else return new Response('Créateur Invalide', 400);
+            if ($form['receiver']->isValid()) {
+                $user = $userRepository->find($form['receiver']->getData());
+                $discussion->setReceiver($user);
+            } else return new Response('Receveur Invalide', 400);
+            if ($form['announcement']->isValid()) {
+                $announcement = $announcementRepository->find($form['announcement']->getData());
+                $discussion->setAnnouncement($announcement);
+            } else return new Response('Créateur Invalide', 400);
         }
 
         $discussion->setCreatedAt(new \Datetime());
