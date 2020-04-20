@@ -36,6 +36,17 @@ class SecurityController extends AbstractController
         // return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
+
+    /**
+     * @Route("/api/token_check", name="app_token_check",  methods={"POST"} )
+     */
+    public function token_check(): Response
+    {
+       // On retourne la confirmation
+       return new Response('token ok', 201);
+    }
+
+
     /**
      * @Route("/logout", name="app_logout")
      */
