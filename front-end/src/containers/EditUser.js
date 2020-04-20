@@ -22,6 +22,6 @@ const mapDispatchToProps = (dispatch, {match}) => ({
 })
 ;
 
-const profiles = connect(mapStateToProps, mapDispatchToProps)(EditProfile);
+const profiles = connect(mapStateToProps, mapDispatchToProps);
 
 export default profiles;

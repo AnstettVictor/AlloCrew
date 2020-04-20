@@ -1,6 +1,7 @@
 import {UPDATE_ANNOUNCEMENT, UPDATE_PROFILE, INPUT_PROFILE_CHANGE, INPUT_ANNOUNCEMENT_CHANGE} from '../actions';
 
 const initialState = {
+  prout:0,
   announcements: [
     {
       id: 0,
@@ -44,6 +45,7 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+  
     case UPDATE_ANNOUNCEMENT:
       return {
         ...state,

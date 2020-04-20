@@ -8,7 +8,7 @@ import thunk from 'redux-thunk';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const enhancers = composeEnhancers(
-  applyMiddleware(thunk),
+  applyMiddleware(thunk)
 );
 
 const rootReducer = combineReducers({login, data}) 

@@ -25,14 +25,5 @@ const HomeProfile = ({ connectedUser, isLogged }) => (
 )
 ;
 
-HomeProfile.PropTypes = {
-  isLogged: PropTypes.bool.isRequired,
-  connectedUser: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    picture: PropTypes.string.isRequired,
-    
-  }).isRequired,
-
-}
 
 export default HomeProfile;

@@ -3,17 +3,15 @@ import React from 'react';
 import {
   Switch,
   Route,
-  useParams,
 } from "react-router-dom";
 
 //import local
 import './style.scss';
-import exemple from './exemple.json';
 
 //import Components
 import LandPage from '../LandPage';
 import Register from '../Register';
-import Login from '../Login';
+import Login from '../../containers/Login';
 
 import Header from '../../containers/Header';
 import Home from '../../containers/Home';
@@ -37,7 +35,7 @@ import FAQ from '../FAQ';
 
 
 
-const App = () => {
+const App = ({}) => {
 
 return(
   <>

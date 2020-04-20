@@ -5,11 +5,11 @@ import './style.scss';
 import Profile from './HomeProfile';
 import AnnouncementList from '../AnnouncementList';
 
-const Home = ({list}) => (
+const Home = ({list, homeProfile}) => (
   <div className="home__container">
     <div className="home__left">
       <div className="home__profile">
-        <Profile />
+        <Profile connectedUser={homeProfile} />
       </div>
       <div className="home__news" />
     </div>

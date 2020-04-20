@@ -9,7 +9,7 @@ export const INPUT_PROFILE_CHANGE= 'INPUT_PROFILE_CHANGE';
 
 
 
-export const logUser = () => ({
+export const saveUser = () => ({
   type: LOG_USER,  
 })
 ;
@@ -45,15 +45,17 @@ export const inputProfileChange = (payload) => ({
 //Appels Ajax
 
 //Login
-export const login = () => (dispatch, getState) => {
+export const logUser = () => (dispatch, getState) => {
   axios({
     method: 'post',
     url: 'http://3.88.40.169/api/login_check', 
-    data: getState().localUser
+    data: getState().login.data
   })
   .then((res) => {
     localStorage.setItem('token', res.data.token);
-    dispatch(logUser());
+    const token = localStorage.getItem('token');
+    const userId = JSON.parse(atob(token.split('.')[1])).id;
+    console.log(userId);
   })
   .catch((err) => console.log(err))
 };

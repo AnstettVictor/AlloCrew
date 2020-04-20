@@ -5,7 +5,8 @@ import {connect} from 'react-redux';
 const mapStateToProps = (state) => {
   console.log(state)
   return({
-    list: state.data.announcements
+    list: state.data.announcements,
+    homeProfile: state.login.connectedUser
   })
 };
 
