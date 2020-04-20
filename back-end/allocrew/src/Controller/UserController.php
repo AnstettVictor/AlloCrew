@@ -24,7 +24,7 @@ class UserController extends AbstractController
     public function account(UserRepository $userRepository , SerializerInterface $serializer,  $id)
     {
             
-        $user = $userRepository->findBy(array('email' => $id));
+        $user = $userRepository->findBy(array('id' => $id));
 
         if (!empty($user)) {
             return $this->json($serializer->normalize(
