@@ -20,7 +20,8 @@ import Home from '../../containers/Home';
 import Profile from '../../containers/Profile';
 import Search from '../../containers/Search';
 import EditProfile from '../../containers/EditProfile';
-import EditAnnouncement from '../../containers/EditAnnouncement'
+import EditAnnouncement from '../../containers/EditAnnouncement';
+import CreateAnnouncement from '../../containers/CreateAnnouncement'
 import TchatRoom from '../TchatRoom';
 import MyAnnouncements from '../MyAnnouncements';
 import EditUser from '../EditUser';
@@ -50,6 +51,7 @@ return(
         <Route path="/profile/:id" exact component={Profile} />
         <Route path="/edit-user" exact component={EditUser} />
         <Route path="/edit-announcement/:id" exact component={EditAnnouncement} />
+        <Route path="/create-announcement" exact component={CreateAnnouncement} />
         <Route path="/edit-profile/:id" exact component={EditProfile} />
         <Route path="/my-announcements" exact component={MyAnnouncements} />
         <Route path="/search" exact component={Search} />
