@@ -22,7 +22,7 @@ const Home = ({list, homeProfile, userId}) => (
       </ul>
       
 
-      {/* <AnnouncementList list={list} /> */}
+      {/* <AnnouncementList  /> */}
 
     </div>
   </div>

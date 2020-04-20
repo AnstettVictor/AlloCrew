@@ -1,8 +1,11 @@
 //imports
 import axios from 'axios';
 //vars
-const token = localStorage.getItem('token');
-const userId = JSON.parse(atob(token.split('.')[1])).id;
+const token = () => localStorage.getItem('token')
+const userId =  () => {
+  if (token)
+  return JSON.parse(atob(token().split('.')[1])).id
+};
 
 
 
@@ -66,7 +69,7 @@ export const logUser = () => (dispatch, getState) => {
   .then((res) => {
     const _token = res.data.token;
     localStorage.setItem('token', _token);
-    dispatch(loginOk(userId));
+    dispatch(loginOk(userId()));
   })
   .catch((err) => {
     console.log(err)
@@ -83,13 +86,13 @@ export const logoutUser = () => (dispatch) => {
 export const checkAuth = () => (dispatch) => {
   axios({
     headers: {
-      Authorization: `bearer ${token}`,
+      Authorization: `bearer ${token()}`,
     },
     method: 'post',
     url: 'http://3.88.40.169/api/token_check', 
   })
   .then(() => {
-    dispatch(loginOk(userId))
+    dispatch(loginOk(userId()))
   })
   .catch((err) => {
     console.log(err)
@@ -112,7 +115,7 @@ export const fetchAnnouncement = (id) => (dispatch) => {
 export const fetchProfile = (id) => (dispatch) => {
   axios({
     headers: {
-      Authorization: `bearer ${token}`,
+      Authorization: `bearer ${token()}`,
     },
     method: 'get',
     url: `http://3.88.40.169/api/users/${id}`, 

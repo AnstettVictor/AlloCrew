@@ -24,7 +24,8 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         isLogged: true,
-        userId: action.payload
+        userId: action.payload,
+        data:{}
                  
       };
       case LOGOUT:

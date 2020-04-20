@@ -30,22 +30,22 @@ const Announce = ({ title, location, description, picture, voluntary, id, dateEn
 )
 ;
 
-Announce.propTypes = {   
-  title: Proptypes.string.isRequired,
-  location: Proptypes.string.isRequired,
-  description: Proptypes.string.isRequired,
-  picture: Proptypes.string.isRequired,
-  voluntary: Proptypes.bool.isRequired,
-  id: Proptypes.number.isRequired,
-  dateStart: Proptypes.string.isRequired,
-  dateEnd: Proptypes.string.isRequired, 
-  active: Proptypes.bool.isRequired,
-  createdAt: Proptypes.string.isRequired,
-  user: Proptypes.shape({
-      id: Proptypes.number.isRequired,
-      firstname: Proptypes.string.isRequired,
-      lastname: Proptypes.string.isRequired,
-      picture: Proptypes.string.isRequired,
-  })      
-}
+// Announce.propTypes = {   
+//   title: Proptypes.string.isRequired,
+//   location: Proptypes.string.isRequired,
+//   description: Proptypes.string.isRequired,
+//   picture: Proptypes.string.isRequired,
+//   voluntary: Proptypes.bool.isRequired,
+//   id: Proptypes.number.isRequired,
+//   dateStart: Proptypes.string.isRequired,
+//   dateEnd: Proptypes.string.isRequired, 
+//   active: Proptypes.bool.isRequired,
+//   createdAt: Proptypes.string.isRequired,
+//   user: Proptypes.shape({
+//       id: Proptypes.number.isRequired,
+//       firstname: Proptypes.string.isRequired,
+//       lastname: Proptypes.string.isRequired,
+//       picture: Proptypes.string.isRequired,
+//   })      
+// }
 export default Announce;
