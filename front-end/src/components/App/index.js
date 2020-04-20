@@ -11,20 +11,24 @@ import './style.scss';
 import exemple from './exemple.json';
 
 //import Components
-import Header from '../Header';
-import Footer from '../Footer';
 import LandPage from '../LandPage';
 import Register from '../Register';
 import Login from '../Login';
+
+import Header from '../../containers/Header';
 import Home from '../../containers/Home';
 import Profile from '../../containers/Profile';
 import Search from '../../containers/Search';
+
 import EditProfile from '../../containers/EditProfile';
 import EditAnnouncement from '../../containers/EditAnnouncement';
+import EditUser from '../../containers/EditUser';
+
+import MyAnnouncements from '../MyAnnouncements';
 import CreateAnnouncement from '../../containers/CreateAnnouncement'
 import TchatRoom from '../TchatRoom';
-import MyAnnouncements from '../MyAnnouncements';
-import EditUser from '../EditUser';
+
+import Footer from '../Footer';
 import LegalNotice from '../LegalNotice';
 import Contact from '../Contact';
 import Information from '../Information';
@@ -49,7 +53,7 @@ return(
         <Route path="/register" exact component={Register} />
         <Route path="/login" exact component={Login} />
         <Route path="/profile/:id" exact component={Profile} />
-        <Route path="/edit-user" exact component={EditUser} />
+        <Route path="/edit-user/:id" exact component={EditUser} />
         <Route path="/edit-announcement/:id" exact component={EditAnnouncement} />
         <Route path="/create-announcement" exact component={CreateAnnouncement} />
         <Route path="/edit-profile/:id" exact component={EditProfile} />
