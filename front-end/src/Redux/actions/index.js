@@ -1,13 +1,20 @@
 import axios from 'axios';
 
 export const LOG_USER = 'LOG_USER';
+
+//update props
 export const UPDATE_ANNOUNCEMENT = 'UPDATE_ANNOUNCEMENT';
 export const UPDATE_PROFILE= 'UPDATE_PROFILE';
+export const UPDATE_MAIL = 'UPDATE_MAIL';
+export const UPDATE_PASSWORD = 'UPDATE_PASSWORD';
+
+//Récupération des données frappées dans les input
 export const INPUT_LOGIN_CHANGE= 'INPUT_LOGIN_CHANGE';
 export const INPUT_ANNOUNCEMENT_CHANGE= 'INPUT_ANNOUNCEMENT_CHANGE';
 export const INPUT_PROFILE_CHANGE= 'INPUT_PROFILE_CHANGE';
 
-
+export const INPUT_PASSWORD_CHANGE= 'INPUT_PASSWORD_CHANGE';
+export const INPUT_MAIL_CHANGE= 'INPUT_MAIL_CHANGE';
 
 export const logUser = () => ({
   type: LOG_USER,  
@@ -26,6 +33,18 @@ export const updateProfile = (payload) => ({
 })
 ;
 
+export const upadateMail = (payload) => ({
+  type: UPDATE_MAIL,
+  payload: payload
+})
+;
+
+export const updatePassword = (payload) => ({
+  type: UPDATE_PASSWORD,
+  payload: payload
+})
+;
+
 export const inputLoginChange = (payload) => ({
   type: INPUT_LOGIN_CHANGE,
   payload
@@ -38,6 +57,16 @@ export const inputAnnouncementChange = (payload) => ({
 
 export const inputProfileChange = (payload) => ({
   type: INPUT_PROFILE_CHANGE,
+  payload
+})
+
+export const inputPasswordChange = (payload) => ({
+  type: INPUT_PASSWORD_CHANGE,
+  payload
+})
+
+export const inputMailChange = (payload) => ({
+  type: INPUT_MAIL_CHANGE,
   payload
 })
 
@@ -78,6 +107,27 @@ export const fetchProfile = (id) => (dispatch) => {
       dispatch(updateProfile(profileData))
     })
 };
+
+// For finding one password 
+export const fetchPassword = (id) => (dispatch) => {
+  axios.get(`http://3.88.40.169/api/users/password/${id}`)
+    .then((res) => {
+      console.log('notre id',id);
+      const userPassword = res.data
+      dispatch(updatePassword(userPassword))
+    })
+}; 
+
+// For finding one mail
+export const fetchMail = (id) => (dispatch) => {
+  axios.get(`http://3.88.40.169/api/users/account/${id}`)
+    .then((res) => {
+      console.log('notre id',id);
+      const userMail = res.data
+      dispatch(updateMail(userMail))
+    })
+};
+
 
 // For finding an announcement List
 export const fetchAnnouncementList = () => (dispatch) => {

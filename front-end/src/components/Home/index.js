@@ -9,7 +9,7 @@ const Home = ({list}) => (
   <div className="home__container">
     <div className="home__left">
       <div className="home__profile">
-        <Profile />
+        <Profile data={data}/>
       </div>
       <div className="home__news" />
     </div>

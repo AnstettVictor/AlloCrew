@@ -1,4 +1,4 @@
-import {UPDATE_ANNOUNCEMENT, UPDATE_PROFILE, INPUT_PROFILE_CHANGE, INPUT_ANNOUNCEMENT_CHANGE} from '../actions';
+import {UPDATE_ANNOUNCEMENT, UPDATE_PROFILE, INPUT_PROFILE_CHANGE, INPUT_ANNOUNCEMENT_CHANGE, UPDATE_PASSWORD, UPDATE_MAIL, INPUT_PASSWORD_CHANGE, INPUT_MAIL_CHANGE} from '../actions';
 
 const initialState = {
   announcements: [
@@ -39,6 +39,12 @@ const initialState = {
       bannerpicture: ""
     }
   ],
+  password: [{
+    password:"",
+  }],
+  mail: [{
+    mail:"",
+  }]
 }
 
 
@@ -64,6 +70,29 @@ const reducer = (state = initialState, action) => {
         ...state,
         announcements: [{...state.announcements[0], ...action.payload}], 
       };
+    
+    case INPUT_PASSWORD_CHANGE:
+      return {
+        ...state,
+        password: [{...state.password[0], ...action.payload}], 
+      };
+
+    case INPUT_MAIL_CHANGE:
+      return {
+        ...state,
+        mail: [{...state.mail[0], ...action.payload}], 
+      };
+
+    case UPDATE_PASSWORD:
+      return {
+        ...state,
+        password: action.payload, 
+      };
+      case UPDATE_MAIL:
+    return {
+      ...state,
+      mail: action.payload, 
+    };
       default:
         return state;
   }

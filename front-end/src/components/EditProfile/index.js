@@ -4,7 +4,7 @@ import Accept from './DropZone';
 import { Editor } from 'react-draft-wysiwyg';
 import PropTypes from 'prop-types';
 
-const EditProfile = ({id, title, firstname, lastname, age, location, description, experience, portfolio, bannerpicture, picture, handleChange }) => (
+const EditProfile = ({id, title, firstname, lastname, age, location, description, experience, portfolio, bannerpicture, picture, handleChangeMail, handleChangePassword }) => (
  <div>
   <form action="submit" method="post" >
       <div className="editProfile__container">    
