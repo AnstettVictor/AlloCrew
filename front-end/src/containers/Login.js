@@ -2,12 +2,10 @@ import Login from '../components/Login';
 import {checkAuth, inputLoginChange} from '../Redux/actions'
 import {connect} from 'react-redux';
 
-const mapStateToProps = ({ localUser, isLogged }) => {
+const mapStateToProps = ({ login }) => {
 
   return({
-    userEmail: localUser.username,
-    userPass: localUser.password,
-    isLogged
+    isLogged: login.isLogged
   })
 };
 

@@ -10,7 +10,7 @@ export const INPUT_PROFILE_CHANGE= 'INPUT_PROFILE_CHANGE';
 
 
 export const logUser = () => ({
-  type: LOG_USER,
+  type: LOG_USER,  
 })
 ;
 
@@ -45,8 +45,7 @@ export const inputProfileChange = (payload) => ({
 //Appels Ajax
 
 //Login
-export const checkAuth = () => (dispatch, getState) => {
-  console.log(getState().localUser)
+export const login = () => (dispatch, getState) => {
   axios({
     method: 'post',
     url: 'http://3.88.40.169/api/login_check', 

@@ -1,13 +1,17 @@
 import {LOG_USER, INPUT_LOGIN_CHANGE} from '../actions';
 
 const initialState = {
+  data: {
+    username:"",
+    password:""
+  },
   isLogged:false,
   connectedUser: {
     id: 0,
     firstname: "",
     lastname: "",
     picture: "",
-    title: "",
+    title: "",    
   }
 };
 
@@ -17,12 +21,13 @@ const reducer = (state = initialState, action) => {
     case LOG_USER:
       return {
         ...state,
-        isLogged: true, 
+        isLogged: true,
+                 
       };
     case INPUT_LOGIN_CHANGE:
       return {
         ...state,
-        connectedUser: {...state.connectedUser, ...action.payload}
+        data: {...state.data, ...action.payload}
       };
     default:
       return state;

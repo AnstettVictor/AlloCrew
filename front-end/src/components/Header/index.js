@@ -4,8 +4,11 @@ import {
   NavLink,
   Link
 } from "react-router-dom";
+import PropTypes from 'prop-types';
 
-const Header = () => {
+
+
+const Header = ({connectedUser, isLogged}) => {
 
   const ref = useRef(null)
   //State du menu burger
@@ -34,9 +37,9 @@ const Header = () => {
       </Link>
     <div className="header__links-desktop">
       <ul className="">
-        <NavLink to="/profile"><li>Voir mon profil</li></NavLink>
-        <NavLink to="/edit-profile"><li>Modifier mon profil</li></NavLink>
-        <NavLink to="/edit-user"><li>Parametres</li></NavLink>
+        <Link to="/home" ><li>Accueil</li></Link>
+        <Link to="/search" ><li>Rechercher</li></Link>
+        <Link to={`/tchat-room/${connectedUser.id}`} ><li>Messagerie</li></Link>
       </ul>
     </div>
     <div  ref={ref} className="header__menuButton">
@@ -49,13 +52,13 @@ const Header = () => {
           <ul className="header__links-mobile">
             <Link to="/home" ><li>Accueil</li></Link>
             <Link to="/search" ><li>Rechercher</li></Link>
-            <Link to="/tchat-room" ><li>Messagerie</li></Link>
+            <Link to={`/tchat-room/${connectedUser.id}`} ><li>Messagerie</li></Link>
           </ul>
           <ul className="header__links">
-            <Link to="/profile"><li>Voir mon profil</li></Link>
-            <Link to="/edit-profile"><li>Modifier mon profil</li></Link>
-            <Link to="/edit-user"><li>Parametres</li></Link>
-            <Link to="/edit-user"><li>Deconnexion</li></Link>
+            <Link to={`/profile/${connectedUser.id}`}><li>Voir mon profil</li></Link>
+            <Link to={`/edit-profile/${connectedUser.id}`}><li>Modifier mon profil</li></Link>
+            <Link to={`/edit-user/${connectedUser.id}`}><li>Paramètres</li></Link>
+            <Link to="/"><li >Déconnexion</li></Link>
           </ul>
         </div>
       )
@@ -64,5 +67,12 @@ const Header = () => {
   </nav>
 
 )};
+
+Header.propTypes = {
+  isLogged: PropTypes.bool.isRequired,
+  connectedUser: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+  }).isRequired,
+}
 
 export default Header;
