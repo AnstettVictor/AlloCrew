@@ -5,7 +5,7 @@ import { Editor } from 'react-draft-wysiwyg';
 import Accept from './DropZone';
 import Proptypes from 'prop-types';
 
-const CreateAnnouncement = ({handleChange, title, location, description, voluntary, picture, id}) => {
+const CreateAnnouncement = ({postAnnouncement, handleChange, title, location, description, voluntary, picture, id}) => {
 
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
@@ -54,7 +54,7 @@ const CreateAnnouncement = ({handleChange, title, location, description, volunta
           <Accept  />
         </div>    
       <div className="createAnnouncement__flex">
-      <button className="createAnnouncement__button button">Créer</button>
+      <button onClick={postAnnouncement} className="createAnnouncement__button button">Créer</button>
       
       </div>
     </form>

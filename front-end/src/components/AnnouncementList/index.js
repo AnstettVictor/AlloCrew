@@ -12,6 +12,9 @@ const AnnouncementList = ({list}) => (
 )
 ;
 
+AnnouncementList.propTypes = {   
+  list: Proptypes.array.isRequired,
+}
 
 
 export default AnnouncementList;

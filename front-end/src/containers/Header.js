@@ -3,6 +3,7 @@ import {logoutUser} from '../Redux/actions';
 import {connect} from 'react-redux';
 
 const mapStateToProps = ({login}) => ({
+  userId: login.userId,
   isLogged: login.isLogged,
   connectedUser: login.connectedUser,
 });

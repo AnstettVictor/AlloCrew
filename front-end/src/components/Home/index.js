@@ -1,31 +1,35 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 //import local
 import './style.scss';
 import Profile from './HomeProfile';
 import AnnouncementList from '../AnnouncementList';
 
-const Home = ({list, homeProfile, userId}) => (
+const Home = ({list, homeProfile, userId, logout}) => {
+
+const [filter, setFilter] = useState('all')
+return (
   <div className="home__container">
     <div className="home__left">
       <div className="home__profile">
-        <Profile {...homeProfile} id={userId} />
+        <Profile {...homeProfile} id={userId} logout={logout} />
       </div>
       <div className="home__news" />
     </div>
     <div className="home__list">
       <ul className="home__navlink">
-        <li className="home__navlink-links">Bénévoles</li>
-        <li className="home__navlink-links">Rémunérées</li>
-        <li className="home__navlink-links">Toutes les annonces</li>
-        <li className="home__navlink-links">Mes annonces</li>
-      </ul>
-      
-     <AnnouncementList list={list} />
-
+        <li className="home__navlink-links" onClick={() => setFilter('volunteer')}>Bénévoles</li>
+        <li className="home__navlink-links" onClick={() => setFilter('paid')}>Rémunérées</li>
+        <li className="home__navlink-links" onClick={() => setFilter('all')}>Toutes les annonces</li>
+        <li className="home__navlink-links" onClick={() => setFilter('my')}>Mes annonces</li>
+      </ul> 
+      {filter == 'volunteer' && console.log('volunteer')}
+      {filter == 'paid' && console.log('paid')}
+      {filter == 'all' && console.log('all')}
+      {filter == 'my' && console.log('my')}
     </div>
   </div>
-)
+)}
 ;
 
 export default Home;

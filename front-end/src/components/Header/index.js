@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 
 
-const Header = ({connectedUser, logout}) => {
+const Header = ({userId, logout}) => {
 
   const ref = useRef(null)
   //State du menu burger
@@ -39,7 +39,7 @@ const Header = ({connectedUser, logout}) => {
       <ul className="">
         <Link to="/home" ><li>Accueil</li></Link>
         <Link to="/search" ><li>Rechercher</li></Link>
-        <Link to={`/tchat-room/${connectedUser.id}`} ><li>Messagerie</li></Link>
+        <Link to={`/tchat-room`} ><li>Messagerie</li></Link>
       </ul>
     </div>
     <div  ref={ref} className="header__menuButton">
@@ -52,12 +52,12 @@ const Header = ({connectedUser, logout}) => {
           <ul className="header__links-mobile">
             <Link to="/home" ><li>Accueil</li></Link>
             <Link to="/search" ><li>Rechercher</li></Link>
-            <Link to={`/tchat-room/${connectedUser.id}`} ><li>Messagerie</li></Link>
+            <Link to={`/tchat-room`} ><li>Messagerie</li></Link>
           </ul>
           <ul className="header__links">
-            <Link to={`/profile/${connectedUser.id}`}><li>Voir mon profil</li></Link>
-            <Link to={`/edit-profile/${connectedUser.id}`}><li>Modifier mon profil</li></Link>
-            <Link to={`/edit-user/${connectedUser.id}`}><li>Paramètres</li></Link>
+            <Link to={`/profile/${userId}`}><li>Voir mon profil</li></Link>
+            <Link to={`/edit-profile/${userId}`}><li>Modifier mon profil</li></Link>
+            <Link to={`/edit-user/${userId}`}><li>Paramètres</li></Link>
             <Link to="/"><li onClick={logout} >Déconnexion</li></Link>
           </ul>
         </div>
@@ -68,11 +68,11 @@ const Header = ({connectedUser, logout}) => {
 
 )};
 
-Header.propTypes = {
-  isLogged: PropTypes.bool.isRequired,
-  connectedUser: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-  }).isRequired,
-}
+// Header.propTypes = {
+//   isLogged: PropTypes.bool.isRequired,
+//   connectedUser: PropTypes.shape({
+//     id: PropTypes.number.isRequired,
+//   }).isRequired,
+// }
 
 export default Header;

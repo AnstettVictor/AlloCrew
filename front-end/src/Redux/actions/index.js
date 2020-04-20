@@ -69,7 +69,7 @@ export const logUser = () => (dispatch, getState) => {
   .then((res) => {
     const _token = res.data.token;
     localStorage.setItem('token', _token);
-    dispatch(loginOk(userId()));
+    dispatch(checkAuth());
   })
   .catch((err) => {
     console.log(err)
@@ -92,7 +92,14 @@ export const checkAuth = () => (dispatch) => {
     url: 'http://3.88.40.169/api/token_check', 
   })
   .then(() => {
-    dispatch(loginOk(userId()))
+    axios({
+      headers: {
+        Authorization: `bearer ${token()}`,
+      },
+      method: 'get',
+      url: `http://3.88.40.169/api/users/${userId()}`, 
+    })
+    .then((res) => dispatch(loginOk(res.data)) )
   })
   .catch((err) => {
     console.log(err)
@@ -153,3 +160,19 @@ export const fetchProfileList = () => (dispatch) => {
     })
 };
 
+
+
+export const postAnnouncement = () => (dispatch, getState) => {
+  const data = getState().data.announcements[0]
+  axios({
+    headers: {
+      Authorization: `bearer ${token()}`,
+    },
+    method: 'post',
+    url: `http://3.88.40.169/api/announcements/`, 
+    data: {...data} 
+  })
+  .then((res) => {
+    console.log(res)
+  })
+};

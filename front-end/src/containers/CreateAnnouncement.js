@@ -1,5 +1,5 @@
 import CreateAnnouncement from '../components/CreateAnnouncement';
-import {fetchAnnouncement, inputAnnouncementChange} from '../Redux/actions'
+import {fetchAnnouncement, inputAnnouncementChange, postAnnouncement} from '../Redux/actions'
 import {connect} from 'react-redux';
 
 const mapStateToProps = ({data}) => {
@@ -20,7 +20,8 @@ const mapStateToProps = ({data}) => {
 
 const mapDispatchToProps = (dispatch, {match}) => ({
   handleChange: (e) => dispatch(inputAnnouncementChange({[e.target.name]: e.target.value})), 
-  fetchData: dispatch(fetchAnnouncement(match.params.id))
+  fetchData: dispatch(fetchAnnouncement(match.params.id)),
+  postAnnouncement: (e) => {e.preventDefault(); dispatch(postAnnouncement())}
 })
 ;
 

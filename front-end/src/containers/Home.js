@@ -1,5 +1,5 @@
 import Home from '../components/Home';
-import {fetchProfile, fetchAnnouncementList} from '../Redux/actions'
+import {fetchProfile, fetchAnnouncementList, logoutUser} from '../Redux/actions'
 import {connect} from 'react-redux';
 
 const mapStateToProps = ({data, login}) => {
@@ -18,7 +18,8 @@ const passId = () => (dispatch, getState) => {
 const mapDispatchToProps = (dispatch) =>{
  return ({
   fetchHomeProfile: dispatch(passId()),
-  fetchAnnouncements: dispatch(fetchAnnouncementList())
+  fetchAnnouncements: dispatch(fetchAnnouncementList()),
+  logout: () => dispatch(logoutUser())
 })
 };
 

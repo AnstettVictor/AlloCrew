@@ -3,17 +3,11 @@ import {LOGIN_OK, LOGOUT, INPUT_LOGIN_CHANGE} from '../actions';
 const initialState = {
   isLogged:false,
   userId: -1,
+  userInfo: {},
   data: {
     username:"",
     password:""
   },
-  connectedUser: {
-    id: 0,
-    firstname: "",
-    lastname: "",
-    picture: "",
-    title: "",    
-  }
 };
 
 
@@ -24,7 +18,8 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         isLogged: true,
-        userId: action.payload,
+        userId: action.payload[0].id,
+        userInfo: action.payload[0],
         data:{}
                  
       };

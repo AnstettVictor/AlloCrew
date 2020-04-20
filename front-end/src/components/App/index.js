@@ -23,9 +23,9 @@ import EditProfile from '../../containers/EditProfile';
 import EditAnnouncement from '../../containers/EditAnnouncement';
 import EditUser from '../../containers/EditUser';
 
-import MyAnnouncements from '../MyAnnouncements';
+import MyAnnouncements from '../../containers/MyAnnouncements';
 import CreateAnnouncement from '../../containers/CreateAnnouncement'
-import TchatRoom from '../TchatRoom';
+import TchatRoom from '../../containers/TchatRoom';
 
 import Footer from '../Footer';
 import LegalNotice from '../LegalNotice';

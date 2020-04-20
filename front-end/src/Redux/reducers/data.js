@@ -1,7 +1,6 @@
 import {UPDATE_ANNOUNCEMENT, UPDATE_PROFILE, INPUT_PROFILE_CHANGE, INPUT_ANNOUNCEMENT_CHANGE} from '../actions';
 
 const initialState = {
-  prout:0,
   announcements: [
     {
       id: 0,

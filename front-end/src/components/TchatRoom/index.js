@@ -2,7 +2,7 @@ import React from 'react';
 import './style.scss';
 import Avatar from '../../assets/images/favicon.png';
 
-const TchatRoom = () => (
+const TchatRoom = ({userPic, userName}) => (
   <div className="tchatRoom__Container">
     {/* Page title */}
     <h1 className="tchatRoom__TitlePage">Messagerie</h1>
