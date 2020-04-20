@@ -5,7 +5,7 @@ import { Editor } from 'react-draft-wysiwyg';
 import Accept from './DropZone';
 import Proptypes from 'prop-types';
 
-const EditAnnouncement = ({title, location, description, voluntary, picture, id}) => {
+const EditAnnouncement = ({handleChange, title, location, description, voluntary, picture, id}) => {
 
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
@@ -19,7 +19,7 @@ const EditAnnouncement = ({title, location, description, voluntary, picture, id}
         <Accept />
         </div> 
         <h2 className="editAnnouncement__desktop--Title">Titre de l'annonce</h2>  
-        <input className="editAnnouncement__input title input" type="text" placeholder={title?title:"Titre de l'annonce"} />
+        <input onChange={handleChange} value={title} name="title" className="editAnnouncement__input title input" type="text" placeholder={title?title:"Titre de l'annonce"} />
         <p className="editAnnouncement__text editAnnouncement__desktop--Title">Date de début</p>
         <DatePicker className="editAnnouncement__input input"
           showPopperArrow={false}
@@ -36,7 +36,7 @@ const EditAnnouncement = ({title, location, description, voluntary, picture, id}
         />
         <br/>
         <h2 className="editAnnouncement__desktop--Title">Lieu</h2>
-        <input className="editAnnouncement__input input" type="text" placeholder={location?location:"Lieu"} />
+        <input onChange={handleChange} value={location} name="location" className="editAnnouncement__input input" type="text" placeholder={location?location:"Lieu"} />
         
         <div>        
         <input className="editAnnouncement__volunteer" type="radio" id="volonteer" name="drone" value="volonteer" defaultChecked={voluntary} />
@@ -47,7 +47,7 @@ const EditAnnouncement = ({title, location, description, voluntary, picture, id}
           <label className="editAnnouncement__paid" defaultChecked={voluntary?false:true} >Rémunéré</label>
         </div> 
         <div className="editAnnouncement__textarea input">
-        <Editor>{description} </Editor>
+        <Editor onChange={handleChange} value={description} name="description"  placeholder="Description de votre projet" />
         </div>        
         <div className="editAnnouncement__input mobile drop input">
         <Accept />
@@ -70,13 +70,7 @@ EditAnnouncement.propTypes = {
   id: Proptypes.number.isRequired,
   dateStart: Proptypes.string.isRequired,
   dateEnd: Proptypes.string.isRequired, 
-  active: Proptypes.bool.isRequired,  
-  user: Proptypes.shape({
-    id: Proptypes.number.isRequired,
-    firstname: Proptypes.string.isRequired,
-    lastname: Proptypes.string.isRequired,
-    picture: Proptypes.string.isRequired,
-  }) 
+  active: Proptypes.bool.isRequired,
 }
 
 export default EditAnnouncement;

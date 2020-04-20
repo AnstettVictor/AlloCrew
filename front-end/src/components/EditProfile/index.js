@@ -28,13 +28,13 @@ const EditProfile = ({id, title, firstname, lastname, age, location, description
         <div>
           <h3 className="editProfile__description">Description</h3>
           <div className="editor input">
-          <Editor description={description}/>
+          <Editor  onChange={handleChange} value={description} name="description" placeholder="Description personnelle"/>
           </div>
         </div>
         <div>
           <h3 className="editProfile__exp">Expérience</h3>
           <div className="editor input">
-          <Editor experience={experience} />
+          <Editor  onChange={handleChange} value={experience} name="description" placeholder="Description de vos expériences" />
           </div>
         </div>
         <p className="editProfile__portfolio">Portfolio:</p>

@@ -1,8 +1,8 @@
-import EditAnnouncement from '../components/EditAnnouncement';
+import CreateAnnouncement from '../components/CreateAnnouncement';
 import {fetchAnnouncement, inputAnnouncementChange} from '../Redux/actions'
 import {connect} from 'react-redux';
 
-const mapStateToProps = ({ data }) => {
+const mapStateToProps = ({data}) => {
   const announcement = data.announcements[0];
   return({
     title: announcement.title,
@@ -14,7 +14,7 @@ const mapStateToProps = ({ data }) => {
     dateStart: announcement.dateStart,
     dateEnd: announcement.dateEnd,
     active: announcement.active,
-    
+    user: announcement.user
   })
 };
 
@@ -24,6 +24,6 @@ const mapDispatchToProps = (dispatch, {match}) => ({
 })
 ;
 
-const announcements = connect(mapStateToProps, mapDispatchToProps)(EditAnnouncement);
+const announcement = connect(mapStateToProps, mapDispatchToProps)(CreateAnnouncement);
 
-export default announcements;
+export default announcement;
