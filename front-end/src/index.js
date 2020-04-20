@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 
 // == Import : local
 // Composants
-import App from './components/App';
+import App from './containers/App';
 // Store
 import store from './Redux/store';
 // == Render

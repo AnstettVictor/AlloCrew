@@ -1,17 +1,19 @@
 import Login from '../components/Login';
-import {checkAuth, inputLoginChange} from '../Redux/actions'
+import {logUser, inputLoginChange} from '../Redux/actions'
 import {connect} from 'react-redux';
 
 const mapStateToProps = ({ login }) => {
 
   return({
+    username: login.data.username,
+    password: login.data.password,
     isLogged: login.isLogged
   })
 };
 
 const mapDispatchToProps = (dispatch) => ({
   handleChange: (e) => dispatch(inputLoginChange({[e.target.name]: e.target.value})),
-  checkAuth: (e) => { e.preventDefault(); dispatch(checkAuth()) }
+  login: (e) => { e.preventDefault(); dispatch(logUser()) }
 })
 ;
 
