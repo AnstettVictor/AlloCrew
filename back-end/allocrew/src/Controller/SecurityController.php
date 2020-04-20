@@ -10,15 +10,13 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends AbstractController
 {
     /**
-     * @Route("api/login_check", name="app_login")
+     * @Route("api/login_check", name="app_login",  methods={"POST"} )
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         // if ($this->getUser()) {
         //     return $this->redirectToRoute('target_path');
         // }
-
-
 
         $user = $this->getUser();
 
