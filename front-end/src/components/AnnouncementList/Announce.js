@@ -23,7 +23,7 @@ const Announce = ({ title, location, description, picture, voluntary, id, dateEn
           <p> {voluntary? "Bénévole": "Rémunérée"}</p>
         </div>
         <input className="announce__button button see" type="button" value="Voir l'annonce"/>
-        <Link to={`/announcement/${id}`}><input className="announce__button button seeAndEdit" type="button" value="Voir / Modifier"/></Link>
+        <Link to={`/edit-announcement/${id}`}><input className="announce__button button seeAndEdit" type="button" value="Voir / Modifier"/></Link>
       </div>
     </div>
   </div>

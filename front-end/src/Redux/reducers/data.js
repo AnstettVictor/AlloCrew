@@ -1,4 +1,4 @@
-import {UPDATE_ANNOUNCEMENT, UPDATE_PROFILE, INPUT_PROFILE_CHANGE, INPUT_ANNOUNCEMENT_CHANGE, INPUT_EDITPROFILE_CHANGE} from '../actions';
+import {UPDATE_ANNOUNCEMENT, UPDATE_PROFILE, INPUT_PROFILE_CHANGE, INPUT_ANNOUNCEMENT_CHANGE, INPUT_EDITPROFILE_CHANGE, INPUT_EDITANNOUNCEMENT_CHANGE} from '../actions';
 
 const initialState = {
   announcements: [
@@ -25,6 +25,7 @@ const initialState = {
     }
   ],
   editProfile:[{}],
+  editAnnouncement:[{}],
   profiles: [
     {
       id: 0,
@@ -66,6 +67,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         editProfile: [{...state.editProfile, ...action.payload}], 
       };
+      case INPUT_EDITANNOUNCEMENT_CHANGE:
+        return {
+          ...state,
+          editAnnouncement: [{...state.editAnnouncement, ...action.payload}], 
+        };
     case INPUT_ANNOUNCEMENT_CHANGE:
       return {
         ...state,

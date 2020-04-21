@@ -1,21 +1,21 @@
 import React, {useState, Component} from 'react';
 import './style.scss';
-import Proptypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 import DatePicker from 'react-datepicker';
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
-const EditAnnouncement = ({handleChange, title, location, description, voluntary, picture, onEditAnnouncementSubmit, handleChangeAnnouncement, id}) => {
+const EditAnnouncement = ({handleChange, title, location, description, voluntary, picture, onEditAnnouncementSubmit, handleChangeEditor, id}) => {
 
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
 
   return (    
     <div className="editAnnouncement__container"> 
-             
-      <h2 className="editAnnouncement__title">Modifier votre annonce</h2>
-      <form onSubmit={onEditAnnouncementSubmit} method="path" >
+      <form onSubmit={onEditAnnouncementSubmit} method="patch" >     
+        <h2 className="editAnnouncement__title">Modifier votre annonce</h2>
+      
 
         <div className="editAnnouncement__input drop desktop input" style={{backgroundImage: `url(${picture})`}}>
           <input type="file" className="input" name="file" value="" />
@@ -60,7 +60,7 @@ const EditAnnouncement = ({handleChange, title, location, description, voluntary
             className="editor"
             editor={ClassicEditor}
             data={description}
-            onChange={handleChangeAnnouncement}
+            onChange={handleChangeEditor}
           />
         </div>  
 
@@ -73,23 +73,24 @@ const EditAnnouncement = ({handleChange, title, location, description, voluntary
           <button type="submit" className="editAnnouncement__button button">Enregistrer</button>    
         </div>
       </form>
-      
+
   </div>);    
 }
 ;
 
 EditAnnouncement.propTypes = {
   onEditAnnouncementSubmit: PropTypes.func.isRequired,
-  handleChangeAnnouncement: PropTypes.func.isRequired,   
-  title: Proptypes.string.isRequired,
-  location: Proptypes.string.isRequired,
-  description: Proptypes.string.isRequired,
-  picture: Proptypes.string.isRequired,
-  voluntary: Proptypes.bool.isRequired,
-  id: Proptypes.number.isRequired,
-  dateStart: Proptypes.string.isRequired,
-  dateEnd: Proptypes.string.isRequired, 
-  active: Proptypes.bool.isRequired,
+  handleChangeEditor: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  location: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  picture: PropTypes.string.isRequired,
+  voluntary: PropTypes.bool.isRequired,
+  id: PropTypes.number.isRequired,
+  dateStart: PropTypes.string.isRequired,
+  dateEnd: PropTypes.string.isRequired, 
+  active: PropTypes.bool.isRequired,
 }
 
 export default EditAnnouncement;
