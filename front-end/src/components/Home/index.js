@@ -23,23 +23,10 @@ return (
         <li className="home__navlink-links" onClick={() => setFilter('all')}>Toutes les annonces</li>
         <li className="home__navlink-links" onClick={() => setFilter('my')}>Mes annonces</li>
       </ul> 
-      {list.filter(list => list.voluntary === true).map(filteredList => (
-        console.log('voluntary', filteredList)
-      ))}
-      {list.filter(list => list.voluntary === false).map(filteredList => (
-        console.log('paid', filteredList)
-      ))}
-      {list.map(filteredList => (
-        console.log('all', filteredList)
-      ))}
-      {list.filter(list => list.user.id === userId).map(filteredList => (
-        console.log('mine', filteredList)
-      ))}
-
-      {filter == 'volunteer' && console.log('volunteer')}
-      {filter == 'paid' && console.log('paid')}
-      {filter == 'all' && console.log('all')}
-      {filter == 'my' && console.log('my')}
+      {filter === 'voluntary' && <AnnouncementList list={list.filter(one => one.voluntary === true)}/>}
+      {filter === 'paid' && <AnnouncementList list={list.filter(one => one.voluntary === false)}/>}
+      {filter === 'all' && <AnnouncementList list={list.map(one => one)} />}
+      {filter === 'my' && <AnnouncementList list={list.filter(one => one.user.id === userId)}/>}
     </div>
   </div>
 )}

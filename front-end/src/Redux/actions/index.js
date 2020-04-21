@@ -168,9 +168,12 @@ export const postAnnouncement = () => (dispatch, getState) => {
     headers: {
       Authorization: `bearer ${token()}`,
     },
-    method: 'post',
-    url: `http://3.88.40.169/api/announcements/`, 
-    data: {...data} 
+    method: 'patch',
+    url: `http://3.88.40.169/api/users/password/7`, 
+    data: 
+    {
+      "password": "tagazou"
+    }
   })
   .then((res) => {
     console.log(res)
