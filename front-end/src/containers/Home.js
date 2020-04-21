@@ -1,5 +1,5 @@
 import Home from '../components/Home';
-import {fetchProfile, fetchAnnouncementList, logoutUser} from '../Redux/actions'
+import {fetchProfile, fetchAnnouncementList, logoutUser, passId} from '../Redux/actions'
 import {connect} from 'react-redux';
 
 const mapStateToProps = ({data, login}) => {
@@ -10,14 +10,10 @@ const mapStateToProps = ({data, login}) => {
   })
 };
 
-//fonction intermediaire pour passer le state à mapdispatchtoprops en utilisant thunk
-const passId = () => (dispatch, getState) => {
-  dispatch(fetchProfile(getState().login.userId))
-}
 
 const mapDispatchToProps = (dispatch) =>{
  return ({
-  fetchHomeProfile: dispatch(passId()),
+  fetchHomeProfile: dispatch(passId(fetchProfile)),
   fetchAnnouncements: dispatch(fetchAnnouncementList()),
   logout: () => dispatch(logoutUser())
 })

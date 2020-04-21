@@ -16,6 +16,7 @@ export const UPDATE_PROFILE= 'UPDATE_PROFILE';
 export const INPUT_LOGIN_CHANGE= 'INPUT_LOGIN_CHANGE';
 export const INPUT_ANNOUNCEMENT_CHANGE= 'INPUT_ANNOUNCEMENT_CHANGE';
 export const INPUT_PROFILE_CHANGE= 'INPUT_PROFILE_CHANGE';
+export const INPUT_EDITPROFILE_CHANGE = 'INPUT_EDITPROFILE_CHANGE';
 
 
 export const loginOk = (payload) => ({
@@ -48,6 +49,11 @@ export const inputLoginChange = (payload) => ({
 
 export const inputAnnouncementChange = (payload) => ({
   type: INPUT_ANNOUNCEMENT_CHANGE,
+  payload
+})
+
+export const inputEditProfileChange = (payload) => ({
+  type: INPUT_EDITPROFILE_CHANGE,
   payload
 })
 
@@ -179,3 +185,32 @@ export const postAnnouncement = () => (dispatch, getState) => {
     console.log(res)
   })
 };
+
+export const patchEditProfile = (id) => (dispatch, getState) => {
+  axios({
+    headers: {
+      Authorization: `bearer ${token()}`,
+    },
+    method: 'patch',
+    url: `http://3.88.40.169/api/users/${id}`, 
+    data: 
+    {
+      firstname: getState().data.profiles[0].firstname,
+      lastname: getState().data.profiles[0].lastname,
+      age: getState().data.profiles[0].age,
+      location: getState().data.profiles[0].location,
+      title: getState().data.profiles[0].title,
+      description: getState().data.profiles[0].description,
+      experience: getState().data.profiles[0].experience,
+      portfolio: getState().data.profiles[0].portfolio,
+      picture: getState().data.profiles[0].picture,
+      bannerpicture: getState().data.profiles[0].bannerpicture,     
+    }
+  })
+  .then((res) => console.log(res))
+  .catch((err) => console.log(err))
+};
+
+export const passId = (func) => (dispatch, getState) => {
+  dispatch(func(getState().login.userId))
+}
