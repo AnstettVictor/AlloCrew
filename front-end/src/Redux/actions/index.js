@@ -226,6 +226,7 @@ export const patchEditAnnouncement = (id) => (dispatch, getState) => {
     url: `http://3.88.40.169/api/announcements/${id}`, 
     data: 
     { 
+      category: "tagazou",
       active: getState().data.announcements[0].active,
       voluntary: getState().data.announcements[0].voluntary,
       dateStart: getState().data.announcements[0].dateStart,

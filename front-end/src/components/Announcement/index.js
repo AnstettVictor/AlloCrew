@@ -21,7 +21,7 @@ return (
       <p className="announcement__text">{description}</p>            
     </div>
     <div className="announcement__pos2">
-    <Link to={`/edit-announcement/${id}`}><button className="button announcement__button" value="Envoyer un message/Modifier"></button></Link>
+      <button className="button announcement__button">Envoyer un message/Modifier</button>
     </div>
   </div>
 )

@@ -22,7 +22,7 @@ const mapDispatchToProps = (dispatch, {match}) => ({
 
   handleChangeEditor: (e, editor) => dispatch(inputAnnouncementChange(
     {
-      [editor.sourceElement.parentElement.classList[0]]: editor.getData()
+      ["description"]: editor.getData()
     }
   )),
 
