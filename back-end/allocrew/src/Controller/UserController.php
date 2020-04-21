@@ -128,65 +128,115 @@ class UserController extends AbstractController
     /**
      * @Route("/{id}", name="edit", methods={"PATCH"}, requirements={"id": "\d+"})
      */
-    public function edit(User $user, Request $request, $id)
+    public function edit(User $user, Request $request, $id, UserRepository $userRepository)
     {
         // On décode les données envoyées
-        $donnees = json_decode($request->getContent());
+        $donnees = json_decode($request->getContent(), true);
         $form = $this->createForm(UserType::class, $user);
-        $donnees = $form->submit($donnees);
+
+        $email = $userRepository->find($user)->getEmail();
+        $firstname = $userRepository->find($user)->getFirstname();
+        $lastname = $userRepository->find($user)->getLastname();
+        $age = $userRepository->find($user)->getAge();
+        $location = $userRepository->find($user)->getLocation();
+        $title = $userRepository->find($user)->getTitle();
+        $description = $userRepository->find($user)->getDescription();
+        $experience = $userRepository->find($user)->getExperience();
+        $portfolio = $userRepository->find($user)->getPortfolio();
+        if ($userRepository->find($user)->getPicture() !== null) {
+            $picture = $userRepository->find($user)->getPicture();
+        } else {
+            $picture = 'default';
+        }
+        if ($userRepository->find($user)->getBannerpicture() !== null) {
+            $bannerpicture = $userRepository->find($user)->getBannerpicture();
+        } else {
+            $bannerpicture = 'default2';
+        }
+
+
+        if (!isset($donnees['email'])) {
+            $donnees['email'] = $email;
+        }
+        if (!isset($donnees['firstname'])) {
+            $donnees['firstname'] = $firstname;
+        }
+        if (!isset($donnees['lastname'])) {
+            $donnees['lastname'] = $lastname;
+        }
+        if (!isset($donnees['age'])) {
+            $donnees['age'] = $age;
+        }
+        if (!isset($donnees['experience'])) {
+            $donnees['experience'] = $experience;
+        }
+        if (!isset($donnees['location'])) {
+            $donnees['location'] = $location;
+        }
+        if (!isset($donnees['title'])) {
+            $donnees['title'] = $title;
+        }
+        if (!isset($donnees['description'])) {
+            $donnees['description'] = $description;
+        }
+        if (!isset($donnees['portfolio'])) {
+            $donnees['portfolio'] = $portfolio;
+        }
+
+         $form->submit($donnees);
         /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
          * sinon on passe à la suite */
         if ($form->isSubmitted()) {
-            if (isset($form['firstname'])) {
+            if ($form['firstname'] !== null) {
                 if ($form['firstname']->isValid()) {
                     $user->setFirstname($form['firstname']->getData());
-                } else return new Response('Prénom Invalide', 400);
-            }
+                } else $user->setFirstname($firstname);
+            } else $user->setFirstname($firstname);
 
-            if (isset($form['email'])) {
+            if ($form['email'] !== null) {
                 if ($form['email']->isValid()) {
                     $user->setEmail($form['email']->getData());
-                } else return new Response('Email Invalide', 400);
-            }
+                } else $user->setEmail($email);
+            } else $user->setEmail($email);
 
-            if (isset($form['lastname'])) {
+            if ($form['lastname'] !== null) {
                 if ($form['lastname']->isValid()) {
                     $user->setLastname($form['lastname']->getData());
                 } else return new Response('Nom de Famille Invalide', 400);
             }
 
-            if (isset($form['age'])) {
+            if ($form['age'] !== null) {
                 if ($form['age']->isValid()) {
 
                     $user->setAge($form['age']->getData());
                 } else return new Response('Age Invalide', 400);
             }
 
-            if (isset($form['location'])) {
+            if ($form['location'] !== null) {
                 if ($form['location']->isValid()) {
 
                     $user->setLocation($form['location']->getData());
                 } else return new Response('Ville Invalide', 400);
             }
-            if (isset($form['title'])) {
+            if ($form['title'] !== null) {
                 if ($form['title']->isValid()) {
 
                     $user->setTitle($form['title']->getData());
                 } else return new Response('Titre Invalide', 400);
             }
-            if (isset($form['description'])) {
+            if ($form['description'] !== null) {
                 if ($form['description']->isValid()) {
 
                     $user->setDescription($form['description']->getData());
                 } else return new Response('Description Invalide', 400);
             }
-            if (isset($form['experience'])) {
+            if ($form['experience'] !== null) {
                 if ($form['experience']->isValid()) {
 
                     $user->setExperience($form['experience']->getData());
                 } else return new Response('Expérience Invalide', 400);
             }
-            if (isset($form['portfolio'])) {
+            if ($form['portfolio'] !== null) {
                 if ($form['portfolio']->isValid()) {
 
                     $user->setPortfolio($form['portfolio']->getData());

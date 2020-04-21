@@ -36,45 +36,63 @@ class UserType extends AbstractType
             ->add('firstname', TextType::class, [
                 'label' => 'Prénom',
                 'required' => false,
+                'empty_data' => false,
+                'constraints' => new NotBlank
+
             ])
             ->add('lastname', TextType::class, [
-                'label' => 'Nom',
+                'label' => 'Nom', 
                 'required' => false,
+                'empty_data' => false
+
             ])
             ->add('age',  IntegerType::class, [            
                 'label' => 'Âge',
+                'required' => false,
+                'empty_data' => false
+
             ])
             ->add('location', TextType::class, [
                 'label' => 'Lieu',
                 'required' => false,
+                'empty_data' => false
+
             ])
             ->add('title', TextType::class, [
                 'label' => 'Titre',
                 'required' => false,
+                'empty_data' => false
+
             ])
             ->add('description', TextType::class, [
                 'label' => 'Description',
                 'required' => false,
+                'empty_data' => false
             ])
             ->add('experience', TextType::class, [
                 'label' => 'Expérience',
                 'required' => false,
+                'empty_data' => false
             ])
             ->add('portfolio', UrlType::class, [
                 'constraints' => [
                     new Url(),
                 ],
                 'label' => 'Lien vers votre Portfolio',
+                'required' => false,
+                'empty_data' => false
             ])
             ->add('picture', FileType::class, [
                 'constraints' => new File(),
+                'required' => false,
+                'empty_data' => false
             ])
             ->add('bannerpicture', FileType::class, [
                 'constraints' => new File(),
+                'required' => false,
+                'empty_data' => false
             ])
-            ->add('submit', SubmitType::class, [
-                'label' => 'Envoyer'
-            ])
+
         ;
     }
 

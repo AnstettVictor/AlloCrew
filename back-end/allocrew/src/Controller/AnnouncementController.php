@@ -6,6 +6,7 @@ use DateTime;
 use App\Entity\User;
 use App\Entity\Announcement;
 use App\Form\AnnouncementType;
+use App\Form\AnnouncementEditType;
 use App\Repository\UserRepository;
 use App\Repository\AnnouncementRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -67,12 +68,16 @@ class AnnouncementController extends AbstractController
         $donnees = json_decode($request->getContent(), true);
         /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
          * sinon on passe à la suite */
-        $form = $this->createForm(AnnouncementType::class, $announcement);
+        $form = $this->createForm(AnnouncementEditType::class, $announcement);
 
         $user = $userRepository->find($form['user']->getData());
+
         $category = $announcementRepository->find($announcement)->getCategory();
+
         $active = $announcementRepository->find($announcement)->getActive();
+
         $voluntary = $announcementRepository->find($announcement)->getVoluntary();
+
         $date_start =  $announcementRepository->find($announcement)->getDateStart();
 
         $date_end =  $announcementRepository->find($announcement)->getDateEnd();
@@ -88,51 +93,94 @@ class AnnouncementController extends AbstractController
         } else {
             $picture = 'default';
         }
+
+
+        if (!isset($donnees['category'])) {
+            $donnees['category'] = $category;
+        }
+        if (!isset($donnees['active'])) {
+            $donnees['active'] = $active;
+            
+        }
+        if (!isset($donnees['voluntary'])) {
+            $donnees['voluntary'] = $voluntary;
+        }
+        if (!isset($donnees['date_start'])) {
+            $donnees['date_start'] = $date_start;
+        }
+        if (!isset($donnees['date_end'])) {
+            $donnees['date_end'] = $date_end;
+        }
+        if (!isset($donnees['location'])) {
+            $donnees['location'] = $location;
+        }
+        if (!isset($donnees['title'])) {
+            $donnees['title'] = $title;
+        }
+        if (!isset($donnees['description'])) {
+            $donnees['description'] = $description;
+        }
+        dd($donnees);
         $form->submit($donnees);
 
         if ($form->isSubmitted()) {
+            $announcement->setUser($user);
             if ($form['category'] !== null) {
                 if ($form['category']->isValid()) {
                     $announcement->setCategory($form['category']->getData());
-                } else return new Response('Catégorie Invalide', 400);
-            } else {
-                $form['category'] = $category;
-            }
+                } else {
+                    $announcement->setCategory($category);
+                }
+            } else $announcement->setCategory($category);
 
             if ($form['active'] !== null) {
                 if ($form['active']->isValid()) {
                     $announcement->setActive($form['active']->getData());
-                } else return new Response('Statut Invalide', 400);
+                } else {
+                    $announcement->setActive($active);
+                }
             } else {
-                $announcement->setActive($active);
+              $announcement->setActive($active);
             }
 
             if ($form['voluntary'] !== null) {
                 if ($form['voluntary']->isValid()) {
 
                     $announcement->setVoluntary($form['voluntary']->getData());
-                } else return new Response('Statut Voluntary Invalide', 400);
+                } else {
+                    $announcement->setVoluntary($voluntary);
+                }
             } else {
                 $announcement->setVoluntary($voluntary);
             }
 
-
             if ($form['date_start'] !== null) {
-                $date = new DateTime($form['date_start']->getViewData());
-                $announcement->setDateStart($date);
-            } else $announcement->setDateStart($date_start);
+                if ($form['date_start']->isValid()) {
+
+                    $date = new DateTime($form['date_start']->getViewData());
+                    $announcement->setDateStart($date);
+                } else { 
+                    $announcement->setDateStart($date_start);
+                }
+            }
 
 
             if ($form['date_end'] !== null) {
-                $date = new DateTime($form['date_end']->getViewData());
-                $announcement->setDateEnd($date);
-            } else $announcement->setDateEnd($date_end);
+                if ($form['date_end']->isValid()) {
 
+                    $date = new DateTime($form['date_end']->getViewData());
+                    $announcement->setDateEnd($date);
+                } else {
+                    $announcement->setDateEnd($date_end);
+                }
+            }
             if ($form['location'] !== null) {
                 if ($form['location']->isValid()) {
 
                     $announcement->setLocation($form['location']->getData());
-                } else return new Response('Ville Invalide', 400);
+                } else {
+                     $announcement->setLocation($location);
+                    }
             } else {
                 $announcement->setLocation($location);
             }
@@ -140,7 +188,8 @@ class AnnouncementController extends AbstractController
                 if ($form['title']->isValid()) {
 
                     $announcement->setTitle($form['title']->getData());
-                } else return new Response('Titre Invalide', 400);
+                } else {
+                    $announcement->setTitle($title);}
             } else {
                 $announcement->setTitle($title);
             }
@@ -148,7 +197,9 @@ class AnnouncementController extends AbstractController
                 if ($form['description']->isValid()) {
 
                     $announcement->setVoluntary($form['description']->getData());
-                } else return new Response('Description Invalide', 400);
+                } else {
+                    return new Response('Description Invalide', 400);
+                }
             } else {
                 $announcement->setDescription($description);
             }

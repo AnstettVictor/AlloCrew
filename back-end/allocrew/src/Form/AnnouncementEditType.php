@@ -2,25 +2,22 @@
 
 namespace App\Form;
 
-use DateTime;
 use App\Entity\User;
 use App\Entity\Announcement;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
-class AnnouncementType extends AbstractType
+class AnnouncementEditType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -35,18 +32,22 @@ class AnnouncementType extends AbstractType
                         'match' => false,
                     ]),
                 ]
+
             ])
             ->add('active', ChoiceType::class, [
                 'choices' => [
-                    'Yes' => true, 'No' => false
-                ]
+                    'Yes' => true, 
+                    'No' => false,
+                ],
+                'label' => 'Evènement rémunéré ou bénévole ?',
             ])
             ->add('voluntary', ChoiceType::class, [
                 'choices'  => [
                     'Rémunéré' => false,
                     'Bénévole' => true,
                 ],
-                'label' => 'Evènement rémunéré ou bénévole ?', 
+                'label' => 'Evènement rémunéré ou bénévole ?',
+                
             ])
             ->add('date_start', DateTimeType::class, [
                 'label' => 'Cet évènement commencera le ',
@@ -54,6 +55,7 @@ class AnnouncementType extends AbstractType
                 'format' => 'yyyy-MM-dd',
                 'html5' => false,
                 'attr' => ['class' => 'js-datepicker']
+
             ])
             ->add('date_end', DateTimeType::class, [
                 'label' => 'Cet évènement se terminera le ',
@@ -61,7 +63,8 @@ class AnnouncementType extends AbstractType
                 'format' => 'yyyy-MM-dd',
                 'html5' => false,
                 'attr' => ['class' => 'js-datepicker']
-                
+             
+
             ])
             ->add('location', TextType::class, [
                 'constraints' => [
@@ -74,17 +77,21 @@ class AnnouncementType extends AbstractType
             ])
             ->add(
                 'title',
-                TextType::class  
+                TextType::class
+            
+
             )
-            ->add('description', TextType::class)
+            ->add('description', TextType::class
+            )
             ->add('picture', FileType::class, [
-                'constraints' => new File(),
+                'constraints' => new File()
+                
             ])
             ->add('user', EntityType::class, [
                 // looks for choices from this entity
                 'class' => User::class,
 
-            ]);
+            ]);;
     }
 
     public function configureOptions(OptionsResolver $resolver)
