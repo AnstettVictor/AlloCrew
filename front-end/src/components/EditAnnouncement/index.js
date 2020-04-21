@@ -10,7 +10,7 @@ const EditAnnouncement = ({handleChange, title, location, description, voluntary
 
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-
+  
   return (    
     <div className="editAnnouncement__container"> 
       <form onSubmit={onEditAnnouncementSubmit} method="patch" >     
@@ -61,6 +61,10 @@ const EditAnnouncement = ({handleChange, title, location, description, voluntary
             editor={ClassicEditor}
             data={description}
             onChange={handleChangeEditor}
+            config={{
+              removePlugins: [ 'EasyImage', 'Image', 'ImageCaption', 'ImageStyle', 'ImageToolbar', 'ImageUpload', 'MediaEmbed', 'TableToolbar', 'Table', 'Indent' ],
+            }}
+
           />
         </div>  
 

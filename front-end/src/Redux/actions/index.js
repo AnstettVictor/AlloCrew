@@ -7,8 +7,6 @@ const userId =  () => {
   return JSON.parse(atob(token().split('.')[1])).id
 };
 
-
-
 export const LOGIN_OK = 'LOGIN_OK';
 export const LOGOUT = 'LOGOUT';
 export const UPDATE_ANNOUNCEMENT = 'UPDATE_ANNOUNCEMENT';
@@ -18,7 +16,6 @@ export const INPUT_ANNOUNCEMENT_CHANGE= 'INPUT_ANNOUNCEMENT_CHANGE';
 export const INPUT_EDITANNOUNCEMENT_CHANGE = 'INPUT_EDITANNOUNCEMENT_CHANGE';
 export const INPUT_PROFILE_CHANGE= 'INPUT_PROFILE_CHANGE';
 export const INPUT_EDITPROFILE_CHANGE = 'INPUT_EDITPROFILE_CHANGE';
-
 
 export const loginOk = (payload) => ({
   type: LOGIN_OK, 
@@ -241,7 +238,29 @@ export const patchEditAnnouncement = (id) => (dispatch, getState) => {
   .catch((err) => console.log(err))
 };
 
-
+export const patchCreateAnnouncement = () => (dispatch, getState) => {
+  axios({
+    headers: {
+      Authorization: `bearer ${token()}`,
+    },
+    method: 'post',
+    url: `?`, 
+    data: 
+    { 
+      category: "tagazou",
+      active: getState().data.announcements[0].active,
+      voluntary: getState().data.announcements[0].voluntary,
+      dateStart: getState().data.announcements[0].dateStart,
+      dateEnd: getState().data.announcements[0].dateEnd,
+      location: getState().data.announcements[0].location,
+      title: getState().data.announcements[0].title,
+      description: getState().data.announcements[0].description,
+      picture: getState().data.announcements[0].picture,          
+    }
+  })
+  .then((res) => console.log(res))
+  .catch((err) => console.log(err))
+};
 
 export const passId = (func) => (dispatch, getState) => {
   dispatch(func(getState().login.userId))
