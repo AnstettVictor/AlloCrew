@@ -14,7 +14,7 @@ const Profile = ({id, age, location, firstname, lastname, title, description, ex
         <h4 className="profile__place">{location}</h4>        
       </div>    
     <h3 className="profile__name">{firstname} {lastname}</h3>
-    <h4 className="profile__age desktop">{age} ans - {location} </h4>
+    <h4 className="profile__age desktops">{age} ans - {location} </h4>
     <h2 className="profile__title">{title}</h2>
     <div className="profile__text">    
     </div>

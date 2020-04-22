@@ -1,30 +1,36 @@
 import EditProfile from '../components/EditProfile';
-import {fetchProfile, inputProfileChange} from '../Redux/actions'
+import {fetchProfile, inputProfileChange, patchEditProfile, passId } from '../Redux/actions'
 import {connect} from 'react-redux';
 
-const mapStateToProps = ({ data }) => {
-  const profile = data.profiles[0];
+const mapStateToProps = ({data}) => {
+  
   return({
-    id: profile.id,
-    firstname: profile.firstname,
-    lastname: profile.lastname,
-    age: profile.age,
-    location: profile.location,  
-    title: profile.title,
-    description: profile.description,
-    experience: profile.experience,
-    portfolio: profile.portfolio,
-    picture: profile.picture,
-    bannerpicture: profile.bannerpicture,
+    firstname: data.profiles[0].firstname,
+    lastname: data.profiles[0].lastname,
+    age: data.profiles[0].age,
+    location: data.profiles[0].location,
+    title: data.profiles[0].title,
+    description: data.profiles[0].description,
+    experience: data.profiles[0].experience,
+    portfolio: data.profiles[0].portfolio,
+    picture: data.profiles[0].picture,
+    bannerpicture: data.profiles[0].bannerpicture
   })
 };
 
 const mapDispatchToProps = (dispatch, {match}) => ({
   handleChange: (e) => dispatch(inputProfileChange({[e.target.name]: e.target.value})), 
-  fetchData: dispatch(fetchProfile(match.params.id))
+  handleChangeEditor: (e, editor) => dispatch(inputProfileChange(
+    {
+      [editor.sourceElement.parentElement.classList[0]]: editor.getData()
+    }
+  )), 
+  fetchData: dispatch(fetchProfile(match.params.id)),
+
+  onEditProfileSubmit: (e) => {e.preventDefault(); dispatch(passId(patchEditProfile))}
 })
 ;
 
-const profiles = connect(mapStateToProps, mapDispatchToProps)(EditProfile);
+const editprofile = connect(mapStateToProps, mapDispatchToProps)(EditProfile);
 
-export default profiles;
+export default editprofile;
