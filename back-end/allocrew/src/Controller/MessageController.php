@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Message;
-
+use App\Form\MessageType;
 use App\Repository\UserRepository;
 use App\Repository\MessageRepository;
 use App\Repository\DiscussionRepository;
@@ -15,8 +15,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 /**
-     * @Route("/api/messages", name="api_messages")
-     */
+ * @Route("/api/messages", name="api_messages")
+ */
 class MessageController extends AbstractController
 {
     /**
@@ -33,8 +33,6 @@ class MessageController extends AbstractController
             ['groups' => ['message']]
         ));
     }
-
-
 
     /**
      * @Route("/{id}", name="read", requirements={"id": "\d+"},  methods={"GET"})
@@ -59,25 +57,36 @@ class MessageController extends AbstractController
      */
     public function add(Request $request, UserRepository $userRepository, DiscussionRepository $discussionRepository)
     {
-        
+
         $message = new Message();
 
         // On décode les données envoyées
-        $donnees = json_decode($request->getContent());
+        $donnees = json_decode($request->getContent(), true);
         /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
          * sinon on passe à la suite */
-        if (isset($donnees->content)) {
-            $message->setContent($donnees->content);
-        };
-        
-        $user = $userRepository->find($donnees->user_id);
-        $message->setUser($user);
+        $form = $this->createForm(MessageType::class, $message);
+        $donnees = $form->submit($donnees);
 
-        $discussion = $discussionRepository->find($donnees->discussion_id);
-        $message->setDiscussion($discussion);
-      
+        if ($form->isSubmitted()){
+            if ($form['content']->isValid()){
+                $message->setContent($form['content']->getData());
+            } else { 
+                return new Response('Contenu Invalide', 400);
+            }
+            if ($form['user']->isValid()) {
+                $user = $userRepository->find($form['user']->getData());
+                $message->setUser($user);
+            } else {
+                 return new Response('Utilisateur Invalide', 400);
+            }
+            if ($form['discussion']->isValid()) {
+                $discussion = $discussionRepository->find($form['discussion']->getData());
+                $message->setDiscussion($discussion);
+            } else return new Response('Discussion Invalide', 400);
+        }
+
         $message->setCreatedAt(new \Datetime());
-        
+
         // On sauvegarde en base
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($message);
@@ -88,19 +97,23 @@ class MessageController extends AbstractController
     }
 
 
-     /**
+    /**
      * @Route("/{id}", name="edit", methods={"PATCH"}, requirements={"id": "\d+"})
      */
     public function edit(Message $message, Request $request, $id)
     {
         // On décode les données envoyées
-        $donnees = json_decode($request->getContent());
+        $donnees = json_decode($request->getContent(), true);
         /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
          * sinon on passe à la suite */
-        if (isset($donnees->content)) {
-            $message->setContent($donnees->content);
-        };
-        
+        $form = $this->createForm(MessageType::class, $message);
+        $donnees = $form->submit($donnees);
+        if ($form->isSubmitted()) {
+            if ($form['content']->isValid()) {
+                $message->setContent($form['content']->getData());
+            } else return new Response('Contenu Invalide', 400);
+        }
+
         $message->setUpdatedAt(new \Datetime());
 
         $message = $this->getDoctrine()->getRepository(Message::class)->findOneBy(["id" => $id]);
@@ -114,7 +127,7 @@ class MessageController extends AbstractController
         return new Response('ok', 204);
     }
 
-     /**
+    /**
      * @Route("/{id}", name="delete", requirements={"id": "\d+"}, methods={"DELETE"})
      */
     public function delete(Message $message)
