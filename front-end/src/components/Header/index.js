@@ -1,14 +1,11 @@
 import React, { useRef, useEffect, useState } from "react";
 import './style.scss';
-import {
-  NavLink,
-  Link
-} from "react-router-dom";
+import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 
 
 
-const Header = ({userId, logout}) => {
+const Header = ({userId, logout, isLogged}) => {
 
   const ref = useRef(null)
   //State du menu burger
@@ -28,27 +25,28 @@ const Header = ({userId, logout}) => {
     setMenuState(false);
   }
  
-  return(
+  return (
 
-  <nav className="header__nav">
-    <div  className="transparent"></div>
+    <nav className="header__nav">
+      <div  className="transparent"/>
       <Link to="/home">
         <div className="header__logo">AlloCrew</div> 
       </Link>
-    <div className="header__links-desktop">
-      <ul className="">
-        <Link to="/home" ><li>Accueil</li></Link>
-        <Link to="/search" ><li>Rechercher</li></Link>
-        <Link to={`/tchat-room`} ><li>Messagerie</li></Link>
-      </ul>
-    </div>
-    <div  ref={ref} className="header__menuButton">
-      +
-    </div>
-    {
-      menuState && (
+      {isLogged && (
+        <>
+        <div className="header__links-desktop">
+          <ul className="">
+            <Link to="/home" ><li>Accueil</li></Link>
+            <Link to="/search" ><li>Rechercher</li></Link>
+            <Link to={`/tchat-room`} ><li>Messagerie</li></Link>
+          </ul>
+        </div>
+        <div  ref={ref} className="header__menuButton">+</div>
+        </>
+      )}
+      {/* Menu burger */}
+      {isLogged && menuState && (
         <div className="header__menu">
-          
           <ul className="header__links-mobile">
             <Link to="/home" ><li>Accueil</li></Link>
             <Link to="/search" ><li>Rechercher</li></Link>
@@ -60,19 +58,15 @@ const Header = ({userId, logout}) => {
             <Link to={`/edit-user/${userId}`}><li>Paramètres</li></Link>
             <Link to="/"><li onClick={logout} >Déconnexion</li></Link>
           </ul>
-        </div>
-      )
-    }
-    
-  </nav>
-
+        </div> 
+      )}
+    </nav>
 )};
 
-// Header.propTypes = {
-//   isLogged: PropTypes.bool.isRequired,
-//   connectedUser: PropTypes.shape({
-//     id: PropTypes.number.isRequired,
-//   }).isRequired,
-// }
+Header.propTypes = {
+  isLogged: PropTypes.bool.isRequired,
+  userId: PropTypes.number.isRequired,
+  logout: PropTypes.func.isRequired
+}
 
 export default Header;
