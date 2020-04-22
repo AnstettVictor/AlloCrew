@@ -71,22 +71,7 @@ class DiscussionController extends AbstractController
          * sinon on passe à la suite */
         $form = $this->createForm(DiscussionType::class, $discussion);
 
-        $donnees = $form->submit($donnees);
-
-        if ($form->isSubmitted()) {
-            if ($form['creator']->isValid()) {
-                $user = $userRepository->find($form['creator']->getData());
-                $discussion->setCreator($user);
-            } else return new Response('Créateur Invalide', 400);
-            if ($form['receiver']->isValid()) {
-                $user = $userRepository->find($form['receiver']->getData());
-                $discussion->setReceiver($user);
-            } else return new Response('Receveur Invalide', 400);
-            if ($form['announcement']->isValid()) {
-                $announcement = $announcementRepository->find($form['announcement']->getData());
-                $discussion->setAnnouncement($announcement);
-            } else return new Response('Créateur Invalide', 400);
-        }
+        $donnees = $form->submit($donnees, false);
 
         $discussion->setCreatedAt(new \Datetime());
 
@@ -105,6 +90,10 @@ class DiscussionController extends AbstractController
      */
     public function delete(Discussion $discussion)
     {
+        if ($this->getUser()->getId() != $discussion->getCreator()->getId() OR $this->getUser()->getId() != $discussion->getReceiver()->getId()){
+
+            return new Response('Accès refusé', 403);
+        }
         //TOODOO le VOTER 
         /**  // Ici on utilise un voter
          * // Cette fonction va émettre une exception Access Forbidden pour interdire l'accès au reste du contrôleur

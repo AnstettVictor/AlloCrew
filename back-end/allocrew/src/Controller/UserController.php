@@ -43,6 +43,10 @@ class UserController extends AbstractController
      */
     public function accountEdit(User $user, Request $request, GetErrorsFromForm $getErrorsFromForm)
     {
+        if ($this->getUser()->getId() != $user->getId()){
+
+            return new Response('Accès refusé', 403);
+        }
 
         // On décode les données envoyées
         $donnees = json_decode($request->getContent(), true);
@@ -76,6 +80,10 @@ class UserController extends AbstractController
      */
     public function passwordEdit(User $user, Request $request, UserPasswordEncoderInterface $encoder)
     {
+        if ($this->getUser()->getId() != $user->getId()){
+
+            return new Response('Accès refusé', 403);
+        }
         // On décode les données envoyées
         $donnees = json_decode($request->getContent());
         /** On verifie si la propriété est envoyé dans le json si oui encode le mot de passe  
@@ -129,6 +137,10 @@ class UserController extends AbstractController
      */
     public function edit(User $user, Request $request, GetErrorsFromForm $getErrorsFromForm)
     {
+        if ($this->getUser()->getId() != $user->getId()){
+
+            return new Response('Accès refusé', 403);
+        }
         $donnees = json_decode($request->getContent(), true);
 
         $form = $this->createForm(UserType::class, $user);

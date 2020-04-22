@@ -65,25 +65,7 @@ class MessageController extends AbstractController
         /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
          * sinon on passe à la suite */
         $form = $this->createForm(MessageType::class, $message);
-        $donnees = $form->submit($donnees);
-
-        if ($form->isSubmitted()){
-            if ($form['content']->isValid()){
-                $message->setContent($form['content']->getData());
-            } else { 
-                return new Response('Contenu Invalide', 400);
-            }
-            if ($form['user']->isValid()) {
-                $user = $userRepository->find($form['user']->getData());
-                $message->setUser($user);
-            } else {
-                 return new Response('Utilisateur Invalide', 400);
-            }
-            if ($form['discussion']->isValid()) {
-                $discussion = $discussionRepository->find($form['discussion']->getData());
-                $message->setDiscussion($discussion);
-            } else return new Response('Discussion Invalide', 400);
-        }
+        $form->submit($donnees, false);
 
         $message->setCreatedAt(new \Datetime());
 
@@ -102,12 +84,16 @@ class MessageController extends AbstractController
      */
     public function edit(Message $message, Request $request, $id)
     {
+        if ($this->getUser()->getId() != $message->getUser()->getId()){
+
+            return new Response('Accès refusé', 403);
+        }
         // On décode les données envoyées
         $donnees = json_decode($request->getContent(), true);
         /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
          * sinon on passe à la suite */
         $form = $this->createForm(MessageType::class, $message);
-        $donnees = $form->submit($donnees);
+        $donnees = $form->submit($donnees, false);
         if ($form->isSubmitted()) {
             if ($form['content']->isValid()) {
                 $message->setContent($form['content']->getData());
@@ -132,6 +118,10 @@ class MessageController extends AbstractController
      */
     public function delete(Message $message)
     {
+        if ($this->getUser()->getId() != $message->getUser()->getId()){
+
+            return new Response('Accès refusé', 403);
+        }
         // TODOO VOTER 
         /**  // Ici on utilise un voter
          * // Cette fonction va émettre une exception Access Forbidden pour interdire l'accès au reste du contrôleur
