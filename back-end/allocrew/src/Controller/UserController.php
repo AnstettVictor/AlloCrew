@@ -3,15 +3,17 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\UserType;
+use App\Utils\GetErrorsFromForm;
 use App\Repository\UserRepository;
 use App\Repository\AnnouncementRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-
 
 /**
  * @Route("/api/users", name="api_users_")
@@ -21,9 +23,8 @@ class UserController extends AbstractController
     /**
      * @Route("/account/{id}", name="account", methods={"GET"})
      */
-    public function account(UserRepository $userRepository , SerializerInterface $serializer,  $id)
+    public function account(UserRepository $userRepository, SerializerInterface $serializer,  $id)
     {
-            
         $user = $userRepository->findBy(array('id' => $id));
 
         if (!empty($user)) {
@@ -35,54 +36,53 @@ class UserController extends AbstractController
         } else {
             return new Response("l'utilisateur n'est pas en base de données  ", 404);
         }
-
     }
 
     /**
      * @Route("/account/{id}", name="account_edit",requirements={"id": "\d+"}, methods={"PATCH"})
      */
-    public function accountEdit(User $user, Request $request, $id)
+    public function accountEdit(User $user, Request $request, GetErrorsFromForm $getErrorsFromForm)
     {
 
-          // On décode les données envoyées
-          $donnees = json_decode($request->getContent());
-          /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
-           * sinon on passe à la suite */   
-          if (isset($donnees->email)) {
-            $user->setEmail($donnees->email);
-        }     
-          if (isset($donnees->firstname)) {
-              $user->setFirstname($donnees->firstname);
-          };
-          if (isset($donnees->lastname)) {
-              $user->setLastname($donnees->lastname);
-          }
-         
-          $user->setUpdatedat(new \Datetime());
+        // On décode les données envoyées
+        $donnees = json_decode($request->getContent(), true);
+        /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
+         * sinon on passe à la suite */
+        $form = $this->createForm(UserType::class, $user);
 
-          $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(["id" => $id]);
-  
-          // On sauvegarde en base
-          $entityManager = $this->getDoctrine()->getManager();
-          $entityManager->persist($user);
-          $entityManager->flush();
-  
-          // On retourne la confirmation
-          return new Response('ok', 201);
+        $form->submit($donnees, false);
+
+        if ($form->isValid()) {
+            $user->setUpdatedAt(new \DateTime);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+            return new JsonResponse('ok', 201);
+        } else {
+            $errors = $getErrorsFromForm->getErrors($form);
+            $data = [
+                'type' => 'validation_error',
+                'title' => 'There was a validation error',
+                'errors' => $errors,
+            ];
+            return new JsonResponse($data, 400);
+        }
+
+       
     }
 
     /**
      * @Route("/password/{id}", name="account_edit_password", methods={"PATCH"})
      */
-    public function passwordEdit(User $user, Request $request,UserPasswordEncoderInterface $encoder)
+    public function passwordEdit(User $user, Request $request, UserPasswordEncoderInterface $encoder)
     {
         // On décode les données envoyées
         $donnees = json_decode($request->getContent());
         /** On verifie si la propriété est envoyé dans le json si oui encode le mot de passe  
-         * sinon on passe à la suite */   
+         * sinon on passe à la suite */
         if (isset($donnees->password)) {
-        $user->setPassword($encoder->encodePassword($user, $donnees->password));
-         }
+            $user->setPassword($encoder->encodePassword($user, $donnees->password));
+        }
         $user->setUpdatedat(new \Datetime());
 
         $entityManager = $this->getDoctrine()->getManager();
@@ -111,7 +111,7 @@ class UserController extends AbstractController
      */
     public function read(UserRepository $UserRepository, $id, SerializerInterface $serializer)
     {
-            
+
         $user = $UserRepository->findBy(array('id' => $id));
         if (!empty($user)) {
             return $this->json($serializer->normalize(
@@ -127,56 +127,58 @@ class UserController extends AbstractController
     /**
      * @Route("/{id}", name="edit", methods={"PATCH"}, requirements={"id": "\d+"})
      */
-    public function edit(User $user, Request $request, $id)
+    public function edit(User $user, Request $request, GetErrorsFromForm $getErrorsFromForm)
     {
-        // On décode les données envoyées
-        $donnees = json_decode($request->getContent());
-        /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
-         * sinon on passe à la suite */        
-        if (isset($donnees->firstname)) {
-            $user->setFirstname($donnees->firstname);
-        };
-        if (isset($donnees->lastname)) {
-            $user->setLastname($donnees->lastname);
-        }
-        if (isset($donnees->age)) {
-            $user->setAge($donnees->age);
-        }
-        if (isset($donnees->location)) {
-            $user->setLocation($donnees->location);
-        }
-        if (isset($donnees->title)) {
-            $user->setTitle($donnees->title);
-        }
-        if (isset($donnees->description)) {
-            $user->setDescription($donnees->description);
-        }
-        if (isset($donnees->experience)) {
-            $user->setExperience($donnees->experience);
-        }
-        if (isset($donnees->portfolio)) {
-            $user->setPortfolio($donnees->portfolio);
-        }
-        if (isset($donnees->picture)) {
-            $user->setPicture($donnees->picture);
-        }
-        if (isset($donnees->bannerpicture)) {
-            $user->setBannerpicture($donnees->bannerpicture);
-        }
-        $user->setUpdatedAt(new \Datetime());
+        $donnees = json_decode($request->getContent(), true);
 
-        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(["id" => $id]);
+        $form = $this->createForm(UserType::class, $user);
 
-        // On sauvegarde en base
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($user);
-        $entityManager->flush();
+        $form->submit($donnees, false);
 
-        // On retourne la confirmation
-        return new Response('ok', 201);
+        if ($form->isValid()) {
+            $user->setUpdatedAt(new \DateTime);
+            if ($form['picture']->isSubmitted() && $form['picture']->isValid()) {
+                /** @var UploadImage 
+                 * $uploadedFile */
+
+                $uploadedFile = $form['picture']->getData();
+                $destination = $this->getParameter('kernel.project_dir') . '/public/uploads/Picture';
+                $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $newFilename = $originalFilename . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
+                $uploadedFile->move(
+                    $destination,
+                    $newFilename
+                );
+            }
+            if ($form['bannerpicture']->isSubmitted() && $form['bannerpicture']->isValid()) {
+                /** @var UploadImage 
+                 * $uploadedFile */
+
+                $uploadedFile = $form['bannerpicture']->getData();
+                $destination = $this->getParameter('kernel.project_dir') . '/public/uploads/BannerPicture';
+                $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $newFilename = $originalFilename . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
+                $uploadedFile->move(
+                    $destination,
+                    $newFilename
+                );
+            }
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+            return new JsonResponse('ok', 200);
+        } else {
+            $errors = $getErrorsFromForm->getErrors($form);
+            $data = [
+                'type' => 'validation_error',
+                'title' => 'There was a validation error',
+                'errors' => $errors,
+            ];
+            return new JsonResponse($data, 400);
+        }
     }
 
-     /**
+    /**
      * @Route("/announcement/{id}", name="read_announcement", requirements={"id": "\d+"},  methods={"GET"})
      */
     public function readAnnouncement(AnnouncementRepository $announcementRepository, User $user, SerializerInterface $serializer, $id)
@@ -190,7 +192,7 @@ class UserController extends AbstractController
                 ['groups' => ['announcement']]
             ));
         } else {
-            return new Response("l'annonce n'est pas en base de données  ", 404);
+            return new Response("L'annonce n'est pas en base de données  ", 404);
         }
     }
 }

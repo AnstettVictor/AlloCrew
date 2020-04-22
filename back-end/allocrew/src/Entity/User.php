@@ -150,6 +150,7 @@ class User implements UserInterface
      */
     private $discussionsCreated;
 
+
     public function __construct()
     {
         $this->announcements = new ArrayCollection();

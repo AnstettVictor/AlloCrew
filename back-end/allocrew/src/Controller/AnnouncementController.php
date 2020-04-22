@@ -2,19 +2,16 @@
 
 namespace App\Controller;
 
-use DateTime;
-use App\Entity\User;
 use App\Entity\Announcement;
-use App\Repository\UserRepository;
+use App\Form\AnnouncementType;
 use App\Repository\AnnouncementRepository;
+use App\Utils\GetErrorsFromForm;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
-
-
 
 
 /**
@@ -50,137 +47,123 @@ class AnnouncementController extends AbstractController
                 ['groups' => ['announcement']]
             ));
         } else {
-            return new Response("l'annonce n'est pas en base de données  ", 404);
+            return new Response("L'annonce n'est pas en base de données  ", 404);
         }
     }
 
-     /**
+    /**
      * @Route("/{id}", name="edit", methods={"PATCH"}, requirements={"id": "\d+"})
+     *
      */
-    public function edit(Announcement $announcement, Request $request, $id)
+    public function edit(Announcement $announcement, Request $request, GetErrorsFromForm $getErrorsFromForm)
     {
-        // On décode les données envoyées
-        $donnees = json_decode($request->getContent());
-        /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
-         * sinon on passe à la suite */
-        if (isset($donnees->category)) {
-            $announcement->setCategory($donnees->category);
-        };
-        if (isset($donnees->active)) {
-            $announcement->setActive($donnees->active);
-        };
-        if (isset($donnees->voluntary)) {
-            $announcement->setVoluntary($donnees->voluntary);
-        };
-        if (isset($donnees->date_start)) {
-            $date = new DateTime($donnees->date_start);
-            $announcement->setDateStart($date);
-        };
-        if (isset($donnees->date_end)) {
-            $date = new DateTime($donnees->date_end);
-            $announcement->setDateEnd($date);
-        }
-        if (isset($donnees->location)) {
-            $announcement->setLocation($donnees->location);
-        }
-        if (isset($donnees->title)) {
-            $announcement->setTitle($donnees->title);
-        }
-        if (isset($donnees->description)) {
-            $announcement->setDescription($donnees->description);
-        }
-        if (isset($donnees->picture)) {
-            $announcement->setPicture($donnees->picture);
+        
+        $donnees = json_decode($request->getContent(), true);
+       
+        $form = $this->createForm(AnnouncementType::class, $announcement);
+        
+        $form->submit($donnees, false);
+        
+        if ($form->isValid()) {
+            $announcement->setUpdatedAt(new \DateTime);
+            if ($form['picture']->isSubmitted() && $form['picture']->isValid()){
+                /** @var UploadImage 
+                 * $uploadedFile */
+                
+                $uploadedFile = $form['picture']->getData();
+                $destination = $this->getParameter('kernel.project_dir').'/public/uploads/AnnouncementPicture';
+                $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $newFilename = $originalFilename.'-'.uniqid().'.'.$uploadedFile->guessExtension();
+                $uploadedFile->move(
+                    $destination,
+                    $newFilename
+                );}
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($announcement);
+            $em->flush();
+            return new JsonResponse('ok', 200);
+        } else {
+            $errors = $getErrorsFromForm->getErrors($form);
+            $data = [
+                'type' => 'validation_error',
+                'title' => 'There was a validation error',
+                'errors' => $errors,
+            ];
+            return new JsonResponse($data, 400);
         }
         
-        $announcement->setUpdatedAt(new \Datetime());
-
-        $announcement = $this->getDoctrine()->getRepository(Announcement::class)->findOneBy(["id" => $id]);
-
-        // On sauvegarde en base
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($announcement);
-        $entityManager->flush();
-
-        // On retourne la confirmation
-        return new Response('ok', 204);
+       
     }
 
     /**
      * @Route("/", name="add", methods={"POST"})
      */
-    public function add(Request $request, UserRepository $userRepository )
+    public function add(Request $request, GetErrorsFromForm $getErrorsFromForm)
     {
         $announcement = new Announcement();
 
         // On décode les données envoyées
-        $donnees = json_decode($request->getContent());
+        $donnees = json_decode($request->getContent(), true);
         /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
          * sinon on passe à la suite */
-        if (isset($donnees->category)) {
-            $announcement->setCategory($donnees->category);
-        };
-        if (isset($donnees->active)) {
-            $announcement->setActive($donnees->active);
-        };
-        if (isset($donnees->voluntary)) {
-            $announcement->setVoluntary($donnees->voluntary);
-        };
-        if (isset($donnees->date_start)) {
-           
-            $date = new DateTime($donnees->date_start);
-            $announcement->setDateStart($date);
-        };
-        if (isset($donnees->date_end)) {
-            $date = new DateTime($donnees->date_end);
-            $announcement->setDateEnd($date);
-        }
-        if (isset($donnees->location)) {
-            $announcement->setLocation($donnees->location);
-        }
-        if (isset($donnees->title)) {
-            $announcement->setTitle($donnees->title);
-        }
-        if (isset($donnees->description)) {
-            $announcement->setDescription($donnees->description);
-        }
-        if (isset($donnees->picture)) {
-            $announcement->setPicture($donnees->picture);
-        }
-        if (isset($donnees->user_id)) {
-            $user = $userRepository->find($donnees->user_id);
-            $announcement->setUser($user);
-        }
-      
-        $announcement->setCreatedAt(new \Datetime());
-        
-        // On sauvegarde en base
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($announcement);
-        $entityManager->flush();
+        $form = $this->createForm(AnnouncementType::class, $announcement);
+        $form->submit($donnees);
+       
 
-        // On retourne la confirmation
-        return new Response('ok', 201);
+        $donnees = json_decode($request->getContent(), true);
+       
+        $form = $this->createForm(AnnouncementType::class, $announcement);
+        //dd($announcement);
+        $form->submit($donnees, false);
+        
+        if ($form->isValid()) {
+            $announcement->setCreatedAt(new \DateTime);
+            if ($form['picture']->isSubmitted() && $form['picture']->isValid()){
+            /** @var UploadImage 
+             * $uploadedFile */
+            
+            $uploadedFile = $form['picture']->getData();
+            $destination = $this->getParameter('kernel.project_dir').'/public/uploads/AnnouncementPicture';
+            $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+            $newFilename = $originalFilename.'-'.uniqid().'.'.$uploadedFile->guessExtension();
+            $uploadedFile->move(
+                $destination,
+                $newFilename
+            );}
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($announcement);
+            $em->flush();
+            return new JsonResponse('ok', 201);
+        } else {
+            $errors = $getErrorsFromForm->getErrors($form);
+            $data = [
+                'type' => 'validation_error',
+                'title' => 'There was a validation error',
+                'errors' => $errors,
+            ];
+            return new JsonResponse($data, 400);
+        }
+          
     }
 
-     /**
-      * @Route("/{id}", name="delete", requirements={"id": "\d+"}, methods={"DELETE"})
-      */
-     public function delete(Announcement $announcement)
+    /**
+     * @Route("/{id}", name="delete", requirements={"id": "\d+"}, methods={"DELETE"})
+     */
+    public function delete(Announcement $announcement)
     {
         // TODO VOTER 
-    /**  // Ici on utilise un voter
-   * // Cette fonction va émettre une exception Access Forbidden pour interdire l'accès au reste du contrôleur
-   * // Les conditions pour lesquelles le droit MOVIE_DELETE est applicable sur $movie pour l'utilisateur connecté
-   * // sont définies dans les voters, dans leurs méthodes voteOnAttribute()*/
-     // $this->denyAccessUnlessGranted('MOVIE_DELETE', $movie);
+        /**  // Ici on utilise un voter
+         * // Cette fonction va émettre une exception Access Forbidden pour interdire l'accès au reste du contrôleur
+         * // Les conditions pour lesquelles le droit MOVIE_DELETE est applicable sur $movie pour l'utilisateur connecté
+         * // sont définies dans les voters, dans leurs méthodes voteOnAttribute()*/
+        // $this->denyAccessUnlessGranted('MOVIE_DELETE', $movie);
 
         $em = $this->getDoctrine()->getManager();
 
         $em->remove($announcement);
-         $em->flush();
+        $em->flush();
 
-         // On retourne la confirmation
+        // On retourne la confirmation
         return new Response('supression ok', 200);
-     }
+    }
 }
