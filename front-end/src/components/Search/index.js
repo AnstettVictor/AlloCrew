@@ -13,7 +13,7 @@ const Search = ({ announceList, profileList }) => {
     <div>
 
       <div className="search__header">
-        {/* switcher betwheen Search annonce and Search profile */}
+        {/* switcher betwheen Search annonce and Search profile  */}
         <p onClick={() => setSearchSwitch(true)}>Rechercher une annonce</p>
         <p onClick={() => setSearchSwitch(false)}>Rechercher un profil</p>
 
