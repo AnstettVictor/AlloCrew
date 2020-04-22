@@ -11,7 +11,7 @@ import './style.scss';
 
 //import Components
 import LandPage from '../LandPage';
-import Register from '../Register';
+import Register from '../../containers/Register';
 import Login from '../../containers/Login';
 
 import Header from '../../containers/Header';

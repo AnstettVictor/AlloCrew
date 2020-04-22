@@ -9,17 +9,14 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 const CreateAnnouncement = ({handleChange, title, location, description, voluntary, picture, id, onCreateAnnouncementSubmit, handleChangeEditor, handleDateChange,  dateStart, dateEnd}) => {
   const newStartDate = new Date(dateStart);
   const newEndDate = new Date(dateEnd);
-
   return (    
     <div className="createAnnouncement__container"> 
              
       <h2 className="createAnnouncement__title">Création de votre annonce</h2>
 
-      <form onSubmit={onCreateAnnouncementSubmit} method="post" >
+      <form id="myform" onSubmit={onCreateAnnouncementSubmit} method="post" >
 
-        <div className="createAnnouncement__input drop desktop input">
-          <input type="file" className="input" accept=".png, .jpg, .jpeg" name="file"  />
-        </div> 
+        
 
         <h2 className="createAnnouncement__desktop--Title">Titre de l'annonce</h2>  
         <input onChange={handleChange} value={title} name="title" className="createAnnouncement__input title input" type="text" placeholder={title?title:"Titre de l'annonce"} />

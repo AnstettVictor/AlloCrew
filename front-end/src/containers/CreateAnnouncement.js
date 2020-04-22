@@ -28,8 +28,6 @@ const mapDispatchToProps = (dispatch, {match}) => ({
   handleDateChange: (date, evt) => dispatch(inputCreateAnnouncement({[evt.target.classList[1]]: date})),
   
   onCreateAnnouncementSubmit: (e) => {e.preventDefault(); dispatch(passId(patchCreateAnnouncement))},
-
-  // postAnnouncement: (e) => {e.preventDefault(); dispatch(postAnnouncement())}
 })
 ;
 

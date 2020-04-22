@@ -18,9 +18,26 @@ export const INPUT_PROFILE_CHANGE= 'INPUT_PROFILE_CHANGE';
 export const INPUT_EDITPROFILE_CHANGE = 'INPUT_EDITPROFILE_CHANGE';
 export const RESET_DATA = 'RESET_DATA';
 export const INPUT_CREATE_ANNOUNCEMENT= 'INPUT_CREATE_ANNOUNCEMENT';
+export const NOTIFICATION= 'NOTIFICATION';
+export const CLEAR_NOTIFICATION= 'CLEAR_NOTIFICATION';
+export const REGISTER_SUCCESS= 'REGISTER_SUCCESS';
 
 export const resetData = () => ({
   type: RESET_DATA,
+})
+
+export const notification = (payload) => ({
+  type: NOTIFICATION,
+  payload
+})
+
+export const clearNotification = (payload) => ({
+  type: CLEAR_NOTIFICATION,
+  payload
+})
+
+export const registerSuccess = () => ({
+  type: REGISTER_SUCCESS,
 })
 
 export const loginOk = (payload) => ({
@@ -80,6 +97,33 @@ export const inputEditAnnouncementChange = (payload) => ({
 //Appels Ajax
 
 //Login
+
+export const register = () => (dispatch, getState) => {
+
+  if(
+    getState().login.data.username === getState().login.data._username
+    &&
+    getState().login.data.password === getState().login.data._password
+  ){
+    axios({
+      method: 'post',
+      url: 'http://3.88.40.169/register',
+      data: {
+        email: getState().login.data.username,
+        password: getState().login.data.password,
+      }
+    })
+    .then(res => {
+      dispatch(notification('Votre compte à bien été créé!'))
+      setTimeout(() => {dispatch(registerSuccess())}, 3000)
+    }) 
+    .catch(err => console.log(err))
+  }else{
+    dispatch(notification('Champs non identiques'))
+    setTimeout(() => {dispatch(clearNotification())}, 3000)
+  }
+}
+
 export const logUser = () => (dispatch, getState) => {
   axios({
     method: 'post',
@@ -182,24 +226,6 @@ export const fetchProfileList = () => (dispatch) => {
 
 
 
-export const postAnnouncement = () => (dispatch, getState) => {
-  const data = getState().data.announcements[0]
-  axios({
-    headers: {
-      Authorization: `bearer ${token()}`,
-    },
-    method: 'patch',
-    url: `http://3.88.40.169/api/users/password/7`, 
-    data: 
-    {
-      "password": "tagazou"
-    }
-  })
-  .then((res) => {
-    console.log(res)
-  })
-};
-
 export const patchEditProfile = (id) => (dispatch, getState) => {
   axios({
     headers: {
@@ -259,9 +285,17 @@ export const patchCreateAnnouncement = () => (dispatch, getState) => {
     data: 
     { 
       user_id: getState().login.userId,
-      category: "default",
-      picture: "default",
-      ...getState().data.create          
+      title: "",
+      location: "",
+      active: true,
+      voluntary: true,
+      date_start: "2020-06-25T00:00:00+00:00",
+      date_end: "2020-06-25T00:00:00+00:00",
+      description: "", 
+      // user_id: getState().login.userId,
+      // category: "default",
+      // picture: "default",
+      // ...getState().data.create          
     }
   })
   .then((res) => console.log(res))
