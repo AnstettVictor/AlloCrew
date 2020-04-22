@@ -7,17 +7,21 @@ const userId =  () => {
   return JSON.parse(atob(token().split('.')[1])).id
 };
 
-
-
 export const LOGIN_OK = 'LOGIN_OK';
 export const LOGOUT = 'LOGOUT';
 export const UPDATE_ANNOUNCEMENT = 'UPDATE_ANNOUNCEMENT';
 export const UPDATE_PROFILE= 'UPDATE_PROFILE';
 export const INPUT_LOGIN_CHANGE= 'INPUT_LOGIN_CHANGE';
 export const INPUT_ANNOUNCEMENT_CHANGE= 'INPUT_ANNOUNCEMENT_CHANGE';
+export const INPUT_EDITANNOUNCEMENT_CHANGE = 'INPUT_EDITANNOUNCEMENT_CHANGE';
 export const INPUT_PROFILE_CHANGE= 'INPUT_PROFILE_CHANGE';
 export const INPUT_EDITPROFILE_CHANGE = 'INPUT_EDITPROFILE_CHANGE';
+export const RESET_DATA = 'RESET_DATA';
+export const INPUT_CREATE_ANNOUNCEMENT= 'INPUT_CREATE_ANNOUNCEMENT';
 
+export const resetData = () => ({
+  type: RESET_DATA,
+})
 
 export const loginOk = (payload) => ({
   type: LOGIN_OK, 
@@ -52,6 +56,11 @@ export const inputAnnouncementChange = (payload) => ({
   payload
 })
 
+export const inputCreateAnnouncement = (payload) => ({
+  type: INPUT_CREATE_ANNOUNCEMENT,
+  payload
+})
+
 export const inputEditProfileChange = (payload) => ({
   type: INPUT_EDITPROFILE_CHANGE,
   payload
@@ -59,6 +68,11 @@ export const inputEditProfileChange = (payload) => ({
 
 export const inputProfileChange = (payload) => ({
   type: INPUT_PROFILE_CHANGE,
+  payload
+})
+
+export const inputEditAnnouncementChange = (payload) => ({
+  type: INPUT_EDITANNOUNCEMENT_CHANGE,
   payload
 })
 
@@ -205,6 +219,49 @@ export const patchEditProfile = (id) => (dispatch, getState) => {
       portfolio: getState().data.profiles[0].portfolio,
       picture: getState().data.profiles[0].picture,
       bannerpicture: getState().data.profiles[0].bannerpicture,     
+    }
+  })
+  .then((res) => console.log(res))
+  .catch((err) => console.log(err))
+};
+
+export const patchEditAnnouncement = (id) => (dispatch, getState) => {
+  axios({
+    headers: {
+      Authorization: `bearer ${token()}`,
+    },
+    method: 'patch',
+    url: `http://3.88.40.169/api/announcements/${id}`, 
+    data: 
+    { 
+      category: "tagazou",
+      active: getState().data.announcements[0].active,
+      voluntary: getState().data.announcements[0].voluntary,
+      dateStart: getState().data.announcements[0].dateStart,
+      dateEnd: getState().data.announcements[0].dateEnd,
+      location: getState().data.announcements[0].location,
+      title: getState().data.announcements[0].title,
+      description: getState().data.announcements[0].description,
+      picture: getState().data.announcements[0].picture,          
+    }
+  })
+  .then((res) => console.log(res))
+  .catch((err) => console.log(err))
+};
+
+export const patchCreateAnnouncement = () => (dispatch, getState) => {
+  axios({
+    headers: {
+      Authorization: `bearer ${token()}`,
+    },
+    method: 'post',
+    url: `http://3.88.40.169/api/announcements/`, 
+    data: 
+    { 
+      user_id: getState().login.userId,
+      category: "default",
+      picture: "default",
+      ...getState().data.create          
     }
   })
   .then((res) => console.log(res))

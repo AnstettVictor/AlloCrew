@@ -3,7 +3,6 @@ import './style.scss';
 import PropTypes from 'prop-types';
 import searchlogo from 'images/svg/search.svg';
 import AnnouncementList from '../AnnouncementList';
-
 import ProfileList from './ProfileList';
 
 const Search = ({ announceList, profileList }) => {
@@ -11,7 +10,6 @@ const Search = ({ announceList, profileList }) => {
   const [filter, setFilter] = useState();
   return (
     <div>
-
       <div className="search__header">
         {/* switcher betwheen Search annonce and Search profile  */}
         <p onClick={() => setSearchSwitch(true)}>Rechercher une annonce</p>
@@ -22,6 +20,7 @@ const Search = ({ announceList, profileList }) => {
           <input style={{ backgroundImage: `url(${searchlogo})` }} className=" search__button" type="submit" />
         </form>
       </div>
+
       {/* if SearchSwitch is true, Search an annonce, if false, search an profile */}
       <div className="announcementList">
         {searchSwitch && <AnnouncementList list={filter ? announceList.filter((one) => one.title.toLowerCase().includes(filter.toLowerCase())) : announceList} />}

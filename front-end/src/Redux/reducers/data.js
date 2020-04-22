@@ -1,6 +1,15 @@
-import {UPDATE_ANNOUNCEMENT, UPDATE_PROFILE, INPUT_PROFILE_CHANGE, INPUT_ANNOUNCEMENT_CHANGE, INPUT_EDITPROFILE_CHANGE} from '../actions';
+import {UPDATE_ANNOUNCEMENT, UPDATE_PROFILE, INPUT_PROFILE_CHANGE, INPUT_ANNOUNCEMENT_CHANGE, INPUT_EDITPROFILE_CHANGE, INPUT_EDITANNOUNCEMENT_CHANGE, INPUT_CREATE_ANNOUNCEMENT, RESET_DATA} from '../actions';
 
 const initialState = {
+  create: {
+    title: "",
+    location: "",
+    active: true,
+    voluntary: true,
+    date_start: "2020-06-25T00:00:00+00:00",
+    date_end: "2020-06-25T00:00:00+00:00",
+    description: "",     
+  },
   announcements: [
     {
       id: 0,
@@ -25,6 +34,7 @@ const initialState = {
     }
   ],
   editProfile:[{}],
+  editAnnouncement:[{}],
   profiles: [
     {
       id: 0,
@@ -44,8 +54,19 @@ const initialState = {
 
 
 const reducer = (state = initialState, action) => {
+  console.log(action.payload)
   switch (action.type) {
-  
+    case INPUT_CREATE_ANNOUNCEMENT:
+      return {
+        ...state,
+        create: {...state.create, ...action.payload}, 
+      };
+
+    case RESET_DATA:
+      return {
+      state: {}
+      };
+    
     case UPDATE_ANNOUNCEMENT:
       return {
         ...state,
@@ -66,6 +87,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         editProfile: [{...state.editProfile, ...action.payload}], 
       };
+      case INPUT_EDITANNOUNCEMENT_CHANGE:
+        return {
+          ...state,
+          editAnnouncement: [{...state.editAnnouncement, ...action.payload}], 
+        };
     case INPUT_ANNOUNCEMENT_CHANGE:
       return {
         ...state,

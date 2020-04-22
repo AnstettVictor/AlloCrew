@@ -35,6 +35,9 @@ const EditProfile = ({id, onEditProfileSubmit, title, firstname, lastname, age, 
             editor={ClassicEditor}
             data={description}
             onChange={handleChangeEditor}
+            config={{
+              removePlugins: [ 'EasyImage', 'Image', 'ImageCaption', 'ImageStyle', 'ImageToolbar', 'ImageUpload', 'MediaEmbed', 'TableToolbar', 'Table', 'Indent' ],
+            }}
           />
           </div>
         </div>
@@ -45,6 +48,9 @@ const EditProfile = ({id, onEditProfileSubmit, title, firstname, lastname, age, 
             editor={ClassicEditor}
             data={experience}
             onChange={handleChangeEditor}
+            config={{
+              removePlugins: [ 'EasyImage', 'Image', 'ImageCaption', 'ImageStyle', 'ImageToolbar', 'ImageUpload', 'MediaEmbed', 'TableToolbar', 'Table', 'Indent' ],
+            }}
           />
           </div>
         </div>
