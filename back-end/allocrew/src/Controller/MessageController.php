@@ -60,7 +60,6 @@ class MessageController extends AbstractController
 
         $message = new Message();
 
-
         // On décode les données envoyées
         $donnees = json_decode($request->getContent(), true);
         /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
@@ -68,7 +67,7 @@ class MessageController extends AbstractController
         $form = $this->createForm(MessageType::class, $message);
         $donnees = $form->submit($donnees);
 
-        if  ($form->isSubmitted()) {
+        if ($form->isSubmitted()){
             if ($form['content']->isValid()){
                 $message->setContent($form['content']->getData());
             } else { 
