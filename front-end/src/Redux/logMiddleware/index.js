@@ -1,7 +1,9 @@
-const logMiddleware = () => (next) => (action) => {
 
- 
-  return next(action)
+
+
+const logMiddleware = (store) => (next) => (action) => {
+
+  next(action)
 }
 
 export default logMiddleware
