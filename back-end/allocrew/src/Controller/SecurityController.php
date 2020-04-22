@@ -14,6 +14,7 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
+
         
         $user = $this->getUser();
 
@@ -24,6 +25,9 @@ class SecurityController extends AbstractController
 
        
     }
+
+       
+    
 
 
     /**

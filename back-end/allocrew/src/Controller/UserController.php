@@ -21,7 +21,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/account/{id}", name="account", requirements={"id": "\d+"}, methods={"GET"})
+     * @Route("/account/{id}", name="account", methods={"GET"})
      */
     public function account(UserRepository $userRepository, SerializerInterface $serializer,  $id)
     {
