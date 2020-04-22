@@ -4,16 +4,16 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Utils\GetErrorsFromForm;
 use App\Repository\UserRepository;
 use App\Repository\AnnouncementRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use App\Services\ImageUpload;
 
 /**
  * @Route("/api/users", name="api_users_")
@@ -25,7 +25,6 @@ class UserController extends AbstractController
      */
     public function account(UserRepository $userRepository, SerializerInterface $serializer,  $id)
     {
-
         $user = $userRepository->findBy(array('id' => $id));
 
         if (!empty($user)) {
@@ -42,34 +41,34 @@ class UserController extends AbstractController
     /**
      * @Route("/account/{id}", name="account_edit",requirements={"id": "\d+"}, methods={"PATCH"})
      */
-    public function accountEdit(User $user, Request $request, $id)
+    public function accountEdit(User $user, Request $request, GetErrorsFromForm $getErrorsFromForm)
     {
 
         // On décode les données envoyées
-        $donnees = json_decode($request->getContent());
+        $donnees = json_decode($request->getContent(), true);
         /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
          * sinon on passe à la suite */
-        if (isset($donnees->email)) {
-            $user->setEmail($donnees->email);
+        $form = $this->createForm(UserType::class, $user);
+
+        $form->submit($donnees, false);
+
+        if ($form->isValid()) {
+            $user->setUpdatedAt(new \DateTime);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+            return new JsonResponse('ok', 201);
+        } else {
+            $errors = $getErrorsFromForm->getErrors($form);
+            $data = [
+                'type' => 'validation_error',
+                'title' => 'There was a validation error',
+                'errors' => $errors,
+            ];
+            return new JsonResponse($data, 400);
         }
-        if (isset($donnees->firstname)) {
-            $user->setFirstname($donnees->firstname);
-        };
-        if (isset($donnees->lastname)) {
-            $user->setLastname($donnees->lastname);
-        }
 
-        $user->setUpdatedat(new \Datetime());
-
-        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(["id" => $id]);
-
-        // On sauvegarde en base
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($user);
-        $entityManager->flush();
-
-        // On retourne la confirmation
-        return new Response('ok', 201);
+       
     }
 
     /**
@@ -128,167 +127,55 @@ class UserController extends AbstractController
     /**
      * @Route("/{id}", name="edit", methods={"PATCH"}, requirements={"id": "\d+"})
      */
-    public function edit(User $user, Request $request, $id, UserRepository $userRepository)
+    public function edit(User $user, Request $request, GetErrorsFromForm $getErrorsFromForm)
     {
-        // On décode les données envoyées
         $donnees = json_decode($request->getContent(), true);
+
         $form = $this->createForm(UserType::class, $user);
 
-        $email = $userRepository->find($user)->getEmail();
-        $firstname = $userRepository->find($user)->getFirstname();
-        $lastname = $userRepository->find($user)->getLastname();
-        $age = $userRepository->find($user)->getAge();
-        $location = $userRepository->find($user)->getLocation();
-        $title = $userRepository->find($user)->getTitle();
-        $description = $userRepository->find($user)->getDescription();
-        $experience = $userRepository->find($user)->getExperience();
-        $portfolio = $userRepository->find($user)->getPortfolio();
-        if ($userRepository->find($user)->getPicture() !== null) {
-            $picture = $userRepository->find($user)->getPicture();
+        $form->submit($donnees, false);
+
+        if ($form->isValid()) {
+            $user->setUpdatedAt(new \DateTime);
+            if ($form['picture']->isSubmitted() && $form['picture']->isValid()) {
+                /** @var UploadImage 
+                 * $uploadedFile */
+
+                $uploadedFile = $form['picture']->getData();
+                $destination = $this->getParameter('kernel.project_dir') . '/public/uploads/Picture';
+                $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $newFilename = $originalFilename . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
+                $uploadedFile->move(
+                    $destination,
+                    $newFilename
+                );
+            }
+            if ($form['bannerpicture']->isSubmitted() && $form['bannerpicture']->isValid()) {
+                /** @var UploadImage 
+                 * $uploadedFile */
+
+                $uploadedFile = $form['bannerpicture']->getData();
+                $destination = $this->getParameter('kernel.project_dir') . '/public/uploads/BannerPicture';
+                $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $newFilename = $originalFilename . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
+                $uploadedFile->move(
+                    $destination,
+                    $newFilename
+                );
+            }
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+            return new JsonResponse('ok', 200);
         } else {
-            $picture = 'default';
+            $errors = $getErrorsFromForm->getErrors($form);
+            $data = [
+                'type' => 'validation_error',
+                'title' => 'There was a validation error',
+                'errors' => $errors,
+            ];
+            return new JsonResponse($data, 400);
         }
-        if ($userRepository->find($user)->getBannerpicture() !== null) {
-            $bannerpicture = $userRepository->find($user)->getBannerpicture();
-        } else {
-            $bannerpicture = 'default2';
-        }
-
-
-        if (!isset($donnees['email'])) {
-            $donnees['email'] = $email;
-        }
-        if (!isset($donnees['firstname'])) {
-            $donnees['firstname'] = $firstname;
-        }
-        if (!isset($donnees['lastname'])) {
-            $donnees['lastname'] = $lastname;
-        }
-        if (!isset($donnees['age'])) {
-            $donnees['age'] = $age;
-        }
-        if (!isset($donnees['experience'])) {
-            $donnees['experience'] = $experience;
-        }
-        if (!isset($donnees['location'])) {
-            $donnees['location'] = $location;
-        }
-        if (!isset($donnees['title'])) {
-            $donnees['title'] = $title;
-        }
-        if (!isset($donnees['description'])) {
-            $donnees['description'] = $description;
-        }
-        if (!isset($donnees['portfolio'])) {
-            $donnees['portfolio'] = $portfolio;
-        }
-
-         $form->submit($donnees);
-        /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
-         * sinon on passe à la suite */
-        if ($form->isSubmitted()) {
-            if ($form['firstname'] !== null) {
-                if ($form['firstname']->isValid()) {
-                    $user->setFirstname($form['firstname']->getData());
-                } else $user->setFirstname($firstname);
-            } else $user->setFirstname($firstname);
-
-            if ($form['email'] !== null) {
-                if ($form['email']->isValid()) {
-                    $user->setEmail($form['email']->getData());
-                } else $user->setEmail($email);
-            } else $user->setEmail($email);
-
-            if ($form['lastname'] !== null) {
-                if ($form['lastname']->isValid()) {
-                    $user->setLastname($form['lastname']->getData());
-                } else return new Response('Nom de Famille Invalide', 400);
-            }
-
-            if ($form['age'] !== null) {
-                if ($form['age']->isValid()) {
-
-                    $user->setAge($form['age']->getData());
-                } else return new Response('Age Invalide', 400);
-            }
-
-            if ($form['location'] !== null) {
-                if ($form['location']->isValid()) {
-
-                    $user->setLocation($form['location']->getData());
-                } else return new Response('Ville Invalide', 400);
-            }
-            if ($form['title'] !== null) {
-                if ($form['title']->isValid()) {
-
-                    $user->setTitle($form['title']->getData());
-                } else return new Response('Titre Invalide', 400);
-            }
-            if ($form['description'] !== null) {
-                if ($form['description']->isValid()) {
-
-                    $user->setDescription($form['description']->getData());
-                } else return new Response('Description Invalide', 400);
-            }
-            if ($form['experience'] !== null) {
-                if ($form['experience']->isValid()) {
-
-                    $user->setExperience($form['experience']->getData());
-                } else return new Response('Expérience Invalide', 400);
-            }
-            if ($form['portfolio'] !== null) {
-                if ($form['portfolio']->isValid()) {
-
-                    $user->setPortfolio($form['portfolio']->getData());
-                } else return new Response('Portfolio Invalide', 400);
-            }
-            // if (isset($form['picture'])) {
-            //     if ($form['picture']->isValid()) {
-            //         /** @var UploadImage 
-            //          * $uploadedFile */
-            //         $uploadedFile = $form['picture']->getData();
-
-            //         dd($form['picture']);
-            //         $destination = $this->getParameter('kernel.project_dir') . '/public/uploads/Picture';
-            //         $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-            //         $newFilename = $originalFilename . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
-            //         $uploadedFile->move(
-            //             $destination,
-            //             $newFilename
-            //         );
-            //         $user->setPicture($newFilename);
-            //     } else return new Response('Photo Invalide', 400);
-            // }
-            // if (isset($form['bannerpicture'])) {
-            //     if ($form['bannerpicture']->isValid()) {
-            //         /** @var UploadImage 
-            //          * $uploadedFile */
-            //         $uploadedFile = $form['bannerpicture']->getData();
-
-            //         dd($form['bannerpicture']);
-            //         $destination = $this->getParameter('kernel.project_dir') . '/public/uploads/BannerPicture';
-            //         $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-            //         $newFilename = $originalFilename . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
-            //         $uploadedFile->move(
-            //             $destination,
-            //             $newFilename
-            //         );
-            //         $user->setBannerpicture($newFilename);
-            //     } else return new Response('Bannière Invalide', 400);
-            // }
-        }
-
-        $user->setUpdatedAt(new \Datetime());
-
-        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(["id" => $id]);
-
-        // On sauvegarde en base
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($user);
-        $entityManager->flush();
-
-        // On retourne la confirmation
-        return new Response('ok', 201);
     }
 
     /**

@@ -15,7 +15,6 @@ use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class UserType extends AbstractType
@@ -42,55 +41,46 @@ class UserType extends AbstractType
             ])
             ->add('lastname', TextType::class, [
                 'label' => 'Nom', 
-                'required' => false,
-                'empty_data' => false
+               
 
             ])
             ->add('age',  IntegerType::class, [            
                 'label' => 'Âge',
-                'required' => false,
-                'empty_data' => false
-
             ])
             ->add('location', TextType::class, [
                 'label' => 'Lieu',
-                'required' => false,
-                'empty_data' => false
+               
 
             ])
             ->add('title', TextType::class, [
                 'label' => 'Titre',
-                'required' => false,
-                'empty_data' => false
+                
 
             ])
             ->add('description', TextType::class, [
                 'label' => 'Description',
-                'required' => false,
-                'empty_data' => false
+                
             ])
             ->add('experience', TextType::class, [
                 'label' => 'Expérience',
-                'required' => false,
-                'empty_data' => false
+                
             ])
             ->add('portfolio', UrlType::class, [
                 'constraints' => [
                     new Url(),
                 ],
-                'label' => 'Lien vers votre Portfolio',
-                'required' => false,
-                'empty_data' => false
+                'label' => 'Lien vers votre Portfolio',   
             ])
             ->add('picture', FileType::class, [
                 'constraints' => new File(),
                 'required' => false,
-                'empty_data' => false
+                'mapped' => false
+                
             ])
             ->add('bannerpicture', FileType::class, [
                 'constraints' => new File(),
                 'required' => false,
-                'empty_data' => false
+                'mapped' => false
             ])
 
         ;
@@ -100,6 +90,7 @@ class UserType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'csrf_protection' => false,
         ]);
     }
 }

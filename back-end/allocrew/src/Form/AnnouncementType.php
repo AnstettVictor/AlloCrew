@@ -2,19 +2,15 @@
 
 namespace App\Form;
 
-use DateTime;
 use App\Entity\User;
 use App\Entity\Announcement;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -28,6 +24,7 @@ class AnnouncementType extends AbstractType
             ->add('category', TextType::class, [
                 'constraints' => [
                     new Length([
+                        'min' => 0,
                         'max' => 30,
                     ]),
                     new Regex([
@@ -77,9 +74,12 @@ class AnnouncementType extends AbstractType
                 TextType::class  
             )
             ->add('description', TextType::class)
+            // ->add('picture', TextType::class)
             ->add('picture', FileType::class, [
                 'constraints' => new File(),
-            ])
+            'required' => false,
+            'mapped' => false])
+            
             ->add('user', EntityType::class, [
                 // looks for choices from this entity
                 'class' => User::class,
@@ -91,6 +91,7 @@ class AnnouncementType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Announcement::class,
+            'csrf_protection' => false,
         ]);
     }
 }

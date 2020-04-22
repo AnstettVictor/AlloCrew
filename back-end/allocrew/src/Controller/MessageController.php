@@ -34,8 +34,6 @@ class MessageController extends AbstractController
         ));
     }
 
-
-
     /**
      * @Route("/{id}", name="read", requirements={"id": "\d+"},  methods={"GET"})
      */
@@ -70,14 +68,18 @@ class MessageController extends AbstractController
         $form = $this->createForm(MessageType::class, $message);
         $donnees = $form->submit($donnees);
 
-        if ($form->isSubmitted()) {
-            if ($form['content']->isValid()) {
+        if  ($form->isSubmitted()) {
+            if ($form['content']->isValid()){
                 $message->setContent($form['content']->getData());
-            } else return new Response('Contenu Invalide', 400);
+            } else { 
+                return new Response('Contenu Invalide', 400);
+            }
             if ($form['user']->isValid()) {
                 $user = $userRepository->find($form['user']->getData());
                 $message->setUser($user);
-            } else return new Response('Utilisateur Invalide', 400);
+            } else {
+                 return new Response('Utilisateur Invalide', 400);
+            }
             if ($form['discussion']->isValid()) {
                 $discussion = $discussionRepository->find($form['discussion']->getData());
                 $message->setDiscussion($discussion);

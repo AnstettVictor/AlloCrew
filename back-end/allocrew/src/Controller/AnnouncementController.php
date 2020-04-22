@@ -2,20 +2,16 @@
 
 namespace App\Controller;
 
-use DateTime;
-use App\Entity\User;
 use App\Entity\Announcement;
 use App\Form\AnnouncementType;
-use App\Form\AnnouncementEditType;
-use App\Repository\UserRepository;
 use App\Repository\AnnouncementRepository;
+use App\Utils\GetErrorsFromForm;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
-
 
 
 /**
@@ -59,186 +55,50 @@ class AnnouncementController extends AbstractController
      * @Route("/{id}", name="edit", methods={"PATCH"}, requirements={"id": "\d+"})
      *
      */
-    public function edit(Announcement $announcement, Request $request, $id, UserRepository $userRepository, AnnouncementRepository $announcementRepository)
+    public function edit(Announcement $announcement, Request $request, GetErrorsFromForm $getErrorsFromForm)
     {
-        $announcement = $this->getDoctrine()->getRepository(Announcement::class)->findOneBy(["id" => $id]);
-        $announcement->setUser($announcement->getUser());
-
-        // On décode les données envoyées
+        
         $donnees = json_decode($request->getContent(), true);
-        /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
-         * sinon on passe à la suite */
-        $form = $this->createForm(AnnouncementEditType::class, $announcement);
-
-        $user = $userRepository->find($form['user']->getData());
-
-        $category = $announcementRepository->find($announcement)->getCategory();
-
-        $active = $announcementRepository->find($announcement)->getActive();
-
-        $voluntary = $announcementRepository->find($announcement)->getVoluntary();
-
-        $date_start =  $announcementRepository->find($announcement)->getDateStart();
-
-        $date_end =  $announcementRepository->find($announcement)->getDateEnd();
-
-        $location = $announcementRepository->find($announcement)->getLocation();
-
-        $title = $announcementRepository->find($announcement)->getTitle();
-
-        $description = $announcementRepository->find($announcement)->getDescription();
-
-        if ($announcementRepository->find($announcement)->getPicture() !== null) {
-            $picture = $announcementRepository->find($announcement)->getPicture();
+       
+        $form = $this->createForm(AnnouncementType::class, $announcement);
+        
+        $form->submit($donnees, false);
+        
+        if ($form->isValid()) {
+            $announcement->setUpdatedAt(new \DateTime);
+            if ($form['picture']->isSubmitted() && $form['picture']->isValid()){
+                /** @var UploadImage 
+                 * $uploadedFile */
+                
+                $uploadedFile = $form['picture']->getData();
+                $destination = $this->getParameter('kernel.project_dir').'/public/uploads/AnnouncementPicture';
+                $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $newFilename = $originalFilename.'-'.uniqid().'.'.$uploadedFile->guessExtension();
+                $uploadedFile->move(
+                    $destination,
+                    $newFilename
+                );}
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($announcement);
+            $em->flush();
+            return new JsonResponse('ok', 200);
         } else {
-            $picture = 'default';
+            $errors = $getErrorsFromForm->getErrors($form);
+            $data = [
+                'type' => 'validation_error',
+                'title' => 'There was a validation error',
+                'errors' => $errors,
+            ];
+            return new JsonResponse($data, 400);
         }
-
-
-        if (!isset($donnees['category'])) {
-            $donnees['category'] = $category;
-        }
-        if (!isset($donnees['active'])) {
-            $donnees['active'] = $active;
-            
-        }
-        if (!isset($donnees['voluntary'])) {
-            $donnees['voluntary'] = $voluntary;
-        }
-        if (!isset($donnees['date_start'])) {
-            $donnees['date_start'] = $date_start;
-        }
-        if (!isset($donnees['date_end'])) {
-            $donnees['date_end'] = $date_end;
-        }
-        if (!isset($donnees['location'])) {
-            $donnees['location'] = $location;
-        }
-        if (!isset($donnees['title'])) {
-            $donnees['title'] = $title;
-        }
-        if (!isset($donnees['description'])) {
-            $donnees['description'] = $description;
-        }
-        dd($donnees);
-        $form->submit($donnees);
-
-        if ($form->isSubmitted()) {
-            $announcement->setUser($user);
-            if ($form['category'] !== null) {
-                if ($form['category']->isValid()) {
-                    $announcement->setCategory($form['category']->getData());
-                } else {
-                    $announcement->setCategory($category);
-                }
-            } else $announcement->setCategory($category);
-
-            if ($form['active'] !== null) {
-                if ($form['active']->isValid()) {
-                    $announcement->setActive($form['active']->getData());
-                } else {
-                    $announcement->setActive($active);
-                }
-            } else {
-              $announcement->setActive($active);
-            }
-
-            if ($form['voluntary'] !== null) {
-                if ($form['voluntary']->isValid()) {
-
-                    $announcement->setVoluntary($form['voluntary']->getData());
-                } else {
-                    $announcement->setVoluntary($voluntary);
-                }
-            } else {
-                $announcement->setVoluntary($voluntary);
-            }
-
-            if ($form['date_start'] !== null) {
-                if ($form['date_start']->isValid()) {
-
-                    $date = new DateTime($form['date_start']->getViewData());
-                    $announcement->setDateStart($date);
-                } else { 
-                    $announcement->setDateStart($date_start);
-                }
-            }
-
-
-            if ($form['date_end'] !== null) {
-                if ($form['date_end']->isValid()) {
-
-                    $date = new DateTime($form['date_end']->getViewData());
-                    $announcement->setDateEnd($date);
-                } else {
-                    $announcement->setDateEnd($date_end);
-                }
-            }
-            if ($form['location'] !== null) {
-                if ($form['location']->isValid()) {
-
-                    $announcement->setLocation($form['location']->getData());
-                } else {
-                     $announcement->setLocation($location);
-                    }
-            } else {
-                $announcement->setLocation($location);
-            }
-            if ($form['title'] !== null) {
-                if ($form['title']->isValid()) {
-
-                    $announcement->setTitle($form['title']->getData());
-                } else {
-                    $announcement->setTitle($title);}
-            } else {
-                $announcement->setTitle($title);
-            }
-            if ($form['description'] !== null) {
-                if ($form['description']->isValid()) {
-
-                    $announcement->setVoluntary($form['description']->getData());
-                } else {
-                    return new Response('Description Invalide', 400);
-                }
-            } else {
-                $announcement->setDescription($description);
-            }
-            // if ($form['picture'] !== null) {
-            //     if ($form['picture']->isValid()) {
-            //         /** @var UploadImage 
-            //          * $uploadedFile */
-            //         $uploadedFile = $form['picture']->getData();
-
-
-            //         $destination = $this->getParameter('kernel.project_dir') . '/public/uploads/Picture';
-            //         $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-            //         $newFilename = $originalFilename . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
-            //         $uploadedFile->move(
-            //             $destination,
-            //             $newFilename
-            //         );
-            //         $announcement->setPicture($newFilename);
-            //     } else return new Response('Photo Invalide', 400);
-            // } else { $announcement->setPicture($picture); } 
-            // $announcement->setUser($user);
-        };
-
-        $announcement->setUpdatedAt(new \Datetime());
-
-
-        // On sauvegarde en base
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($announcement);
-        $entityManager->flush();
-
-        // On retourne la confirmation
-        return new Response('ok', 204);
+        
+       
     }
 
     /**
      * @Route("/", name="add", methods={"POST"})
      */
-    public function add(Request $request, UserRepository $userRepository)
+    public function add(Request $request, GetErrorsFromForm $getErrorsFromForm)
     {
         $announcement = new Announcement();
 
@@ -248,90 +108,42 @@ class AnnouncementController extends AbstractController
          * sinon on passe à la suite */
         $form = $this->createForm(AnnouncementType::class, $announcement);
         $form->submit($donnees);
+       
 
-        if ($form->isSubmitted()) {
-            if (isset($form['category'])) {
-                if ($form['category']->isValid()) {
-                    $announcement->setCategory($form['category']->getData());
-                } else return new Response('Catégorie Invalide', 400);
-            }
-
-            if (isset($form['active'])) {
-                if ($form['active']->isValid()) {
-                    $announcement->setActive($form['active']->getData());
-                } else return new Response('Statut Invalide', 400);
-            }
-
-            if (isset($form['voluntary'])) {
-                if ($form['voluntary']->isValid()) {
-
-                    $announcement->setVoluntary($form['voluntary']->getData());
-                } else return new Response('Statut Volontary Invalide', 400);
-            }
-
-
-            if (isset($form['date_start'])) {
-                $date = new DateTime($form['date_start']->getViewData());
-                $announcement->setDateStart($date);
-            } else return new Response('Date de départ invalide', 400);
-
-
-            if (isset($form['date_end'])) {
-
-                $date = new DateTime($form['date_end']->getViewData());
-                $announcement->setDateEnd($date);
-            } else return new Response('Date de fin invalide', 400);
-            if (isset($form['location'])) {
-                if ($form['location']->isValid()) {
-
-                    $announcement->setLocation($form['location']->getData());
-                } else return new Response('Ville Invalide', 400);
-            }
-            if (isset($form['title'])) {
-                if ($form['title']->isValid()) {
-
-                    $announcement->setTitle($form['title']->getData());
-                } else return new Response('Titre Invalide', 400);
-            }
-            if (isset($form['description'])) {
-                if ($form['description']->isValid()) {
-
-                    $announcement->setDescription($form['description']->getData());
-                } else return new Response('Description Invalide', 400);
-            }
-            // if (isset($form['picture'])) {
-            //     if ($form['picture']->isValid()) {
-            //         /** @var UploadImage 
-            //          * $uploadedFile */
-            //         $uploadedFile = $form['picture']->getData();
-
-            //         dd($form['picture']);
-            //         $destination = $this->getParameter('kernel.project_dir') . '/public/uploads/AnnouncementPicture';
-            //         $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-            //         $newFilename = $originalFilename . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
-            //         $uploadedFile->move(
-            //             $destination,
-            //             $newFilename
-            //         );
-            //         $announcement->setPicture($newFilename);
-            //     } else return new Response('Photo Invalide', 400);
-            // }
-            if (isset($form['user'])) {
-                if ($form['user']->isValid()) {
-                    $user = $userRepository->find($form['user']->getData());
-                    $announcement->setUser($user);
-                } else return new Response('Utilisateur Invalide', 400);
-            }
-            $announcement->setCreatedAt(new \Datetime());
-
-            // On sauvegarde en base
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($announcement);
-            $entityManager->flush();
-
-            // On retourne la confirmation
-            return new Response('ok', 201);
-        } else return new Response('Données non envoyées', 400);
+        $donnees = json_decode($request->getContent(), true);
+       
+        $form = $this->createForm(AnnouncementType::class, $announcement);
+        //dd($announcement);
+        $form->submit($donnees, false);
+        
+        if ($form->isValid()) {
+            $announcement->setCreatedAt(new \DateTime);
+            if ($form['picture']->isSubmitted() && $form['picture']->isValid()){
+            /** @var UploadImage 
+             * $uploadedFile */
+            
+            $uploadedFile = $form['picture']->getData();
+            $destination = $this->getParameter('kernel.project_dir').'/public/uploads/AnnouncementPicture';
+            $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+            $newFilename = $originalFilename.'-'.uniqid().'.'.$uploadedFile->guessExtension();
+            $uploadedFile->move(
+                $destination,
+                $newFilename
+            );}
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($announcement);
+            $em->flush();
+            return new JsonResponse('ok', 201);
+        } else {
+            $errors = $getErrorsFromForm->getErrors($form);
+            $data = [
+                'type' => 'validation_error',
+                'title' => 'There was a validation error',
+                'errors' => $errors,
+            ];
+            return new JsonResponse($data, 400);
+        }
+          
     }
 
     /**

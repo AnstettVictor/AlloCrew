@@ -17,8 +17,7 @@ class MessageEditType extends AbstractType
             ->add('content', TextareaType::class, [
                 'constraints' => [
                    new NotBlank()
-                ], 'required' => false,
-                'empty_data' => false
+                ]
             ]);
     }
 
