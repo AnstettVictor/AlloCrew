@@ -71,17 +71,24 @@ class UserType extends AbstractType
                 ],
                 'label' => 'Lien vers votre Portfolio',   
             ])
-            ->add('picture', FileType::class, [
-                'constraints' => new File(),
-                'required' => false,
-                'mapped' => false
+            ->add('picture', TextType::class, [
                 
             ])
-            ->add('bannerpicture', FileType::class, [
-                'constraints' => new File(),
-                'required' => false,
-                'mapped' => false
+            // ->add('picture', FileType::class, [
+            //     'constraints' => new File(),
+            //     'required' => false,
+            //     'mapped' => false
+                
+            // ])
+            ->add('bannerpicture', TextType::class, [
+
+                
             ])
+            // ->add('bannerpicture', FileType::class, [
+            //     'constraints' => new File(),
+            //     'required' => false,
+            //     'mapped' => false
+            // ])
 
         ;
     }
