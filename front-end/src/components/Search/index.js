@@ -12,8 +12,8 @@ const Search = ({ announceList, profileList }) => {
     <div>
       <div className="search__header">
         {/* switcher betwheen Search annonce and Search profile  */}
-        <p onClick={() => setSearchSwitch(true)}>Rechercher une annonce</p>
-        <p onClick={() => setSearchSwitch(false)}>Rechercher un profil</p>
+        <button className="button" type="button" onClick={() => setSearchSwitch(true)}>Rechercher une annonce</button>
+        <button className="button" type="button" onClick={() => setSearchSwitch(false)}>Rechercher un profil</button>
 
         <form className="search__form" onSubmit={(event) => { event.preventDefault() }}>
           <input className="search__input" placeholder="Rechercher..." type="text" value={filter} onChange={(e) => setFilter(e.target.value)} />
