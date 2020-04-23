@@ -98,11 +98,12 @@ class UserController extends AbstractController
     public function browse(UserRepository $UserRepository, SerializerInterface $serializer)
     {
 
-        $user = $UserRepository->findAllForUsers();
+        $user = $UserRepository->findAll();
 
         return $this->json($serializer->normalize(
             $user,
-            null
+            null,
+            ['groups' => ['userProfile']]
         ));
     }
 
