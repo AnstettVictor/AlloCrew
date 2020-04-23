@@ -24,5 +24,4 @@ const HomeProfile = ({logout, userId, picture, firstname, lastname, title, id })
 )
 ;
 
-
 export default HomeProfile;

@@ -83,6 +83,11 @@ export const inputCreateAnnouncement = (payload) => ({
   payload
 })
 
+export const inputEditAnnouncementChange = (payload) => ({
+  type: INPUT_EDITANNOUNCEMENT_CHANGE,
+  payload
+})
+
 export const inputEditProfileChange = (payload) => ({
   type: INPUT_EDITPROFILE_CHANGE,
   payload
@@ -92,12 +97,6 @@ export const inputProfileChange = (payload) => ({
   type: INPUT_PROFILE_CHANGE,
   payload
 })
-
-export const inputEditAnnouncementChange = (payload) => ({
-  type: INPUT_EDITANNOUNCEMENT_CHANGE,
-  payload
-})
-
 
 //Appels Ajax
 
@@ -238,8 +237,6 @@ export const fetchProfileList = () => (dispatch) => {
     })
 };
 
-
-
 export const patchEditProfile = (id) => (dispatch, getState) => {
   axios({
     headers: {
@@ -273,8 +270,7 @@ export const patchEditAnnouncement = (id) => (dispatch, getState) => {
     method: 'patch',
     url: `http://3.88.40.169/api/announcements/${id}`, 
     data: 
-    {       
-      user: getState().data.announcements[0].user,
+    { 
       category: "default",
       active: getState().data.announcements[0].active,
       voluntary: getState().data.announcements[0].voluntary,
@@ -283,10 +279,8 @@ export const patchEditAnnouncement = (id) => (dispatch, getState) => {
       location: getState().data.announcements[0].location,
       title: getState().data.announcements[0].title,
       description: getState().data.announcements[0].description,
-      picture: getState().data.announcements[0].picture,
-      id: getState().data.announcements[0].id,
-    }
-             
+      picture: getState().data.announcements[0].picture,      
+    }    
     
   })
   .then((res) => console.log(res))
