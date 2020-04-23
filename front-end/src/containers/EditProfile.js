@@ -5,27 +5,28 @@ import {connect} from 'react-redux';
 const mapStateToProps = ({data}) => {
   
   return({
-    firstname: data.profiles[0].firstname,
-    lastname: data.profiles[0].lastname,
-    age: data.profiles[0].age,
-    location: data.profiles[0].location,
-    title: data.profiles[0].title,
-    description: data.profiles[0].description,
-    experience: data.profiles[0].experience,
-    portfolio: data.profiles[0].portfolio,
-    picture: data.profiles[0].picture,
-    bannerpicture: data.profiles[0].bannerpicture
+    firstname: data.editProfile.firstname,
+    lastname: data.editProfile.lastname,
+    age: data.editProfile.age,
+    location: data.editProfile.location,
+    title: data.editProfile.title,
+    description: data.editProfile.description,
+    experience: data.editProfile.experience,
+    portfolio: data.editProfile.portfolio,
+    picture: data.editProfile.picture,
+    bannerpicture: data.editProfile.bannerpicture
   })
 };
 
 const mapDispatchToProps = (dispatch, {match}) => ({
+  fetchData: dispatch(fetchProfile(match.params.id)),
+
   handleChange: (e) => dispatch(inputProfileChange({[e.target.name]: e.target.value})), 
   handleChangeEditor: (e, editor) => dispatch(inputProfileChange(
     {
       [editor.sourceElement.parentElement.classList[0]]: editor.getData()
     }
   )), 
-  fetchData: dispatch(fetchProfile(match.params.id)),
 
   onEditProfileSubmit: (e) => {e.preventDefault(); dispatch(passId(patchEditProfile))}
 })

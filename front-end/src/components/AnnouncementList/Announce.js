@@ -4,7 +4,7 @@ import Proptypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {date} from 'utils/functions';
 
-const Announce = ({ title, location, description, picture, voluntary, id, dateEnd, dateStart, active, user, createdAt }) =>  (
+const Announce = ({ title, location, description, picture, voluntary, id, dateEnd, dateStart, active, user, createdAt, userId }) =>  (
   <div className="announce">
     <div className="announce__banner" style={{backgroundImage: `url(${picture})`}}  >
       <div className="announce__avatar" style={{backgroundImage: `url(${user.picture})`}} />
@@ -22,8 +22,10 @@ const Announce = ({ title, location, description, picture, voluntary, id, dateEn
           <p>à {location}</p>
           <p> {voluntary? "Bénévole": "Rémunérée"}</p>
         </div>
+
         <input className="announce__button button see" type="button" value="Voir l'annonce"/>
-        <Link to={`/edit-announcement/${id}`}><input className="announce__button button seeAndEdit" type="button" value="Voir / Modifier"/></Link>
+
+        <Link to={`/announcement/${id}`}><input className="announce__button button seeAndEdit" type="button" value="Voir l'Annonce"/></Link>
       </div>
     </div>
   </div>

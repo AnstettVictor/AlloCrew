@@ -132,6 +132,27 @@
       display:inherit;
       text-align: center;
     }
+
+    .editProfile__mainInfos {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 5rem;
+      justify-content: center;
+      div {
+        margin-right: 5rem;
+        display: flex;
+        flex-direction: column;
+        margin-top: .5rem;
+        input {
+          margin: 0;
+        }
+      }
+    }
+    .editProfile__textArea {
+      div {
+        margin-top: 1rem;
+      }
+    }
   
   
   }

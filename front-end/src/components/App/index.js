@@ -36,7 +36,7 @@ import FAQ from '../FAQ';
 
 
 
-const App = ({isLogged}) => {
+const App = ({isLogged, loading}) => {
 
 return(
   <>
@@ -76,6 +76,7 @@ return(
     <div className="app__footer">
       <Footer />
     </div>
+    {loading && <div className="loading"><p>Chargement...</p></div>}
   </>
 )
 };
