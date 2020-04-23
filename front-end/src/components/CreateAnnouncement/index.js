@@ -18,14 +18,15 @@ const CreateAnnouncement = ({handleChange, title, location, description, volunta
       <h2 className="createAnnouncement__title">Création de votre annonce</h2>
       <form id="myform" onSubmit={onCreateAnnouncementSubmit} method="post" >
 
-        <div className="createAnnouncement__input drop desktop input">
+        <div className="input create__bannerPicture">
           <input 
-            type="text" 
+            type="file" 
             className="input" 
             onChange={handleChange}
             name="picture"  
             value={picture} 
           />
+          <div className="button">Importer</div>
         </div> 
         <h2 className="createAnnouncement__desktop--Title">Titre de l'annonce</h2> 
 
