@@ -107,17 +107,16 @@ class AnnouncementController extends AbstractController
 
         // On décode les données envoyées
 
-       // $donnees = json_decode($request->getContent(), true);
-
+        $donnees = json_decode($request->getContent(), true);
 
         /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
          * sinon on passe à la suite */
 
         $form = $this->createForm(AnnouncementType::class, $announcement);
 
-       //$form->submit($donnees, false);
+       $form->submit($donnees, false);
 
-       $form->handleRequest($request);
+      // $form->handleRequest($request);
 
         
         if ($form->isSubmitted() && $form->isValid()) {

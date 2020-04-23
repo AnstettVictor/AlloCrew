@@ -74,11 +74,11 @@ class AnnouncementType extends AbstractType
                 TextType::class  
             )
             ->add('description', TextType::class)
-            // ->add('picture', TextType::class)
-            ->add('picture', FileType::class, [
-                'constraints' => new File(),
-            'required' => false,
-            'mapped' => false])
+            ->add('picture', TextType::class)
+            // ->add('picture', FileType::class, [
+            //     'constraints' => new File(),
+            // 'required' => false,
+            // 'mapped' => false])
             
             ->add('user', EntityType::class, [
                 // looks for choices from this entity
