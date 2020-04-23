@@ -90,7 +90,18 @@ class DiscussionController extends AbstractController
      */
     public function delete(Discussion $discussion)
     {
-        if ($this->getUser()->getId() != $discussion->getCreator()->getId() OR $this->getUser()->getId() != $discussion->getReceiver()->getId()){
+       
+        if ($this->getUser()->getId() == $discussion->getCreator()->getId()  OR $this->getUser()->getId() == $discussion->getReceiver()->getId()){
+
+            $em = $this->getDoctrine()->getManager();
+
+        $em->remove($discussion);
+        $em->flush();
+
+        // On retourne la confirmation
+        return new Response('supression ok', 200);
+        }
+        else {
 
             return new Response('Accès refusé', 403);
         }
@@ -102,12 +113,6 @@ class DiscussionController extends AbstractController
 
         // $this->denyAccessUnlessGranted('MOVIE_DELETE', $movie);
 
-        $em = $this->getDoctrine()->getManager();
 
-        $em->remove($discussion);
-        $em->flush();
-
-        // On retourne la confirmation
-        return new Response('supression ok', 200);
     }
 }
