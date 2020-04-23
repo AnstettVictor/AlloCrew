@@ -65,6 +65,8 @@ class AnnouncementController extends AbstractController
         
         $form->submit($donnees, false);
         
+        
+
         if ($form->isValid()) {
             $announcement->setUpdatedAt(new \DateTime);
             if ($form['picture']->isSubmitted() && $form['picture']->isValid()){
@@ -104,19 +106,21 @@ class AnnouncementController extends AbstractController
         $announcement = new Announcement();
 
         // On décode les données envoyées
-        $donnees = json_decode($request->getContent(), true);
+
+       // $donnees = json_decode($request->getContent(), true);
+
+
         /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
          * sinon on passe à la suite */
+
         $form = $this->createForm(AnnouncementType::class, $announcement);
-        $form->submit($donnees);
-       
-        $donnees = json_decode($request->getContent(), true);
-       
-        $form = $this->createForm(AnnouncementType::class, $announcement);
-        //dd($announcement);
-        $form->submit($donnees, false);
+
+       //$form->submit($donnees, false);
+
+       $form->handleRequest($request);
+
         
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $announcement->setCreatedAt(new \DateTime);
             if ($form['picture']->isSubmitted() && $form['picture']->isValid()){
             /** @var UploadImage 
