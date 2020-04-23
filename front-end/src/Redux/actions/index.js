@@ -273,17 +273,21 @@ export const patchEditAnnouncement = (id) => (dispatch, getState) => {
     method: 'patch',
     url: `http://3.88.40.169/api/announcements/${id}`, 
     data: 
-    { 
-      category: "tagazou",
+    {       
+      user: getState().data.announcements[0].user,
+      category: "default",
       active: getState().data.announcements[0].active,
       voluntary: getState().data.announcements[0].voluntary,
-      dateStart: getState().data.announcements[0].dateStart,
-      dateEnd: getState().data.announcements[0].dateEnd,
+      date_start: getState().data.announcements[0].dateStart,
+      date_end: getState().data.announcements[0].dateEnd,
       location: getState().data.announcements[0].location,
       title: getState().data.announcements[0].title,
       description: getState().data.announcements[0].description,
-      picture: getState().data.announcements[0].picture,          
+      picture: getState().data.announcements[0].picture,
+      id: getState().data.announcements[0].id,
     }
+             
+    
   })
   .then((res) => console.log(res))
   .catch((err) => console.log(err))

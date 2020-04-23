@@ -5,8 +5,8 @@ const initialState = {
     category: "default",
     active: true,
     voluntary: true,
-    date_start: "2007-10-10T00:00:00+00:00",
-    date_end: "2007-10-10T00:00:00+00:00",
+    date_start: "2020-10-10T00:00:00+00:00",
+    date_end: "2020-10-10T00:00:00+00:00",
     location: "",
     title: "",
     description: "",
@@ -14,25 +14,22 @@ const initialState = {
   },
   announcements: [
     {
-      id: 0,
-      category: "",
       active: true,
-      voluntary: true,
-      dateStart: "",
-      dateEnd: "",
-      location: "",
-      title: "",
+      category: "default",
+      dateStart: "2020-10-10T00:00:00+00:00",
+      dateEnd: "2020-10-10T00:00:00+00:00",
       description: "",
+      id: 0,
+      location: "",
       picture: "",
-      createdAt: "",
-      updatedAt: "",
+      title: "",      
       user: {
-        id: 0,
         firstname: "",
+        id: 0,        
         lastname: "",
-        picture: "",
-        title:"",        
-      }
+        picture: "",                
+      },
+      voluntary: true,
     }
   ],
   editProfile:{
@@ -47,7 +44,8 @@ const initialState = {
     // picture: "",  
     // bannerpicture: "" 
   },
-  editAnnouncement:[{}],
+  editAnnouncement:  [{}],
+
   profiles: [
     {
       id: 0,
@@ -103,7 +101,7 @@ const reducer = (state = initialState, action) => {
       case INPUT_EDITANNOUNCEMENT_CHANGE:
         return {
           ...state,
-          editAnnouncement: [{...state.editAnnouncement, ...action.payload}], 
+          editAnnouncement: [{...state.editAnnouncement[0], ...action.payload}], 
         };
     case INPUT_ANNOUNCEMENT_CHANGE:
       return {
