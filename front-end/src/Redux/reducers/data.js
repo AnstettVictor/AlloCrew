@@ -33,7 +33,18 @@ const initialState = {
       }
     }
   ],
-  editProfile:[{}],
+  editProfile:{
+    // firstname: "",
+    // lastname: "",
+    // age:"",          
+    // location:"" ,
+    // title:"" ,
+    // description: "",
+    // experience:"",  
+    // portfolio:"", 
+    // picture: "",  
+    // bannerpicture: "" 
+  },
   editAnnouncement:[{}],
   profiles: [
     {
@@ -69,18 +80,18 @@ const reducer = (state = initialState, action) => {
     
     case UPDATE_ANNOUNCEMENT:
       return {
-        ...state,
+        ...initialState,
         announcements: action.payload, 
       };
     case UPDATE_PROFILE:
       return {
         ...state,
-        profiles: action.payload, 
+        editProfile: {...action.payload[0]}, 
       };
     case INPUT_PROFILE_CHANGE:
       return {
         ...state,
-        profiles: [{...state.profiles[0], ...action.payload}], 
+        editProfile: {...state.editProfile, ...action.payload}, 
       };
     case INPUT_EDITPROFILE_CHANGE:
       return {

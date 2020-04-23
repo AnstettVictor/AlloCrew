@@ -1,6 +1,7 @@
 import React, {useState, Component} from 'react';
 import './style.scss';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 
 import DatePicker from 'react-datepicker';
 import CKEditor from '@ckeditor/ckeditor5-react';
@@ -73,8 +74,10 @@ const EditAnnouncement = ({handleChange, title, location, description, voluntary
         </div> 
 
         <div className="editAnnouncement__flex">
-          <button className="editAnnouncement__button button">Retour</button>
-          <button type="submit" className="editAnnouncement__button button">Enregistrer</button>    
+          <Link to="/home">  
+            <button className="editAnnouncement__button button">Retour</button>
+          </Link>
+            <button type="submit" className="editAnnouncement__button button">Enregistrer</button>    
         </div>
       </form>
 

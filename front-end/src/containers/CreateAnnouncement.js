@@ -1,5 +1,5 @@
 import CreateAnnouncement from '../components/CreateAnnouncement';
-import { inputCreateAnnouncement,  patchCreateAnnouncement, passId} from '../Redux/actions'
+import { inputCreateAnnouncement,  postCreateAnnouncement, passId} from '../Redux/actions'
 import {connect} from 'react-redux';
 
 const mapStateToProps = ({data}) => {
@@ -27,12 +27,12 @@ const mapDispatchToProps = (dispatch, {match}) => ({
  
   handleDateChange: (date, evt) => dispatch(inputCreateAnnouncement({[evt.target.classList[1]]: date})),
   
-  onCreateAnnouncementSubmit: (e) => {e.preventDefault(); dispatch(passId(patchCreateAnnouncement))},
-
-  // postAnnouncement: (e) => {e.preventDefault(); dispatch(postAnnouncement())}
+  onCreateAnnouncementSubmit: (e) => {e.preventDefault(); dispatch(passId(postCreateAnnouncement))},
+  handleChecked: (e) => {console.log(e.target.checked); dispatch(inputCreateAnnouncement({'voluntary': e.target.checked}))},
+  handleNotChecked: (e) => {console.log(e.target.checked); dispatch(inputCreateAnnouncement({'voluntary': !e.target.checked}))}
 })
 ;
 
-const announcement = connect(mapStateToProps, mapDispatchToProps)(CreateAnnouncement);
+const createAnnouncement = connect(mapStateToProps, mapDispatchToProps)(CreateAnnouncement);
 
-export default announcement;
+export default createAnnouncement;

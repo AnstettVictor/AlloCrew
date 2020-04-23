@@ -7,6 +7,7 @@ const userId =  () => {
   return JSON.parse(atob(token().split('.')[1])).id
 };
 
+export const LOADING = 'LOADING';
 export const LOGIN_OK = 'LOGIN_OK';
 export const LOGOUT = 'LOGOUT';
 export const UPDATE_ANNOUNCEMENT = 'UPDATE_ANNOUNCEMENT';
@@ -18,9 +19,30 @@ export const INPUT_PROFILE_CHANGE= 'INPUT_PROFILE_CHANGE';
 export const INPUT_EDITPROFILE_CHANGE = 'INPUT_EDITPROFILE_CHANGE';
 export const RESET_DATA = 'RESET_DATA';
 export const INPUT_CREATE_ANNOUNCEMENT= 'INPUT_CREATE_ANNOUNCEMENT';
+export const NOTIFICATION= 'NOTIFICATION';
+export const CLEAR_NOTIFICATION= 'CLEAR_NOTIFICATION';
+export const REGISTER_SUCCESS= 'REGISTER_SUCCESS';
+
+export const loading = () => ({
+  type: LOADING,
+})
 
 export const resetData = () => ({
   type: RESET_DATA,
+})
+
+export const notification = (payload) => ({
+  type: NOTIFICATION,
+  payload
+})
+
+export const clearNotification = (payload) => ({
+  type: CLEAR_NOTIFICATION,
+  payload
+})
+
+export const registerSuccess = () => ({
+  type: REGISTER_SUCCESS,
 })
 
 export const loginOk = (payload) => ({
@@ -80,13 +102,42 @@ export const inputEditAnnouncementChange = (payload) => ({
 //Appels Ajax
 
 //Login
+
+export const register = () => (dispatch, getState) => {
+
+  if(
+    getState().login.data.username === getState().login.data._username
+    &&
+    getState().login.data.password === getState().login.data._password
+  ){
+    axios({
+      method: 'post',
+      url: 'http://3.88.40.169/register',
+      data: {
+        email: getState().login.data.username,
+        password: getState().login.data.password,
+      }
+    })
+    .then(res => {
+      dispatch(notification('Votre compte à bien été créé!'))
+      setTimeout(() => {dispatch(registerSuccess())}, 3000)
+    }) 
+    .catch(err => console.log(err))
+  }else{
+    dispatch(notification('Champs non identiques'))
+    setTimeout(() => {dispatch(clearNotification())}, 3000)
+  }
+}
+
 export const logUser = () => (dispatch, getState) => {
+  dispatch(loading());
   axios({
     method: 'post',
     url: 'http://3.88.40.169/api/login_check', 
     data: getState().login.data
   })
   .then((res) => {
+    dispatch(loading());
     const _token = res.data.token;
     localStorage.setItem('token', _token);
     dispatch(checkAuth());
@@ -130,12 +181,16 @@ export const checkAuth = () => (dispatch) => {
 
 //For finding one announcement with id
 export const fetchAnnouncement = (id) => (dispatch) => {
-  axios.get(`http://3.88.40.169/api/announcements/${id}`)
-    .then((res) => {
-      console.log('notre id',id);
-      const announcementData = res.data;
-      dispatch(updateAnnouncement(announcementData))
-    })
+   axios({
+    method: 'get',
+    url: `http://3.88.40.169/api/announcements/${id}`, 
+  })
+  .then((res) => {
+    console.log('notre id',id);
+    const announcementData = res.data;
+    dispatch(updateAnnouncement(announcementData))
+  })
+  .catch(err => console.log(err))
 };
 
 // For finding one profile with id
@@ -181,24 +236,6 @@ export const fetchProfileList = () => (dispatch) => {
 };
 
 
-
-export const postAnnouncement = () => (dispatch, getState) => {
-  const data = getState().data.announcements[0]
-  axios({
-    headers: {
-      Authorization: `bearer ${token()}`,
-    },
-    method: 'patch',
-    url: `http://3.88.40.169/api/users/password/7`, 
-    data: 
-    {
-      "password": "tagazou"
-    }
-  })
-  .then((res) => {
-    console.log(res)
-  })
-};
 
 export const patchEditProfile = (id) => (dispatch, getState) => {
   axios({
@@ -249,7 +286,7 @@ export const patchEditAnnouncement = (id) => (dispatch, getState) => {
   .catch((err) => console.log(err))
 };
 
-export const patchCreateAnnouncement = () => (dispatch, getState) => {
+export const postCreateAnnouncement = () => (dispatch, getState) => {
   axios({
     headers: {
       Authorization: `bearer ${token()}`,
@@ -259,9 +296,17 @@ export const patchCreateAnnouncement = () => (dispatch, getState) => {
     data: 
     { 
       user_id: getState().login.userId,
-      category: "default",
-      picture: "default",
-      ...getState().data.create          
+      title: "",
+      location: "",
+      active: true,
+      voluntary: true,
+      date_start: "2020-06-25T00:00:00+00:00",
+      date_end: "2020-06-25T00:00:00+00:00",
+      description: "", 
+      // user_id: getState().login.userId,
+      // category: "default",
+      // picture: "default",
+      // ...getState().data.create          
     }
   })
   .then((res) => console.log(res))

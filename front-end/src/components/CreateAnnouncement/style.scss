@@ -97,5 +97,18 @@
   .createAnnouncement__input{
     margin-top: 0.2rem;
   }
+
+  .createAnnouncement__radio {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .createAnnouncement__botPart {
+    margin-top: 1.5rem;
+    div {
+      margin-top: .8rem;
+    }
+  }
  
 }

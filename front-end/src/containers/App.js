@@ -3,7 +3,8 @@ import {checkAuth} from '../Redux/actions';
 import App from '../components/App'
 
 const mapStateToProps = ({login}) => ({
-  isLogged: login.isLogged
+  isLogged: login.isLogged,
+  loading: login.loading
 });
 
 const mapDispatchToProps = (dispatch) => ({

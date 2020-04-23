@@ -1,6 +1,7 @@
 import React from 'react';
 import './style.scss';
 import Proptypes from 'prop-types'
+import {Link} from 'react-router-dom';
 
 const Announcement = ({title, location, description, picture, voluntary, id, dateEnd, dateStart, active, user }) => {
 
@@ -21,7 +22,12 @@ return (
       <p className="announcement__text">{description}</p>            
     </div>
     <div className="announcement__pos2">
-      <button className="button announcement__button">Envoyer un message/Modifier</button>
+      <Link to={`/edit-announcement/${id}`}>
+        <button className="button ">Envoyer un message/Modifier</button>
+      </Link>
+      <Link to="/home">
+        <button className="button ">Retour</button>
+      </Link>
     </div>
   </div>
 )
