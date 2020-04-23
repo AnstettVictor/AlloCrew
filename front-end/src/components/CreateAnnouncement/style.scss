@@ -113,6 +113,7 @@
   .create__bannerPicture {
     width: 790px;
     height: 250px;
+    margin: 0 auto;
     input {
       margin: 0;
     }
@@ -122,8 +123,30 @@
       border-radius: 100vmax;
       background-color: #fff;
       color: #000;
+      display: inline-block;
 
     }
   }
- 
+
+  .create__mainInfos {
+    display:flex;
+    justify-content: space-around;
+    margin-top: 1rem;
+    input, label {
+      margin: 0;
+    }
+
+  }
+
+  .mainfos__elem {
+    display: flex;
+    flex-direction: column;
+  }
+  input {
+    margin: 0;
+  }
+
+  .createAnnouncement__textarea {
+    min-height: 13rem;
+  }
 }
