@@ -138,32 +138,32 @@ class UserController extends AbstractController
 
         if ($form->isValid()) {
             $user->setUpdatedAt(new \DateTime);
-            if ($form['picture']->isSubmitted() && $form['picture']->isValid()) {
-                /** @var UploadImage 
-                 * $uploadedFile */
+            // if ($form['picture']->isSubmitted() && $form['picture']->isValid()) {
+            //     /** @var UploadImage 
+            //      * $uploadedFile */
 
-                $uploadedFile = $form['picture']->getData();
-                $destination = $this->getParameter('kernel.project_dir') . '/public/uploads/Picture';
-                $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-                $newFilename = $originalFilename . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
-                $uploadedFile->move(
-                    $destination,
-                    $newFilename
-                );
-            }
-            if ($form['bannerpicture']->isSubmitted() && $form['bannerpicture']->isValid()) {
-                /** @var UploadImage 
-                 * $uploadedFile */
+            //     $uploadedFile = $form['picture']->getData();
+            //     $destination = $this->getParameter('kernel.project_dir') . '/public/uploads/Picture';
+            //     $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+            //     $newFilename = $originalFilename . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
+            //     $uploadedFile->move(
+            //         $destination,
+            //         $newFilename
+            //     );
+            // }
+            // if ($form['bannerpicture']->isSubmitted() && $form['bannerpicture']->isValid()) {
+            //     /** @var UploadImage 
+            //      * $uploadedFile */
 
-                $uploadedFile = $form['bannerpicture']->getData();
-                $destination = $this->getParameter('kernel.project_dir') . '/public/uploads/BannerPicture';
-                $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-                $newFilename = $originalFilename . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
-                $uploadedFile->move(
-                    $destination,
-                    $newFilename
-                );
-            }
+            //     $uploadedFile = $form['bannerpicture']->getData();
+            //     $destination = $this->getParameter('kernel.project_dir') . '/public/uploads/BannerPicture';
+            //     $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+            //     $newFilename = $originalFilename . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
+            //     $uploadedFile->move(
+            //         $destination,
+            //         $newFilename
+            //     );
+            // }
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
