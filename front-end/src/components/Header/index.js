@@ -30,6 +30,7 @@ const Header = ({userId, logout, isLogged}) => {
     <nav className="header__nav">
       <div  className="transparent"/>
       <Link to="/home">
+        <img className="header__logo_img" src="../../src/assets/images/favicon.png"  />     
         <div className="header__logo">AlloCrew</div> 
       </Link>
       {isLogged && (

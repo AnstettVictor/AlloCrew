@@ -2,7 +2,7 @@
 
 
 
-.header__nav {
+.header__nav {  
   height: 3rem;
   display: flex;
   justify-content: space-around;
@@ -10,6 +10,12 @@
   a:visited {
     color: #000;
   }
+}
+
+.header__logo_img{  
+  max-height: 2.1rem;
+  margin: auto;
+  
 }
 
 .header__logo {
