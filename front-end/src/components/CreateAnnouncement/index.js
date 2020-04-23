@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './style.scss';
 import PropTypes from 'prop-types';
@@ -8,25 +8,27 @@ import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 
-const CreateAnnouncement = ({ handleChange, title, location, description, voluntary, picture, id, onCreateAnnouncementSubmit, handleChangeEditor, handleDateChange, dateStart, dateEnd, handleChecked, handleNotChecked }) => {
+const CreateAnnouncement = ({ handleChange, title, location, description, voluntary, picture, id, onCreateAnnouncementSubmit, handleChangeEditor, handleDateChange, dateStart, dateEnd, handleChecked, handleNotChecked, appendImage, uploadImage, notification }) => {
 
   const newStartDate = new Date(dateStart);
   const newEndDate = new Date(dateEnd);
+
+
 
   return (
     <div className="createAnnouncement__container">
       <h2 className="createAnnouncement__title">Création de votre annonce</h2>
       <form id="myform" onSubmit={onCreateAnnouncementSubmit} method="post" >
 
-        <div className="input create__bannerPicture">
+        <div className="input create__bannerPicture" style={{backgroundImage: `url(${picture})`}}>
           <input
             type="file"
             className="input"
-            onChange={handleChange}
             name="picture"
-            value={picture}
+            onChange={appendImage}
           />
-          <div className="button">Importer</div>
+          <div onClick={uploadImage} className="button">Importer</div>
+          {notification && <strong>{notification}</strong>}
           <p>Image de l'annonce</p>
         </div>
 
