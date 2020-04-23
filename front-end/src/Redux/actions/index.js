@@ -182,11 +182,14 @@ export const checkAuth = () => (dispatch) => {
 //For finding one announcement with id
 export const fetchAnnouncement = (id) => (dispatch) => {
    axios({
+    headers: {
+      Authorization: `bearer ${token()}`,
+    },
     method: 'get',
     url: `http://3.88.40.169/api/announcements/${id}`, 
   })
   .then((res) => {
-    console.log('notre id',id);
+    console.log(res);
     const announcementData = res.data;
     dispatch(updateAnnouncement(announcementData))
   })
