@@ -26,6 +26,9 @@ const mapDispatchToProps = (dispatch, {match}) => ({
     }
   )),
 
+  handleChecked: (e) => {console.log(e.target.checked); dispatch(inputAnnouncementChange({'voluntary': e.target.checked}))},
+  handleNotChecked: (e) => {console.log(e.target.checked); dispatch(inputAnnouncementChange({'voluntary': !e.target.checked}))},
+
   onEditAnnouncementSubmit: (e) => {e.preventDefault(); dispatch(passId(patchEditAnnouncement))},
 
   fetchData: dispatch(fetchAnnouncement(match.params.id))

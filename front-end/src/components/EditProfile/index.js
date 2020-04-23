@@ -4,6 +4,7 @@ import './style.scss';
 import PropTypes from 'prop-types';
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 
 const EditProfile = ({id, onEditProfileSubmit, title, firstname, lastname, age, location, description, experience, portfolio, bannerpicture, picture, handleChange, handleChangeEditor }) => (
   <div>
@@ -13,8 +14,7 @@ const EditProfile = ({id, onEditProfileSubmit, title, firstname, lastname, age, 
           <button type="submit"  className="editProfile__button button">Enregistrer</button>
           <Link to="/home">
             <button className="editProfile__buttonRetour button">Retour</button>
-          </Link>
-          
+          </Link>          
 
           <div className="editProfile__pict__cover" style={{backgroundImage: `url(${bannerpicture})`}}>
             <input type="file" className="input" name="file" value=""/>
@@ -27,12 +27,12 @@ const EditProfile = ({id, onEditProfileSubmit, title, firstname, lastname, age, 
         <div className="editProfile__mainInfos"> 
           <div>
             <label>Nom</label>
-            <input onChange={handleChange} value={lastname?lastname:""} name="lastname" type="text" className=" input" placeholder={lastname?lastname :"Nom"} />
+            <input onChange={handleChange} value={lastname?lastname:""} name="lastname" type="text" className=" input" placeholder={lastname?lastname :"Nom"} required/>
           </div>
           
           <div>
             <label>Prénom</label>
-            <input onChange={handleChange} value={firstname?firstname:""} name="firstname" type="text" className=" input" placeholder={firstname?firstname :"Prénom"}/>
+            <input onChange={handleChange} value={firstname?firstname:""} name="firstname" type="text" className=" input" placeholder={firstname?firstname :"Prénom"} required/>
           </div>
 
           <div>
@@ -42,7 +42,7 @@ const EditProfile = ({id, onEditProfileSubmit, title, firstname, lastname, age, 
         
           <div>
             <label>Ville</label>
-            <input onChange={handleChange} value={location?location:""} name="location" type="text" className=" input" placeholder={location?location :"Votre ville"}/>
+            <input onChange={handleChange} value={location?location:""} name="location" type="text" className=" input" placeholder={location?location :"Votre ville"} required/>
           </div>
         
           
@@ -58,7 +58,7 @@ const EditProfile = ({id, onEditProfileSubmit, title, firstname, lastname, age, 
             <CKEditor
               className="editor"
               editor={ClassicEditor}
-              data={description?description:""}
+              data={ReactHtmlParser(description?description:"")}
               onChange={handleChangeEditor}
               config={{
                 removePlugins: [ 'EasyImage', 'Image', 'ImageCaption', 'ImageStyle', 'ImageToolbar', 'ImageUpload', 'MediaEmbed', 'TableToolbar', 'Table', 'Indent' ],
@@ -70,7 +70,7 @@ const EditProfile = ({id, onEditProfileSubmit, title, firstname, lastname, age, 
             <label className="">Expérience</label>
             <CKEditor
               editor={ClassicEditor}
-              data={experience?experience:""}
+              data={ReactHtmlParser(experience?experience:"")}
               onChange={handleChangeEditor}
               config={{
                 removePlugins: [ 'EasyImage', 'Image', 'ImageCaption', 'ImageStyle', 'ImageToolbar', 'ImageUpload', 'MediaEmbed', 'TableToolbar', 'Table', 'Indent' ],

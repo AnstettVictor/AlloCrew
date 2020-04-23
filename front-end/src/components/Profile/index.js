@@ -1,6 +1,7 @@
 import React from 'react';
 import './style.scss';
 import PropTypes from 'prop-types';
+import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 
 const Profile = ({id, age, location, firstname, lastname, title, description, experience, portfolio, picture, bannerpicture}) => (
   <div className="profile__container">    
@@ -20,11 +21,11 @@ const Profile = ({id, age, location, firstname, lastname, title, description, ex
     </div>
       <div>
         <h3 className="profile__description">Description</h3>
-        <p className="profile__text">{description}</p>
+        <p className="profile__text">{ReactHtmlParser(description)}</p>
       </div>
       <div>
         <h3 className="profile__exp">Expérience</h3>
-        <p className="profile__text">{experience}</p>
+        <p className="profile__text">{ReactHtmlParser(experience)}</p>
       </div>
       <p className="profile__portfolio">Portfolio:</p>
       <a className="profile__link" href="#">{portfolio}</a>
