@@ -58,29 +58,29 @@ class AnnouncementController extends AbstractController
     public function edit(Announcement $announcement, Request $request, GetErrorsFromForm $getErrorsFromForm,$id)
     {
          
+       
+        
+
         $donnees = json_decode($request->getContent(), true);
        
         $form = $this->createForm(AnnouncementType::class, $announcement);
         
-        
         $form->submit($donnees, false);
         
-        
-
         if ($form->isValid()) {
             $announcement->setUpdatedAt(new \DateTime);
-            if ($form['picture']->isSubmitted() && $form['picture']->isValid()){
-                /** @var UploadImage 
-                 * $uploadedFile */
+            // if ($form['picture']->isSubmitted() && $form['picture']->isValid()){
+            //     /** @var UploadImage 
+            //      * $uploadedFile */
                 
-                $uploadedFile = $form['picture']->getData();
-                $destination = $this->getParameter('kernel.project_dir').'/public/uploads/AnnouncementPicture';
-                $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-                $newFilename = $originalFilename.'-'.uniqid().'.'.$uploadedFile->guessExtension();
-                $uploadedFile->move(
-                    $destination,
-                    $newFilename
-                );}
+            //     $uploadedFile = $form['picture']->getData();
+            //     $destination = $this->getParameter('kernel.project_dir').'/public/uploads/AnnouncementPicture';
+            //     $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+            //     $newFilename = $originalFilename.'-'.uniqid().'.'.$uploadedFile->guessExtension();
+            //     $uploadedFile->move(
+            //         $destination,
+            //         $newFilename
+            //     );}
             $em = $this->getDoctrine()->getManager();
             $em->persist($announcement);
             $em->flush();
@@ -106,33 +106,26 @@ class AnnouncementController extends AbstractController
         $announcement = new Announcement();
 
         // On décode les données envoyées
-
         $donnees = json_decode($request->getContent(), true);
-
         /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
          * sinon on passe à la suite */
-
         $form = $this->createForm(AnnouncementType::class, $announcement);
-
-       $form->submit($donnees, false);
-
-      // $form->handleRequest($request);
-
-        
-        if ($form->isSubmitted() && $form->isValid()) {
+        $form->submit($donnees);
+       
+        if ($form->isValid()) {
             $announcement->setCreatedAt(new \DateTime);
-            if ($form['picture']->isSubmitted() && $form['picture']->isValid()){
-            /** @var UploadImage 
-             * $uploadedFile */
+            // if ($form['picture']->isSubmitted() && $form['picture']->isValid()){
+            // /** @var UploadImage 
+            //  * $uploadedFile */
             
-            $uploadedFile = $form['picture']->getData();
-            $destination = $this->getParameter('kernel.project_dir').'/public/uploads/AnnouncementPicture';
-            $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-            $newFilename = $originalFilename.'-'.uniqid().'.'.$uploadedFile->guessExtension();
-            $uploadedFile->move(
-                $destination,
-                $newFilename
-            );}
+            // $uploadedFile = $form['picture']->getData();
+            // $destination = $this->getParameter('kernel.project_dir').'/public/uploads/AnnouncementPicture';
+            // $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+            // $newFilename = $originalFilename.'-'.uniqid().'.'.$uploadedFile->guessExtension();
+            // $uploadedFile->move(
+            //     $destination,
+            //     $newFilename
+            // );}
             $em = $this->getDoctrine()->getManager();
             $em->persist($announcement);
             $em->flush();
