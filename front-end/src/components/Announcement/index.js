@@ -4,7 +4,7 @@ import Proptypes from 'prop-types'
 import {Link} from 'react-router-dom';
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 
-const Announcement = ({title, location, description, picture, voluntary, id, dateEnd, dateStart, active, user }) => {
+const Announcement = ({title, location, description, picture, voluntary, id, dateEnd, dateStart, active, user, test }) => {
 
 return (
   <div className="announcement__container" >
@@ -24,7 +24,7 @@ return (
     </div>
     <div className="announcement__pos2">
       <Link to={`/edit-announcement/${id}`}>
-        <button className="button ">Envoyer un message/Modifier</button>
+        <button className="button " onClick={test} name={user.id}>Envoyer un message/Modifier</button>
       </Link>
       <Link to="/home">
         <button className="button ">Retour</button>

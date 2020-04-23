@@ -1,8 +1,8 @@
 import Announcement from '../components/Announcement';
-import {fetchAnnouncement} from '../Redux/actions'
+import {fetchAnnouncement, passId, loginOk, fetchProfile} from '../Redux/actions'
 import {connect} from 'react-redux';
 
-const mapStateToProps = ({data}) => {
+const mapStateToProps = ({data, login}) => {
   const announcement = data.announcements[0];
   return({
     title: announcement.title,
@@ -14,14 +14,19 @@ const mapStateToProps = ({data}) => {
     dateStart: announcement.dateStart,
     dateEnd: announcement.dateEnd,
     active: announcement.active,
-    user: announcement.user
+    user: announcement.user,
+    userId: login.userId,
   })
 };
 
 const mapDispatchToProps = (dispatch, {match}) => ({
-  fetchData: dispatch(fetchAnnouncement(match.params.id))
+  fetchData: dispatch(fetchAnnouncement(match.params.id)),
+
+  test: (e) => console.log([e.target.name] == fetchProfile(match.params.id)?"ok":"pasok"), 
+
 })
-;
+
+
 
 const announcement = connect(mapStateToProps, mapDispatchToProps)(Announcement);
 
