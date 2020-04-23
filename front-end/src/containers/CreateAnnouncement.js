@@ -5,14 +5,15 @@ import {connect} from 'react-redux';
 const mapStateToProps = ({data}) => {
 
   return({
-    title: data.create.title,
-    location: data.create.location,
-    description: data.create.description,
-    picture: data.create.picture,
+    category: data.create.category,
+    active: data.create.active, 
     voluntary: data.create.voluntary,
     dateStart: data.create.date_start,
     dateEnd: data.create.date_end,
-    active: data.create.active,    
+    location: data.create.location,
+    title: data.create.title,
+    description: data.create.description,
+    picture: data.create.picture 
   })
 };
 

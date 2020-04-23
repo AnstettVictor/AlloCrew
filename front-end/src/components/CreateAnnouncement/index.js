@@ -19,10 +19,11 @@ const CreateAnnouncement = ({handleChange, title, location, description, volunta
 
         <div className="createAnnouncement__input drop desktop input">
           <input 
-            type="file" 
+            type="text" 
             className="input" 
-            accept=".png, .jpg, .jpeg" 
-            name="file"  
+            onChange={handleChange}
+            name="picture"  
+            value={picture} 
           />
         </div> 
         <h2 className="createAnnouncement__desktop--Title">Titre de l'annonce</h2> 
@@ -34,8 +35,7 @@ const CreateAnnouncement = ({handleChange, title, location, description, volunta
           name="title" 
           className="createAnnouncement__input title input" 
           type="text" 
-          placeholder={ title? title: "Titre de l'annonce" }
-          required 
+          placeholder={ title? title: "Titre de l'annonce" } 
         />
         <p className="createAnnouncement__text createAnnouncement__desktop--Title">Date de début</p>
         <DatePicker 
@@ -102,7 +102,7 @@ const CreateAnnouncement = ({handleChange, title, location, description, volunta
             <CKEditor
               className="editor"
               editor={ClassicEditor}
-              data={ReactHtmlParser(description)}
+              data={description}
               onChange={handleChangeEditor}
               config={{
                 removePlugins: [ 'EasyImage', 'Image', 'ImageCaption', 'ImageStyle', 'ImageToolbar', 'ImageUpload', 'MediaEmbed', 'TableToolbar', 'Table', 'Indent' ],

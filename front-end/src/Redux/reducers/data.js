@@ -2,13 +2,15 @@ import {UPDATE_ANNOUNCEMENT, UPDATE_PROFILE, INPUT_PROFILE_CHANGE, INPUT_ANNOUNC
 
 const initialState = {
   create: {
-    title: "",
-    location: "",
+    category: "default",
     active: true,
     voluntary: true,
-    date_start: "2020-06-25T00:00:00+00:00",
-    date_end: "2020-06-25T00:00:00+00:00",
-    description: "",     
+    date_start: "2007-10-10T00:00:00+00:00",
+    date_end: "2007-10-10T00:00:00+00:00",
+    location: "",
+    title: "",
+    description: "",
+    picture:""   
   },
   announcements: [
     {

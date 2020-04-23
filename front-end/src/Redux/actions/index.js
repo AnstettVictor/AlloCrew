@@ -298,18 +298,8 @@ export const postCreateAnnouncement = () => (dispatch, getState) => {
     url: `http://3.88.40.169/api/announcements/`, 
     data: 
     { 
-      user_id: getState().login.userId,
-      title: "",
-      location: "",
-      active: true,
-      voluntary: true,
-      date_start: "2020-06-25T00:00:00+00:00",
-      date_end: "2020-06-25T00:00:00+00:00",
-      description: "", 
-      // user_id: getState().login.userId,
-      // category: "default",
-      // picture: "default",
-      // ...getState().data.create          
+      user: getState().login.userId,
+      ...getState().data.create
     }
   })
   .then((res) => console.log(res))
