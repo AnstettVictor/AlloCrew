@@ -3,6 +3,7 @@ import './style.scss';
 import Proptypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {date} from 'utils/functions';
+import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 
 const Announce = ({ title, location, description, picture, voluntary, id, dateEnd, dateStart, active, user, createdAt, userId }) =>  (
   <div className="announce">
@@ -10,11 +11,11 @@ const Announce = ({ title, location, description, picture, voluntary, id, dateEn
       <div className="announce__avatar" style={{backgroundImage: `url(${user.picture})`}} />
     </div>
 
-    <p className="announce__user">{user.firstname} {user.lastname} - user.title  <span className="announce__creation">créée le {date(createdAt)}</span></p>
+    <p className="announce__user">{user.firstname} {user.lastname} - {user.title}  <span className="announce__creation">créée le {date(createdAt)}</span></p>
     <div className="announce__bot">
       <div className="announce__botleft">
         <h2>{title}</h2>
-        <p className="announce__description">{description}</p>
+        <p className="announce__description">{ReactHtmlParser(description.length > 100 ?`${description.substring(0, 99)} ...`:description)}</p>
       </div>
       <div className="announce__botright">
         <div className="announce__details">
@@ -22,7 +23,6 @@ const Announce = ({ title, location, description, picture, voluntary, id, dateEn
           <p>à {location}</p>
           <p> {voluntary? "Bénévole": "Rémunérée"}</p>
         </div>
-
         <input className="announce__button button see" type="button" value="Voir l'annonce"/>
 
         <Link to={`/announcement/${id}`}><input className="announce__button button seeAndEdit" type="button" value="Voir l'Annonce"/></Link>

@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import DatePicker from 'react-datepicker';
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 
 const CreateAnnouncement = ({handleChange, title, location, description, voluntary, picture, id, onCreateAnnouncementSubmit, handleChangeEditor, handleDateChange,  dateStart, dateEnd, handleChecked, handleNotChecked}) => {
 
@@ -33,7 +34,8 @@ const CreateAnnouncement = ({handleChange, title, location, description, volunta
           name="title" 
           className="createAnnouncement__input title input" 
           type="text" 
-          placeholder={ title? title: "Titre de l'annonce" } 
+          placeholder={ title? title: "Titre de l'annonce" }
+          required 
         />
         <p className="createAnnouncement__text createAnnouncement__desktop--Title">Date de début</p>
         <DatePicker 
@@ -43,6 +45,7 @@ const CreateAnnouncement = ({handleChange, title, location, description, volunta
           dateFormat="d MMMM, yyyy"          
           onChange={handleDateChange}
           dayClassName={() => "date_start"}
+          required
         />
         
 
@@ -99,11 +102,11 @@ const CreateAnnouncement = ({handleChange, title, location, description, volunta
             <CKEditor
               className="editor"
               editor={ClassicEditor}
-              data={description}
+              data={ReactHtmlParser(description)}
               onChange={handleChangeEditor}
               config={{
                 removePlugins: [ 'EasyImage', 'Image', 'ImageCaption', 'ImageStyle', 'ImageToolbar', 'ImageUpload', 'MediaEmbed', 'TableToolbar', 'Table', 'Indent' ],
-              }}
+              }}              
             />
           </div>        
         </div>

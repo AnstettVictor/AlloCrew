@@ -6,8 +6,9 @@ import {Link} from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 
-const EditAnnouncement = ({handleChange, title, location, description, voluntary, picture, onEditAnnouncementSubmit, handleChangeEditor, id}) => {
+const EditAnnouncement = ({handleChange, handleChecked, handleNotChecked, title, location, description, voluntary, picture, onEditAnnouncementSubmit, handleChangeEditor, id}) => {
 
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
@@ -46,21 +47,20 @@ const EditAnnouncement = ({handleChange, title, location, description, voluntary
         <h2 className="editAnnouncement__desktop--Title">Lieu</h2>
         <input onChange={handleChange} value={location} name="location" className="editAnnouncement__input input" type="text" placeholder={location?location:"Lieu"} />
         
-        <div>        
-          <input className="editAnnouncement__volunteer" type="radio" id="volonteer" name="drone" value="volonteer" defaultChecked={voluntary} />
-          <label className="editAnnouncement__volunteer">Bénévole</label>
-        </div>
-
         <div>
-          <input className="editAnnouncement__paid" type="radio" id="paid" name="drone" value="paid" />
-          <label className="editAnnouncement__paid" defaultChecked={voluntary?false:true} >Rémunéré</label>
-        </div> 
+          <input className="createAnnouncement__volunteer" type="radio" id="volonteer" name="drone" value="volonteer" defaultChecked={voluntary} onChange={handleChecked}/>
+          <label className="createAnnouncement__volunteer">Bénévole</label>
+        </div>
+        <div>
+          <input className="createAnnouncement__paid" type="radio" id="paid" name="drone" value="paid" defaultChecked={!voluntary} onChange={handleNotChecked} />
+          <label className="createAnnouncement__paid" >Rémunéré</label>
+        </div>
 
         <div className="editAnnouncement__textarea input">
           <CKEditor
             className="editor"
             editor={ClassicEditor}
-            data={description}
+            data={ReactHtmlParser(description)}
             onChange={handleChangeEditor}
             config={{
               removePlugins: [ 'EasyImage', 'Image', 'ImageCaption', 'ImageStyle', 'ImageToolbar', 'ImageUpload', 'MediaEmbed', 'TableToolbar', 'Table', 'Indent' ],
