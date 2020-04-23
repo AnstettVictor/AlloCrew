@@ -55,12 +55,13 @@ class AnnouncementController extends AbstractController
      * @Route("/{id}", name="edit", methods={"PATCH"}, requirements={"id": "\d+"})
      *
      */
-    public function edit(Announcement $announcement, Request $request, GetErrorsFromForm $getErrorsFromForm)
+    public function edit(Announcement $announcement, Request $request, GetErrorsFromForm $getErrorsFromForm,$id)
     {
-        
+         
         $donnees = json_decode($request->getContent(), true);
        
         $form = $this->createForm(AnnouncementType::class, $announcement);
+        
         
         $form->submit($donnees, false);
         
@@ -109,7 +110,6 @@ class AnnouncementController extends AbstractController
         $form = $this->createForm(AnnouncementType::class, $announcement);
         $form->submit($donnees);
        
-
         $donnees = json_decode($request->getContent(), true);
        
         $form = $this->createForm(AnnouncementType::class, $announcement);
