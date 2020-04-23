@@ -48,14 +48,14 @@ class AnnouncementType extends AbstractType
             ->add('date_start', DateTimeType::class, [
                 'label' => 'Cet évènement commencera le ',
                 'widget' => 'single_text',
-                'format' => 'yyyy-MM-dd',
+                'format' => 'yyyy-MM-dd H:mm:ss',
                 'html5' => false,
                 'attr' => ['class' => 'js-datepicker']
             ])
             ->add('date_end', DateTimeType::class, [
                 'label' => 'Cet évènement se terminera le ',
                 'widget' => 'single_text',
-                'format' => 'yyyy-MM-dd',
+                'format' => 'yyyy-MM-dd H:mm:ss',
                 'html5' => false,
                 'attr' => ['class' => 'js-datepicker']
                 
