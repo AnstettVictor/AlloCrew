@@ -1,6 +1,6 @@
 import React from 'react';
 import './style.scss';
-import bg from 'images/bg.jpg';
+import bg from 'images/banniere.png';
 import {
   BrowserRouter as Router,
   Switch,
