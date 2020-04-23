@@ -4,6 +4,7 @@ namespace App\Controller\FakeController;
 
 use App\Form\AnnouncementType;
 use App\Form\UserType;
+use App\Services\ImageUpload;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,39 +16,28 @@ class MainController extends AbstractController
     /**
      * @Route("/form", name="demo")
      */
-    public function Form(Request $request)
+    public function Form(Request $request, ImageUpload $imageUploader)
     {
         $form = $this->createForm(UserType::class);
 
         $form->handleRequest($request);
 
-        // if ($form->isSubmitted() && $form->isValid()) {
-        // On décode les données envoyées
-        $donnees = json_decode($request->getContent(), true);
-        /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
-        * sinon on passe à la suite */
-        
-        $form = $this->createForm(UserType::class);
-        $ddd = $form->submit($donnees);
-      
+        if($form->isSubmitted()){
             $em = $this->getDoctrine()->getManager();
-            /** @var UploadImage 
-             * $uploadedFile */
+            $file = $form['picture']->getData();
             
-            $uploadedFile = $form['picture']->getData();
-            $destination = $this->getParameter('kernel.project_dir').'/public/uploads/Picture';
-            $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-            $newFilename = $originalFilename.'-'.uniqid().'.'.$uploadedFile->guessExtension();
-            $uploadedFile->move(
-                $destination,
-                $newFilename
-            );
+
+            $directory = 'uploads/BannerPicture';
+            $imageUploader->upload($file, $directory);
+           
+            $newname = dd($this);
+            
             $em->flush();
-            
+        }
        // }
 
 
-        return $this->render('announcement/index.html.twig', [
+        return $this->render('fake_controller/main/index.html.twig', [
             'form' => $form->createView(),
         ]);
     }

@@ -7,6 +7,7 @@ use App\Form\UserType;
 use App\Utils\GetErrorsFromForm;
 use App\Repository\UserRepository;
 use App\Repository\AnnouncementRepository;
+use App\Services\ImageUpload;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -135,7 +136,7 @@ class UserController extends AbstractController
     /**
      * @Route("/{id}", name="edit", methods={"PATCH"}, requirements={"id": "\d+"})
      */
-    public function edit(User $user, Request $request, GetErrorsFromForm $getErrorsFromForm)
+    public function edit(User $user, Request $request, GetErrorsFromForm $getErrorsFromForm, ImageUpload $imageUploader)
     {
         if ($this->getUser()->getId() != $user->getId()){
 
@@ -150,30 +151,15 @@ class UserController extends AbstractController
         if ($form->isValid()) {
             $user->setUpdatedAt(new \DateTime);
             if ($form['picture']->isSubmitted() && $form['picture']->isValid()) {
-                /** @var UploadImage 
-                 * $uploadedFile */
-
-                $uploadedFile = $form['picture']->getData();
-                $destination = $this->getParameter('kernel.project_dir') . '/public/uploads/Picture';
-                $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-                $newFilename = $originalFilename . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
-                $uploadedFile->move(
-                    $destination,
-                    $newFilename
-                );
+                $file = $form['picture']->getData();
+                $imageUploader->upload($file);
+                $user->setPicture($file->getClientOriginalName());
             }
             if ($form['bannerpicture']->isSubmitted() && $form['bannerpicture']->isValid()) {
-                /** @var UploadImage 
-                 * $uploadedFile */
-
-                $uploadedFile = $form['bannerpicture']->getData();
-                $destination = $this->getParameter('kernel.project_dir') . '/public/uploads/BannerPicture';
-                $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-                $newFilename = $originalFilename . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
-                $uploadedFile->move(
-                    $destination,
-                    $newFilename
-                );
+                $file = $form['bannerpicture']->getData();
+                $directory = 'uploads/BannerPicture';
+                $imageUploader->upload($file, $directory);
+                $user->setBannerPicture($file->getClientOriginalName());
             }
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);

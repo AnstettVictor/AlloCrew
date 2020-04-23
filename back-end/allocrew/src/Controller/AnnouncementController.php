@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Announcement;
 use App\Form\AnnouncementType;
 use App\Repository\AnnouncementRepository;
+use App\Services\ImageUpload;
 use App\Utils\GetErrorsFromForm;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -55,7 +56,7 @@ class AnnouncementController extends AbstractController
      * @Route("/{id}", name="edit", methods={"PATCH"}, requirements={"id": "\d+"})
      *
      */
-    public function edit(Announcement $announcement, Request $request, GetErrorsFromForm $getErrorsFromForm)
+    public function edit(Announcement $announcement, Request $request, GetErrorsFromForm $getErrorsFromForm, ImageUpload $imageUploader)
     {
         
         if ($this->getUser()->getId() != $announcement->getUser()->getId()){
@@ -71,17 +72,12 @@ class AnnouncementController extends AbstractController
         if ($form->isValid()) {
             $announcement->setUpdatedAt(new \DateTime);
             if ($form['picture']->isSubmitted() && $form['picture']->isValid()){
-                /** @var UploadImage 
-                 * $uploadedFile */
+                    $file = $form['picture']->getData();
+                    $directory = 'uploads/AnnouncementPicture';
+                    $imageUploader->upload($file, $directory);
+                    $announcement->setPicture($file->getClientOriginalName());
+                }
                 
-                $uploadedFile = $form['picture']->getData();
-                $destination = $this->getParameter('kernel.project_dir').'/public/uploads/AnnouncementPicture';
-                $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-                $newFilename = $originalFilename.'-'.uniqid().'.'.$uploadedFile->guessExtension();
-                $uploadedFile->move(
-                    $destination,
-                    $newFilename
-                );}
             $em = $this->getDoctrine()->getManager();
             $em->persist($announcement);
             $em->flush();
