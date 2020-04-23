@@ -134,7 +134,7 @@ class UserController extends AbstractController
 
         $form = $this->createForm(UserType::class, $user);
 
-        $form->submit($donnees, false);
+        $form->submit($donnees,false);
 
         if ($form->isValid()) {
             $user->setUpdatedAt(new \DateTime);
