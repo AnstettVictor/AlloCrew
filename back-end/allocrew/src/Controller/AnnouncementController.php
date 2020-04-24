@@ -58,10 +58,11 @@ class AnnouncementController extends AbstractController
     public function edit(Announcement $announcement, Request $request, GetErrorsFromForm $getErrorsFromForm)
     {
         
-        if ($this->getUser()->getId() != $announcement->getUser()->getId()){
-
+        if ($this->getUser()->getId() != $announcement->getUser()->getId() || $this->getUser()->getRoles()->getRolesString() == "ROLE_ADMIN" ){
+           
             return new Response('Accès refusé', 403);
         }
+        
         $donnees = json_decode($request->getContent(), true);
        
         $form = $this->createForm(AnnouncementType::class, $announcement);
@@ -82,6 +83,7 @@ class AnnouncementController extends AbstractController
                     $destination,
                     $newFilename
                 );}
+            
             $em = $this->getDoctrine()->getManager();
             $em->persist($announcement);
             $em->flush();
