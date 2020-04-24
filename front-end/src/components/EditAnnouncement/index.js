@@ -8,7 +8,7 @@ import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 
-const EditAnnouncement = ({handleChange, handleDateChange, handleChecked, handleNotChecked, title, dateStart, dateEnd, location, description, voluntary, picture, onEditAnnouncementSubmit, handleChangeEditor, }) => {
+const EditAnnouncement = ({handleChange, handleDateChange, handleChecked, handleNotChecked, title, dateStart, dateEnd, location, description, voluntary, picture, onEditAnnouncementSubmit, handleChangeEditor, id}) => {
 
   const date1 =  new Date(dateStart)
   const date2 =  new Date(dateEnd);
@@ -100,11 +100,11 @@ const EditAnnouncement = ({handleChange, handleDateChange, handleChecked, handle
           <input type="file" className="input" name="file" value="" />
         </div> 
 
-        <div className="editAnnouncement__flex">
-          <Link to="/home">  
+        <div className="editAnnouncement__flex">        
+          <button type="submit" className="editAnnouncement__button button">Enregistrer</button>
+          <Link to={`/announcement/${id}`}> 
             <button className="editAnnouncement__button button">Retour</button>
-          </Link>
-            <button type="submit" className="editAnnouncement__button button">Enregistrer</button>    
+          </Link>  
         </div>
       </form>
 

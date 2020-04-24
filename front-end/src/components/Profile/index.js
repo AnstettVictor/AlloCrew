@@ -1,12 +1,13 @@
 import React from 'react';
 import './style.scss';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 
 const Profile = ({id, age, location, firstname, lastname, title, description, experience, portfolio, picture, bannerpicture}) => (
   <div className="profile__container">    
       <div className="profile__pict">
-        <button className="profile__button button">Modifier</button>
+      <Link to={`/edit-profile/${id}`}><button className="profile__button button">Modifier</button></Link>
         <div className="profile__pict__cover" style={{backgroundImage: `url(${bannerpicture})`}} />
         <img className="profile__pict__profile" src={picture} />
       </div>

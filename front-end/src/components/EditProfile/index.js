@@ -7,12 +7,12 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 
 const EditProfile = ({id, onEditProfileSubmit, title, firstname, lastname, age, location, description, experience, portfolio, bannerpicture, picture, handleChange, handleChangeEditor1, handleChangeEditor2 }) => (
-  <div>
+  <div className="editProfile__container">
     <form onSubmit={onEditProfileSubmit} method="patch" >
       <div className="editProfile__container">    
         <div className="editProfile__pict">
-          <button type="submit"  className="editProfile__button button">Enregistrer</button>
-          <Link to="/home">
+        <button type="submit"  className="editProfile__button button">Enregistrer</button>
+          <Link to={`/profile/${id}`}>
             <button className="editProfile__buttonRetour button">Retour</button>
           </Link>          
 

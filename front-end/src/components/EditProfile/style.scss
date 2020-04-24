@@ -1,5 +1,12 @@
+.editProfile__container {  
+  max-width: 900px;
+  margin: auto;
+  
+}
+
 .editProfile__pict{
     position: relative;
+    
   }
   
   .editProfile__button, .editProfile__buttonRetour{
@@ -41,6 +48,7 @@
     background-color: #ddd;
     border:2px solid #fff;
     font-size:0.7rem;
+    border-radius:50%;
   }
   
   .editProfile__name{

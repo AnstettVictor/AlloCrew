@@ -7,11 +7,11 @@ import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from
 
 const Announce = ({ title, location, description, picture, voluntary, id, dateEnd, dateStart, active, user, createdAt, userId }) =>  (
   <div className="announce">
-    <div className="announce__banner" style={{backgroundImage: `url(${picture})`}}  >
-      <div className="announce__avatar" style={{backgroundImage: `url(${user.picture})`}} />
-    </div>
+     <Link to={`/announcement/${id}`}><div className="announce__banner" style={{backgroundImage: `url(${picture})`}}  > 
+    <Link to={`/profile/${user.id}`}><div className="announce__avatar" style={{backgroundImage: `url(${user.picture})`}} /></Link>
+    </div></Link>
 
-    <p className="announce__user">{user.firstname} {user.lastname} - {user.title}  <span className="announce__creation">créée le {date(createdAt)}</span></p>
+    <Link to={`/profile/${user.id}`}><p className="announce__user">{user.firstname} {user.lastname} - {user.title} <span className="announce__creation">créée le {date(createdAt)}</span></p></Link> 
     <div className="announce__bot">
       <div className="announce__botleft">
         <h2>{title}</h2>
