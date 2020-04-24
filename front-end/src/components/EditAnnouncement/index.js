@@ -47,7 +47,7 @@ const EditAnnouncement = ({handleChange, handleDateChange, handleChecked, handle
           selected= {date1}
           dateFormat="d MMMM, yyyy"          
           onChange={handleDateChange}
-          dayClassName={() => "date_start"}
+          dayClassName={() => "dateStart"}
           required
         />
 
@@ -59,7 +59,7 @@ const EditAnnouncement = ({handleChange, handleDateChange, handleChecked, handle
           selected= {date2}
           dateFormat="d MMMM, yyyy"          
           onChange={handleDateChange}          
-          dayClassName={() => "date_end"}
+          dayClassName={() => "dateEnd"}
         />
        
         <br/>
