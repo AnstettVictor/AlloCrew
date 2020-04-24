@@ -33,18 +33,8 @@ class AnnouncementType extends AbstractType
                     ]),
                 ]
             ])
-            ->add('active', ChoiceType::class, [
-                'choices' => [
-                    'Yes' => true, 'No' => false
-                ]
-            ])
-            ->add('voluntary', ChoiceType::class, [
-                'choices'  => [
-                    'Rémunéré' => false,
-                    'Bénévole' => true,
-                ],
-                'label' => 'Evènement rémunéré ou bénévole ?', 
-            ])
+            ->add('active')
+            ->add('voluntary')
             ->add('date_start', DateTimeType::class, [
                 'label' => 'Cet évènement commencera le ',
                 'widget' => 'single_text',

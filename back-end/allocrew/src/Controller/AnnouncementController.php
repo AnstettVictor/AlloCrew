@@ -57,16 +57,16 @@ class AnnouncementController extends AbstractController
      */
     public function edit(Announcement $announcement, Request $request, GetErrorsFromForm $getErrorsFromForm,$id)
     {
-         
-       
-        
 
         $donnees = json_decode($request->getContent(), true);
        
+       
+
         $form = $this->createForm(AnnouncementType::class, $announcement);
         
         $form->submit($donnees, false);
         
+       
         if ($form->isValid()) {
             $announcement->setUpdatedAt(new \DateTime);
             // if ($form['picture']->isSubmitted() && $form['picture']->isValid()){
