@@ -82,7 +82,6 @@ class UserType extends AbstractType
             // ])
             ->add('bannerpicture', TextType::class, [
 
-                
             ])
             // ->add('bannerpicture', FileType::class, [
             //     'constraints' => new File(),
