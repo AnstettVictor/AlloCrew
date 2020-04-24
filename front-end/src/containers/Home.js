@@ -13,7 +13,7 @@ const mapStateToProps = ({data, login}) => {
 
 const mapDispatchToProps = (dispatch) =>{
  return ({
-  fetchHomeProfile: dispatch(passId(fetchProfile)),
+  fetchHomeProfile: dispatch(passId(fetchProfile)),  
   fetchAnnouncements: dispatch(fetchAnnouncementList()),
   logout: () => dispatch(logoutUser())
 })

@@ -85,13 +85,13 @@ const reducer = (state = initialState, action) => {
     
     case UPDATE_ANNOUNCEMENT:
       return {
-        ...initialState,
+        ...state,
         announcements: action.payload, 
       };
     case UPDATE_PROFILE:
       return {
         ...state,
-        editProfile: {...action.payload[0]}, 
+        profiles: [{...state.profiles, ...action.payload[0]}], 
       };
     case INPUT_PROFILE_CHANGE:
       return {

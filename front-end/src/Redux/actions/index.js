@@ -204,7 +204,8 @@ export const fetchProfile = (id) => (dispatch) => {
     method: 'get',
     url: `http://3.88.40.169/api/users/${id}`, 
   })
-  .then((res) => {
+  .then((res) => { 
+    console.log(res)   
     dispatch(updateProfile(res.data))
   })
   .catch((err) => {
@@ -230,7 +231,13 @@ export const fetchAnnouncementList = () => (dispatch) => {
 
 // For finding a profile List
 export const fetchProfileList = () => (dispatch) => {
-  axios.get(`https://raw.githubusercontent.com/Largenty/testallo/master/profile.json`)
+  axios({
+    headers: {
+      Authorization: `bearer ${token()}`,
+    },
+    method: 'get',
+    url: `http://3.88.40.169/api/users/`,
+  })
     .then((res) => {
       const profileListData = res.data
       dispatch(updateProfile(profileListData))
