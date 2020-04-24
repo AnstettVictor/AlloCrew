@@ -83,21 +83,12 @@ export const inputCreateAnnouncement = (payload) => ({
   payload
 })
 
-export const inputEditProfileChange = (payload) => ({
-  type: INPUT_EDITPROFILE_CHANGE,
-  payload
-})
+
 
 export const inputProfileChange = (payload) => ({
   type: INPUT_PROFILE_CHANGE,
   payload
 })
-
-export const inputEditAnnouncementChange = (payload) => ({
-  type: INPUT_EDITANNOUNCEMENT_CHANGE,
-  payload
-})
-
 
 //Appels Ajax
 
@@ -205,7 +196,8 @@ export const fetchProfile = (id) => (dispatch) => {
     method: 'get',
     url: `http://3.88.40.169/api/users/${id}`, 
   })
-  .then((res) => {
+  .then((res) => { 
+    console.log(res)   
     dispatch(updateProfile(res.data))
   })
   .catch((err) => {
@@ -231,14 +223,18 @@ export const fetchAnnouncementList = () => (dispatch) => {
 
 // For finding a profile List
 export const fetchProfileList = () => (dispatch) => {
-  axios.get(`https://raw.githubusercontent.com/Largenty/testallo/master/profile.json`)
+  axios({
+    headers: {
+      Authorization: `bearer ${token()}`,
+    },
+    method: 'get',
+    url: `http://3.88.40.169/api/users/`,
+  })
     .then((res) => {
       const profileListData = res.data
       dispatch(updateProfile(profileListData))
     })
 };
-
-
 
 export const patchEditProfile = (id) => (dispatch, getState) => {
   axios({
@@ -273,8 +269,7 @@ export const patchEditAnnouncement = (id) => (dispatch, getState) => {
     method: 'patch',
     url: `http://3.88.40.169/api/announcements/${id}`, 
     data: 
-    {       
-      user: getState().data.announcements[0].user,
+    { 
       category: "default",
       active: getState().data.announcements[0].active,
       voluntary: getState().data.announcements[0].voluntary,
@@ -283,10 +278,8 @@ export const patchEditAnnouncement = (id) => (dispatch, getState) => {
       location: getState().data.announcements[0].location,
       title: getState().data.announcements[0].title,
       description: getState().data.announcements[0].description,
-      picture: getState().data.announcements[0].picture,
-      id: getState().data.announcements[0].id,
-    }
-             
+      picture: getState().data.announcements[0].picture,      
+    }    
     
   })
   .then((res) => console.log(res))

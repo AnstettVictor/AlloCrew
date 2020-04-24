@@ -38,6 +38,8 @@
   width: var(--thumbnail-size);
   border-radius: 50%;
   background-color: #ddd;
+  background-position: center;
+  background-size: cover;  
 }
 
 .announce__user {

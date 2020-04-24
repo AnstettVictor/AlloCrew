@@ -6,16 +6,16 @@ import {Link} from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 
-const EditAnnouncement = ({handleChange, handleDateChange, handleChecked, handleNotChecked, title, dateStart, dateEnd, location, description, voluntary, picture, onEditAnnouncementSubmit, handleChangeEditor, id}) => {
 
-  const newStartDate = new Date(dateStart);
-  const newEndDate = new Date(dateEnd);
+const EditAnnouncement = ({handleChange, handleDateChange, handleChecked, handleNotChecked, title, dateStart, dateEnd, location, description, voluntary, picture, onEditAnnouncementSubmit, handleChangeEditor, }) => {
+
+  const date1 =  new Date(dateStart)
+  const date2 =  new Date(dateEnd);
   
   return (    
     <div className="editAnnouncement__container"> 
-      <form onSubmit={onEditAnnouncementSubmit} id={id} method="patch" >     
+      <form onSubmit={onEditAnnouncementSubmit}  method="patch" >     
         <h2 className="editAnnouncement__title">Modifier votre annonce</h2>
       
 
@@ -44,7 +44,7 @@ const EditAnnouncement = ({handleChange, handleDateChange, handleChecked, handle
         <DatePicker 
           className="editAnnouncement__input input"
           showPopperArrow={false}
-          selected= {newStartDate}
+          selected= {date1}
           dateFormat="d MMMM, yyyy"          
           onChange={handleDateChange}
           dayClassName={() => "date_start"}
@@ -56,7 +56,7 @@ const EditAnnouncement = ({handleChange, handleDateChange, handleChecked, handle
         <DatePicker 
           className="editAnnouncement__input input"          
           showPopperArrow={false}
-          selected= {newEndDate}
+          selected= {date2}
           dateFormat="d MMMM, yyyy"          
           onChange={handleDateChange}          
           dayClassName={() => "date_end"}
@@ -112,19 +112,18 @@ const EditAnnouncement = ({handleChange, handleDateChange, handleChecked, handle
 }
 ;
 
-// EditAnnouncement.propTypes = {
-//   onEditAnnouncementSubmit: PropTypes.func.isRequired,
-//   handleChangeEditor: PropTypes.func.isRequired,
-//   handleChange: PropTypes.func.isRequired,
-//   title: PropTypes.string.isRequired,
-//   location: PropTypes.string.isRequired,
-//   description: PropTypes.string.isRequired,
-//   picture: PropTypes.string.isRequired,
-//   voluntary: PropTypes.bool.isRequired,
-//   id: PropTypes.number.isRequired,
-//   dateStart: PropTypes.string.isRequired,
-//   dateEnd: PropTypes.string.isRequired, 
-//   active: PropTypes.bool.isRequired,
-// }
+EditAnnouncement.propTypes = {
+  onEditAnnouncementSubmit: PropTypes.func.isRequired,
+  handleChangeEditor: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  location: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  picture: PropTypes.string.isRequired,
+  voluntary: PropTypes.bool.isRequired,  
+  dateStart: PropTypes.string.isRequired,
+  dateEnd: PropTypes.string.isRequired, 
+  active: PropTypes.bool.isRequired,
+}
 
 export default EditAnnouncement;

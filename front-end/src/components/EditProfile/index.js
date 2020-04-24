@@ -6,7 +6,7 @@ import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 
-const EditProfile = ({id, onEditProfileSubmit, title, firstname, lastname, age, location, description, experience, portfolio, bannerpicture, picture, handleChange, handleChangeEditor }) => (
+const EditProfile = ({id, onEditProfileSubmit, title, firstname, lastname, age, location, description, experience, portfolio, bannerpicture, picture, handleChange, handleChangeEditor1, handleChangeEditor2 }) => (
   <div>
     <form onSubmit={onEditProfileSubmit} method="patch" >
       <div className="editProfile__container">    
@@ -17,11 +17,23 @@ const EditProfile = ({id, onEditProfileSubmit, title, firstname, lastname, age, 
           </Link>          
 
           <div className="editProfile__pict__cover" style={{backgroundImage: `url(${bannerpicture})`}}>
-            <input type="file" className="input" name="file" value=""/>
+          <input 
+            type="text" 
+            className="editProfile__pict__cover_input input" 
+            onChange={handleChange}
+            name="bannerpicture"  
+            value={bannerpicture} 
+          />
           </div>
 
           <div className="editProfile__pict__editProfile" style={{backgroundImage: `url(${picture})`}}>
-            <input type="file" className="input" name="file" value="" />
+          <input 
+            type="text" 
+            className="editProfile__pict__cover_input input" 
+            onChange={handleChange}
+            name="picture"  
+            value={picture} 
+          />
           </div>
         </div>
         <div className="editProfile__mainInfos"> 
@@ -58,8 +70,8 @@ const EditProfile = ({id, onEditProfileSubmit, title, firstname, lastname, age, 
             <CKEditor
               className="editor"
               editor={ClassicEditor}
-              data={ReactHtmlParser(description?description:"")}
-              onChange={handleChangeEditor}
+              data={description}
+              onChange={handleChangeEditor1}
               config={{
                 removePlugins: [ 'EasyImage', 'Image', 'ImageCaption', 'ImageStyle', 'ImageToolbar', 'ImageUpload', 'MediaEmbed', 'TableToolbar', 'Table', 'Indent' ],
               }}
@@ -69,9 +81,10 @@ const EditProfile = ({id, onEditProfileSubmit, title, firstname, lastname, age, 
           <div className="experience editor input ">
             <label className="">Expérience</label>
             <CKEditor
+                className="editor"
               editor={ClassicEditor}
-              data={ReactHtmlParser(experience?experience:"")}
-              onChange={handleChangeEditor}
+              data={experience}
+              onChange={handleChangeEditor2}
               config={{
                 removePlugins: [ 'EasyImage', 'Image', 'ImageCaption', 'ImageStyle', 'ImageToolbar', 'ImageUpload', 'MediaEmbed', 'TableToolbar', 'Table', 'Indent' ],
               }}

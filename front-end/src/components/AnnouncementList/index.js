@@ -6,7 +6,8 @@ import Proptypes from 'prop-types';
 const AnnouncementList = ({list, userId}) => (
   <> 
     {
-      list.map((announcement) => <Announce key={announcement.id} {...announcement}/>)
+      list.sort(({ id: previousID }, { id: currentID }) => currentID - previousID).map((announcement) =>
+      <Announce key={announcement.id} {...announcement}/>)
     }
   </>
 )

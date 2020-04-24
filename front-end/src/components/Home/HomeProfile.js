@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 //import local
 import './style.scss';
 
-const HomeProfile = ({logout, userId, picture, firstname, lastname, title, id }) => (
+const HomeProfile = ({logout, picture, firstname, lastname, title, id , }) => (
   <>
-    <div className="homeprofile__avatar" style={{backgroundImage: `url(${picture})` }} />
+    <div className="homeprofile__avatar" id={id} style={{backgroundImage: `url(${picture})` }} />
     <div className="homeprofile__text">
       <p className="homeprofile__text--name">{firstname} {lastname}</p>
       <p className="homeprofile__text--role">{title}</p>
@@ -23,6 +23,5 @@ const HomeProfile = ({logout, userId, picture, firstname, lastname, title, id })
   </>
 )
 ;
-
 
 export default HomeProfile;

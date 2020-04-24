@@ -32,19 +32,17 @@ const initialState = {
       voluntary: true,
     }
   ],
-  editProfile:{
-    // firstname: "",
-    // lastname: "",
-    // age:"",          
-    // location:"" ,
-    // title:"" ,
-    // description: "",
-    // experience:"",  
-    // portfolio:"", 
-    // picture: "",  
-    // bannerpicture: "" 
-  },
-  editAnnouncement:  [{}],
+  editProfile:{},
+  editAnnouncement:  {    
+    active: true,
+    category: "default",
+    date_start: "2020-10-10T00:00:00+00:00",
+    date_end: "2020-10-10T00:00:00+00:00",
+    description: "",    
+    location: "",
+    picture: "",
+    title: "",
+    voluntary: true,},
 
   profiles: [
     {
@@ -67,10 +65,17 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   console.log(action.payload)
   switch (action.type) {
+
     case INPUT_CREATE_ANNOUNCEMENT:
       return {
         ...state,
         create: {...state.create, ...action.payload}, 
+      };
+
+    case INPUT_EDITANNOUNCEMENT_CHANGE:
+      return {
+        ...state,
+        editAnnouncement: {...state.editAnnouncement, ...action.payload}, 
       };
 
     case RESET_DATA:
@@ -80,29 +85,21 @@ const reducer = (state = initialState, action) => {
     
     case UPDATE_ANNOUNCEMENT:
       return {
-        ...initialState,
+        ...state,
         announcements: action.payload, 
       };
     case UPDATE_PROFILE:
       return {
         ...state,
-        editProfile: {...action.payload[0]}, 
+        profiles: [{...state.profiles, ...action.payload[0]}], 
       };
     case INPUT_PROFILE_CHANGE:
       return {
         ...state,
-        editProfile: {...state.editProfile, ...action.payload}, 
+        profiles: [{...state.profiles[0], ...action.payload}], 
       };
-    case INPUT_EDITPROFILE_CHANGE:
-      return {
-        ...state,
-        editProfile: [{...state.editProfile, ...action.payload}], 
-      };
-      case INPUT_EDITANNOUNCEMENT_CHANGE:
-        return {
-          ...state,
-          editAnnouncement: [{...state.editAnnouncement[0], ...action.payload}], 
-        };
+  
+    
     case INPUT_ANNOUNCEMENT_CHANGE:
       return {
         ...state,
