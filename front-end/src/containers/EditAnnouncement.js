@@ -1,5 +1,5 @@
 import EditAnnouncement from '../components/EditAnnouncement';
-import {inputAnnouncementChange, patchEditAnnouncement, inputEditAnnouncementChange} from '../Redux/actions'
+import {inputAnnouncementChange, patchEditAnnouncement} from '../Redux/actions'
 import {connect} from 'react-redux';
 
 const mapStateToProps = ({ data }) => { 

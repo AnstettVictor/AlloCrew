@@ -21,8 +21,13 @@
     height: 25vh;
     background-color: #eee;
     width: 100%;
+    background-size: cover;
+    background-position: center;
 
     border-bottom:2px solid #fff;
+  }
+  .editProfile__pict__cover_input{
+    max-width: 35%;
   }
   .editProfile__pict__editProfile {  
     left:35%;

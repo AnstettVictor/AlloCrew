@@ -83,15 +83,7 @@ export const inputCreateAnnouncement = (payload) => ({
   payload
 })
 
-export const inputEditAnnouncementChange = (payload) => ({
-  type: INPUT_EDITANNOUNCEMENT_CHANGE,
-  payload
-})
 
-export const inputEditProfileChange = (payload) => ({
-  type: INPUT_EDITPROFILE_CHANGE,
-  payload
-})
 
 export const inputProfileChange = (payload) => ({
   type: INPUT_PROFILE_CHANGE,

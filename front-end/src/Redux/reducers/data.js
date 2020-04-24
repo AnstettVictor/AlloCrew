@@ -96,13 +96,9 @@ const reducer = (state = initialState, action) => {
     case INPUT_PROFILE_CHANGE:
       return {
         ...state,
-        editProfile: {...state.editProfile, ...action.payload}, 
+        profiles: [{...state.profiles[0], ...action.payload}], 
       };
-    case INPUT_EDITPROFILE_CHANGE:
-      return {
-        ...state,
-        editProfile: [{...state.editProfile, ...action.payload}], 
-      };
+  
     
     case INPUT_ANNOUNCEMENT_CHANGE:
       return {
