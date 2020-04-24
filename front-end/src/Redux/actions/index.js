@@ -293,11 +293,11 @@ export const postCreateAnnouncement = () => (dispatch, getState) => {
     },
     method: 'post',
     url: `http://3.88.40.169/api/announcements/`, 
-    data: 
+    data:JSON.stringify( 
     { 
       user: getState().login.userId,
       ...getState().data.create
-    }
+    })
   })
   .then((res) => console.log(res))
   .catch((err) => console.log(err))
