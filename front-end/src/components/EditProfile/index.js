@@ -21,7 +21,7 @@ const EditProfile = ({id, onEditProfileSubmit, title, firstname, lastname, age, 
             type="text" 
             className="editProfile__pict__cover_input input" 
             onChange={handleChange}
-            name="picture"  
+            name="bannerpicture"  
             value={bannerpicture} 
           />
           </div>

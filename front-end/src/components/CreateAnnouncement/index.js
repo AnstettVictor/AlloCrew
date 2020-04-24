@@ -18,7 +18,7 @@ const CreateAnnouncement = ({handleChange, title, location, description, volunta
       <h2 className="createAnnouncement__title">Création de votre annonce</h2>
       <form id="myform" onSubmit={onCreateAnnouncementSubmit} method="post" >
 
-        <div className="createAnnouncement__input drop desktop input">
+        <div className="createAnnouncement__input drop desktop input" >
           <input 
             type="text" 
             className="input" 
