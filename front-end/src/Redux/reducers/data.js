@@ -63,7 +63,7 @@ const initialState = {
 
 
 const reducer = (state = initialState, action) => {
-  console.log(action.payload)
+  console.log("data",action.payload)
   switch (action.type) {
 
     case INPUT_CREATE_ANNOUNCEMENT:

@@ -1,4 +1,4 @@
-
+import {UPDATE_DISCUSSION} from '../actions';
 
 const initialState = {
     by_creator: [{
@@ -20,6 +20,11 @@ const initialState = {
             id: 0,
             firstname: "",
             lastname: "",
+        },
+        creator: {
+            id: 0,
+            firstname: "",
+            lastname: "",
         }
     }],
     by_receiver: [{
@@ -37,6 +42,11 @@ const initialState = {
                 lastname: "",
             }
         }],
+        receiver: {
+            id: 0,
+            firstname: "",
+            lastname: "",
+        },
         creator: {
             id: 0,
             firstname: "",
@@ -47,9 +57,13 @@ const initialState = {
   
 
   const reducer = (state = initialState, action) => {
-    console.log('mon actio',action.payload)
+    console.log('messagerie reducers',action.payload)
     switch (action.type) {
- 
+        case UPDATE_DISCUSSION:
+            return {
+              ...state,              
+              ...action.payload,
+            };
       default:
         return state;
     }

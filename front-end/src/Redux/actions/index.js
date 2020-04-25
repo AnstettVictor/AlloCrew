@@ -22,6 +22,7 @@ export const INPUT_CREATE_ANNOUNCEMENT= 'INPUT_CREATE_ANNOUNCEMENT';
 export const NOTIFICATION= 'NOTIFICATION';
 export const CLEAR_NOTIFICATION= 'CLEAR_NOTIFICATION';
 export const REGISTER_SUCCESS= 'REGISTER_SUCCESS';
+export const UPDATE_DISCUSSION= 'UPDATE_DISCUSSION';
 
 export const loading = () => ({
   type: LOADING,
@@ -55,6 +56,13 @@ export const logout = () => ({
   type: LOGOUT,  
 })
 ;
+
+export const updateDiscussion = (payload) => ({
+  type: UPDATE_DISCUSSION,
+  payload: payload
+})
+;
+
 
 export const updateAnnouncement = (payload) => ({
   type: UPDATE_ANNOUNCEMENT,
@@ -220,6 +228,25 @@ export const fetchAnnouncementList = () => (dispatch) => {
     dispatch(updateAnnouncement(announcementListData))
   })
 };
+
+
+
+export const fetchDiscussionList = (id) => (dispatch) => {
+  axios({
+    headers: {
+      Authorization: `bearer ${token()}`,
+    },
+    method: 'get',
+    url: `http://3.88.40.169/api/discussions/${id}`, 
+  })
+  .then((res) => {
+    console.log("res.data",res.data)
+    const discussionListData = res.data
+    dispatch(updateDiscussion(discussionListData))
+  })
+  .catch(err => console.log(err))
+};
+
 
 // For finding a profile List
 export const fetchProfileList = () => (dispatch) => {

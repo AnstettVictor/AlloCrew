@@ -17,7 +17,7 @@ const initialState = {
 
 
 const reducer = (state = initialState, action) => {
-  console.log('mon actio',action.payload)
+  console.log('login',action.payload)
   switch (action.type) {
     case LOADING:
       return {
