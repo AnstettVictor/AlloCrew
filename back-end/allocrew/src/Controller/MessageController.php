@@ -103,12 +103,16 @@ class MessageController extends AbstractController
      */
     public function edit(Message $message, Request $request, $id)
     {
+        $this->denyAccessUnlessGranted('MESSAGE_EDIT', $message);
+
         // On décode les données envoyées
         $donnees = json_decode($request->getContent(), true);
         /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
          * sinon on passe à la suite */
         $form = $this->createForm(MessageType::class, $message);
-        $donnees = $form->submit($donnees);
+
+        $donnees = $form->submit($donnees, false);
+
         if ($form->isSubmitted()) {
             if ($form['content']->isValid()) {
                 $message->setContent($form['content']->getData());
@@ -125,7 +129,7 @@ class MessageController extends AbstractController
         $entityManager->flush();
 
         // On retourne la confirmation
-        return new Response('ok', 204);
+        return new Response('ok', 201);
     }
 
     /**
@@ -133,13 +137,8 @@ class MessageController extends AbstractController
      */
     public function delete(Message $message)
     {
-        // TODOO VOTER 
-        /**  // Ici on utilise un voter
-         * // Cette fonction va émettre une exception Access Forbidden pour interdire l'accès au reste du contrôleur
-         * // Les conditions pour lesquelles le droit MOVIE_DELETE est applicable sur $movie pour l'utilisateur connecté
-         * // sont définies dans les voters, dans leurs méthodes voteOnAttribute()*/
+        $this->denyAccessUnlessGranted('MESSAGE_DELETE', $message);
 
-        // $this->denyAccessUnlessGranted('MOVIE_DELETE', $movie);
         $em = $this->getDoctrine()->getManager();
 
         $em->remove($message);
