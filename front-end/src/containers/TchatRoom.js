@@ -1,10 +1,15 @@
 import TchatRoom from '../components/TchatRoom';
-import {fetchAnnouncementList, fetchProfileList} from '../Redux/actions'
+import {} from '../Redux/actions'
 import {connect} from 'react-redux';
 
-const mapStateToProps = ({login}) => ({
-  userId: login.userId,
-})
+const mapStateToProps = ({messagerie, login}) => {
+  
+  return ({
+    creator: messagerie.by_creator,
+    receiver: messagerie.by_receiver,
+    userId: login.userId,
+  })
+}
 ;
 
 const mapDispatchToProps = (dispatch) => ({
