@@ -311,3 +311,8 @@ export const postCreateAnnouncement = () => (dispatch, getState) => {
 export const passId = (func) => (dispatch, getState) => {
   dispatch(func(getState().login.userId))
 }
+
+export const loadingMiddleware = (func) => (dispatch, getState) => {
+  dispatch(loading())
+  dispatch(func())
+}
