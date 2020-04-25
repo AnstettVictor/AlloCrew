@@ -98,7 +98,6 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         announcements: action.payload,
-        isloading:false 
       };
     case UPDATE_PROFILE:
       return {

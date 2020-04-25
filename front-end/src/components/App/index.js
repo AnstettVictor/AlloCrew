@@ -39,9 +39,9 @@ import FAQ from '../FAQ';
 const App = ({isLogged, loading, fonction}) => {
 
 // Custom Route for connected user
-const MembersRoute = ({component}) => {
+const MembersRoute = (props) => {
   if (isLogged){
-    return <Route component={component} />
+    return <Route {...props} component={props.component} />
   }
   return <Redirect to="/" />
 }

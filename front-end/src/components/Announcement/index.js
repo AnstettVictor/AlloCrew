@@ -2,7 +2,7 @@ import React from 'react';
 import './style.scss';
 import Proptypes from 'prop-types'
 import {Link} from 'react-router-dom';
-import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
+import ReactHtmlParser from 'react-html-parser';
 
 const Announcement = ({title, location, description, picture, voluntary, id, dateEnd, dateStart, active, user, test }) => {
 
@@ -20,7 +20,7 @@ return (
         <p className="endded ">Annonce terminée</p>
       }
       <h3 className="announcement__description">Description:</h3>
-      <p className="announcement__text">{ReactHtmlParser(description)}</p>            
+      <div className="announcement__text">{ReactHtmlParser(description)}</div>            
     </div>
     <div className="announcement__pos2">
       <Link to={`/edit-announcement/${id}`}>
