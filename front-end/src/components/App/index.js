@@ -36,41 +36,50 @@ import FAQ from '../FAQ';
 
 
 
-const App = ({isLogged, loading}) => {
+const App = ({isLogged, loading, fonction}) => {
+
+// Custom Route for connected user
+const MembersRoute = ({component}) => {
+  if (isLogged){
+    return <Route component={component} />
+  }
+  return <Redirect to="/" />
+}
+
+// Custom Route for non connected user
+const NonMembersRoute = ({component}) => {
+  if (!isLogged){
+    return <Route component={component} />
+  }
+  return <Redirect to="/home" />
+}
 
 return(
   <>
     <div className="app__header" >
       <Header />
     </ div>
-    <div className="app__main">
-      
+    <div className="app__main">   
       {/* Routes */}
       <Switch>
-        <Route path="/" exact component={LandPage} />
-        <Route path="/register" exact component={Register} />
-        <Route path="/login" exact component={Login} />
-        {
-          isLogged &&
-
-          (<>
-          <Route path="/home" component={Home} />
-          <Route path="/profile/:id" exact component={Profile} />
-          <Route path="/edit-user/:id" exact component={EditUser} />
-          <Route path="/edit-announcement/:id" exact component={EditAnnouncement} />
-          <Route path="/create-announcement" exact component={CreateAnnouncement} />
-          <Route path="/edit-profile/:id" exact component={EditProfile} />
-          <Route path="/my-announcements" exact component={MyAnnouncements} />
-          <Route path="/search" exact component={Search} />
-          <Route path="/tchat-room" exact component={TchatRoom} />
-          <Route path="/legal-notice" exact component={LegalNotice} />
-          <Route path="/contact" exact component={Contact} />
-          <Route path="/information" exact component={Information} />
-          <Route path="/announcement/:id" exact component={Announcement} /> 
-          <Route path="/faq" exact component={FAQ} />
-          </>)
-        }
-        <Route path="*" render={() => (<Redirect to="/" />)} />
+        <NonMembersRoute path="/" exact component={LandPage} />
+        <NonMembersRoute path="/register" exact component={Register} />
+        <NonMembersRoute path="/login" exact component={Login} />
+        <MembersRoute path="/home" component={Home} />
+        <MembersRoute path="/profile/:id" exact component={Profile} />
+        <MembersRoute path="/edit-user/:id" exact component={EditUser} />
+        <MembersRoute path="/edit-announcement/:id" exact component={EditAnnouncement} />
+        <MembersRoute path="/create-announcement" exact component={CreateAnnouncement} />
+        <MembersRoute path="/edit-profile/:id" exact component={EditProfile} />
+        <MembersRoute path="/my-announcements" exact component={MyAnnouncements} />
+        <MembersRoute path="/search" exact component={Search} />
+        <MembersRoute path="/tchat-room" exact component={TchatRoom} />
+        <MembersRoute path="/legal-notice" exact component={LegalNotice} />
+        <MembersRoute path="/contact" exact component={Contact} />
+        <MembersRoute path="/information" exact component={Information} />
+        <MembersRoute path="/announcement/:id" exact component={Announcement} /> 
+        <MembersRoute path="/faq" exact component={FAQ} />
+        <Route path="/*" render={() => (<h1>Not Found</h1>)} />
       </Switch>
     </div>
     <div className="app__footer">

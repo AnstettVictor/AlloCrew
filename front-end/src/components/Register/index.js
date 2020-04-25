@@ -1,11 +1,9 @@
 import React from 'react';
 import './style.scss';
 import PropTypes from 'prop-types';
-import {Redirect} from 'react-router-dom';
 
 const Register = ({onChange, onSubmit, username, _username, password, _password, notification, registerSuccess}) => {
   // Redirection
-  if(registerSuccess){return <Redirect to='/login' />}
 
 return(  
   <div className="register__container">

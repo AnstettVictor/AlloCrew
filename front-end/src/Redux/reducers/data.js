@@ -1,6 +1,7 @@
-import {UPDATE_ANNOUNCEMENT, UPDATE_PROFILE, INPUT_PROFILE_CHANGE, INPUT_ANNOUNCEMENT_CHANGE, INPUT_EDITPROFILE_CHANGE, INPUT_EDITANNOUNCEMENT_CHANGE, INPUT_CREATE_ANNOUNCEMENT, RESET_DATA} from '../actions';
+import {UPDATE_ANNOUNCEMENT, UPDATE_PROFILE, INPUT_PROFILE_CHANGE, INPUT_ANNOUNCEMENT_CHANGE, INPUT_EDITPROFILE_CHANGE, INPUT_EDITANNOUNCEMENT_CHANGE, INPUT_CREATE_ANNOUNCEMENT, RESET_DATA, LOADING, LOADED} from '../actions';
 
 const initialState = {
+  isloading: false,
   create: {
     category: "default",
     active: true,
@@ -66,6 +67,16 @@ const reducer = (state = initialState, action) => {
   console.log(action.payload)
   switch (action.type) {
 
+    case LOADED:
+      return {
+        ...state,
+        isloading: false, 
+      };
+    case LOADING:
+      return {
+        ...state,
+        isloading: true, 
+      };
     case INPUT_CREATE_ANNOUNCEMENT:
       return {
         ...state,
@@ -86,7 +97,8 @@ const reducer = (state = initialState, action) => {
     case UPDATE_ANNOUNCEMENT:
       return {
         ...state,
-        announcements: action.payload, 
+        announcements: action.payload,
+        isloading:false 
       };
     case UPDATE_PROFILE:
       return {

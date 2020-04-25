@@ -1,9 +1,9 @@
 import Announcement from '../components/Announcement';
-import {fetchAnnouncement, passId, loginOk, fetchProfile} from '../Redux/actions'
+import {fetchAnnouncement, loading, passId, loginOk, fetchProfile} from '../Redux/actions'
 import {connect} from 'react-redux';
 
 const mapStateToProps = ({data, login}, test) => {
-  const announcement = data.announcements.find(one => one.id == test.match.params.id)
+  const announcement = data.announcements[0]
   return({
     title: announcement.title,
     location: announcement.location,
@@ -20,7 +20,7 @@ const mapStateToProps = ({data, login}, test) => {
 };
 
 const mapDispatchToProps = (dispatch, {match}) => ({
-  // fetchData: dispatch(fetchAnnouncement(match.params.id)),
+  fetchData: dispatch(fetchAnnouncement(match.params.id)),
 
   test: (e) => console.log([e.target.name] == fetchProfile(match.params.id)?"ok":"pasok"), 
 
