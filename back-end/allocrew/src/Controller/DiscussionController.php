@@ -2,12 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Discussion;
 use App\Form\DiscussionType;
-use App\Repository\AnnouncementRepository;
 use App\Repository\UserRepository;
 use App\Repository\MessageRepository;
 use App\Repository\DiscussionRepository;
+use App\Repository\AnnouncementRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -39,8 +40,10 @@ class DiscussionController extends AbstractController
     /**
      * @Route("/{id}", requirements={"id": "\d+"}, name="read", methods={"GET"})
      */
-    public function read(MessageRepository $messageRepository, DiscussionRepository $discussionRepository, $id, SerializerInterface $serializer)
+    public function read(MessageRepository $messageRepository, DiscussionRepository $discussionRepository, $id, SerializerInterface $serializer, User $user )
     {
+        
+        $this->denyAccessUnlessGranted('DISCUSSION_READ', $user);
 
         $data = [];
         $creator = $discussionRepository->findBy(array('creator' => $id));
@@ -105,13 +108,7 @@ class DiscussionController extends AbstractController
      */
     public function delete(Discussion $discussion)
     {
-        //TOODOO le VOTER 
-        /**  // Ici on utilise un voter
-         * // Cette fonction va émettre une exception Access Forbidden pour interdire l'accès au reste du contrôleur
-         * // Les conditions pour lesquelles le droit MOVIE_DELETE est applicable sur $movie pour l'utilisateur connecté
-         * // sont définies dans les voters, dans leurs méthodes voteOnAttribute()*/
-
-        // $this->denyAccessUnlessGranted('MOVIE_DELETE', $movie);
+        $this->denyAccessUnlessGranted('DISCUSSION_DELETE', $discussion);
 
         $em = $this->getDoctrine()->getManager();
 
