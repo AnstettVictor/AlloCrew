@@ -12,8 +12,14 @@ class DiscussionVoter extends Voter
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
-        return in_array($attribute, [ 'DISCUSSION_DELETE', 'DISCUSSION_READ'])
-            && $subject instanceof \App\Entity\User;
+        if ($subject instanceof \App\Entity\User){
+        return in_array($attribute, ['DISCUSSION_READ'])
+            && $subject instanceof \App\Entity\User;}
+            
+        if($subject instanceof \App\Entity\Discussion){
+            return in_array($attribute, [ 'DISCUSSION_DELETE'])
+            && $subject instanceof \App\Entity\Discussion;
+        }
     }
 
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
@@ -29,6 +35,7 @@ class DiscussionVoter extends Voter
                     return true;
                 }
 
+
                 if ($user->getDiscussionsReceived() == $subject->getDiscussionsReceived()) {
                     return true;
                 }
@@ -40,6 +47,7 @@ class DiscussionVoter extends Voter
                 break;
             case 'DISCUSSION_DELETE':
    
+                    
                 if (in_array('ROLE_ADMIN', $user->getRoles())) {
                     return true;
                 }

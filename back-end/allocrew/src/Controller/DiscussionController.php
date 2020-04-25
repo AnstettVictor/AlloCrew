@@ -40,7 +40,7 @@ class DiscussionController extends AbstractController
     /**
      * @Route("/{id}", requirements={"id": "\d+"}, name="read", methods={"GET"})
      */
-    public function read(MessageRepository $messageRepository, DiscussionRepository $discussionRepository, $id, SerializerInterface $serializer, User $user )
+    public function read(MessageRepository $messageRepository, DiscussionRepository $discussionRepository, $id, SerializerInterface $serializer, User $user)
     {
         
         $this->denyAccessUnlessGranted('DISCUSSION_READ', $user);
