@@ -63,13 +63,16 @@
   }
   li {
     font-size: .8rem;
-    background-color: #eee;
-    border: 1px solid #ccc;
+    background-color: #f3f4f8;
+    border: 1px solid #ddd;
     border-top: none;
     padding: 1rem;
     &:hover {
       background-color: #fff;
     }
+  }
+  a, li, a:visited {
+    color: $blue;
   } 
 }
 
