@@ -1,6 +1,9 @@
 import React, { useRef, useEffect, useState } from 'react';
 import './style.scss';
 import { Link } from "react-router-dom";
+import Message from './Message'
+import CKEditor from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 const DiscussionCreator = (creator ,{handleMessage}) => {
     
@@ -18,39 +21,37 @@ const DiscussionCreator = (creator ,{handleMessage}) => {
       }, [menuState]);
     //fonction pour l'écouteur  
     const handleClick = (e) => {
-      ref.current == e.target && !menuState? 
-      setMenuState(true):
-      setMenuState(false);
+      console.log("click",ref.current.id)
+      ref.current.id == e.target.id?setMenuState(true):setMenuState(false);
+      
+      
+      
     }
     
     return(
-    <div >         
+    <div >        
+
       <div className="discussion__container">
-            <h3 className="discussion__spaceText"><Link to={`/profile/${creator.creator.id}`}>
-              <span>{creator.receiver.firstname}</span>
-              <span className=""> {creator.receiver.lastname}</span> </Link>: <span> {creator.announcement.title}</span></h3>
-          <button ref ={ref} className="discussion__button" >+</button>          
+
+        <h3 className="discussion__spaceText"><Link to={`/profile/${creator.creator.id}`}>
+          <span>{creator.receiver.firstname}</span>
+          <span className=""> {creator.receiver.lastname}</span> </Link>: <span> {creator.announcement.title}</span></h3>
+
+        <button ref={ref} id={creator.id} onClick={handleClick} className={`discussion__button ${creator.id}`} >+</button> 
+
       </div>
-      {menuState && (      
-      creator.messages.map((message) => (
-      
-      <div key={message.id} className="message__container">
-        <div className={creator.creator.firstname == message.user.firstname?"you":"other"}> 
-          <h4 className="">{creator.creator.firstname == message.user.firstname?"Vous":message.user.firstname} : </h4>               
-          <p>{message.content}</p>
-        </div>
-      </div>     
-      )),
-     
 
-<textarea rows="5" cols="33">
-It was a dark and stormy night...
-</textarea>
-      
-      )}
-
-
-  </div> 
+      {menuState && (   
+      <div>   
+        <Message key={creator.receiver.id} test={creator.messages}/>
+    
+        <CKEditor className="editor" editor={ClassicEditor} data="" config={{
+                    removePlugins: [ 'EasyImage', 'Image', 'ImageCaption', 'ImageStyle', 'ImageToolbar', 'ImageUpload', 'MediaEmbed', 'TableToolbar', 'Table', 'Indent' ],
+                  }}
+                />
+      </div>
+      )} 
+    </div>
   )}
 
 export default DiscussionCreator;
