@@ -1,5 +1,7 @@
 @import 'style/vars.scss';
-
+.discussion__flex{
+    display:flex;
+}
 
 .tchatRoom__Container {
     margin: 0.5rem;
@@ -13,40 +15,36 @@
 
 .discussion__container{
    text-align: center; 
-   display: flex;
-   width:15rem;
-   flex-wrap: wrap;
-   justify-content:center;
+   width:75%;
+   margin: auto;
+  
+   
 }
 
-.discussion__button{
-text-align: center;
-  font-size: 1em;
-  padding: 0;
-  border-radius: 0.4em;
-  appearance: none;
-  border: 2px solid transparent;
-  background-color: $blue;
-  color: #fff;
-  box-shadow: 2px 3px 5px 0 rgba(0,0,0, .2);
-  transition: 200ms;
-  &:hover {
-    cursor: pointer;
-    transform: translateY(-1px);
-    box-shadow: 2px 3px 5px 0 rgba(0,0,0, .4);
-    transition: 200ms;
-  }
-}
+
 
 .discussion__spaceText{
     margin: 0.2rem 0.7rem;
 }
 
+.discussion__half{
+    width:100%;
+}
+
+.discussion__title{
+    margin: 0.5rem;
+    border-bottom: 1px solid lightgray;
+    font-size: 1rem;
+    padding-bottom: 0.5rem;
+}
+
 .message__container{
     margin: auto;
-    width: 75%;
     padding: 0rem 0.5rem 0rem 0.5rem;
-    border-left: 1px solid lightgray;    
+    border-left: 1px solid lightgray;
+    width: 95%;
+    height: 20rem;
+    overflow-y: scroll;    
 }
 
 .other {
@@ -54,11 +52,30 @@ text-align: center;
     margin-bottom: 0.5rem;
     padding: 0.5rem;
     border-radius: 5px;
+    text-align:left;
 }
 
 .you {
     margin-bottom: 0.5rem;
     padding: 0.5rem;
+    text-align:left;
+}
+
+.message__textarea{
+    width:70%;
+    height:2.3rem;
+    text-align: left;
+    margin: 0.2rem ;
+}
+
+.message__input__flex{
+    display: flex;
+    flex-wrap: nowrap;    
+}
+
+.button {
+    padding: 0.5rem;
+    margin-bottom: 1rem;    
 }
 
 @media only screen and (max-width: 800px) {

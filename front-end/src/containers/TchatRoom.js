@@ -20,8 +20,9 @@ const mapDispatchToProps = (dispatch, {match}) => ({
   onMessageSubmit: (e) => {
     e.preventDefault();
     console.log("ACTIONSSUBIMIT ID",e);
-    dispatch(postMessage(e.target.id));   
-  }
+    dispatch(postMessage(e.target.id));      
+  },
+  refresh :dispatch(fetchDiscussionList(match.params.id)) 
 })
 ;
 
