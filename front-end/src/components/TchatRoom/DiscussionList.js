@@ -3,7 +3,7 @@ import './style.scss';
 
 import { Link } from "react-router-dom";
 
-const DiscussionList = ({by_creator, by_receiver, message, handleMessage,userId}) => (
+const DiscussionList = ({by_creator, by_receiver, message, handleMessage, onMessageSubmit,userId}) => (
   <> 
     <h3>DISCUTION CREE</h3>
     { console.log("list",{by_creator}),
@@ -16,17 +16,19 @@ const DiscussionList = ({by_creator, by_receiver, message, handleMessage,userId}
       <button  className="discussion__button"  >+</button>
 
       {
-        discussion.messages.map((message) =>  
-        <div key={message.id} className="message__container">
+        discussion.messages.map((messages) =>  
+        <div key={messages.id} className="message__container">
           <div > 
-            <h4 className="">{message.user.firstname} : </h4>               
-            <p>{message.content}</p>
+            <h4 className="">{messages.user.firstname} : </h4>               
+            <p>{messages.content}</p>
           </div>
         </div>
       )}
-      {console.log("DISCUSSIONIDTEXTAREA", discussion.id)}
-      <textarea id={discussion.id} name={discussion.id} value={message.content} onChange={handleMessage} rows="5" cols="33"/>
-      <button type="submit">SEND</button>
+      <form onSubmit={onMessageSubmit} method="post" id={discussion.id}>
+        {console.log("DISCUSSIONIDTEXTAREA", discussion.id)}
+        <textarea id={discussion.id} name={discussion.id} value={message} onChange={handleMessage} rows="5" cols="33"/>
+        <button id={discussion.id} type="submit">SEND</button>
+      </form>
 
      </div>)
     }
@@ -42,19 +44,19 @@ const DiscussionList = ({by_creator, by_receiver, message, handleMessage,userId}
         <button  className="discussion__button"  >+</button> 
 
       {
-        discussion.messages.map((message) =>  
-        <div key={message.id} className="message__container">
+        discussion.messages.map((messages) =>  
+        <div key={messages.id} className="message__container">
           <div > 
-            <h4 className="">{message.user.firstname} : </h4>               
-            <p>{message.content}</p>
+            <h4 className="">{messages.user.firstname} : </h4>               
+            <p>{messages.content}</p>
           </div>
         </div>
       )}
-
-      {console.log("DISCUSSIONIDTEXTAREA", discussion.id)}
-      <textarea id={discussion.id} name="story" value="HELLO" rows="5" cols="33"/>
-    
-      <button type="submit">SEND</button>
+    <form onSubmit={onMessageSubmit} method="post" id={discussion.id}>
+        {console.log("DISCUSSIONIDTEXTAREA", discussion.id)}
+        <textarea id={discussion.id} name={discussion.id} value={message} onChange={handleMessage} rows="5" cols="33"/>
+        <button id={discussion.id} type="submit">SEND</button>
+      </form>
 
     </div>)
     }

@@ -335,6 +335,25 @@ export const postCreateAnnouncement = () => (dispatch, getState) => {
   .catch((err) => console.log(err))
 };
 
+export const postMessage = (id) => (dispatch, getState) => {
+  console.log("axios", id)
+  axios({
+    headers: {
+      Authorization: `bearer ${token()}`,
+    },
+    method: 'post',
+    url: `http://3.88.40.169/api/messages/`, 
+    data: 
+    { 
+      discussion: id,
+      user: getState().login.userId,
+      content: getState().messagerie.message.content
+    }
+  })
+  .then((res) => console.log(res))
+  .catch((err) => console.log(err))
+};
+
 export const passId = (func) => (dispatch, getState) => {
   dispatch(func(getState().login.userId))
 }
