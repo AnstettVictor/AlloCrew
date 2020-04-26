@@ -8,6 +8,7 @@ const mapStateToProps = ({messagerie, login}) => {
     by_creator: messagerie.by_creator,
     by_receiver: messagerie.by_receiver,
     userId: login.userId,
+  
   })
 }
 ;

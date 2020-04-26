@@ -1,22 +1,25 @@
 import React from 'react';
 import './style.scss';
 
-import DiscussionListCreator from './DiscussionListCreator'
-import DiscussionListReceiver from './DiscussionListReceiver'
+import DiscussionList from './DiscussionList'
+import Message from './Message';
 
-const TchatRoom = ({by_creator, by_receiver, userId}) => (
+const TchatRoom = (state,{userId}) => (
   <div className="tchatRoom__Container">
-    {/* Page title */}
+
     <h1 className="tchatRoom__TitlePage">Messagerie</h1>
+    <div className="tchatRoom__flex">
+      <div className="discussion__container">
+        {console.log("state",state)}
+        <DiscussionList  {...state}  userId={userId}/>
+      </div>
 
-    {console.log("indexDISCUSSION",{by_creator}), console.log("userId",{by_receiver})}
-    <DiscussionListCreator  list={by_creator}  userId={userId}/>
-    <DiscussionListReceiver list={by_receiver}  userId={userId}/>
-      {/*  ========= End of the list of conversations ========= */}
+      <div className="message__container">
+        
+      </div>
+    </div> 
 
-      {/* ================== Chat Container ================== */}
-      
-    </div>
+  </div>
 
 );
 

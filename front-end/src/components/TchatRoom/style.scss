@@ -14,6 +14,7 @@
 .discussion__container{
    text-align: center; 
    display: flex;
+   width:15rem;
    flex-wrap: wrap;
    justify-content:center;
 }
@@ -38,7 +39,7 @@ text-align: center;
 }
 
 .discussion__spaceText{
-    margin: 0.5rem 0.7rem;
+    margin: 0.2rem 0.7rem;
 }
 
 .message__container{
