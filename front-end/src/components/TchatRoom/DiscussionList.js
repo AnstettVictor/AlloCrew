@@ -14,6 +14,7 @@ const DiscussionList = ({by_creator, by_receiver, userId}) => (
         <span className=""> {discussion.receiver.lastname}</span> </Link></h3> 
         <h4> {discussion.announcement.title}</h4>
       <button  className="discussion__button"  >+</button>
+
       {
         discussion.messages.map((message) =>  
         <div key={message.id} className="message__container">
@@ -22,8 +23,12 @@ const DiscussionList = ({by_creator, by_receiver, userId}) => (
             <p>{message.content}</p>
           </div>
         </div>
-      )
-      }
+      )}
+
+      <textarea id="story" name="story"
+          rows="5" cols="33">...
+      </textarea>
+
      </div>)
     }
 
@@ -36,6 +41,7 @@ const DiscussionList = ({by_creator, by_receiver, userId}) => (
           <span className=""> {discussion.creator.lastname}</span> </Link></h3> 
           <h4> {discussion.announcement.title}</h4>
         <button  className="discussion__button"  >+</button> 
+
       {
         discussion.messages.map((message) =>  
         <div key={message.id} className="message__container">
@@ -44,8 +50,12 @@ const DiscussionList = ({by_creator, by_receiver, userId}) => (
             <p>{message.content}</p>
           </div>
         </div>
-      )
-      }
+      )}
+
+      <textarea id="story" name="story"
+          rows="5" cols="33">...
+      </textarea>
+      
     </div>)
     }
   </>

@@ -2,7 +2,6 @@ import React from 'react';
 import './style.scss';
 
 import DiscussionList from './DiscussionList'
-import Message from './Message';
 
 const TchatRoom = (state,{userId}) => (
   <div className="tchatRoom__Container">
