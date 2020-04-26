@@ -189,6 +189,7 @@ export const fetchAnnouncement = (id) => (dispatch) => {
     const announcementData = res.data;
     dispatch(updateAnnouncement(announcementData))
   })
+
 }
 
 
@@ -221,9 +222,11 @@ export const fetchAnnouncementList = () => (dispatch) => {
     url: `http://3.88.40.169/api/announcements/`, 
   })
   .then((res) => {
+    console.log(res.status)
     const announcementListData = res.data
     dispatch(updateAnnouncement(announcementListData))
   })
+  .catch(err => {if(err.response.status == 401){dispatch(logout())}})
 };
 
 // For finding a profile List

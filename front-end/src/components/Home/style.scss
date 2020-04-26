@@ -21,9 +21,14 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
+  ._blue {
+    border-color: $blue;
+    opacity: 1;
+  }
 }
 
 .home__navlink-links {
+  opacity: .7;
   height: 100%;
   padding: 1rem;
   text-align: center;
@@ -34,10 +39,12 @@
   background-color: #f3f4f8;
   border-bottom: 3px solid transparent;
   &:hover {
+    opacity: 1;
     border-color: $blue;
     cursor: pointer;
   }
 }
+
 
 .home__list {
   font-size: 0.8rem;

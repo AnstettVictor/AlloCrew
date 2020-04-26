@@ -18,10 +18,18 @@ return (
     </div>
     <div className="home__list">
       <ul className="home__navlink">
-        <li className="home__navlink-links" onClick={() => setFilter('voluntary')}>Bénévoles</li>
-        <li className="home__navlink-links" onClick={() => setFilter('paid')}>Rémunérées</li>
-        <li className="home__navlink-links" onClick={() => setFilter('all')}>Toutes les annonces</li>
-        <li className="home__navlink-links" onClick={() => setFilter('my')}>Mes annonces</li>
+        <li 
+        className={filter === 'voluntary'? 'home__navlink-links _blue': 'home__navlink-links'}
+        onClick={() => {window.scrollTo(0,0);setFilter('voluntary')}}>Bénévoles</li>
+        <li 
+        className={filter === 'paid'? 'home__navlink-links _blue': 'home__navlink-links'} 
+        onClick={() => {window.scrollTo(0,0);setFilter('paid')}}>Rémunérées</li>
+        <li 
+        className={filter === 'all'? 'home__navlink-links _blue': 'home__navlink-links'} 
+        onClick={() => {window.scrollTo(0,0);setFilter('all')}}>Toutes les annonces</li>
+        <li 
+        className={filter === 'my'? 'home__navlink-links _blue': 'home__navlink-links'} 
+        onClick={() => {window.scrollTo(0,0);setFilter('my')}}>Mes annonces</li>
       </ul> 
       {filter === 'voluntary' && <AnnouncementList list={list.filter(one => one.voluntary === true)}/>}
       {filter === 'paid' && <AnnouncementList list={list.filter(one => one.voluntary === false)}/>}

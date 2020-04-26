@@ -13,10 +13,11 @@ const mapStateToProps = ({data, login}, {match}) => {
     picture: announcement.picture,
     voluntary: announcement.voluntary,
     id: announcement.id,
-    dateStart: announcement.date_start,
-    dateEnd: announcement.date_end,
+    dateStart: announcement.dateStart,
+    dateEnd: announcement.dateEnd,
     active: announcement.active,
     user: announcement.user,
+    createdAt: announcement.createdAt,
     userId: login.userId,
   })
 };
@@ -33,7 +34,7 @@ const mapDispatchToProps = (dispatch, {match}) => {
  const id = match.params.id
 
   return  ({
-  checkData: dispatch(checkData(id))
+  checkData: dispatch(checkData(id)),
 })
 }
 
