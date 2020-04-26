@@ -1,6 +1,12 @@
-import {UPDATE_DISCUSSION} from '../actions';
+import {UPDATE_DISCUSSION, INPUT_MESSAGE} from '../actions';
 
 const initialState = {
+    message: {
+        discussion: 0,
+        user: 0,
+        content: ""
+    },
+
     by_creator: [{
         id: 0,
         announcement: {
@@ -64,6 +70,11 @@ const initialState = {
               ...state,              
               ...action.payload,
             };
+        case INPUT_MESSAGE:
+            return {
+                ...state,
+                message: {...state.message.content, ...action.payload},
+            }
       default:
         return state;
     }

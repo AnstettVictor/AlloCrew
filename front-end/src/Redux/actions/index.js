@@ -23,6 +23,7 @@ export const NOTIFICATION= 'NOTIFICATION';
 export const CLEAR_NOTIFICATION= 'CLEAR_NOTIFICATION';
 export const REGISTER_SUCCESS= 'REGISTER_SUCCESS';
 export const UPDATE_DISCUSSION= 'UPDATE_DISCUSSION';
+export const INPUT_MESSAGE='INPUT_MESSAGE';
 
 export const loading = () => ({
   type: LOADING,
@@ -91,6 +92,10 @@ export const inputCreateAnnouncement = (payload) => ({
   payload
 })
 
+export const inputMessage =(payload) => ({
+  type: INPUT_MESSAGE,
+  payload
+})
 
 
 export const inputProfileChange = (payload) => ({
