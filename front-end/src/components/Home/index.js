@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { TwitterTimelineEmbed, TwitterShareButton, TwitterFollowButton, TwitterHashtagButton, TwitterMentionButton, TwitterTweetEmbed, TwitterMomentShare, TwitterDMButton, TwitterVideoEmbed, TwitterOnAirButton } from 'react-twitter-embed';
 
 //import local
 import './style.scss';
@@ -14,7 +15,13 @@ return (
       <div className="home__profile">
         <Profile {...homeProfile} id={userId} logout={logout} />
       </div>
-      <div className="home__news" />
+      <div className="home__news">
+        <TwitterTimelineEmbed
+          sourceType="profile"
+          screenName="cahierscinema"
+          options={{height: 280}}
+        />
+      </div>
     </div>
     <div className="home__list">
       <ul className="home__navlink">

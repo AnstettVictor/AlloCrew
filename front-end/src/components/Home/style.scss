@@ -61,7 +61,7 @@
 
   .home__profile {
     text-align: center;
-    height: 33rem;
+    height: fit-content;
     a {
       color: #000;
       &:hover {
@@ -104,7 +104,7 @@
     }
   }
   .home__news {
-    background-color: lightblue;
+    background-color: #f3f4f8;
     margin-top: .5rem;
     height: 50vh;
   }
