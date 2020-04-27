@@ -13,14 +13,19 @@ const mapStateToProps = ({messagerie, login}) => {
 }
 ;
 
+export const mitraillette = (id) => (dispatch) => {
+  setInterval(() => {dispatch(fetchDiscussionList(id))}, [1000])
+}
+
 const mapDispatchToProps = (dispatch, {match}) => ({
   console: console.log("match", {match}),
-  fetchData: dispatch(fetchDiscussionList(match.params.id)),
+  fetchData: dispatch(mitraillette(match.params.id)),
   handleMessage: (e) => dispatch(inputMessage({["content"]: e.target.value})),
   onMessageSubmit: (e) => {
     e.preventDefault();
     console.log("ACTIONSSUBIMIT ID",e.target.name);
-    dispatch(postMessage(e.target.name));      
+    dispatch(postMessage(e.target.name)); 
+    dispatch(inputMessage({["content"]: ""}))     
   },
   refresh :dispatch(fetchDiscussionList(match.params.id)) 
 })

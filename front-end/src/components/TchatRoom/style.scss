@@ -15,16 +15,18 @@
 
 .discussion__container{
    text-align: center; 
-   width:75%;
+   width:85%;
    margin: auto;
+   color: black;
   
    
 }
 
-
-
 .discussion__spaceText{
     margin: 0.2rem 0.7rem;
+    color:black;
+    font-weight: 600;
+    font-size: 1.3rem;
 }
 
 .discussion__half{
@@ -36,6 +38,7 @@
     border-bottom: 1px solid lightgray;
     font-size: 1rem;
     padding-bottom: 0.5rem;
+    color: black;
 }
 
 .message__container{
@@ -43,8 +46,8 @@
     padding: 0rem 0.5rem 0rem 0.5rem;
     border-left: 1px solid lightgray;
     width: 95%;
-    height: 20rem;
-    overflow-y: scroll;    
+    max-height: 20rem;
+    overflow-y: scroll;
 }
 
 .other {
@@ -73,6 +76,11 @@
     margin-bottom: 1rem;    
 }
 
+.discussion_message{
+    width:22%;
+    padding: 0.2rem;
+    font-weight: 600;
+}
 @media only screen and (max-width: 800px) {
 
     .tchatRoom__Container {
