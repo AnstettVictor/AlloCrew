@@ -1,11 +1,15 @@
 import Announcement from '../components/Announcement';
-import {fetchAnnouncement, loading, passId, loginOk, fetchProfile} from '../Redux/actions'
+import {fetchAnnouncement, checkData, loading, passId, loginOk, fetchProfile} from '../Redux/actions'
 import {connect} from 'react-redux';
 
 const mapStateToProps = ({data, login}, {match}) => {
 
+  // if data isnt in the list , load from db
   let announcement = data.announcements.find(one => one.id == match.params.id)
-  if (!announcement) { announcement = data.announcements[0]}
+  if (!announcement) {
+    announcement = data.announcement
+  }
+  
   return({
     title: announcement.title,
     location: announcement.location,
@@ -22,12 +26,7 @@ const mapStateToProps = ({data, login}, {match}) => {
   })
 };
 
-const checkData = (id) => (dispatch, getState) => {
 
-  if (!getState().data.announcements.find(one => one.id == id)) {
-    dispatch(fetchAnnouncement(id))
-  }
-};
 
 const mapDispatchToProps = (dispatch, {match}) => {
 

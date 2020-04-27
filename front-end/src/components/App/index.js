@@ -68,7 +68,7 @@ return(
         <MembersRoute path="/home" component={Home} />
         <MembersRoute path="/profile/:id" exact component={Profile} />
         <MembersRoute path="/edit-user/:id" exact component={EditUser} />
-        <MembersRoute path="/edit-announcement/:id" exact component={EditAnnouncement} />
+        <MembersRoute path="/edit-announcement/:id" exact component={CreateAnnouncement} />
         <MembersRoute path="/create-announcement" exact component={CreateAnnouncement} />
         <MembersRoute path="/edit-profile/:id" exact component={EditProfile} />
         <MembersRoute path="/my-announcements" exact component={MyAnnouncements} />

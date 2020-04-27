@@ -197,15 +197,19 @@
   .announcement__back {
     font-size: 1.5rem;
     font-weight: normal;
+    display: inline-block;
   }
 
   .arrow {
     width: 2rem;
     color: #000;
     background-color: #fff;
-    &:hover {
-      animation: back 600ms ease-out infinite alternate both;
-      animation: name duration timing-function delay iteration-count direction fill-mode;
+    transition: 300ms;
+  }
+
+  .back__wrapper {
+    &:hover ~ .arrow {
+       animation: back 300ms infinite alternate both;
     }
   }
 

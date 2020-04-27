@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams, useLocation, Redirect } from 'react-router-dom';
 import './style.scss';
 import PropTypes from 'prop-types';
 
@@ -8,17 +8,24 @@ import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 
-const CreateAnnouncement = ({ handleChange, title, location, description, voluntary, picture, id, onCreateAnnouncementSubmit, handleChangeEditor, handleDateChange, dateStart, dateEnd, handleChecked, handleNotChecked, appendImage, uploadImage, notification }) => {
+const CreateAnnouncement = ({ handleChange, title, location, description, voluntary, picture, id, onCreateAnnouncementSubmit, handleChangeEditor, handleDateChange, dateStart, dateEnd, handleChecked, handleNotChecked, appendImage, uploadImage, notification, onEditAnnouncementSubmit, userId, ownerId }) => {
 
+ 
   const newStartDate = new Date(dateStart);
   const newEndDate = new Date(dateEnd);
 
+  console.log("mon truc",ownerId)
 
+  if(useLocation().pathname.includes('edit') && userId != ownerId && ownerId != 0){
+    return <Redirect to={`/announcement/${useParams().id}`} />
+  }
 
   return (
     <div className="createAnnouncement__container">
-      <h2 className="createAnnouncement__title">Création de votre annonce</h2>
-      <form id="myform" onSubmit={onCreateAnnouncementSubmit} method="post" >
+     
+      <h2 className="createAnnouncement__title">{useParams().id? 'Editez votre annonce': 'Créez votre annonce'}</h2>
+      
+      <form id="myform" onSubmit={useParams().id? onEditAnnouncementSubmit: onCreateAnnouncementSubmit} >
 
         <div className="input create__bannerPicture" style={{backgroundImage: `url(${picture})`}}>
           <input
@@ -137,7 +144,7 @@ const CreateAnnouncement = ({ handleChange, title, location, description, volunt
         </div>
 
         <div className="createAnnouncement__flex">
-          <button type="submit" className="createAnnouncement__button button">Créer</button>
+          <button type="submit" className="createAnnouncement__button button">Enregister</button>
           <Link to="/home">
             <button type="submit" className="createAnnouncement__button button">Retour</button>
           </Link>

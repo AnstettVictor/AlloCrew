@@ -11,7 +11,8 @@ const initialState = {
     location: "",
     title: "",
     description: "",
-    picture:""   
+    picture:"",
+    user: {id: 0}  
   },
   announcements: [
     {
@@ -33,7 +34,24 @@ const initialState = {
       voluntary: true,
     }
   ],
-  editProfile:{},
+  announcement: {
+    active: true,
+    category: "default",
+    dateStart: "2020-10-10T00:00:00+00:00",
+    dateEnd: "2020-10-10T00:00:00+00:00",
+    description: "",
+    id: 0,
+    location: "",
+    picture: "",
+    title: "",      
+    user: {
+      firstname: "",
+      id: 0,        
+      lastname: "",
+      picture: "",                
+    },
+    voluntary: true,
+  },
   editAnnouncement:  {    
     active: true,
     category: "default",
@@ -45,6 +63,7 @@ const initialState = {
     title: "",
     voluntary: true,},
 
+  editProfile:{},
   profiles: [
     {
       id: 0,
@@ -70,7 +89,7 @@ const reducer = (state = initialState, action) => {
     case LOADED:
       return {
         ...state,
-        isloading: false, 
+        isloading: false,
       };
     case LOADING:
       return {
@@ -82,6 +101,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         create: {...state.create, ...action.payload}, 
       };
+    case UPDATE_ANNOUNCEMENT:
+      return {
+        ...state,
+        ...action.payload,
+      };
 
     case INPUT_EDITANNOUNCEMENT_CHANGE:
       return {
@@ -91,14 +115,10 @@ const reducer = (state = initialState, action) => {
 
     case RESET_DATA:
       return {
-      state: {}
+        ...state,
+        create: initialState.create, 
       };
     
-    case UPDATE_ANNOUNCEMENT:
-      return {
-        ...state,
-        announcements: action.payload,
-      };
     case UPDATE_PROFILE:
       return {
         ...state,
@@ -114,7 +134,7 @@ const reducer = (state = initialState, action) => {
     case INPUT_ANNOUNCEMENT_CHANGE:
       return {
         ...state,
-        announcements: [{...state.announcements[0], ...action.payload}], 
+        announcements:[...state.data.announcements], 
       };
       default:
         return state;

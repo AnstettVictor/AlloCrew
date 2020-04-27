@@ -36,15 +36,19 @@ return (
 
       {/* Affichage conditionnel du bouton */}
       {
-        userId != id.id && (<Link to={`/tchat-room`}>
+        userId != user.id && (<Link to={`/tchat-room`}>
           <button className="button announcement__conditionButton" onClick={test} name={user.id}>Envoyer un message</button>
         </Link>)
       }
-        {userId == id.id && (<Link to={`/edit-announcement/${id}`}>
+        {userId == user.id && (<Link to={`/edit-announcement/${id}`}>
           <button className="button announcement__conditionButton " onClick={test} name={user.id}>Modifier</button>
         </Link>)
       }
-      <Link to="/home"><div className="announcement__back">Retour</div><img className="arrow" src={arrow}/></Link>
+      <Link className="back__wrapper" to="/home">
+        <div className="announcement__back">Retour</div>
+      </Link>
+      <br/>
+      <img className="arrow" src={arrow}/>
     </div>
   </div>
 )

@@ -8,6 +8,7 @@ import AnnouncementList from '../AnnouncementList';
 
 const Home = ({list, homeProfile, userId, logout}) => {
 
+console.log('malist',list)
 const [filter, setFilter] = useState('all')
 return (
   <div className="home__container">

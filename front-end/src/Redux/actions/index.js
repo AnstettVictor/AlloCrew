@@ -173,9 +173,17 @@ export const checkAuth = () => (dispatch) => {
   })
 };
 
+//to re-fetch data if necessary
+export const checkData = (id) => (dispatch, getState) => {
+
+  if (!getState().data.announcements.find(one => one.id == id)) {
+    dispatch(fetchAnnouncement(id, 'announcement'))
+  }
+};
+
 
 //For finding one announcement with id
-export const fetchAnnouncement = (id) => (dispatch) => {
+export const fetchAnnouncement = (id, key) => (dispatch) => {
 
   axios({
     headers: {
@@ -187,7 +195,7 @@ export const fetchAnnouncement = (id) => (dispatch) => {
   .then((res) => {
     console.log(res);
     const announcementData = res.data;
-    dispatch(updateAnnouncement(announcementData))
+    dispatch(updateAnnouncement({[key]: announcementData[0]}))
   })
 
 }
@@ -224,7 +232,8 @@ export const fetchAnnouncementList = () => (dispatch) => {
   .then((res) => {
     console.log(res.status)
     const announcementListData = res.data
-    dispatch(updateAnnouncement(announcementListData))
+    dispatch(resetData())
+    dispatch(updateAnnouncement({announcements: announcementListData}))
   })
   .catch(err => {if(err.response.status == 401){dispatch(logout())}})
 };
@@ -270,28 +279,22 @@ export const patchEditProfile = (id) => (dispatch, getState) => {
 };
 
 export const patchEditAnnouncement = (id) => (dispatch, getState) => {
+  const {id, createdAt, updatedAt, user, dateStart: date_start, dateEnd: date_end, ...data} = getState().data.create;
+  console.log(date_start)
   axios({
     headers: {
       Authorization: `bearer ${token()}`,
     },
     method: 'patch',
     url: `http://3.88.40.169/api/announcements/${id}`, 
-    data: 
-    { 
-      category: "default",
-      active: getState().data.announcements[0].active,
-      voluntary: getState().data.announcements[0].voluntary,
-      date_start: getState().data.announcements[0].dateStart,
-      date_end: getState().data.announcements[0].dateEnd,
-      location: getState().data.announcements[0].location,
-      title: getState().data.announcements[0].title,
-      description: getState().data.announcements[0].description,
-      picture: getState().data.announcements[0].picture,      
-    }    
-    
+    data: {
+      date_end,
+      date_start,
+      ...data
+    }
   })
   .then((res) => console.log(res))
-  .catch((err) => console.log(err))
+  .catch((err) => console.log(err.response))
 };
 
 export const postCreateAnnouncement = () => (dispatch, getState) => {
@@ -301,21 +304,36 @@ export const postCreateAnnouncement = () => (dispatch, getState) => {
     },
     method: 'post',
     url: `http://3.88.40.169/api/announcements/`, 
-    data:JSON.stringify( 
-    { 
+    data: { 
       user: getState().login.userId,
       ...getState().data.create
-    })
+    }
   })
   .then((res) => console.log(res))
-  .catch((err) => console.log(err))
+  .catch((err) => console.log(err.response))
 };
 
+
+
+
+//Middleware pour passer l'id à mapDispatchToProps
 export const passId = (func) => (dispatch, getState) => {
   dispatch(func(getState().login.userId))
 }
 
-export const loadingMiddleware = (func) => (dispatch, getState) => {
-  dispatch(loading())
-  dispatch(func())
+
+//image upload 
+export const sendImage = () => (dispatch, getState) => {
+  dispatch(notification('Chargement de l\'image, veuillez patienter...'));
+  const data = new FormData;
+  data.append('file', getState().login.data.fileToUpload);
+  data.append('upload_preset', 'allocrew');
+
+  axios.post('https://api.cloudinary.com/v1_1/dmpokkwma/image/upload', data)
+  .then(res => {dispatch(clearNotification()); dispatch(inputCreateAnnouncement({picture: res.data.url}))})
+  .catch(err => {dispatch(notification('une erreur s\'est produite'));console.log(err)})
+}
+
+export const storeImage = (e) => (dispatch) => {
+  dispatch(inputLoginChange({ fileToUpload: e.target.files[0]}))
 }
