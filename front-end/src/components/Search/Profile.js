@@ -5,20 +5,20 @@ import {Link} from 'react-router-dom';
 
 const SearchProfile = ({ id, lastname, firstname, title, picture,  bannerpicture}) => (
 
-<div class="searchProfiles" >
+<div className="searchProfiles" >
   <Link to={`/profile/${id}`}>
-  <div class="searchProfile searchProfile--1" >
-    <div class="searchProfile__info-hover">
+  <div className="searchProfile searchProfile--1" >
+    <div className="searchProfile__info-hover">
     </div>
 
-    <div class="searchProfile__img" style={{backgroundImage: `url(${bannerpicture})`}}></div>
-      <a href="#" class="searchProfile_link">
-        <div class="searchProfile__img--hover" style={{backgroundImage: `url(${bannerpicture})`}}>
+    <div className="searchProfile__img" style={{backgroundImage: `url(${bannerpicture})`}}></div>
+      <a href="#" className="searchProfile_link">
+        <div className="searchProfile__img--hover" style={{backgroundImage: `url(${bannerpicture})`}}>
         </div>    
       </a>
-    <div class="searchProfile__info">
-      <span class="searchProfile__category"> {firstname} {lastname}</span>
-      <h3 class="searchProfile__title">{title}</h3>    
+    <div className="searchProfile__info">
+      <span className="searchProfile__category"> {firstname} {lastname}</span>
+      <h3 className="searchProfile__title">{title}</h3>    
     </div>
   </div>
   </Link>  
