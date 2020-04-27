@@ -27,7 +27,7 @@ const DiscussionList = ({by_creator, by_receiver, message, handleMessage, onMess
   return (
   <div className="discussion__flex"> 
     <div className="discussion__half">
-      <h2 className="discussion__title">Discussions reçus par rapport à vos offres</h2>    
+      <h2 className="discussion__title">Demandes envoyer</h2>    
     {
       by_creator.map((discussion) =>
       <div key={discussion.id}>
@@ -69,7 +69,7 @@ const DiscussionList = ({by_creator, by_receiver, message, handleMessage, onMess
   
 
     <div className="discussion__half">
-      <h2 className="discussion__title">Discussions ouvertes par rapport à une offre</h2>
+      <h2 className="discussion__title">Demandes reçus</h2>
 
       {
         by_receiver.map((discussion) =>

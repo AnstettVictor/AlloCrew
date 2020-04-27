@@ -1,5 +1,6 @@
 //imports
 import axios from 'axios';
+import { Redirect } from 'react-router';
 //vars
 const token = () => localStorage.getItem('token')
 const userId =  () => {
@@ -25,9 +26,12 @@ export const CLEAR_NOTIFICATION= 'CLEAR_NOTIFICATION';
 export const REGISTER_SUCCESS= 'REGISTER_SUCCESS';
 export const UPDATE_DISCUSSION= 'UPDATE_DISCUSSION';
 export const INPUT_MESSAGE='INPUT_MESSAGE';
+export const REDIRECT ='REDIRECT';
 
-export const loaded = () => ({
-  type: LOADED,
+
+export const redirect = (payload) => ({
+  type: REDIRECT,
+  payload
 })
 
 export const loading = () => ({
@@ -192,7 +196,6 @@ export const checkData = (id) => (dispatch, getState) => {
     dispatch(fetchAnnouncement(id, 'announcement'))
   }
 };
-
 
 //For finding one announcement with id
 export const fetchAnnouncement = (id, key) => (dispatch) => {
@@ -385,3 +388,28 @@ export const postMessage = (id) => (dispatch, getState) => {
   .then((res) => console.log(res))
   .catch((err) => console.log(err))
 };
+
+export const mitraillette = (id) => (dispatch) => {
+  setInterval(() => {dispatch(fetchDiscussionList(id))}, [2000])
+}
+
+export const postDiscussion = ({announcement_id, user_id}) => (dispatch, getState, fds) => {
+  axios({
+    headers: {
+      Authorization: `bearer ${token()}`,
+    },
+    method: 'post',
+    url: `http://3.88.40.169/api/discussions/`, 
+    data: 
+    { console: console.log('test'),
+      announcement: announcement_id,
+      receiver: user_id,
+      creator: getState().login.userId,
+    }
+  })
+  // <Redirect to={`/tchat-room/${getState().login.userId}`} />
+  .then((res) => {console.log('la res', res); dispatch(redirect(true)) })
+  .catch((err) => console.log(err.response))
+};
+
+

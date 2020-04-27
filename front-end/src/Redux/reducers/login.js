@@ -1,4 +1,4 @@
-import {LOADING, LOADED, LOGIN_OK, LOGOUT, INPUT_LOGIN_CHANGE, NOTIFICATION, CLEAR_NOTIFICATION, REGISTER_SUCCESS} from '../actions';
+import {LOADING, REDIRECT, LOGIN_OK, LOGOUT, INPUT_LOGIN_CHANGE, NOTIFICATION, CLEAR_NOTIFICATION, REGISTER_SUCCESS} from '../actions';
 
 const initialState = {
   registerSuccess: false,
@@ -23,10 +23,10 @@ const reducer = (state = initialState, action) => {
         ...state,
         loading: true,
       };
-    case LOADED:
+    case REDIRECT:
       return {
         ...state,
-        loading: false,
+        redirect: action.payload
       };
     case REGISTER_SUCCESS:
       return {
