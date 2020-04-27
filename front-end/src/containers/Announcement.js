@@ -1,5 +1,5 @@
 import Announcement from '../components/Announcement';
-import {checkData, postDiscussion, passId} from '../Redux/actions'
+import {checkData, postDiscussion, fetchAnnouncement, passId} from '../Redux/actions'
 import {connect} from 'react-redux';
 
 const mapStateToProps = ({data, login}, {match}) => {
@@ -8,9 +8,11 @@ const mapStateToProps = ({data, login}, {match}) => {
   let announcement = data.announcements.find(one => one.id == match.params.id)
   if (!announcement) {
     announcement = data.announcement
+    console.log('containerrrrrrrrrrrrrrrrrrrrrrrrrrs',data)
   }
   
   return({
+    redirect: login.redirect,
     title: announcement.title,
     location: announcement.location,
     description: announcement.description,
@@ -28,8 +30,10 @@ const mapStateToProps = ({data, login}, {match}) => {
 
 const mapDispatchToProps = (dispatch, {match}) => ({
   console: console.log("container",match),
-  checkData: dispatch(checkData(match.params.id)),
-  sendingMessage: (e) => {e.preventDefault(); dispatch(checkData(match.params.id)); dispatch(postDiscussion())},
+
+  fetchData: dispatch(checkData(match.params.id)),
+
+  sendingMessage: (param) => dispatch(postDiscussion(param)),
 })
 
 

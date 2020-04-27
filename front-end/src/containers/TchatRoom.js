@@ -1,5 +1,5 @@
 import TchatRoom from '../components/TchatRoom';
-import {fetchDiscussionList, inputMessage, postMessage, mitraillette, passId} from '../Redux/actions'
+import {fetchDiscussionList, inputMessage, postMessage, mitraillette, redirect, passId} from '../Redux/actions'
 import {connect} from 'react-redux';
 
 const mapStateToProps = ({messagerie, login}) => {
@@ -16,8 +16,9 @@ const mapStateToProps = ({messagerie, login}) => {
 
 
 const mapDispatchToProps = (dispatch, {match}) => ({
-  console: console.log("match", {match}),
-  // fetchData: dispatch(mitraillette(match.params.id)),
+
+  killRedirect: dispatch(redirect(false)), 
+  fetchData: dispatch(mitraillette(match.params.id)),
   handleMessage: (e) => dispatch(inputMessage({["content"]: e.target.value})),
   onMessageSubmit: (e) => {
     e.preventDefault();
