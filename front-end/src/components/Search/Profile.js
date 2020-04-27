@@ -1,28 +1,41 @@
 import React from 'react';
 import './style.scss';
-import PropTypes from 'prop-types'
+import ReactHtmlParser from 'react-html-parser';
+import {Link} from 'react-router-dom';
 
+const SearchProfile = ({ id, lastname, firstname, title, picture, location, bannerpicture, description }) => (
+  <div className="searchProfile"> 
 
-const SearchProfile = ({ id, lastname, firstname, title, picture, location }) => (
-  <div className="searchprofile__container">
-    
-    <div className="searchprofile__img"  style={{backgroundImage: `url(${picture})`}}/>
-    <div className="searchprofile__infos">
-      <p>{firstname}{lastname}</p>
-      <p>{title}</p>
-      <p className="searchprofile__place">{location}</p>
+    <div className="searchProfile__banner" style={{backgroundImage: `url(${bannerpicture})`}} >
+
+    <Link to={`/profile/${id}`}>
+      <div className="searchProfile__avatar" style={{backgroundImage: `url(${picture})`}} />
+    </Link>
+      </div> 
+      <p className="searchProfile__user">
+        {firstname} {lastname}        
+      </p>
+
+    <div className="searchProfile__bot">
+      <div className="searchProfile__botleft">
+        <p className="searchProfile__title">{title}</p>
+        <div className="searchProfile__description">
+          {ReactHtmlParser(description.length > 100 ?`${description.substring(0, 99)} ...`:{description})}
+        </div>
+      </div>
+      <div className="searchProfile__botright">
+        <div className="searchProfile__details">        
+          <p>{location}</p>          
+        </div>
+        <input className="searchProfile__button button see" type="button" value="Voir l'annonce"/>
+
+        <Link to={`/profile/${id}`}>
+          <input className="searchProfile__button button seeAndEdit" type="button" value="Voir l'Annonce"/>
+        </Link>
+      </div>
     </div>
   </div>
 )
 ;
-
-// SearchProfile.propTypes = {
-//   id: PropTypes.number.isRequired,
-//   firstname: PropTypes.string.isRequired,
-//   lastname: PropTypes.string.isRequired,    
-//   title: PropTypes.string.isRequired, 
-//   picture: PropTypes.string.isRequired,
-//   location: PropTypes.string.isRequired,
-// }
 
 export default SearchProfile;

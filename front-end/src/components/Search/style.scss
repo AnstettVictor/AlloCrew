@@ -1,8 +1,5 @@
 @import 'style/vars.scss';
 
-
-
-
 @mixin customInput {
   border: 2px solid rgba(150, 150, 150, 0.144);
   background-color: #efefef;
@@ -15,44 +12,103 @@
   }
 }
 
+:root {
+  --thumbnail-size: 70px;
+}
+
+.searchProfile__title {
+  display: inline-block;
+  font-size: 1.3rem;
+  font-weight: bold;
+  border-bottom:1px dotted #ccc;
+}
+
+.see {
+  display: none;
+}
+
+.seeAndEdit {
+  display: block;
+}
+
+.searchProfile {
+  line-height: 1.6;
+  min-height: fit-content;
+  font-size: 1rem;
+  border-radius: 5px;
+  box-shadow: $shadow;
+  margin: 0 auto;
+  background-color: #fff;
+  margin-bottom: 1.5rem;
+}
+
+.searchProfile__banner {
+  position: relative;
+  background-size:cover;
+  background-position: center;  
+  height: 15rem;
+  background-color: #eee;
+}
+.searchProfile__avatar {
+  left: 2%;
+  bottom: calc((var(--thumbnail-size) / -2));
+  position: absolute;
+  height: var(--thumbnail-size);
+  width: var(--thumbnail-size);
+  border-radius: 50%;
+  background-color: #ddd;
+  background-position: center;
+  background-size: cover;  
+}
+
+.searchProfile__user {
+  margin-left: calc(var(--thumbnail-size) + 2%);
+  margin-top: 1%;
+  color: black;
+}
+
+.searchProfile__bot {
+  padding: 1em;
+  display: flex;
+  h2 {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  &left {
+    padding-right: 1em;
+    flex:4;
+  }
+  &right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex:1;
+  }
+}
+
+.searchProfile__details {
+  padding-left: 1rem;
+  border-left: 1px solid #bbb;
+}
+
+.searchProfile__button {
+  margin: 0;
+  margin-top: 1rem;
+  color: $blue;
+  background-color: #fff;
+  border: 1px solid $blue;
+}
+
+.searchProfile__description {
+  display: none;
+}
+
 .profilelist__container {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
 }
 
-.searchprofile__container {
-  box-shadow: $shadow;
-  background-color: white;
-  margin: 1rem;
-  padding: 0.5rem;
-  height: 16rem;
-  width: 12rem;
-  p:first-child {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-bottom: .5rem;
-  }
-  .searchprofile__img {
-    height: 150px;
-    width: 150px;
-    margin: auto;
-    
-    background-color: #ddd;
-    background-position:center;
-    border-radius: 50%;
-  }
-  .searchprofile__infos {
-    padding: 1rem;
-    text-align: center;
-    .searchprofile__place {
-      padding: 0.5rem;
-      font-style: italic;
-      font-size: small;
-      color: gray;
-    }
-  }
-}
 
 .search__input, .search__button {
   height: 2rem;
@@ -81,8 +137,6 @@
     border-color: $blue;
   }
 }
-
-
 
 .search__header {
   position: sticky;
