@@ -73,7 +73,7 @@ $color-wood-2:    #410A09;
   &:after, &:before {
     content: "";
     @include position;
-    background-color: $color-black;
+    background-color: fuchsia;
     border-radius: 10px;
     height: 20px;
     width: 7px;
@@ -245,6 +245,73 @@ $color-wood-2:    #410A09;
   .foot   { background-color: $color-skin-2; }
 }
 /*/////////////////// animation */
+.caveman:nth-child(1) .eye {
+  animation: leg-color 1.2s infinite ;
+}
+.caveman:nth-child(2) .eye {
+  animation: leg-color 1.2s infinite ;
+  animation-delay: 0.6s;
+}
+.caveman:nth-child(1) .leg {
+  animation: leg-color 1.2s infinite ;
+}
+.caveman:nth-child(2) .leg {
+  animation: leg-color 1.2s infinite ;
+  animation-delay: 0.6s;
+}
+.caveman:nth-child(1) .leg::after {
+  animation: leg-color 1.2s infinite ;
+}
+.caveman:nth-child(2) .leg::after {
+  animation: leg-color 1.2s infinite ;
+  animation-delay: 0.6s;
+}
+.caveman:nth-child(1) .foot::before {
+  animation: leg-color 1.2s infinite ;
+}
+.caveman:nth-child(2) .foot::before {
+  animation: leg-color 1.2s infinite ;
+  animation-delay: 0.6s;
+}
+.caveman:nth-child(1) .foot {
+  animation: leg-color 1.2s infinite ;
+}
+.caveman:nth-child(2) .foot {
+  animation: leg-color 1.2s infinite ;
+  animation-delay: 0.6s;
+}
+.caveman:nth-child(1) .foot::after {
+  animation: leg-color 1.2s infinite ;
+}
+.caveman:nth-child(2) .foot::after {
+  animation: leg-color 1.2s infinite ;
+  animation-delay: 0.6s;
+}
+.caveman:nth-child(1) .fingers {
+  animation: leg-color 1.2s infinite ;
+}
+.caveman:nth-child(2) .fingers {
+  animation: leg-color 1.2s infinite ;
+  animation-delay: 0.6s;
+}
+.caveman:nth-child(1) .fingers::after {
+  animation: leg-color 1.2s infinite ;
+}
+.caveman:nth-child(2) .fingers::after{
+  animation: leg-color 1.2s infinite ;
+  animation-delay: 0.6s;
+}
+.caveman:nth-child(1) .fingers::after {
+  animation: leg-color 1.2s infinite ;
+}
+.caveman:nth-child(2) .fingers::after{
+  animation: leg-color 1.2s infinite ;
+  animation-delay: 0.6s;
+}
+
+@keyframes leg-color {
+  0% { background-color: #f0F;}
+}
 .caveman:nth-child(1) .arm-right {
   animation: arm-anima 1.2s infinite cubic-bezier(.55,.01,.16,1.34);
 }
@@ -253,8 +320,8 @@ $color-wood-2:    #410A09;
   animation-delay: 0.6s;
 }
 @keyframes arm-anima {
-  0%    { transform: rotate(0) }
-  100%  { transform: rotate(-360deg) }
+  0%    { transform: rotate(0); background-color: fuchsia;} // ARM F0F
+  100%  { transform: rotate(-360deg);}
 }
 .caveman:nth-child(2) .head {
   animation: head-anima 1.2s infinite cubic-bezier(.55,.01,.16,1.34);
@@ -269,6 +336,7 @@ $color-wood-2:    #410A09;
   45%   { top: 50px; }
   100%  { top: 25px; }
 }
+
 .caveman:nth-child(2) .eye:after, 
 .caveman:nth-child(2) .eye:before {
   animation: eye-anima 1.2s infinite cubic-bezier(.55,.01,.16,1.34);
