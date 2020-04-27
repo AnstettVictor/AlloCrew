@@ -1,245 +1,86 @@
-.tchatRoom__Container {
-    margin-top: 20px;
-    padding: 30px;
-    border: 1px solid lightgray;
+@import 'style/vars.scss';
+.discussion__flex{
+    display:flex;
+}
 
+.tchatRoom__Container {
+    margin: 0.5rem;
+    padding: 30px;
 }
 
 .tchatRoom__TitlePage {
-    text-align: center;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
+    text-align: center;   
     border-bottom: 1px solid lightgray;
 }
 
-.tchatRoom__Tchat-Container {
-    display: flex;
-    justify-content: space-between;
-    height: 70vh;
+.discussion__container{
+   text-align: center; 
+   width:85%;
+   margin: auto;
+   color: black;
+  
+   
 }
 
-// ==== Conversation side ====
-.tchatRoom__Conversations-Container {
-    border: 1px solid lightgray;
-    width: 25%;
+.discussion__spaceText{
+    margin: 0.2rem 0.7rem;
+    color:black;
+    font-weight: 600;
+    font-size: 1.3rem;
 }
 
-.tchatRoom__Conversations-Title {
-    text-align: center;
-    padding-bottom: 3px;
-    margin: 10px;
+.discussion__half{
+    width:100%;
+}
+
+.discussion__title{
+    margin: 0.5rem;
     border-bottom: 1px solid lightgray;
+    font-size: 1rem;
+    padding-bottom: 0.5rem;
+    color: black;
 }
 
-.tchatRoom__Conversations-List {
-    margin: 0px 10px 10px 10px;
+.message__container{
+    margin: auto;
+    padding: 0rem 0.5rem 0rem 0.5rem;
+    border-left: 1px solid lightgray;
+    width: 95%;
+    max-height: 20rem;
+    overflow-y: scroll;
 }
 
-.tchatRoom__Conversations-Card {
-    padding-bottom: 3px;
-    border-bottom: 1px solid lightgray;
+.other {
+    background-color:rgba(211, 211, 211, 0.500);
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 5px;
+    text-align:left;
 }
 
-.tchatRoom__Conversations-Card-AvatarAutorTitle {
-    display: flex;
+.you {
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    text-align:left;
 }
 
-.tchatRoom__Conversations-Card-AuthorAvatar {
-    border-radius: 50%;
-    background-color: lightgray;
-    width: 40px;
+.message__textarea{
+    width:70%;
+    height:2.3rem;
+    text-align: left;
+    margin: 0.2rem ;
 }
 
-.tchatRoom__Conversations-Card-AvatarAuthorTitle-NameAndTitle {
-    margin: 1px;
-    margin-left: 5px;
+.button {
+    padding: 0.5rem;
+    margin-bottom: 1rem;    
 }
 
-.tchatRoom__Conversations-Card-Author {
-    text-transform: capitalize;
-    &-Span {
-        text-transform: uppercase;
-    }
+.discussion_message{
+    width:22%;
+    padding: 0.2rem;
+    font-weight: 600;
 }
-
-.tchatRoom__Conversations-Card-TitleAnnonce {
-    font-size: smaller;
-}
-
-.tchatRoom__Conversations-Card-PreviwAndTime {
-    display: flex;
-    justify-content: space-between;
-}
-
-.tchatRoom__Conversations-Card-Preview {
-    // todo
-}
-
-.tchatRoom__Conversations-Card-Time {
-    font-size: smaller;
-}
-
-// ===== Chat Side =====
-.tchatRoom__Chat-Container {
-    border: 1px solid lightgray;
-    width: 73%;
-    padding: 10px 10px 10px 10px;
-}
-
-.tchatRoom__Chat-Info {
-    border: 1px solid lightgray;
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-    height: 3rem;
-}
-
-.tchatRoom__Chat-Annonce-Avatar {
-    height: 30px;
-    width: 35px;
-    margin: 3px;
-}
-
-.tchatRoom__Chat-Annonce-Title {
-    margin: 3px;
-}
-
-
-.tchatRoom__Chat-Messages-Block {
-    display: flex;
-    // put elements in column direction
-    flex-direction: column;
-    // justify the content to the end of the div
-    justify-content: flex-end;
-    // height = parent height minus the margins/paddins and title height
-    height: calc(70vh - 35px - 3rem);
-}
-
-// === message received ===
-.tchatRoom__Chat-Message-Received {
-    //border: 1px solid lightgray;
-    max-width: 70%;
-    display: flex;
-    margin-bottom: 20px;
-}
-
-.tchatRoom__Chat-Card-Received {
-    margin-right: 5px;
-}
-
-.tchatRoom__Chat-Card-ProfilAvatar {
-    border-radius: 50%;
-    background-color: lightgray;
-    width: 40px;
-}
-
-.tchatRoom__Chat-Card-Author {
-    text-transform: capitalize;
-    font-size: smaller;
-}
-
-.tchatRoom__Chat-Message-Received-Content {
-    background-color: rgb(212, 212, 212);
-    border-radius: 7px;
-    padding: 7px;
-    height: auto;
-    min-width: 50%;
-    max-width: 70%;
-
-    position: relative;
-    border-radius: .4em;
-
-}
-
-.tchatRoom__Chat-Message-Received-Content:after {
-	content: '';
-	position: absolute;
-	left: 0;
-	top: 50%;
-	width: 0;
-	height: 0;
-	border: 15px solid transparent;
-	border-right-color:  rgb(212, 212, 212);
-	border-left: 0;
-	border-top: 0;
-	margin-top: -7.5px;
-	margin-left: -10px;
-}
-
-// message sended
-.tchatRoom__Chat-Message-Sended {
-    //border: 1px solid lightgray;
-    max-width: -70%;
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 20px;
-}
-
-.tchatRoom__Chat-Card-Sended {
-    margin-right: 5px;
-}
-
-.tchatRoom__Chat-Card-ProfilAvatar {
-    border-radius: 50%;
-    background-color: lightgray;
-    width: 40px;
-}
-
-.tchatRoom__Chat-Card-Author {
-    text-transform: capitalize;
-    font-size: smaller;
-}
-
-.tchatRoom__Chat-Message-Sended-Content {
-    text-align: right;
-    background-color: rgb(212, 212, 212);
-    border-radius: 7px;
-    padding: 7px;
-    height: auto;
-    min-width: 40%;
-    max-width: 70%;
-
-    position: relative;
-    border-radius: .4em;
-    margin-right: 5px;
-}
-
-.tchatRoom__Chat-Message-Sended-Content:after {
-    content: '';
-	position: absolute;
-	right: 0;
-	top: 50%;
-	width: 0;
-	height: 0;
-	border: 15px solid transparent;
-	border-left-color:  rgb(212, 212, 212);
-	border-right: 0;
-	border-bottom: 0;
-	margin-top: -7.5px;
-	margin-right: -10px;
-}
-
-// === input ===
-.tchatRoom__Chat__Input-Container {
-    //border: 1px solid lightgray;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-}
-
-.tchatRoom__Chat__InputArea {
-    border: 1px solid lightgray;
-    background-color: transparent;
-    width: 89%;
-    height: 3em;
-    padding: 3px;
-}
-
-.tchatRoom__Chat__Button {
-    // todo
-}
-
 @media only screen and (max-width: 800px) {
 
     .tchatRoom__Container {
@@ -251,30 +92,7 @@
         display: none;
     }
 
-    .tchatRoom__Tchat-Container {
-        margin: 0 5px 0 5px;
-        height: 90vh;
-    }
-
-    .tchatRoom__Conversations-Container {
-        display: none;
-        width: 100%;
-        
-    }
-
-
-    .tchatRoom__Chat-Container {
-        // display: none;
-        width: 100%;
-    }
-
-    .tchatRoom__Chat-Messages-Block {
-        display: flex;
-        // put elements in column direction
-        flex-direction: column;
-        // justify the content to the end of the div
-        justify-content: flex-end;
-        // height = parent height minus the margins/paddins and title height
-        height: calc(90vh - 35px - 3rem);
+    .message__container {
+       width:97%;
     }
 }

@@ -23,7 +23,8 @@ export const INPUT_CREATE_ANNOUNCEMENT= 'INPUT_CREATE_ANNOUNCEMENT';
 export const NOTIFICATION= 'NOTIFICATION';
 export const CLEAR_NOTIFICATION= 'CLEAR_NOTIFICATION';
 export const REGISTER_SUCCESS= 'REGISTER_SUCCESS';
-
+export const UPDATE_DISCUSSION= 'UPDATE_DISCUSSION';
+export const INPUT_MESSAGE='INPUT_MESSAGE';
 
 export const loaded = () => ({
   type: LOADED,
@@ -95,6 +96,17 @@ export const inputProfileChange = (payload) => ({
   type: INPUT_PROFILE_CHANGE,
   payload
 })
+
+export const inputMessage =(payload) => ({
+  type: INPUT_MESSAGE,
+  payload
+})
+
+export const updateDiscussion = (payload) => ({
+  type: UPDATE_DISCUSSION,
+  payload: payload
+})
+;
 
 //Appels Ajax
 
@@ -337,3 +349,39 @@ export const sendImage = () => (dispatch, getState) => {
 export const storeImage = (e) => (dispatch) => {
   dispatch(inputLoginChange({ fileToUpload: e.target.files[0]}))
 }
+
+export const fetchDiscussionList = (id) => (dispatch) => {
+  axios({
+    headers: {
+      Authorization: `bearer ${token()}`,
+    },
+    method: 'get',
+    url: `http://3.88.40.169/api/discussions/${id}`, 
+  })
+  .then((res) => {
+    console.log("res.data",res.data)
+    const discussionListData = res.data
+    dispatch(updateDiscussion(discussionListData))
+  })
+  .catch(err => console.log(err))
+};
+
+
+export const postMessage = (id) => (dispatch, getState) => {
+  console.log("axios", id)
+  axios({
+    headers: {
+      Authorization: `bearer ${token()}`,
+    },
+    method: 'post',
+    url: `http://3.88.40.169/api/messages/`, 
+    data: 
+    { 
+      discussion: id,
+      user: getState().login.userId,
+      content: getState().messagerie.message.content
+    }
+  })
+  .then((res) => console.log(res))
+  .catch((err) => console.log(err))
+};

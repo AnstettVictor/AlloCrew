@@ -73,7 +73,7 @@ return(
         <MembersRoute path="/edit-profile/:id" exact component={EditProfile} />
         <MembersRoute path="/my-announcements" exact component={MyAnnouncements} />
         <MembersRoute path="/search" exact component={Search} />
-        <MembersRoute path="/tchat-room" exact component={TchatRoom} />
+        <MembersRoute path="/tchat-room/:id" exact component={TchatRoom} />
         <MembersRoute path="/legal-notice" exact component={LegalNotice} />
         <MembersRoute path="/contact" exact component={Contact} />
         <MembersRoute path="/information" exact component={Information} />
