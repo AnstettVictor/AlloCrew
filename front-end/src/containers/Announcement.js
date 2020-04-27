@@ -1,9 +1,15 @@
 import Announcement from '../components/Announcement';
-import {fetchAnnouncement, passId, loginOk, fetchProfile} from '../Redux/actions'
+import {fetchAnnouncement, checkData, loading, passId, loginOk, fetchProfile} from '../Redux/actions'
 import {connect} from 'react-redux';
 
-const mapStateToProps = ({data, login}) => {
-  const announcement = data.announcements[0];
+const mapStateToProps = ({data, login}, {match}) => {
+
+  // if data isnt in the list , load from db
+  let announcement = data.announcements.find(one => one.id == match.params.id)
+  if (!announcement) {
+    announcement = data.announcement
+  }
+  
   return({
     title: announcement.title,
     location: announcement.location,
@@ -11,20 +17,26 @@ const mapStateToProps = ({data, login}) => {
     picture: announcement.picture,
     voluntary: announcement.voluntary,
     id: announcement.id,
-    dateStart: announcement.date_start,
-    dateEnd: announcement.date_end,
+    dateStart: announcement.dateStart,
+    dateEnd: announcement.dateEnd,
     active: announcement.active,
     user: announcement.user,
+    createdAt: announcement.createdAt,
     userId: login.userId,
   })
 };
 
-const mapDispatchToProps = (dispatch, {match}) => ({
-  fetchData: dispatch(fetchAnnouncement(match.params.id)),
 
-  test: (e) => console.log([e.target.name] == fetchProfile(match.params.id)?"ok":"pasok"), 
 
+const mapDispatchToProps = (dispatch, {match}) => {
+
+ const id = match.params.id
+
+  return  ({
+  checkData: dispatch(checkData(id)),
 })
+}
+
 
 
 

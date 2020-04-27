@@ -1,13 +1,9 @@
 import React from 'react';
-import { Redirect } from "react-router-dom";
 import './style.scss';
 import PropTypes from 'prop-types';
 
-const Login = ({isLogged, login, handleChange, email, password}) => {
+const Login = ({login, handleChange, email, password}) => {
   
-  if (isLogged){
-    return <Redirect to="/home" />
-  }
   return(
   <div className="login__container">
     <form onSubmit={login} className="login__form">

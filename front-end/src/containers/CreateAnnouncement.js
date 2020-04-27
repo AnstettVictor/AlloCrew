@@ -1,16 +1,17 @@
 import CreateAnnouncement from '../components/CreateAnnouncement';
-import { inputCreateAnnouncement,  postCreateAnnouncement, passId, inputLoginChange, notification, clearNotification} from '../Redux/actions'
+import { inputCreateAnnouncement, updateAnnouncement, fetchAnnouncement,  postCreateAnnouncement, patchEditAnnouncement, storeImage, sendImage} from '../Redux/actions'
 import {connect} from 'react-redux';
-import axios from 'axios';
 
 const mapStateToProps = ({data, login}) => {
 
   return({
+    ownerId: data.create.user.id,
+    userId: login.userId,
     category: data.create.category,
     active: data.create.active, 
     voluntary: data.create.voluntary,
-    dateStart: data.create.date_start,
-    dateEnd: data.create.date_end,
+    dateStart: data.create.date_start || data.create.dateStart,
+    dateEnd: data.create.date_end || data.create.dateEnd ,
     location: data.create.location,
     title: data.create.title,
     description: data.create.description,
@@ -19,34 +20,36 @@ const mapStateToProps = ({data, login}) => {
   })
 };
 
-
-
-const storeImage = (e) => (dispatch, getState) => {
-  dispatch(inputLoginChange({ fileToUpload: e.target.files[0]}))
-}
-
-const sendImage = () => (dispatch, getState) => {
-  dispatch(notification('Chargement de l\'image, veuillez patienter...'));
-  const data = new FormData;
-  data.append('file', getState().login.data.fileToUpload);
-  data.append('upload_preset', 'allocrew')
-  axios.post('https://api.cloudinary.com/v1_1/dmpokkwma/image/upload', data)
-  .then(res => {dispatch(clearNotification()); dispatch(inputCreateAnnouncement({picture: res.data.url}))})
-  .catch(err => {dispatch(notification('une erreur s\'est produite'));console.log(err)})
-  dispatch(loading());
+// Fonction qui verifie s'il s'agit d'une édition ou d'une creation d'annonce.
+// fait une requete en cas d'edition
+const condition = (param) => (dispatch) => {
+  if(param) {
+    dispatch(fetchAnnouncement(param, 'create'))
+  }
+  return null
 }
 
 const mapDispatchToProps = (dispatch, {match}) => ({
-  handleChange: (e) => dispatch(inputCreateAnnouncement({[e.target.name]: e.target.value})), 
+
+  
+  fetchData: dispatch(condition(match.params.id)),
+
+  handleChange: (e) => dispatch(inputCreateAnnouncement({[e.target.name]: e.target.value})),
+
   handleChangeEditor: (e, editor) => dispatch(inputCreateAnnouncement({["description"]: editor.getData()}
 )),
   handleDateChange: (date, evt) => dispatch(inputCreateAnnouncement({[evt.target.classList[1]]: date})),
-  onCreateAnnouncementSubmit: (e) => {e.preventDefault(); dispatch(passId(postCreateAnnouncement))},
+
   handleChecked: (e) => {console.log(e.target.checked); dispatch(inputCreateAnnouncement({'voluntary': e.target.checked}))},
   handleNotChecked: (e) => {console.log(e.target.checked); dispatch(inputCreateAnnouncement({'voluntary': !e.target.checked}))},
 
+  onCreateAnnouncementSubmit: (e) => {e.preventDefault(); dispatch(postCreateAnnouncement())},
+  onEditAnnouncementSubmit: (e) => {e.preventDefault();dispatch(patchEditAnnouncement(match.params.id))},
+
   appendImage: (e) => dispatch(storeImage(e)),
+
   uploadImage: () => dispatch(sendImage()) 
+
 })
 ;
 

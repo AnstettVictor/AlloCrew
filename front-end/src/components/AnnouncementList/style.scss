@@ -4,6 +4,13 @@
   --thumbnail-size: 70px;
 }
 
+.announce__title {
+  display: inline-block;
+  font-size: 1.3rem;
+  font-weight: bold;
+  border-bottom:1px dotted #ccc;
+}
+
 .see {
   display: none;
 }
@@ -93,6 +100,7 @@
 @media (min-width: 900px) and (min-height: 500px) {
   .announce__description {
     display: block;
+    margin-top: .5rem;
   }
 }
  

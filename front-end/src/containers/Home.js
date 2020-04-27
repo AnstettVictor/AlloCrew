@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 const mapStateToProps = ({data, login}) => {
   return({
     userId: login.userId,
-    homeProfile: data.profiles[0],
+    homeProfile: login.userInfo,
     list: data.announcements
   })
 };

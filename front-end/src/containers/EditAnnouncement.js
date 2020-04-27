@@ -1,24 +1,34 @@
 import EditAnnouncement from '../components/EditAnnouncement';
-import {inputAnnouncementChange, patchEditAnnouncement} from '../Redux/actions'
+import {inputAnnouncementChange, checkData, patchEditAnnouncement} from '../Redux/actions'
 import {connect} from 'react-redux';
 
-const mapStateToProps = ({ data }) => { 
-  
+const mapStateToProps = ({data, login}, {match}) => {
+
+  const announcement = data.announcements.find(one => one.id == match.params.id)
   return({
-    title: data.announcements[0].title,
-    location: data.announcements[0].location,
-    description: data.announcements[0].description,
-    picture: data.announcements[0].picture,
-    voluntary: data.announcements[0].voluntary,    
-    dateStart: data.announcements[0].dateStart,
-    dateEnd: data.announcements[0].dateEnd,
-    active: data.announcements[0].active,
-         
+    title: announcement.title,
+    location: announcement.location,
+    description: announcement.description,
+    picture: announcement.picture,
+    voluntary: announcement.voluntary,
+    id: announcement.id,
+    dateStart: announcement.dateStart,
+    dateEnd: announcement.dateEnd,
+    active: announcement.active,
+    user: announcement.user,
+    createdAt: announcement.createdAt,
+    userId: login.userId,
   })
 };
 
-const mapDispatchToProps = (dispatch, {match}) => ({
-  handleChange: (e) => dispatch(inputAnnouncementChange({[e.target.name]: e.target.value})),
+const mapDispatchToProps = (dispatch, {match}) =>{
+  
+  
+  return ({
+  
+ 
+
+  handleChange: (e) => dispatch(inputAnnouncementChange({[e.target.name]: e.target.value, id: match.params.id})),
 
   
   handleChangeEditor: (e, editor) => dispatch(inputAnnouncementChange(
@@ -36,7 +46,7 @@ const mapDispatchToProps = (dispatch, {match}) => ({
 
   
 })
-;
+};
 
 const announcements = connect(mapStateToProps, mapDispatchToProps)(EditAnnouncement);
 

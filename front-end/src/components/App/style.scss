@@ -7,8 +7,9 @@ body {
   font-family: 'Rubik', sans-serif;
   background-color: #F3F4F8;
   overflow-x: hidden;
-  a {
+  a, a:visited {
     text-decoration: none;
+    color: #000;
   }
 }
 
@@ -58,11 +59,11 @@ body {
   left: 0;
   height: 100vh;
   width: 100vw;
-  background-color: rgba(0,0,0,.5);
+  background-color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #fff;
+  color: #000;
   font-size: 3rem;
   z-index: 9999;
 }

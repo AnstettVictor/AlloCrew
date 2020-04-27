@@ -1,9 +1,8 @@
-import {LOADING, LOGIN_OK, LOGOUT, INPUT_LOGIN_CHANGE, NOTIFICATION, CLEAR_NOTIFICATION, REGISTER_SUCCESS} from '../actions';
+import {LOADING, LOADED, LOGIN_OK, LOGOUT, INPUT_LOGIN_CHANGE, NOTIFICATION, CLEAR_NOTIFICATION, REGISTER_SUCCESS} from '../actions';
 
 const initialState = {
-  loading: false,
   registerSuccess: false,
-  isLogged:false,
+  isLogged:true,
   userId: -1,
   notification: "",
   userInfo: {},
@@ -22,7 +21,12 @@ const reducer = (state = initialState, action) => {
     case LOADING:
       return {
         ...state,
-        loading: !state.loading,
+        loading: true,
+      };
+    case LOADED:
+      return {
+        ...state,
+        loading: false,
       };
     case REGISTER_SUCCESS:
       return {

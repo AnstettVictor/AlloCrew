@@ -2,9 +2,9 @@ import {connect} from 'react-redux';
 import {checkAuth} from '../Redux/actions';
 import App from '../components/App'
 
-const mapStateToProps = ({login}) => ({
+const mapStateToProps = ({login, data}) => ({
   isLogged: login.isLogged,
-  loading: login.loading
+  loading: data.isloading
 });
 
 const mapDispatchToProps = (dispatch) => ({
