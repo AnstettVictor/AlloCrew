@@ -6,7 +6,7 @@ import ReactHtmlParser from 'react-html-parser';
 import {date} from 'utils/functions';
 import arrow from 'images/svg/arrow.svg';
 
-const Announcement = ({title, location, description, picture, voluntary, id, dateEnd, dateStart, active, user, test, createdAt, userId }) => {
+const Announcement = ({title, location, description, picture, voluntary, id, dateEnd, dateStart, active, user, sendingMessage, createdAt, userId }) => {
 
 return (
   <div className="announcement__container" >
@@ -36,12 +36,15 @@ return (
 
       {/* Affichage conditionnel du bouton */}
       {
-        userId != user.id && (<Link to={`/tchat-room`}>
-          <button className="button announcement__conditionButton" onClick={test} name={user.id}>Envoyer un message</button>
-        </Link>)
+        userId != user.id && (
+        
+          <form onSubmit={sendingMessage} method="post">            
+            <button className="button announcement__conditionButton" type="submit" name={user.id}>Envoyer un message</button>
+          </form>
+        )
       }
         {userId == user.id && (<Link to={`/edit-announcement/${id}`}>
-          <button className="button announcement__conditionButton " onClick={test} name={user.id}>Modifier</button>
+          <button className="button announcement__conditionButton "  name={user.id}>Modifier</button>
         </Link>)
       }
       <Link className="back__wrapper" to="/home">

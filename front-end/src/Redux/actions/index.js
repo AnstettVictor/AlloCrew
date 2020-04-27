@@ -385,3 +385,26 @@ export const postMessage = (id) => (dispatch, getState) => {
   .then((res) => console.log(res))
   .catch((err) => console.log(err))
 };
+
+export const mitraillette = (id) => (dispatch) => {
+  setInterval(() => {dispatch(fetchDiscussionList(id))}, [2000])
+}
+
+export const postDiscussion = () => (dispatch, getState) => {
+  
+  axios({
+    headers: {
+      Authorization: `bearer ${token()}`,
+    },
+    method: 'post',
+    url: `http://3.88.40.169/api/discussions/`, 
+    data: 
+    { console: console.log('test',getState().data),
+      announcement: getState().data.announcement.id,
+      receiver: getState().data.announcement.user.id,
+      creator: getState().login.userId,
+    }
+  })
+  .then((res) => console.log(res))
+  .catch((err) => console.log(err))
+};

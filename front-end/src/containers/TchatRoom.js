@@ -1,5 +1,5 @@
 import TchatRoom from '../components/TchatRoom';
-import {fetchDiscussionList, inputMessage, postMessage, passId} from '../Redux/actions'
+import {fetchDiscussionList, inputMessage, postMessage, mitraillette, passId} from '../Redux/actions'
 import {connect} from 'react-redux';
 
 const mapStateToProps = ({messagerie, login}) => {
@@ -13,13 +13,11 @@ const mapStateToProps = ({messagerie, login}) => {
 }
 ;
 
-export const mitraillette = (id) => (dispatch) => {
-  setInterval(() => {dispatch(fetchDiscussionList(id))}, [1000])
-}
+
 
 const mapDispatchToProps = (dispatch, {match}) => ({
   console: console.log("match", {match}),
-  fetchData: dispatch(mitraillette(match.params.id)),
+  // fetchData: dispatch(mitraillette(match.params.id)),
   handleMessage: (e) => dispatch(inputMessage({["content"]: e.target.value})),
   onMessageSubmit: (e) => {
     e.preventDefault();
