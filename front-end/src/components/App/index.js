@@ -20,7 +20,6 @@ import Profile from '../../containers/Profile';
 import Search from '../../containers/Search';
 
 import EditProfile from '../../containers/EditProfile';
-import EditAnnouncement from '../../containers/EditAnnouncement';
 import EditUser from '../../containers/EditUser';
 
 import MyAnnouncements from '../../containers/MyAnnouncements';
@@ -33,6 +32,8 @@ import Contact from '../Contact';
 import Information from '../Information';
 import Announcement from '../../containers/Announcement';
 import FAQ from '../FAQ';
+
+import PAGE404 from '../PAGE404';
 
 
 
@@ -79,7 +80,7 @@ return(
         <MembersRoute path="/information" exact component={Information} />
         <MembersRoute path="/announcement/:id" exact component={Announcement} /> 
         <MembersRoute path="/faq" exact component={FAQ} />
-        <Route path="/*" render={() => (<h1>Not Found</h1>)} />
+        <Route path="/*" component={PAGE404} />
       </Switch>
     </div>
     <div className="app__footer">
