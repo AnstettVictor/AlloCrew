@@ -1,0 +1,94 @@
+.searchProfiles {
+    font-family: 'Rubik', sans-serif;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.searchProfile__img {
+    visibility: hidden;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 235px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+.searchProfile__info-hover {
+    position: absolute;
+    padding: 16px;
+    width: 100%;
+    opacity: 0;
+    top: 0;
+}
+
+.searchProfile__img--hover {
+    transition: 0.2s all ease-out;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    position: absolute;
+    height: 235px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    top: 0;
+}
+
+.searchProfile {
+    font-family: 'Rubik', sans-serif;
+    margin-right: 25px;
+    transition: all .4s cubic-bezier(0.175, 0.885, 0, 1);
+    background-color: #fff;
+    width: 100%;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0px 13px 10px -7px rgba(0, 0, 0, 0.1);
+}
+
+.searchProfile:hover {
+    box-shadow: 0px 30px 18px -8px rgba(0, 0, 0, 0.1);
+    transform: scale(1, 1);
+}
+
+.searchProfile__info {
+    z-index: 2;
+    background-color: #fff;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    padding: 16px 24px 24px 24px;
+}
+
+.searchProfile__category {
+    font-family: 'Rubik', sans-serif;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 2px;
+    font-weight: 500;
+    color: #868686;
+}
+
+.searchProfile__title {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font-family: 'Rubik', sans-serif;
+}
+
+.searchProfile:hover .searchProfile__img--hover {
+    height: 100%;
+    opacity: 0.3;
+}
+
+.searchProfile:hover .searchProfile__info {
+    background-color: transparent;
+    position: relative;
+}
+
+.searchProfile:hover .searchProfile__info-hover {
+    opacity: 1;
+}

@@ -1,40 +1,29 @@
 import React from 'react';
-import './style.scss';
+import './profile.scss';
 import ReactHtmlParser from 'react-html-parser';
 import {Link} from 'react-router-dom';
 
-const SearchProfile = ({ id, lastname, firstname, title, picture, location, bannerpicture, description }) => (
-  <div className="searchProfile"> 
+const SearchProfile = ({ id, lastname, firstname, title, picture,  bannerpicture}) => (
 
-    <div className="searchProfile__banner" style={{backgroundImage: `url(${bannerpicture})`}} >
+<div class="searchProfiles" >
+  <Link to={`/profile/${id}`}>
+  <div class="searchProfile searchProfile--1" >
+    <div class="searchProfile__info-hover">
+    </div>
 
-    <Link to={`/profile/${id}`}>
-      <div className="searchProfile__avatar" style={{backgroundImage: `url(${picture})`}} />
-    </Link>
-      </div> 
-      <p className="searchProfile__user">
-        {firstname} {lastname}        
-      </p>
-
-    <div className="searchProfile__bot">
-      <div className="searchProfile__botleft">
-        <p className="searchProfile__title">{title}</p>
-        <div className="searchProfile__description">
-          {ReactHtmlParser(description.length > 100 ?`${description.substring(0, 99)} ...`:{description})}
-        </div>
-      </div>
-      <div className="searchProfile__botright">
-        <div className="searchProfile__details">        
-          <p>{location}</p>          
-        </div>
-        <input className="searchProfile__button button see" type="button" value="Voir l'annonce"/>
-
-        <Link to={`/profile/${id}`}>
-          <input className="searchProfile__button button seeAndEdit" type="button" value="Voir l'Annonce"/>
-        </Link>
-      </div>
+    <div class="searchProfile__img" style={{backgroundImage: `url(${bannerpicture})`}}></div>
+      <a href="#" class="searchProfile_link">
+        <div class="searchProfile__img--hover" style={{backgroundImage: `url(${bannerpicture})`}}>
+        </div>    
+      </a>
+    <div class="searchProfile__info">
+      <span class="searchProfile__category"> {firstname} {lastname}</span>
+      <h3 class="searchProfile__title">{title}</h3>    
     </div>
   </div>
+  </Link>  
+</div>
+
 )
 ;
 
