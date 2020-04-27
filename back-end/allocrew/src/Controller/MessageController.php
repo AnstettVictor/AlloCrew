@@ -7,9 +7,11 @@ use App\Form\MessageType;
 use App\Repository\UserRepository;
 use App\Repository\MessageRepository;
 use App\Repository\DiscussionRepository;
+use App\Utils\GetErrorsFromForm;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -22,9 +24,8 @@ class MessageController extends AbstractController
     /**
      * @Route("/", name="browse", methods={"GET"})
      */
-    public function browse(MessageRepository $messageRepository,  SerializerInterface $serializer, Request $request)
+    public function browse(MessageRepository $messageRepository,  SerializerInterface $serializer)
     {
-
         $messages = $messageRepository->findAll();
 
         return $this->json($serializer->normalize(
@@ -55,7 +56,7 @@ class MessageController extends AbstractController
     /**
      * @Route("/", name="add", methods={"POST"})
      */
-    public function add(Request $request, UserRepository $userRepository, DiscussionRepository $discussionRepository)
+    public function add(Request $request, GetErrorsFromForm $getErrorsFromForm)
     {
 
         $message = new Message();
@@ -68,64 +69,51 @@ class MessageController extends AbstractController
         $form = $this->createForm(MessageType::class, $message);
         $donnees = $form->submit($donnees);
 
-        if ($form->isSubmitted()){
-            if ($form['content']->isValid()){
-                $message->setContent($form['content']->getData());
-            } else { 
-                return new Response('Contenu Invalide', 400);
-            }
-            if ($form['user']->isValid()) {
-                $user = $userRepository->find($form['user']->getData());
-                $message->setUser($user);
-            } else {
-                 return new Response('Utilisateur Invalide', 400);
-            }
-            if ($form['discussion']->isValid()) {
-                $discussion = $discussionRepository->find($form['discussion']->getData());
-                $message->setDiscussion($discussion);
-            } else return new Response('Discussion Invalide', 400);
+        if ($form->isValid()) {
+            $message->setCreatedAt(new \DateTime);
+          
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($message);
+            $em->flush();
+            return new JsonResponse('ok', 201);
+        } else {
+            $errors = $getErrorsFromForm->getErrors($form);
+            $data = [
+                'type' => 'validation_error',
+                'title' => 'There was a validation error',
+                'errors' => $errors,
+            ];
+            return new JsonResponse($data, 400);
         }
-
-        $message->setCreatedAt(new \Datetime());
-
-        // On sauvegarde en base
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($message);
-        $entityManager->flush();
-
-        // On retourne la confirmation
-        return new Response('ok', 201);
     }
 
 
     /**
      * @Route("/{id}", name="edit", methods={"PATCH"}, requirements={"id": "\d+"})
      */
-    public function edit(Message $message, Request $request, $id)
+    public function edit(Message $message, Request $request, GetErrorsFromForm $getErrorsFromForm)
     {
         // On décode les données envoyées
         $donnees = json_decode($request->getContent(), true);
         /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
          * sinon on passe à la suite */
         $form = $this->createForm(MessageType::class, $message);
-        $donnees = $form->submit($donnees);
-        if ($form->isSubmitted()) {
-            if ($form['content']->isValid()) {
-                $message->setContent($form['content']->getData());
-            } else return new Response('Contenu Invalide', 400);
+        $donnees = $form->submit($donnees, false);
+        if ($form->isValid()) {
+        
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($message);
+            $em->flush();
+            return new JsonResponse('ok', 201);
+        } else {
+            $errors = $getErrorsFromForm->getErrors($form);
+            $data = [
+                'type' => 'validation_error',
+                'title' => 'There was a validation error',
+                'errors' => $errors,
+            ];
+            return new JsonResponse($data, 400);
         }
-
-        $message->setUpdatedAt(new \Datetime());
-
-        $message = $this->getDoctrine()->getRepository(Message::class)->findOneBy(["id" => $id]);
-
-        // On sauvegarde en base
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($message);
-        $entityManager->flush();
-
-        // On retourne la confirmation
-        return new Response('ok', 204);
     }
 
     /**
@@ -133,13 +121,6 @@ class MessageController extends AbstractController
      */
     public function delete(Message $message)
     {
-        // TODOO VOTER 
-        /**  // Ici on utilise un voter
-         * // Cette fonction va émettre une exception Access Forbidden pour interdire l'accès au reste du contrôleur
-         * // Les conditions pour lesquelles le droit MOVIE_DELETE est applicable sur $movie pour l'utilisateur connecté
-         * // sont définies dans les voters, dans leurs méthodes voteOnAttribute()*/
-
-        // $this->denyAccessUnlessGranted('MOVIE_DELETE', $movie);
         $em = $this->getDoctrine()->getManager();
 
         $em->remove($message);

@@ -55,24 +55,24 @@ class AnnouncementController extends AbstractController
      * @Route("/{id}", name="edit", methods={"PATCH"}, requirements={"id": "\d+"})
      *
      */
-    public function edit(Announcement $announcement, Request $request, GetErrorsFromForm $getErrorsFromForm,$id)
+    public function edit(Announcement $announcement, Request $request, GetErrorsFromForm $getErrorsFromForm)
     {
 
         $donnees = json_decode($request->getContent(), true);
-       
-       
+
+
 
         $form = $this->createForm(AnnouncementType::class, $announcement);
-        
+
         $form->submit($donnees, false);
-        
-       
+
+
         if ($form->isValid()) {
             $announcement->setUpdatedAt(new \DateTime);
             // if ($form['picture']->isSubmitted() && $form['picture']->isValid()){
             //     /** @var UploadImage 
             //      * $uploadedFile */
-                
+
             //     $uploadedFile = $form['picture']->getData();
             //     $destination = $this->getParameter('kernel.project_dir').'/public/uploads/AnnouncementPicture';
             //     $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
@@ -94,8 +94,6 @@ class AnnouncementController extends AbstractController
             ];
             return new JsonResponse($data, 400);
         }
-        
-       
     }
 
     /**
@@ -111,13 +109,13 @@ class AnnouncementController extends AbstractController
          * sinon on passe à la suite */
         $form = $this->createForm(AnnouncementType::class, $announcement);
         $form->submit($donnees);
-       
+
         if ($form->isValid()) {
             $announcement->setCreatedAt(new \DateTime);
             // if ($form['picture']->isSubmitted() && $form['picture']->isValid()){
             // /** @var UploadImage 
             //  * $uploadedFile */
-            
+
             // $uploadedFile = $form['picture']->getData();
             // $destination = $this->getParameter('kernel.project_dir').'/public/uploads/AnnouncementPicture';
             // $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
@@ -139,7 +137,6 @@ class AnnouncementController extends AbstractController
             ];
             return new JsonResponse($data, 400);
         }
-          
     }
 
     /**
@@ -147,12 +144,6 @@ class AnnouncementController extends AbstractController
      */
     public function delete(Announcement $announcement)
     {
-        // TODO VOTER 
-        /**  // Ici on utilise un voter
-         * // Cette fonction va émettre une exception Access Forbidden pour interdire l'accès au reste du contrôleur
-         * // Les conditions pour lesquelles le droit MOVIE_DELETE est applicable sur $movie pour l'utilisateur connecté
-         * // sont définies dans les voters, dans leurs méthodes voteOnAttribute()*/
-        // $this->denyAccessUnlessGranted('MOVIE_DELETE', $movie);
 
         $em = $this->getDoctrine()->getManager();
 
@@ -160,6 +151,6 @@ class AnnouncementController extends AbstractController
         $em->flush();
 
         // On retourne la confirmation
-        return new Response('supression ok', 200);
+        return new Response('Supression effectuée', 200);
     }
 }

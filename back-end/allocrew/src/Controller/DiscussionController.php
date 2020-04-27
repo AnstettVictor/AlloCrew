@@ -8,6 +8,7 @@ use App\Repository\AnnouncementRepository;
 use App\Repository\UserRepository;
 use App\Repository\MessageRepository;
 use App\Repository\DiscussionRepository;
+use App\Utils\GetErrorsFromForm;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,7 +26,7 @@ class DiscussionController extends AbstractController
     /**
      * @Route("/", name="browse", methods={"GET"})
      */
-    public function browse(DiscussionRepository $discussionRepository,  SerializerInterface $serializer, Request $request)
+    public function browse(DiscussionRepository $discussionRepository,  SerializerInterface $serializer)
     {
         $discussions = $discussionRepository->findAll();
 
@@ -60,7 +61,7 @@ class DiscussionController extends AbstractController
     /**
      * @Route("/", name="add", methods={"POST"})
      */
-    public function add(Request $request, UserRepository $userRepository, AnnouncementRepository $announcementRepository)
+    public function add(Request $request, GetErrorsFromForm $getErrorsFromForm)
     {
 
         $discussion = new Discussion();
@@ -73,30 +74,22 @@ class DiscussionController extends AbstractController
 
         $donnees = $form->submit($donnees);
 
-        if ($form->isSubmitted()) {
-            if ($form['creator']->isValid()) {
-                $user = $userRepository->find($form['creator']->getData());
-                $discussion->setCreator($user);
-            } else return new Response('Créateur Invalide', 400);
-            if ($form['receiver']->isValid()) {
-                $user = $userRepository->find($form['receiver']->getData());
-                $discussion->setReceiver($user);
-            } else return new Response('Receveur Invalide', 400);
-            if ($form['announcement']->isValid()) {
-                $announcement = $announcementRepository->find($form['announcement']->getData());
-                $discussion->setAnnouncement($announcement);
-            } else return new Response('Créateur Invalide', 400);
+        if ($form->isValid()) {
+            $discussion->setCreatedAt(new \DateTime);
+          
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($discussion);
+            $em->flush();
+            return new JsonResponse('ok', 201);
+        } else {
+            $errors = $getErrorsFromForm->getErrors($form);
+            $data = [
+                'type' => 'validation_error',
+                'title' => 'There was a validation error',
+                'errors' => $errors,
+            ];
+            return new JsonResponse($data, 400);
         }
-
-        $discussion->setCreatedAt(new \Datetime());
-
-        // On sauvegarde en base
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($discussion);
-        $entityManager->flush();
-
-        // On retourne la confirmation
-        return new Response('ok', 201);
     }
 
 
@@ -105,20 +98,12 @@ class DiscussionController extends AbstractController
      */
     public function delete(Discussion $discussion)
     {
-        //TOODOO le VOTER 
-        /**  // Ici on utilise un voter
-         * // Cette fonction va émettre une exception Access Forbidden pour interdire l'accès au reste du contrôleur
-         * // Les conditions pour lesquelles le droit MOVIE_DELETE est applicable sur $movie pour l'utilisateur connecté
-         * // sont définies dans les voters, dans leurs méthodes voteOnAttribute()*/
-
-        // $this->denyAccessUnlessGranted('MOVIE_DELETE', $movie);
-
         $em = $this->getDoctrine()->getManager();
 
         $em->remove($discussion);
         $em->flush();
 
         // On retourne la confirmation
-        return new Response('supression ok', 200);
+        return new Response('Suppression effectuée', 200);
     }
 }

@@ -37,6 +37,7 @@ class DiscussionType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Discussion::class,
+            'csrf_protection' => false,
         ]);
     }
 }

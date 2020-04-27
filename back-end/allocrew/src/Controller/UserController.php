@@ -43,7 +43,6 @@ class UserController extends AbstractController
      */
     public function accountEdit(User $user, Request $request, GetErrorsFromForm $getErrorsFromForm)
     {
-
         // On décode les données envoyées
         $donnees = json_decode($request->getContent(), true);
         /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
@@ -67,8 +66,6 @@ class UserController extends AbstractController
             ];
             return new JsonResponse($data, 400);
         }
-
-       
     }
 
     /**
@@ -89,7 +86,7 @@ class UserController extends AbstractController
         $entityManager->flush();
 
         // On retourne la confirmation
-        return new Response('password modifié', 201);
+        return new Response('Mot de passe modifié', 201);
     }
 
     /**
@@ -97,7 +94,6 @@ class UserController extends AbstractController
      */
     public function browse(UserRepository $UserRepository, SerializerInterface $serializer)
     {
-
         $user = $UserRepository->findAll();
 
         return $this->json($serializer->normalize(
@@ -112,7 +108,6 @@ class UserController extends AbstractController
      */
     public function read(UserRepository $UserRepository, $id, SerializerInterface $serializer)
     {
-
         $user = $UserRepository->findBy(array('id' => $id));
         if (!empty($user)) {
             return $this->json($serializer->normalize(
