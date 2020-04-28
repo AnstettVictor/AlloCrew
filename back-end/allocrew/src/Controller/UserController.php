@@ -43,7 +43,7 @@ class UserController extends AbstractController
      */
     public function accountEdit(User $user, Request $request, GetErrorsFromForm $getErrorsFromForm)
     {
-
+        $this->denyAccessUnlessGranted('USER_ACCOUNT_EDIT', $user);
         // On décode les données envoyées
         $donnees = json_decode($request->getContent(), true);
         /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
@@ -76,6 +76,7 @@ class UserController extends AbstractController
      */
     public function passwordEdit(User $user, Request $request, UserPasswordEncoderInterface $encoder)
     {
+        $this->denyAccessUnlessGranted('USER_PASSWORD_EDIT', $user);
         // On décode les données envoyées
         $donnees = json_decode($request->getContent());
         /** On verifie si la propriété est envoyé dans le json si oui encode le mot de passe  
@@ -130,6 +131,9 @@ class UserController extends AbstractController
      */
     public function edit(User $user, Request $request, GetErrorsFromForm $getErrorsFromForm)
     {
+        
+        $this->denyAccessUnlessGranted('USER_EDIT', $user);
+
         $donnees = json_decode($request->getContent(), true);
 
         $form = $this->createForm(UserType::class, $user);
