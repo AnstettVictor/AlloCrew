@@ -9,7 +9,7 @@ import {
   Link
 } from "react-router-dom";
 
-const LandPage = () => {
+const LandPage = (state) => {console.log("STAAAAAAAAAAAAAAAATE", state)
   return (
     <div className="landPage__Container" style={{backgroundImage: `url(${bg})` }}>
       <div className="landpage__filter">

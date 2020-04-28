@@ -18,7 +18,7 @@ const mapStateToProps = ({messagerie, login}) => {
 const mapDispatchToProps = (dispatch, {match}) => ({
 
   killRedirect: dispatch(redirect(false)), 
-  fetchData: dispatch(mitraillette(match.params.id)),
+  fetchData: dispatch(fetchDiscussionList(match.params.id)),
   handleMessage: (e) => dispatch(inputMessage({["content"]: e.target.value})),
   onMessageSubmit: (e) => {
     e.preventDefault();
