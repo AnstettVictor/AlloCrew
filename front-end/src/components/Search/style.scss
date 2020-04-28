@@ -1,8 +1,5 @@
 @import 'style/vars.scss';
 
-
-
-
 @mixin customInput {
   border: 2px solid rgba(150, 150, 150, 0.144);
   background-color: #efefef;
@@ -14,45 +11,22 @@
     cursor: pointer;
   }
 }
-
-.profilelist__container {
+.search {
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+}
+:root {
+  --thumbnail-size: 70px;
 }
 
-.searchprofile__container {
-  box-shadow: $shadow;
-  background-color: white;
-  margin: 1rem;
-  padding: 0.5rem;
-  height: 16rem;
-  width: 12rem;
-  p:first-child {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-bottom: .5rem;
-  }
-  .searchprofile__img {
-    height: 150px;
-    width: 150px;
-    margin: auto;
-    
-    background-color: #ddd;
-    background-position:center;
-    border-radius: 50%;
-  }
-  .searchprofile__infos {
-    padding: 1rem;
-    text-align: center;
-    .searchprofile__place {
-      padding: 0.5rem;
-      font-style: italic;
-      font-size: small;
-      color: gray;
-    }
-  }
+
+.see {
+  display: none;
 }
+
+.seeAndEdit {
+  display: block;
+}
+
 
 .search__input, .search__button {
   height: 2rem;
@@ -81,8 +55,6 @@
     border-color: $blue;
   }
 }
-
-
 
 .search__header {
   position: sticky;
@@ -124,5 +96,8 @@
     align-items: center;
     grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
     grid-gap: 1rem;
+  }
+  .search {
+    grid: none;
   }
 }
