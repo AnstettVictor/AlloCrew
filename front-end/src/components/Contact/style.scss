@@ -1,17 +1,43 @@
-.contact__container{
-    width: 100vw;
-    height: 100vh;
+.contact__container {
+    width: 50%;
+    margin: auto;
+    margin-top: 50px;
 }
 
-.contact__title{
-    margin: 1rem 0.5rem;
-    font-size: 1.3rem;
-    font-weight: bold;
+ p {
+     text-align: center;
+     font-weight: 500;
+}
+ input[type=text],input[type=email], select, textarea {
+     width: 100%;
+     padding: 12px;
+     border: 1px solid #ccc;
+     border-radius: 4px;
+     box-sizing: border-box;
+     margin-top: 6px;
+     margin-bottom: 16px;
+     resize: vertical;
+}
+textarea {
+    height: 150px;
 }
 
-.contact__text{
-    margin: 1rem 0.5rem;
-    font-size: 0.8rem;
+ input[type=button]:hover {
+     background-color: #F5415A;
 }
 
+input[type=button]:focus {
+    background-color: rgb(37, 145, 91);
+}
 
+@media only screen and (max-width: 600px) {
+    .contact__container {
+        width: 90%;
+        margin: auto;
+        margin-top: 20px;
+    }
+
+    input[type=button] {
+        width: 100%
+    }
+  }

@@ -4,12 +4,22 @@ import './style.scss';
 
 const Contact = () => (
   <div className="contact__container">
-    <h3 className="contact__title">Contacter le support.</h3>
-    <p className="contact__text">Si vous rencontrez des difficultés ou si vous avez des questions à nous poser, n'hésitez pas à nous écrire un petit message à l'adresse suivante :
-    support@allocrew.com</p>
-    
+    <form>
+      <label>Nom</label>
+      <input type="text" id="fname" name="firstname" placeholder="Votre nom" />
+
+
+      <label>Email</label>
+      <input type="email" id="email" name="email" placeholder="Votre email" />
+
+
+      <label>Message</label>
+      <textarea id="subject" name="subject" placeholder="Votre message..." />
+      <input className="button" type="button" value="Envoyer" />
+    </form>
+
   </div>
 )
-;
+  ;
 
 export default Contact;
