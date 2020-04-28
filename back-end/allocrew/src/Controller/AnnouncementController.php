@@ -57,6 +57,7 @@ class AnnouncementController extends AbstractController
      */
     public function edit(Announcement $announcement, Request $request, GetErrorsFromForm $getErrorsFromForm,$id)
     {
+        $this->denyAccessUnlessGranted('ANNOUNCEMENT_EDIT', $announcement);
 
         $donnees = json_decode($request->getContent(), true);
        
@@ -147,12 +148,8 @@ class AnnouncementController extends AbstractController
      */
     public function delete(Announcement $announcement)
     {
-        // TODO VOTER 
-        /**  // Ici on utilise un voter
-         * // Cette fonction va émettre une exception Access Forbidden pour interdire l'accès au reste du contrôleur
-         * // Les conditions pour lesquelles le droit MOVIE_DELETE est applicable sur $movie pour l'utilisateur connecté
-         * // sont définies dans les voters, dans leurs méthodes voteOnAttribute()*/
-        // $this->denyAccessUnlessGranted('MOVIE_DELETE', $movie);
+        
+        $this->denyAccessUnlessGranted('ANNOUNCEMENT_DELETE', $announcement);
 
         $em = $this->getDoctrine()->getManager();
 
