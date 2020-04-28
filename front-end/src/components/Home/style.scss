@@ -16,25 +16,35 @@
   background-color: #F3F4F8;
   position: sticky;
   top: 3rem;
-  width: calc(100% + 3px);
+  width: 100%;
   border-bottom: 1px solid #ddd;
   display: flex;
   justify-content: space-around;
   align-items: center;
+  ._blue {
+    border-color: $blue;
+    opacity: 1;
+  }
 }
 
 .home__navlink-links {
-  color: $blue;
-  list-style: none;
+  opacity: .7;
+  height: 100%;
+  padding: 1rem;
+  text-align: center;
   display: flex;
   align-items: center;
-  height: 100%;
+  color: $blue;
+  list-style: none;
+  background-color: #f3f4f8;
   border-bottom: 3px solid transparent;
   &:hover {
+    opacity: 1;
     border-color: $blue;
     cursor: pointer;
   }
 }
+
 
 .home__list {
   font-size: 0.8rem;
@@ -51,7 +61,7 @@
 
   .home__profile {
     text-align: center;
-    height: 33rem;
+    height: fit-content;
     a {
       color: #000;
       &:hover {
@@ -94,7 +104,7 @@
     }
   }
   .home__news {
-    background-color: lightblue;
+    background-color: #f3f4f8;
     margin-top: .5rem;
     height: 50vh;
   }

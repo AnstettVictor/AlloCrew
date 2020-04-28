@@ -1,5 +1,12 @@
+.editProfile__container {  
+  max-width: 900px;
+  margin: auto;
+  
+}
+
 .editProfile__pict{
     position: relative;
+    
   }
   
   .editProfile__button, .editProfile__buttonRetour{
@@ -21,8 +28,13 @@
     height: 25vh;
     background-color: #eee;
     width: 100%;
+    background-size: cover;
+    background-position: center;
 
     border-bottom:2px solid #fff;
+  }
+  .editProfile__pict__cover_input{
+    max-width: 35%;
   }
   .editProfile__pict__editProfile {  
     left:35%;
@@ -36,6 +48,7 @@
     background-color: #ddd;
     border:2px solid #fff;
     font-size:0.7rem;
+    border-radius:50%;
   }
   
   .editProfile__name{
@@ -131,6 +144,27 @@
     .desktop{
       display:inherit;
       text-align: center;
+    }
+
+    .editProfile__mainInfos {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 5rem;
+      justify-content: center;
+      div {
+        margin-right: 5rem;
+        display: flex;
+        flex-direction: column;
+        margin-top: .5rem;
+        input {
+          margin: 0;
+        }
+      }
+    }
+    .editProfile__textArea {
+      div {
+        margin-top: 1rem;
+      }
     }
   
   

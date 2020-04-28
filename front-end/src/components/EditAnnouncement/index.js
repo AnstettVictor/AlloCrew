@@ -1,65 +1,129 @@
 import React, {useState, Component} from 'react';
 import './style.scss';
+import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
+
 import DatePicker from 'react-datepicker';
-import { Editor } from 'react-draft-wysiwyg';
+import CKEditor from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 
+const EditAnnouncement = ({handleChange, handleDateChange, handleChecked, handleNotChecked, title, dateStart, dateEnd, location, description, voluntary, picture, onEditAnnouncementSubmit, handleChangeEditor, id}) => {
 
-const EditAnnouncement = () => {
-
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
-
+  const date1 =  new Date(dateStart)
+  const date2 =  new Date(dateEnd);
+  
   return (    
     <div className="editAnnouncement__container"> 
-             
-      <h2 className="editAnnouncement__title">Modifier votre annonce</h2>
-      <form method="get" type="submit">
-        <div className="editAnnouncement__input drop desktop input">
-        
+      <form onSubmit={onEditAnnouncementSubmit}  method="patch" >     
+        <h2 className="editAnnouncement__title">Modifier votre annonce</h2>
+      
+
+        <div className="editAnnouncement__input drop desktop input" style={{backgroundImage: `url(${picture})`}}>
+        <input 
+            type="text" 
+            className="input" 
+            onChange={handleChange}
+            name="picture"  
+            value={picture} 
+          />
         </div> 
+        
         <h2 className="editAnnouncement__desktop--Title">Titre de l'annonce</h2>  
-        <input className="editAnnouncement__input title input" type="text" placeholder="Titre de l'annonce" />
+        <input 
+          required
+          onChange={handleChange} 
+          value={title} 
+          name="title" 
+          className="editAnnouncement__input title input" 
+          type="text" 
+          placeholder={ title? title: "Titre de l'annonce" } 
+        />
         <p className="editAnnouncement__text editAnnouncement__desktop--Title">Date de début</p>
-        <DatePicker className="editAnnouncement__input input"
+
+        <DatePicker 
+          className="editAnnouncement__input input"
           showPopperArrow={false}
-          selected={startDate}
+          selected= {date1}
           dateFormat="d MMMM, yyyy"          
-          onChange={date => setStartDate(date)}
+          onChange={handleDateChange}
+          dayClassName={() => "dateStart"}
+          required
         />
+
         <p className="editAnnouncement__text editAnnouncement__desktop--Title">Date de fin</p>
-        <DatePicker className="editAnnouncement__input input"
+        
+        <DatePicker 
+          className="editAnnouncement__input input"          
           showPopperArrow={false}
-          selected={endDate}
+          selected= {date2}
           dateFormat="d MMMM, yyyy"          
-          onChange={date => setEndDate(date)}
+          onChange={handleDateChange}          
+          dayClassName={() => "dateEnd"}
         />
+       
         <br/>
         <h2 className="editAnnouncement__desktop--Title">Lieu</h2>
-        <input className="editAnnouncement__input input" type="text" placeholder="Lieu" />
+        <input 
+          required
+          onChange={handleChange} 
+          value={location} 
+          name="location" 
+          className="editAnnouncement__input input" 
+          type="text" 
+          placeholder={location?location:"Lieu"} 
+        />
+        
         <div>
-          <input className="editAnnouncement__volunteer" type="radio" id="volonteer" name="drone" value="volonteer"  />
-          <label className="editAnnouncement__volunteer">Bénévole</label>
+          <input className="createAnnouncement__volunteer" type="radio" id="volonteer" name="drone" value="volonteer" defaultChecked={voluntary} onChange={handleChecked}/>
+          <label className="createAnnouncement__volunteer">Bénévole</label>
         </div>
         <div>
-          <input className="editAnnouncement__paid" type="radio" id="paid" name="drone" value="paid" />
-          <label className="editAnnouncement__paid" >Rémunéré</label>
-        </div>    
+          <input className="createAnnouncement__paid" type="radio" id="paid" name="drone" value="paid" defaultChecked={!voluntary} onChange={handleNotChecked} />
+          <label className="createAnnouncement__paid" >Rémunéré</label>
+        </div>
 
         <div className="editAnnouncement__textarea input">
-        <Editor placeholder="Description de votre projet" />
-        </div>
-        
+          <CKEditor
+            className="editor"
+            editor={ClassicEditor}
+            data={description}
+            onChange={handleChangeEditor}
+            config={{
+              removePlugins: [ 'EasyImage', 'Image', 'ImageCaption', 'ImageStyle', 'ImageToolbar', 'ImageUpload', 'MediaEmbed', 'TableToolbar', 'Table', 'Indent' ],
+            }}
+
+          />
+        </div>  
+
         <div className="editAnnouncement__input mobile drop input">
-        
-        </div>    
-      <div className="editAnnouncement__flex">
-      <button className="editAnnouncement__button button">Retour</button>
-      <button className="editAnnouncement__button button">Enregistrer</button>    
-      </div>
-    </form>
+          <input type="file" className="input" name="file" value="" />
+        </div> 
+
+        <div className="editAnnouncement__flex">        
+          <button type="submit" className="editAnnouncement__button button">Enregistrer</button>
+          <Link to={`/announcement/${id}`}> 
+            <button className="editAnnouncement__button button">Retour</button>
+          </Link>  
+        </div>
+      </form>
+
   </div>);    
 }
 ;
+
+EditAnnouncement.propTypes = {
+  onEditAnnouncementSubmit: PropTypes.func.isRequired,
+  handleChangeEditor: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  location: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  picture: PropTypes.string.isRequired,
+  voluntary: PropTypes.bool.isRequired,  
+  dateStart: PropTypes.string.isRequired,
+  dateEnd: PropTypes.string.isRequired, 
+  active: PropTypes.bool.isRequired,
+}
 
 export default EditAnnouncement;

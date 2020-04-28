@@ -1,9 +1,9 @@
 @import 'style/vars.scss';
 
-.announcement__container{  
+.announcement__container{
+  background-color: #f3f4f8;  
   font-size:1rem;
   font-weight: 400;
-  height:100vh;
   display: flex;
   flex-wrap: wrap;
 }
@@ -11,7 +11,10 @@
 .announcement__pos2{   
     display: block;
     margin:1rem auto;
-    height: 10vh;    
+    height: 10vh; 
+    button {
+      margin: 1rem;
+    }   
 }
 
 .announcement__img{
@@ -44,13 +47,17 @@
     font-weight: 400;
 }
 
+
+
 .announcement__paid, .announcement__online{
     margin:0rem 0.7rem;
     color: rgb(33, 218, 88);
     font-size:0.8rem;
 }
 
-.announcement__volunteer{
+
+
+.announcement__volunteer, .endded{
     margin:0rem 0.7rem;
     color: #FA425A;    
 }
@@ -79,25 +86,165 @@
     font-weight:400;
 }
 
-.volunteer{
-    color: $red;
-}
 
 @media (min-width: 900px) and (min-height: 500px) {
 
-    .announcement__img{        
-        max-width: 1100px;
-        height: 35vh;                
-    }
+  .announcement__container {
+    max-width: 1100px;
+  }
 
-    .announcement__paid, .announcement__online{        
-        font-size:1rem;
-        margin-left: 2rem;
-        margin-right: 2rem;
-    }
+  .announcement__img {
+    border-radius: .5rem;
+    margin-top: 1rem;
+    height: 20rem;
+    max-height: 15rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    animation: slide 300ms ease-out;
 
-    .announcement__date, .announcement__place, .announcement__description, .announcement__exp, .announcement__text, .announcement__volunteer, .announcement__title{
-        margin-left: 2rem;
-        margin-right: 2rem;
-    }    
+  }
+  .announcement__pos1 {
+    letter-spacing: 1.2;
+    padding: 1rem;
+    text-align: left;
+    background-color: #fff;
+    margin: 0 auto;
+    margin-top: -40px;
+    box-shadow: $shadow;
+    width: 80%;
+    animation: fadein 500ms ease-in ;
+    position: relative;
+    p {
+      margin: 0;
+      padding: 0;
+      font-size: 1rem;
+      font-weight: normal;
+    }
+    h2 {
+      margin: 0;
+      font-size: 2rem;
+      border: none;
+      text-align: left;
+    }
+  }
+  
+  .announcement__textInfo {
+    margin-top: .3rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.3rem;
+    border-bottom: 1px solid #ccc;
+    p {
+      font-size: .9rem;
+      display: inline-block;
+      color: #000;
+    }
+    p:nth-child(2) {
+      border-left: 1px solid #000;
+      border-right: 1px solid #000;
+      margin: 0 .5rem;
+      padding: 0 .5rem;
+    }
+    .announcement__volunteer {
+      span {
+        padding: .3rem;
+        border-radius: 100vmax;
+        background-color: red;
+        color: #fff;
+      }
+    }
+    .announcement__paid {
+      span {
+        padding: .3rem;
+        border-radius: 100vmax;
+        background-color: green;
+        color: #fff;
+      }
+    }
+  }
+
+  .announcement__textInfo-2 {
+    p {
+      letter-spacing: normal;
+      font-size: 1.1rem;
+      margin: .7rem 0;
+    }
+    .announcement__date {
+      color: $blue;
+    }
+    .announcement__description {
+      border: none;
+    }
+    margin-bottom: 3rem;
+  }
+
+  .announcement__conditionButton {
+    border:1px solid $blue;
+    background-color: #fff;
+    color: $blue;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    &:hover {
+      background-color: $blue;
+      color: #fff;
+    }
+  }
+
+  .announcement__text {
+    margin: 0;
+  }
+
+  .announcement__back {
+    font-size: 1.5rem;
+    font-weight: normal;
+    display: inline-block;
+  }
+
+  .arrow {
+    width: 2rem;
+    color: #000;
+    background-color: #fff;
+    transition: 300ms;
+  }
+
+  .back__wrapper {
+    &:hover ~ .arrow {
+       animation: back 300ms infinite alternate both;
+    }
+  }
+
+
+  
+}
+
+@keyframes slide {
+  from {
+    transform: translateX(-35px);
+  }
+  to {
+    transform: translateX(0px);
+  }
+}
+
+@keyframes back {
+  from {
+    transform: translateX(0px);
+  }
+  to {
+    transform: translateX(20px);
+  }
+}
+
+@keyframes fadein {
+  0% {
+      opacity: 0;
+  }
+
+  50% {
+      opacity: 0;
+  }
+
+  100% {
+      opacity: 1;
+  }
 }

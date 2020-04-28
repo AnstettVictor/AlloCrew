@@ -3,7 +3,6 @@
 .createAnnouncement__container{  
   font-size:1rem;
   font-weight: 400;
-  height:100vh;
 } 
 
 .createAnnouncement__desktop--Title{
@@ -97,5 +96,57 @@
   .createAnnouncement__input{
     margin-top: 0.2rem;
   }
- 
+
+  .createAnnouncement__radio {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .createAnnouncement__botPart {
+    margin-top: 1.5rem;
+    div {
+      margin-top: .8rem;
+    }
+  }
+
+  .create__bannerPicture {
+    width: 790px;
+    height: 250px;
+    margin: 0 auto;
+    input {
+      margin: 0;
+    }
+    div {
+      padding: 10px;
+      margin-top: .5rem;
+      border-radius: 100vmax;
+      background-color: #fff;
+      color: #000;
+      display: inline-block;
+
+    }
+  }
+
+  .create__mainInfos {
+    display:flex;
+    justify-content: space-around;
+    margin-top: 1rem;
+    input, label {
+      margin: 0;
+    }
+
+  }
+
+  .mainfos__elem {
+    display: flex;
+    flex-direction: column;
+  }
+  input {
+    margin: 0;
+  }
+
+  .createAnnouncement__textarea {
+    min-height: 13rem;
+  }
 }

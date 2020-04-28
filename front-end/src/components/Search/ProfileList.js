@@ -2,14 +2,14 @@ import React from 'react';
 import './style.scss';
 import Profile from './Profile';
 
-const ProfileList = () => (
-  <div className="profilelist__container">
-    <Profile />
-    <Profile />
-    <Profile />
-    <Profile />
+const ProfileList = ({ list }) => (
+  <div className="search">
+    {/* Bogdan Codes here */}
+    {
+      list.map((profile) => <Profile {...profile}/>)
+    }
   </div>
 )
 ;
 
-export default ProfileList;
+export default ProfileList; 

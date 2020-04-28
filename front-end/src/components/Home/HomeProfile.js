@@ -1,24 +1,24 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import PropTypes from 'prop-types';
 
 //import local
 import './style.scss';
-import img from 'images/favicon.png';
 
-const HomeProfile = () => (
+const HomeProfile = ({logout, picture, firstname, lastname, title, id , }) => (
   <>
-    <div className="homeprofile__avatar" style={{backgroundImage: `url(${img})` }} />
+    <div className="homeprofile__avatar" id={id} style={{backgroundImage: `url(${picture})` }} />
     <div className="homeprofile__text">
-      <p className="homeprofile__text--name">Prénom NOM</p>
-      <p className="homeprofile__text--role">Role</p>
+      <p className="homeprofile__text--name">{firstname} {lastname}</p>
+      <p className="homeprofile__text--role">{title}</p>
       <ul>
-        <Link to="/profile"><li>Voir mon profil</li></Link>
-        <Link to="/edit-profile"><li>Modifier mon profil</li></Link>
-        <Link to="/my-announcements"><li>Mes annonces</li></Link>
-        <Link to="/tchat-room"><li>Messagerie</li></Link>
-        <Link to="/"><li>Deconnexion</li></Link>
+        <Link to={`/profile/${id}`}><li>Voir mon profil</li></Link>
+        <Link to={`/edit-profile/${id}`}><li>Modifier mon profil</li></Link>
+        <Link to={`/my-announcements`}><li>Mes annonces</li></Link>
+        <Link to={`/tchat-room/${id}`}><li>Messagerie</li></Link>
+        <Link to="/"><li onClick={logout}>Deconnexion</li></Link>
       </ul>
-      <input className="button" type="button" value="Poster une annonce" />
+      <Link to="/create-announcement" ><input className="button" type="button" value="Poster une annonce" /></Link>
     </div>
   </>
 )
