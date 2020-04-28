@@ -69,18 +69,6 @@ class AnnouncementController extends AbstractController
 
         if ($form->isValid()) {
             $announcement->setUpdatedAt(new \DateTime);
-            // if ($form['picture']->isSubmitted() && $form['picture']->isValid()){
-            //     /** @var UploadImage 
-            //      * $uploadedFile */
-
-            //     $uploadedFile = $form['picture']->getData();
-            //     $destination = $this->getParameter('kernel.project_dir').'/public/uploads/AnnouncementPicture';
-            //     $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-            //     $newFilename = $originalFilename.'-'.uniqid().'.'.$uploadedFile->guessExtension();
-            //     $uploadedFile->move(
-            //         $destination,
-            //         $newFilename
-            //     );}
             $em = $this->getDoctrine()->getManager();
             $em->persist($announcement);
             $em->flush();
@@ -105,25 +93,13 @@ class AnnouncementController extends AbstractController
 
         // On décode les données envoyées
         $donnees = json_decode($request->getContent(), true);
-        /** On verifie si la propriété est envoyé dans le json si oui on hydrate l'objet 
+        /** On verifie si la propriété est envoyée dans le json si oui on hydrate l'objet 
          * sinon on passe à la suite */
         $form = $this->createForm(AnnouncementType::class, $announcement);
         $form->submit($donnees);
 
         if ($form->isValid()) {
             $announcement->setCreatedAt(new \DateTime);
-            // if ($form['picture']->isSubmitted() && $form['picture']->isValid()){
-            // /** @var UploadImage 
-            //  * $uploadedFile */
-
-            // $uploadedFile = $form['picture']->getData();
-            // $destination = $this->getParameter('kernel.project_dir').'/public/uploads/AnnouncementPicture';
-            // $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-            // $newFilename = $originalFilename.'-'.uniqid().'.'.$uploadedFile->guessExtension();
-            // $uploadedFile->move(
-            //     $destination,
-            //     $newFilename
-            // );}
             $em = $this->getDoctrine()->getManager();
             $em->persist($announcement);
             $em->flush();

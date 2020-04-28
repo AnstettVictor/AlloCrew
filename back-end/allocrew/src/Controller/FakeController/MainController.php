@@ -2,12 +2,10 @@
 
 namespace App\Controller\FakeController;
 
-use App\Form\AnnouncementType;
 use App\Form\UserType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\String\Slugger\SluggerInterface;
 
 class MainController extends AbstractController
 {
@@ -28,20 +26,20 @@ class MainController extends AbstractController
         * sinon on passe à la suite */
         
         $form = $this->createForm(UserType::class);
-        $ddd = $form->submit($donnees);
+        $ddd = $form->submit($donnees, false);
       
             $em = $this->getDoctrine()->getManager();
-            /** @var UploadImage 
-             * $uploadedFile */
+            // /** @var UploadImage 
+            //  * $uploadedFile */
             
-            $uploadedFile = $form['picture']->getData();
-            $destination = $this->getParameter('kernel.project_dir').'/public/uploads/Picture';
-            $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-            $newFilename = $originalFilename.'-'.uniqid().'.'.$uploadedFile->guessExtension();
-            $uploadedFile->move(
-                $destination,
-                $newFilename
-            );
+            // $uploadedFile = $form['picture']->getData();
+            // $destination = $this->getParameter('kernel.project_dir').'/public/uploads/Picture';
+            // $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+            // $newFilename = $originalFilename.'-'.uniqid().'.'.$uploadedFile->guessExtension();
+            // $uploadedFile->move(
+            //     $destination,
+            //     $newFilename
+            // );
             $em->flush();
             
        // }
