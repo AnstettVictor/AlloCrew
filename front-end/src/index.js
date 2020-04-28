@@ -1,17 +1,32 @@
 // == Import : npm
-import React from 'react';
+import React, {useEffect} from 'react';
 import { render } from 'react-dom';
-import {BrowserRouter as Router} from 'react-router-dom';
+import {BrowserRouter as Router, useLocation} from 'react-router-dom';
+import { Provider } from 'react-redux';
 
 // == Import : local
 // Composants
-import App from './components/App';
+import App from './containers/App';
 // Store
-
+import store from './Redux/store';
 // == Render
+
+const ScrollTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
+
 const rootComponent = (
   <Router>
-      <App />
+    <Provider store={store}>
+      <ScrollTop /> 
+        <App />
+    </Provider>
   </Router> 
      
 );

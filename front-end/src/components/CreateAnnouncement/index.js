@@ -1,63 +1,177 @@
-import React, {useState, Component} from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link, useParams, useLocation, Redirect } from 'react-router-dom';
 import './style.scss';
+import PropTypes from 'prop-types';
+
 import DatePicker from 'react-datepicker';
-import { Editor } from 'react-draft-wysiwyg';
+import CKEditor from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 
-const CreateAnnouncement = () => {
+const CreateAnnouncement = ({ handleChange, title, location, description, voluntary, picture, id, onCreateAnnouncementSubmit, handleChangeEditor, handleDateChange, dateStart, dateEnd, handleChecked, handleNotChecked, appendImage, uploadImage, notification, onEditAnnouncementSubmit, userId, ownerId }) => {
 
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+ 
+  const newStartDate = new Date(dateStart);
+  const newEndDate = new Date(dateEnd);
 
-  return (    
-    <div className="createAnnouncement__container"> 
-             
-      <h2 className="createAnnouncement__title">Création de votre annonce</h2>
-      <form method="get" type="submit">
-        <div className="createAnnouncement__input drop desktop input">
-          {/* <Accept  /> */}
-        </div> 
-        <h2 className="createAnnouncement__desktop--Title">Titre de l'annonce</h2>  
-        <input className="createAnnouncement__input title input" type="text" placeholder="Titre de l'annonce" />
-        <p className="createAnnouncement__text createAnnouncement__desktop--Title">Date de début</p>
-        <DatePicker className="createAnnouncement__input input"
-          showPopperArrow={false}
-          selected={startDate}
-          dateFormat="d MMMM, yyyy"          
-          onChange={date => setStartDate(date)}
-        />
-        <p className="createAnnouncement__text createAnnouncement__desktop--Title">Date de fin</p>
-        <DatePicker className="createAnnouncement__input input"
-          showPopperArrow={false}
-          selected={endDate}
-          dateFormat="d MMMM, yyyy"          
-          onChange={date => setEndDate(date)}
-        />
-        <br/>
-        <h2 className="createAnnouncement__desktop--Title">Lieu</h2>
-        <input className="createAnnouncement__input input" type="text" placeholder="Lieu" />
-        <div>
-          <input className="createAnnouncement__volunteer" type="radio" id="volonteer" name="drone" value="volonteer"  />
-          <label className="createAnnouncement__volunteer">Bénévole</label>
-        </div>
-        <div>
-          <input className="createAnnouncement__paid" type="radio" id="paid" name="drone" value="paid" />
-          <label className="createAnnouncement__paid" >Rémunéré</label>
-        </div>    
-        <div className="createAnnouncement__textarea input">
-        <Editor placeholder="Description de votre projet"/>
-        </div>
-        
-        
-        <div className="createAnnouncement__input mobile drop input">
-          {/* <Accept  /> */}
-        </div>    
-      <div className="createAnnouncement__flex">
-      <button className="createAnnouncement__button button">Créer</button>
+  console.log("mon truc",ownerId)
+
+  if(useLocation().pathname.includes('edit') && userId != ownerId && ownerId != 0){
+    return <Redirect to={`/announcement/${useParams().id}`} />
+  }
+
+  return (
+    <div className="createAnnouncement__container">
+     
+      <h2 className="createAnnouncement__title">{useParams().id? 'Editez votre annonce': 'Créez votre annonce'}</h2>
       
-      </div>
-    </form>
-  </div>);    
+      <form id="myform" onSubmit={useParams().id? onEditAnnouncementSubmit: onCreateAnnouncementSubmit} >
+
+        <div className="input create__bannerPicture" style={{backgroundImage: `url(${picture})`}}>
+          <input
+            type="file"
+            className="input"
+            name="picture"
+            onChange={appendImage}
+          />
+          <div onClick={uploadImage} className="button">Importer</div>
+          {notification && <strong>{notification}</strong>}
+          <p>Image de l'annonce</p>
+        </div>
+
+        <div className="create__mainInfos">
+          <div className="mainfos__elem">
+            <label className="createAnnouncement__desktop--Title">Titre de l'annonce</label>
+            <input
+              required
+              onChange={handleChange}
+              value={title}
+              name="title"
+              className="createAnnouncement__input title input"
+              type="text"
+              placeholder={title ? title : "Titre de l'annonce"}
+            />
+          </div>
+
+          <div className="mainfos__elem">
+            <label className="createAnnouncement__text createAnnouncement__desktop--Title">Date de début</label>
+            <DatePicker
+              className="createAnnouncement__input input"
+              showPopperArrow={false}
+              selected={newStartDate}
+              dateFormat="d MMMM, yyyy"
+              onChange={handleDateChange}
+              dayClassName={() => "date_start"}
+              required
+            />
+          </div>
+
+
+          <div className="mainfos__elem">
+            <label className="createAnnouncement__text createAnnouncement__desktop--Title">Date de fin</label>
+            <DatePicker
+              className="createAnnouncement__input input"
+              showPopperArrow={false}
+              selected={newEndDate}
+              dateFormat="d MMMM, yyyy"
+              onChange={handleDateChange}
+              dayClassName={() => "date_end"}
+            />
+          </div>
+
+          <div className="mainfos__elem">
+            <label className="createAnnouncement__desktop--Title">Lieu</label>
+            <input
+              required
+              onChange={handleChange}
+              value={location}
+              name="location"
+              className="createAnnouncement__input input"
+              type="text"
+              placeholder={location ? location : "Lieu"}
+            />
+          </div>
+        </div>
+
+
+
+        <div className="createAnnouncement__botPart">
+          <div>
+            <input
+              className="createAnnouncement__volunteer"
+              type="radio"
+              id="volonteer"
+              name="drone"
+              value="volonteer"
+              defaultChecked={voluntary}
+              onChange={handleChecked}
+            />
+            <label htmlFor="volonteer" className="createAnnouncement__radio">Bénévole</label>
+          </div>
+
+          <div>
+            <input
+              className="createAnnouncement__paid"
+              type="radio"
+              id="paid"
+              name="drone"
+              value="paid"
+              defaultChecked={!voluntary}
+              onChange={handleNotChecked}
+            />
+            <label htmlFor="paid" className="createAnnouncement__radio" >Rémunéré</label>
+          </div>
+
+          <div className="createAnnouncement__textarea input">
+            <label>Description</label>
+            <CKEditor
+              className="editor"
+              editor={ClassicEditor}
+              data={description}
+              onChange={handleChangeEditor}
+              config={{
+                removePlugins: ['EasyImage', 'Image', 'ImageCaption', 'ImageStyle', 'ImageToolbar', 'ImageUpload', 'MediaEmbed', 'TableToolbar', 'Table', 'Indent'],
+              }}
+            />
+          </div>
+        </div>
+        <div className="createAnnouncement__input mobile drop input">
+          <input
+            type="file"
+            className="input"
+            name="file"
+          />
+        </div>
+
+        <div className="createAnnouncement__flex">
+          <button type="submit" className="createAnnouncement__button button">Enregister</button>
+          <Link to="/home">
+            <button type="submit" className="createAnnouncement__button button">Retour</button>
+          </Link>
+
+        </div>
+      </form>
+    </div>
+  );
 }
-;
+  ;
+
+CreateAnnouncement.propTypes = {
+
+  handleDateChange: PropTypes.func.isRequired,
+  onCreateAnnouncementSubmit: PropTypes.func.isRequired,
+  handleChangeEditor: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  location: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  picture: PropTypes.string.isRequired,
+  voluntary: PropTypes.bool.isRequired,
+  dateStart: PropTypes.string.isRequired,
+  dateEnd: PropTypes.string.isRequired,
+  active: PropTypes.bool.isRequired,
+  handleChecked: PropTypes.func.isRequired,
+  handleNotChecked: PropTypes.func.isRequired
+}
 
 export default CreateAnnouncement;
