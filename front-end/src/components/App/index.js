@@ -82,6 +82,7 @@ return(
         <MembersRoute path="/announcement/:id" exact component={Announcement} /> 
         <Route path="/faq" exact component={FAQ} />
         <Route path="/*" component={PAGE404} />
+        
       </Switch>
     </div>
     <div className="app__footer">
