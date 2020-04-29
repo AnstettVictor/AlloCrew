@@ -10,8 +10,6 @@ const DiscussionList = ({by_creator, by_receiver, message, handleMessage, onMess
   const ref = useRef(null)
   //State du menu burger
   const [menuState, setMenuState] = useState(false);
-  //ecouteur d'évenement
-  console.log(menuState)
  
   //fonction pour l'écouteur  
   const handleClick = (e) => {
@@ -20,9 +18,6 @@ const DiscussionList = ({by_creator, by_receiver, message, handleMessage, onMess
       setMenuState(false)
     }
    }
-
-
-
 
   return (
   <div className="discussion__flex"> 
@@ -113,7 +108,6 @@ const DiscussionList = ({by_creator, by_receiver, message, handleMessage, onMess
             </div>
             </form>
           </div>
-
         </div>  
       )}
     </div>

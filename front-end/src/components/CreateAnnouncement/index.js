@@ -8,13 +8,11 @@ import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 
-const CreateAnnouncement = ({ handleChange, title, location, description, voluntary, picture, onCreateAnnouncementSubmit, handleChangeEditor, handleDateChange, dateStart, dateEnd, handleChecked, handleNotChecked, appendImage, uploadImage, notification, onEditAnnouncementSubmit, userId, ownerId }) => {
+const CreateAnnouncement = ({  title, location, description, voluntary, picture, onCreateAnnouncementSubmit, handleChangeEditor, handleDateChange, dateStart, dateEnd, handleChecked, handleNotChecked, handleChange, appendImage, uploadImage, notification, onEditAnnouncementSubmit, userId, ownerId }) => {
 
  
   const newStartDate = new Date(dateStart);
   const newEndDate = new Date(dateEnd);
-
-  console.log("mon truc",ownerId)
 
   // vérification du bon user
   if(useLocation().pathname.includes('edit') && userId != ownerId && ownerId != 0){
@@ -35,8 +33,12 @@ const CreateAnnouncement = ({ handleChange, title, location, description, volunt
             name="picture"
             onChange={appendImage}
           />
+
           <div onClick={uploadImage} className="button">Importer</div>
-          {notification && <strong>{notification}</strong>}
+
+          {
+            notification && <strong>{notification}</strong>
+          }
           <p>Image de l'annonce</p>
         </div>
 
@@ -67,7 +69,6 @@ const CreateAnnouncement = ({ handleChange, title, location, description, volunt
             />
           </div>
 
-
           <div className="mainfos__elem">
             <label className="createAnnouncement__text createAnnouncement__desktop--Title">Date de fin</label>
             <DatePicker
@@ -92,11 +93,13 @@ const CreateAnnouncement = ({ handleChange, title, location, description, volunt
               placeholder={location ? location : "Lieu"}
             />
           </div>
+
         </div>
 
 
 
         <div className="createAnnouncement__botPart">
+
           <div>
             <input
               className="createAnnouncement__volunteer"
@@ -135,7 +138,9 @@ const CreateAnnouncement = ({ handleChange, title, location, description, volunt
               }}
             />
           </div>
+
         </div>
+
         <div className="createAnnouncement__input mobile drop input">
           <input
             type="file"
@@ -149,28 +154,34 @@ const CreateAnnouncement = ({ handleChange, title, location, description, volunt
           <Link to="/home">
             <button type="submit" className="createAnnouncement__button button">Retour</button>
           </Link>
-          <button   className="editAnnouncement__button discussion__delete button" type="submit" method="delete">Supprimer</button> 
-
+          <button   className="editAnnouncement__button discussion__delete button" type="submit" method="delete">Supprimer</button>
         </div>
+
       </form>
+
     </div>
   );
 }
   ;
 
 CreateAnnouncement.propTypes = {
-
   handleDateChange: PropTypes.func.isRequired,
   onCreateAnnouncementSubmit: PropTypes.func.isRequired,
   handleChangeEditor: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
+  appendImage: PropTypes.func.isRequired,
+  uploadImage: PropTypes.func.isRequired,
+  notification: PropTypes.func.isRequired,
+  onEditAnnouncementSubmit: PropTypes.func.isRequired,
+  userId: PropTypes.number.isRequired,
+  ownerId: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   location: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   picture: PropTypes.string.isRequired,
   voluntary: PropTypes.bool.isRequired,
-  // dateStart: PropTypes.string.isRequired,
-  // dateEnd: PropTypes.string.isRequired,
+  // dateStart: PropTypes.date.isRequired,
+  // dateEnd: PropTypes.date.isRequired,
   active: PropTypes.bool.isRequired,
   handleChecked: PropTypes.func.isRequired,
   handleNotChecked: PropTypes.func.isRequired

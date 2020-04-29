@@ -1,21 +1,24 @@
 import React from 'react';
 import './style.scss';
 import Announce from './Announce';
-import Proptypes from 'prop-types';
+import PropTypes from 'prop-types';
 
-const AnnouncementList = ({list, userId}) => (
+const AnnouncementList = ({ list }) => (
+
   <div className="announcementList__container">
     
     {
-      list.sort(({ id: previousID }, { id: currentID }) => currentID - previousID).map((announcement) =>
-      <Announce key={announcement.id} {...announcement}/>)
+      list.sort(
+        ({ id: previousID }, { id: currentID }) => currentID - previousID).map((announcement) => <Announce key={announcement.id} {...announcement}/>
+      )
     }
+
   </div>
 )
 ;
 
 AnnouncementList.propTypes = {   
-  list: Proptypes.array.isRequired,
+  list: PropTypes.array.isRequired,
 }
 
 

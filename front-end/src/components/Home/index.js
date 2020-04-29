@@ -1,29 +1,35 @@
 import React, {useState} from 'react';
 import { TwitterTimelineEmbed } from 'react-twitter-embed';
+import PropTypes from 'prop-types';
 
 //import local
 import './style.scss';
 import Profile from './HomeProfile';
 import AnnouncementList from '../AnnouncementList';
 
-const Home = ({list, homeProfile, userId, logout}) => {
+const Home = ({ list, homeProfile, userId, logout }) => {
 
 console.log('malist',list)
 const [filter, setFilter] = useState('all')
 return (
   <div className="home__container">
+
     <div className="home__left">
+
       <div className="home__profile">
         <Profile {...homeProfile} id={userId} logout={logout} />
       </div>
+
       <div className="home__news">
         <TwitterTimelineEmbed
           sourceType="profile"
           screenName="crewallo"
           options={{height: 280}}
-        />
+        />        
       </div>
+
     </div>
+
     <div className="home__list">
       <ul className="home__navlink">
         <li 
@@ -44,9 +50,18 @@ return (
       {filter === 'all' && <AnnouncementList list={list.map(one => one)} />}
       {filter === 'my' && <AnnouncementList list={list.filter(one => one.user.id === userId)}/>}
     </div>
+
   </div>
-)}
+  )
+}
 ;
+
+Home.propTypes = {
+  list: PropTypes.array.isRequired,
+  homeProfile: PropTypes.func.isRequired,  
+  userId: PropTypes.number.isRequired,
+  logout: PropTypes.func.isRequired
+}
 
 export default Home;
 
