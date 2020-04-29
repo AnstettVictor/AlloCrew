@@ -48,7 +48,7 @@ const mapDispatchToProps = (dispatch, {match}) => ({
 
   appendImage: (e) => dispatch(storeImage(e)),
 
-  uploadImage: () => dispatch(sendImage()) 
+  uploadImage: () => dispatch(sendImage()),
 
 })
 ;

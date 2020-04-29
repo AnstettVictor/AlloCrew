@@ -4,7 +4,7 @@ import './style.scss';
 
 import { Link } from "react-router-dom";
 
-const DiscussionList = ({by_creator, by_receiver, message, handleMessage, onMessageSubmit, fetchData,userId}) => {
+const DiscussionList = ({by_creator, by_receiver, message, handleMessage, onMessageSubmit,deleteD, userId}) => {
   
 
   const ref = useRef(null)
@@ -30,7 +30,10 @@ const DiscussionList = ({by_creator, by_receiver, message, handleMessage, onMess
       <h2 className="discussion__title">Demandes envoyées</h2>    
     {
       by_creator.map((discussion) =>
-      <div key={discussion.id}>
+      <div key={discussion.id} className="discussion__absolute">
+        <form method="delete" onSubmit={deleteD} name={discussion.id}>
+        <button name={discussion.id} className="discussion__delete button" type="submit" method="delete">+</button>
+        </form>
         <h3 className="discussion__spaceText">
           <Link to={`/profile/${discussion.receiver.id}`}>
             <span className="discussion__spaceText">{discussion.receiver.firstname} {discussion.receiver.lastname}</span>             
@@ -73,7 +76,10 @@ const DiscussionList = ({by_creator, by_receiver, message, handleMessage, onMess
 
       {
         by_receiver.map((discussion) =>
-        <div key={discussion.id}>
+        <div key={discussion.id} className="discussion__absolute">
+          <form method="delete" onSubmit={deleteD} name={discussion.id}>
+            <button name={discussion.id} className="discussion__delete button" type="submit" method="delete">+</button>
+          </form>
           <h3 className="discussion__spaceText">
             <Link to={`/profile/${discussion.creator.id}`}>
             <span className="discussion__spaceText">{discussion.creator.firstname} {discussion.creator.lastname}</span>             
