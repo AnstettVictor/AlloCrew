@@ -4,11 +4,13 @@
   --thumbnail-size: 70px;
 }
 
+
 .announce__title {
   display: inline-block;
   font-size: 1.3rem;
   font-weight: bold;
   border-bottom:1px dotted #ccc;
+  
 }
 
 .see {
@@ -53,6 +55,8 @@
   margin-left: calc(var(--thumbnail-size) + 2%);
   margin-top: 1%;
   color: black;
+  text-align: left;
+  
 }
 
 .announce__creation {
@@ -83,6 +87,7 @@
 .announce__details {
   padding-left: 1rem;
   border-left: 1px solid #bbb;
+  text-align: left;
 }
 
 .announce__button {
@@ -95,12 +100,15 @@
 
 .announce__description {
   display: none;
+  text-align: left;
 }
 
 @media (min-width: 900px) and (min-height: 500px) {
   .announce__description {
     display: block;
     margin-top: .5rem;
+    
   }
+
 }
  

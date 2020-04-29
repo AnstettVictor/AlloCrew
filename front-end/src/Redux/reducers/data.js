@@ -1,4 +1,7 @@
-import {UPDATE_ANNOUNCEMENT, UPDATE_PROFILE, INPUT_PROFILE_CHANGE, INPUT_ANNOUNCEMENT_CHANGE, INPUT_EDITANNOUNCEMENT_CHANGE, INPUT_CREATE_ANNOUNCEMENT, RESET_DATA, LOADING, LOADED} from '../actions';
+
+
+import {UPDATE_ANNOUNCEMENT, UPDATE_PROFILE, INPUT_PROFILE_CHANGE, INPUT_ANNOUNCEMENT_CHANGE, INPUT_EDITPROFILE_CHANGE, INPUT_EDITANNOUNCEMENT_CHANGE, INPUT_CREATE_ANNOUNCEMENT, RESET_DATA, LOADING, LOADED, UPDATE_PROFILES} from '../actions';
+k
 
 const initialState = {
   isloading: false,
@@ -124,7 +127,20 @@ const reducer = (state = initialState, action) => {
         ...state,
         profiles: [{...state.profiles, ...action.payload[0]}], 
       };
+
     
+
+      case UPDATE_PROFILES:
+        return {
+          ...state,
+          ...action.payload, 
+        };
+    case INPUT_PROFILE_CHANGE:
+      return {
+        ...state,
+        profiles: [{...state.profiles[0], ...action.payload}], 
+      };
+
   
     
     case INPUT_ANNOUNCEMENT_CHANGE:
