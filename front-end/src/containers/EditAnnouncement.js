@@ -1,5 +1,5 @@
 import EditAnnouncement from '../components/EditAnnouncement';
-import {inputAnnouncementChange, checkData, patchEditAnnouncement} from '../Redux/actions'
+import {inputAnnouncementChange, deleteAnnouncement, checkData, patchEditAnnouncement} from '../Redux/actions'
 import {connect} from 'react-redux';
 
 const mapStateToProps = ({data, login}, {match}) => {
@@ -44,6 +44,7 @@ const mapDispatchToProps = (dispatch, {match}) =>{
 
   onEditAnnouncementSubmit: (e) => {e.preventDefault(); dispatch(patchEditAnnouncement(match.params.id))},
 
+ 
   
 })
 };

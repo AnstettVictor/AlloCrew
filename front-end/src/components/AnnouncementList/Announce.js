@@ -5,10 +5,10 @@ import {Link} from 'react-router-dom';
 import {date} from 'utils/functions';
 import ReactHtmlParser from 'react-html-parser';
 
-const Announce = ({ title, location, description, picture, voluntary, id, dateEnd, dateStart, active, user, createdAt, userId }) =>  (
+const Announce = ( { title, location, description, picture, voluntary, id, dateEnd, dateStart, active, user, createdAt, userId }) =>  (
   <div className="announce">
-   
     <div className="announce__banner" style={{backgroundImage: `url(${picture})`}}  > 
+  
     <Link to={`/profile/${user.id}`}>
       <div className="announce__avatar" style={{backgroundImage: `url(${user.picture})`}} />
     </Link>
@@ -24,6 +24,10 @@ const Announce = ({ title, location, description, picture, voluntary, id, dateEn
     <div className="announce__bot">
       <div className="announce__botleft">
         <p className="announce__title">{title}</p>
+        {console.log({id})}
+        
+      
+     
         <div className="announce__description">
           {ReactHtmlParser(description.length > 100 ?`${description.substring(0, 99)} ...`:description)}
         </div>
@@ -40,6 +44,7 @@ const Announce = ({ title, location, description, picture, voluntary, id, dateEn
           <input className="announce__button button seeAndEdit" type="button" value="Voir l'Annonce"/>
         </Link>
       </div>
+    
     </div>
   </div>
 )

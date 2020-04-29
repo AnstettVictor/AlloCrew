@@ -1,30 +1,33 @@
 import React from 'react';
 import './profile.scss';
-import ReactHtmlParser from 'react-html-parser';
 import {Link} from 'react-router-dom';
+import bg from 'images/banniere.png';
 
-const SearchProfile = ({ id, lastname, firstname, title, picture,  bannerpicture}) => (
+const SearchProfile = (profile, { id, lastname, firstname, title, picture,  bannerpicture}) => {
+  console.log("list", profile)
+  
+  return (
 
 <div className="searchProfiles" >
-  <Link to={`/profile/${id}`}>
+  <Link to={`/profile/${profile.id}`}>
   <div className="searchProfile searchProfile--1" >
     <div className="searchProfile__info-hover">
     </div>
 
-    <div className="searchProfile__img" style={{backgroundImage: `url(${bannerpicture})`}}></div>
+    <div className="searchProfile__img" style={profile.bannerpicture?{backgroundImage: `url(${profile.bannerpicture})`}: {backgroundImage: `url(${bg})` }}></div>
       <a href="#" className="searchProfile_link">
-        <div className="searchProfile__img--hover" style={{backgroundImage: `url(${bannerpicture})`}}>
+        <div className="searchProfile__img--hover" style={profile.bannerpicture?{backgroundImage: `url(${profile.bannerpicture})`}: {backgroundImage: `url(${bg})` }}>
         </div>    
       </a>
     <div className="searchProfile__info">
-      <span className="searchProfile__category"> {firstname} {lastname}</span>
-      <h3 className="searchProfile__title">{title}</h3>    
+      <span className="searchProfile__category"> {profile.firstname?profile.firstname:"Prénom"} {profile.lastname?profile.lastname:"Nom"}</span>
+      <h3 className="searchProfile__title">{profile.title}</h3>    
     </div>
   </div>
   </Link>  
 </div>
 
-)
+)}
 ;
 
 export default SearchProfile;

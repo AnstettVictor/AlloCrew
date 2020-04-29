@@ -4,11 +4,7 @@
     margin-top: 50px;
 }
 
- p {
-     text-align: center;
-     font-weight: 500;
-}
- input[type=text],input[type=email], select, textarea {
+.contact__input, .contact__textarea {
      width: 100%;
      padding: 12px;
      border: 1px solid #ccc;
@@ -18,16 +14,9 @@
      margin-bottom: 16px;
      resize: vertical;
 }
-textarea {
+
+.contact__textarea {
     height: 150px;
-}
-
- input[type=button]:hover {
-     background-color: #F5415A;
-}
-
-input[type=button]:focus {
-    background-color: rgb(37, 145, 91);
 }
 
 @media only screen and (max-width: 600px) {
@@ -37,7 +26,5 @@ input[type=button]:focus {
         margin-top: 20px;
     }
 
-    input[type=button] {
-        width: 100%
-    }
+    
   }

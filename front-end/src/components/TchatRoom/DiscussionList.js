@@ -4,7 +4,7 @@ import './style.scss';
 
 import { Link } from "react-router-dom";
 
-const DiscussionList = ({by_creator, by_receiver, message, handleMessage, onMessageSubmit, fetchData,userId}) => {
+const DiscussionList = ({by_creator, by_receiver, message, handleMessage, onMessageSubmit,deleteD, userId}) => {
   
 
   const ref = useRef(null)
@@ -27,10 +27,13 @@ const DiscussionList = ({by_creator, by_receiver, message, handleMessage, onMess
   return (
   <div className="discussion__flex"> 
     <div className="discussion__half">
-      <h2 className="discussion__title">Demandes envoyer</h2>    
+      <h2 className="discussion__title">Demandes envoyées</h2>    
     {
       by_creator.map((discussion) =>
-      <div key={discussion.id}>
+      <div key={discussion.id} className="discussion__absolute">
+        <form method="delete" onSubmit={deleteD} name={discussion.id}>
+        <button name={discussion.id} className="discussion__delete button" type="submit" method="delete">+</button>
+        </form>
         <h3 className="discussion__spaceText">
           <Link to={`/profile/${discussion.receiver.id}`}>
             <span className="discussion__spaceText">{discussion.receiver.firstname} {discussion.receiver.lastname}</span>             
@@ -69,11 +72,14 @@ const DiscussionList = ({by_creator, by_receiver, message, handleMessage, onMess
   
 
     <div className="discussion__half">
-      <h2 className="discussion__title">Demandes reçus</h2>
+      <h2 className="discussion__title">Demandes reçues</h2>
 
       {
         by_receiver.map((discussion) =>
-        <div key={discussion.id}>
+        <div key={discussion.id} className="discussion__absolute">
+          <form method="delete" onSubmit={deleteD} name={discussion.id}>
+            <button name={discussion.id} className="discussion__delete button" type="submit" method="delete">+</button>
+          </form>
           <h3 className="discussion__spaceText">
             <Link to={`/profile/${discussion.creator.id}`}>
             <span className="discussion__spaceText">{discussion.creator.firstname} {discussion.creator.lastname}</span>             

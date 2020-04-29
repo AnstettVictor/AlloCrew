@@ -51,6 +51,7 @@ const mapDispatchToProps = (dispatch, {match}) => ({
 
   uploadImage: () => dispatch(sendImage(inputCreateAnnouncement, 'picture')) 
 
+
 })
 ;
 
