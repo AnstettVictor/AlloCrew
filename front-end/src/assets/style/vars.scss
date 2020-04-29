@@ -50,3 +50,14 @@ $shadow: 2px 3px 3px 0 rgba(0,0,0, .2);
     transition: 200ms;
   }
 }
+
+.notification {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  background-color: rgba(50,200,50,.8);
+  width: fit-content;
+  padding: 1rem;
+  color: #fff;
+  font-size: 1.2rem;
+}

@@ -36,7 +36,7 @@ const CreateAnnouncement = ({ handleChange, title, location, description, volunt
             onChange={appendImage}
           />
           <div onClick={uploadImage} className="button">Importer</div>
-          {notification && <strong>{notification}</strong>}
+          {notification && <div className="notification">{notification}</div>}
           <p>Image de l'annonce</p>
         </div>
 

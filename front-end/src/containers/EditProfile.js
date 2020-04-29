@@ -17,7 +17,8 @@ const mapStateToProps = ({login}) => {
     portfolio: data.portfolio,
     picture: data.picture,
     bannerpicture: data.bannerpicture,
-    redirect: login.redirect
+    redirect: login.redirect,
+    notification: login.notification
   })
 };
 
