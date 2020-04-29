@@ -16,6 +16,7 @@ const CreateAnnouncement = ({ handleChange, title, location, description, volunt
 
   console.log("mon truc",ownerId)
 
+  // vérification du bon user
   if(useLocation().pathname.includes('edit') && userId != ownerId && ownerId != 0){
     return <Redirect to={`/announcement/${useParams().id}`} />
   }
