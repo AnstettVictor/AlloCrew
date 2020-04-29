@@ -320,7 +320,7 @@ export const patchEditAnnouncement = (id) => (dispatch, getState) => {
       ...data
     }
   })
-  .then((res) => console.log(res))
+  .then((res) => {console.log('resolution',res);dispatch(redirect('announcement'))})
   .catch((err) => console.log(err.response))
 };
 

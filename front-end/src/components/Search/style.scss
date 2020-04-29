@@ -1,34 +1,36 @@
 @import 'style/vars.scss';
 
-@mixin customInput {
-  border: 2px solid rgba(150, 150, 150, 0.144);
-  background-color: #efefef;
-  font-size: 1rem;
+.search__container {
   padding: .5rem;
-  border-radius: 0.4rem;
-  opacity: .8;
-  &:hover {
-    cursor: pointer;
+}
+
+.search__header{
+  padding: .5rem;
+  text-align: center;
+}
+
+.search {
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-gap: 1rem;
+}
+
+.search__input {
+  padding-left: .5rem;
+}
+
+.search__form {
+  input {
+    margin: 0;
   }
 }
-.search {
-  display: flex;
-  flex-wrap: wrap; 
-  
-}
-:root {
-  --thumbnail-size: 70px;
-}
 
-
-.see {
-  display: none;
+.search__button {
+  width: 2rem;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: transparent;
 }
-
-.seeAndEdit {
-  display: block;
-}
-
 
 .search__input, .search__button {
   height: 2rem;
@@ -38,74 +40,26 @@
   margin:0.5rem; 
 }
 
-.search__input {
-  padding-left: .5rem;
-}
 
-.search__button {
-  width: 2rem;
-  background-repeat: no-repeat;
-  background-position: center;
-  color: transparent;
-}
-.search__form {
-  border: 2px solid #ddd;
-  background-color: #fff;
-  margin: 1rem;
-  border-radius: .5rem;
-  padding-bottom: -1rem;
-  overflow: hidden;
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: center;
-  align-content: center;
-  &:hover {
-    border-color: $blue;
-  }
-}
+
+@media (min-width: 900px) and (min-height: 500px) {}
+
 
 .search__header {
-  position: sticky;
-  top: 3rem;
-  z-index: 999;
-  background-color: #F3F4F8;
-  border-bottom: 2px solid rgba(0,0,0, .3);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-    button {
-    padding: .5rem;
-    border-radius: 100vmax;
-    margin: .3rem;
-    background-color: white;
-    color: black;
-    &:hover {
-      color: #fff;
-      background-color: $blue;
-      cursor: pointer;
-    }
-    &:focus {
-      color: #fff;
-      background-color: $blue;
-      cursor: pointer;
-    }
+  button {
+    margin: 1rem;
   }
 }
 
-.announcementList {
-  padding: 1rem;
-}
-
-@media (min-width: 900px) and (min-height: 500px) {
-
-  .announcementList {
-    max-width: unset;
-   
-    align-items: center;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-    grid-gap: 1rem;
+.search__container {
+  .announcementList__container {
+  margin-top: 1rem;
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  grid-gap: 1rem;
+  .announce {
+    width: 100%;
+    height: 100%;
   }
-  .search {
-    grid: none;
   }
 }

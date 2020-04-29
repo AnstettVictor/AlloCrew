@@ -42,7 +42,8 @@ const reducer = (state = initialState, action) => {
     case REDIRECT:
       return {
         ...state,
-        redirect: action.payload
+        redirect: action.payload,
+        notification: ""
       };
     case REGISTER_SUCCESS:
       return {

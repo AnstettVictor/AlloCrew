@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams, useLocation, Redirect } from 'react-router-dom';
+import { Link, useParams, useLocation, Redirect, useHistory } from 'react-router-dom';
 import './style.scss';
 import PropTypes from 'prop-types';
 
@@ -8,18 +8,18 @@ import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 
-const CreateAnnouncement = ({ handleChange, title, location, description, voluntary, picture, onCreateAnnouncementSubmit, handleChangeEditor, handleDateChange, dateStart, dateEnd, handleChecked, handleNotChecked, appendImage, uploadImage, notification, onEditAnnouncementSubmit, userId, ownerId }) => {
+const CreateAnnouncement = ({ handleChange, title, location, description, voluntary, picture, onCreateAnnouncementSubmit, handleChangeEditor, handleDateChange, dateStart, dateEnd, handleChecked, handleNotChecked, appendImage, uploadImage, notification, onEditAnnouncementSubmit, userId, ownerId, redirect }) => {
 
- 
   const newStartDate = new Date(dateStart);
   const newEndDate = new Date(dateEnd);
 
-  console.log("mon truc",ownerId)
 
   // vérification du bon user
   if(useLocation().pathname.includes('edit') && userId != ownerId && ownerId != 0){
     return <Redirect to={`/announcement/${useParams().id}`} />
   }
+
+  if(redirect == 'announcement'){return <Redirect to={`/my-announcements`} />}
 
   return (
     <div className="createAnnouncement__container">
@@ -104,8 +104,8 @@ const CreateAnnouncement = ({ handleChange, title, location, description, volunt
               id="volonteer"
               name="drone"
               value="volonteer"
-              defaultChecked={voluntary}
               onChange={handleChecked}
+              checked={voluntary? true: false}
             />
             <label htmlFor="volonteer" className="createAnnouncement__radio">Bénévole</label>
           </div>
@@ -115,10 +115,12 @@ const CreateAnnouncement = ({ handleChange, title, location, description, volunt
               className="createAnnouncement__paid"
               type="radio"
               id="paid"
-              name="drone"
+              name="paid"
               value="paid"
-              defaultChecked={!voluntary}
-              onChange={handleNotChecked}
+              onChange={handleChecked}
+              checked={voluntary? false: true}
+        
+              
             />
             <label htmlFor="paid" className="createAnnouncement__radio" >Rémunéré</label>
           </div>
@@ -147,9 +149,9 @@ const CreateAnnouncement = ({ handleChange, title, location, description, volunt
         <div className="createAnnouncement__flex">
           <button type="submit" className="createAnnouncement__button button">Enregister</button>
           <Link to="/home">
-            <button type="submit" className="createAnnouncement__button button">Retour</button>
+            <button className="createAnnouncement__button button">Retour</button>
           </Link>
-          <button   className="editAnnouncement__button discussion__delete button" type="submit" method="delete">Supprimer</button> 
+          <button   className="editAnnouncement__button discussion__delete button" method="delete">Supprimer</button> 
 
         </div>
       </form>
