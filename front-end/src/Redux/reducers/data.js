@@ -74,7 +74,7 @@ const initialState = {
       firstname:"",
       lastname: "",
       age: 0,
-      location: "gffd",  
+      location: "",  
       title: "",
       description: "",
       experience: "",
@@ -133,7 +133,7 @@ const reducer = (state = initialState, action) => {
     case UPDATE_PROFILE:
       return {
         ...state,
-        profiles: [{...state.profiles, ...action.payload[0]}], 
+        profiles: action.payload, 
       };
 
     
@@ -156,6 +156,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         announcements:[...state.data.announcements], 
       };
+
+    
       default:
         return state;
   }
