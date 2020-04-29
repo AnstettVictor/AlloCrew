@@ -1,6 +1,8 @@
 //imports
 import axios from 'axios';
-import { Redirect } from 'react-router';
+import { Redirect, browserHistory } from 'react-router-dom';
+
+
 //vars
 const token = () => localStorage.getItem('token')
 const userId =  () => {
@@ -125,7 +127,7 @@ export const register = () => (dispatch, getState) => {
   ){
     axios({
       method: 'post',
-      url: 'http://3.88.40.169/register',
+      url: 'http://3.86.88.23/register',
       data: {
         email: getState().login.data.username,
         password: getState().login.data.password,
@@ -145,16 +147,17 @@ export const register = () => (dispatch, getState) => {
 export const logUser = () => (dispatch, getState) => {
   axios({
     method: 'post',
-    url: 'http://3.88.40.169/api/login_check', 
+    url: 'http://3.86.88.23/api/login_check', 
     data: getState().login.data
   })
   .then((res) => {
+    console.log(res)
     const _token = res.data.token;
     localStorage.setItem('token', _token);
     dispatch(checkAuth());
   })
   .catch((err) => {
-    console.log(err)
+    console.log(err.response)
     dispatch(logoutUser());
   })
 };
@@ -171,7 +174,7 @@ export const checkAuth = () => (dispatch) => {
       Authorization: `bearer ${token()}`,
     },
     method: 'post',
-    url: 'http://3.88.40.169/api/token_check', 
+    url: 'http://3.86.88.23/api/token_check', 
   })
   .then(() => {
     axios({
@@ -179,7 +182,7 @@ export const checkAuth = () => (dispatch) => {
         Authorization: `bearer ${token()}`,
       },
       method: 'get',
-      url: `http://3.88.40.169/api/users/${userId()}`, 
+      url: `http://3.86.88.23/api/users/${userId()}`, 
     })
     .then((res) => dispatch(loginOk(res.data)) )
   })
@@ -205,7 +208,7 @@ export const fetchAnnouncement = (id, key) => (dispatch) => {
       Authorization: `bearer ${token()}`,
     },
     method: 'get',
-    url: `http://3.88.40.169/api/announcements/${id}`, 
+    url: `http://3.86.88.23/api/announcements/${id}`, 
   })
   .then((res) => {
     console.log(res);
@@ -223,7 +226,7 @@ export const fetchProfile = (id) => (dispatch) => {
       Authorization: `bearer ${token()}`,
     },
     method: 'get',
-    url: `http://3.88.40.169/api/users/${id}`, 
+    url: `http://3.86.88.23/api/users/${id}`, 
   })
   .then((res) => { 
     console.log(res)   
@@ -237,12 +240,13 @@ export const fetchProfile = (id) => (dispatch) => {
 
 // For finding an announcement List
 export const fetchAnnouncementList = () => (dispatch) => {
+  
   axios({
     headers: {
       Authorization: `bearer ${token()}`,
     },
     method: 'get',
-    url: `http://3.88.40.169/api/announcements/`, 
+    url: `http://3.86.88.23/api/announcements/`, 
   })
   .then((res) => {
     console.log(res.status)
@@ -260,7 +264,7 @@ export const fetchProfileList = () => (dispatch) => {
       Authorization: `bearer ${token()}`,
     },
     method: 'get',
-    url: `http://3.88.40.169/api/users/`,
+    url: `http://3.86.88.23/api/users/`,
   })
     .then((res) => {
       const profileListData = res.data
@@ -274,7 +278,7 @@ export const patchEditProfile = (id) => (dispatch, getState) => {
       Authorization: `bearer ${token()}`,
     },
     method: 'patch',
-    url: `http://3.88.40.169/api/users/${id}`, 
+    url: `http://3.86.88.23/api/users/${id}`, 
     data: 
     {
       firstname: getState().data.profiles[0].firstname,
@@ -301,7 +305,7 @@ export const patchEditAnnouncement = (id) => (dispatch, getState) => {
       Authorization: `bearer ${token()}`,
     },
     method: 'patch',
-    url: `http://3.88.40.169/api/announcements/${id}`, 
+    url: `http://3.86.88.23/api/announcements/${id}`, 
     data: {
       date_end,
       date_start,
@@ -318,7 +322,7 @@ export const postCreateAnnouncement = () => (dispatch, getState) => {
       Authorization: `bearer ${token()}`,
     },
     method: 'post',
-    url: `http://3.88.40.169/api/announcements/`, 
+    url: `http://3.86.88.23/api/announcements/`, 
     data: { 
       user: getState().login.userId,
       ...getState().data.create
@@ -359,7 +363,7 @@ export const fetchDiscussionList = (id) => (dispatch) => {
       Authorization: `bearer ${token()}`,
     },
     method: 'get',
-    url: `http://3.88.40.169/api/discussions/${id}`, 
+    url: `http://3.86.88.23/api/discussions/${id}`, 
   })
   .then((res) => {
     console.log("res.data",res.data)
@@ -377,7 +381,7 @@ export const postMessage = (id) => (dispatch, getState) => {
       Authorization: `bearer ${token()}`,
     },
     method: 'post',
-    url: `http://3.88.40.169/api/messages/`, 
+    url: `http://3.86.88.23/api/messages/`, 
     data: 
     { 
       discussion: id,
@@ -389,9 +393,9 @@ export const postMessage = (id) => (dispatch, getState) => {
   .catch((err) => console.log(err))
 };
 
-export const mitraillette = (id) => (dispatch) => {
-  setInterval(() => {dispatch(fetchDiscussionList(id))}, [2000])
-}
+// export const mitraillette = (id) => (dispatch) => {
+//   setInterval(() => {dispatch(fetchDiscussionList(id))}, [2000])
+// }
 
 export const postDiscussion = ({announcement_id, user_id}) => (dispatch, getState, fds) => {
   axios({
@@ -399,7 +403,7 @@ export const postDiscussion = ({announcement_id, user_id}) => (dispatch, getStat
       Authorization: `bearer ${token()}`,
     },
     method: 'post',
-    url: `http://3.88.40.169/api/discussions/`, 
+    url: `http://3.86.88.23/api/discussions/`, 
     data: 
     { console: console.log('test'),
       announcement: announcement_id,
