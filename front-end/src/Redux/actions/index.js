@@ -137,7 +137,7 @@ export const register = () => (dispatch, getState) => {
       dispatch(notification('Votre compte à bien été créé!'))
       setTimeout(() => {dispatch(registerSuccess())}, 3000)
     }) 
-    .catch(err => console.log(err))
+    .catch(err => {console.log(err.response); dispatch(notification('Veuillez saisir une adresse mail valide'))})
   }else{
     dispatch(notification('Champs non identiques'))
     setTimeout(() => {dispatch(clearNotification())}, 3000)
