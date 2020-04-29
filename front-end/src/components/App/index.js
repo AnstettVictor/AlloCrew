@@ -75,11 +75,11 @@ return(
         <MembersRoute path="/my-announcements" exact component={MyAnnouncements} />
         <MembersRoute path="/search" exact component={Search} />
         <MembersRoute path="/tchat-room/:id" exact component={TchatRoom} />
-        <MembersRoute path="/legal-notice" exact component={LegalNotice} />
-        <MembersRoute path="/contact" exact component={Contact} />
-        <MembersRoute path="/information" exact component={Information} />
+        <Route path="/legal-notice" exact component={LegalNotice} />
+        <Route path="/contact" exact component={Contact} />
+        <Route path="/information" exact component={Information} />
         <MembersRoute path="/announcement/:id" exact component={Announcement} /> 
-        <MembersRoute path="/faq" exact component={FAQ} />
+        <Route path="/faq" exact component={FAQ} />
         <Route path="/*" component={PAGE404} />
       </Switch>
     </div>

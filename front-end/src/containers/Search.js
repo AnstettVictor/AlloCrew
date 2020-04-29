@@ -10,7 +10,7 @@ const mapStateToProps = ({data}) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   fetchProfile:dispatch(fetchProfileList()),
-  fetchAnnouncement:dispatch(fetchAnnouncementList())
+  fetchAnnouncement:dispatch(fetchAnnouncementList()),
 })
 ;
 
