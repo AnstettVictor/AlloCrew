@@ -1,5 +1,6 @@
 import EditProfile from '../components/EditProfile';
-import {fetchProfile, inputProfileChange, patchEditProfile, passId } from '../Redux/actions'
+import {fetchProfile, inputProfileChange, patchEditProfile, passId } from '../Redux/actions';
+import {sendImage, storeImage} from '../Redux/actions/imageUpload'
 import {connect} from 'react-redux';
 
 const mapStateToProps = ({login}) => {
@@ -37,7 +38,13 @@ const mapDispatchToProps = (dispatch, {match}) => ({
     }
   )), 
 
-  onEditProfileSubmit: (e) => {e.preventDefault(); dispatch(patchEditProfile())}
+  onEditProfileSubmit: (e) => {e.preventDefault(); dispatch(patchEditProfile())},
+
+  appendImage: (e) => dispatch(storeImage(e, 'fileToUpload')),
+  appendAvatar: (e) => dispatch(storeImage(e, 'avatarToUpload')),
+
+  uploadImage: () => dispatch(sendImage(inputProfileChange, 'bannerpicture', 'fileToUpload')),
+  uploadAvatar: () => dispatch(sendImage(inputProfileChange, 'picture', 'avatarToUpload'))  
 })
 ;
 

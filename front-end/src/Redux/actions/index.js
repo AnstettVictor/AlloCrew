@@ -350,22 +350,6 @@ export const passId = (func) => (dispatch, getState) => {
 }
 
 
-//image upload 
-export const sendImage = () => (dispatch, getState) => {
-  dispatch(notification('Chargement de l\'image, veuillez patienter...'));
-  const data = new FormData;
-  data.append('file', getState().login.data.fileToUpload);
-  data.append('upload_preset', 'allocrew');
-
-  axios.post('https://api.cloudinary.com/v1_1/dmpokkwma/image/upload', data)
-  .then(res => {dispatch(clearNotification()); dispatch(inputCreateAnnouncement({picture: res.data.url}))})
-  .catch(err => {dispatch(notification('une erreur s\'est produite'));console.log(err)})
-}
-
-export const storeImage = (e) => (dispatch) => {
-  dispatch(inputLoginChange({ fileToUpload: e.target.files[0]}))
-}
-
 export const fetchDiscussionList = (id) => (dispatch) => {
   axios({
     headers: {

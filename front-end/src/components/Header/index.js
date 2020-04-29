@@ -54,9 +54,9 @@ const Header = ({userId, logout, isLogged}) => {
             <Link to={`/tchat-room/${userId}`} ><li>Messagerie</li></Link>
           </ul>
           <ul className="header__links">
-            <Link to={`/profile/${userId}`}><li>Voir mon profil</li></Link>
-            <Link to={`/edit-profile/${userId}`}><li>Modifier mon profil</li></Link>
-            <Link to={`/edit-user/${userId}`}><li>Paramètres</li></Link>
+            <Link to={`/profile`}><li>Voir mon profil</li></Link>
+            <Link to={`/edit-profile`}><li>Modifier mon profil</li></Link>
+            <Link to={`/edit-user`}><li>Paramètres</li></Link>
             <Link to="/"><li onClick={logout} >Déconnexion</li></Link>
           </ul>
         </div> 
