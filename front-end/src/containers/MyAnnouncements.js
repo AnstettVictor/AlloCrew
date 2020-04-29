@@ -1,5 +1,5 @@
 import MyAnnouncements from '../components/MyAnnouncements';
-import {fetchAnnouncementList} from '../Redux/actions'
+import {fetchAnnouncementList, deleteAnnouncement} from '../Redux/actions'
 import {connect} from 'react-redux';
 
 const mapStateToProps = ({ data, login }) => {
@@ -11,7 +11,8 @@ const mapStateToProps = ({ data, login }) => {
 
 const mapDispatchToProps = (dispatch) => ({
     
-  fetchData: dispatch(fetchAnnouncementList())
+  fetchData: dispatch(fetchAnnouncementList()),
+
 })
 ;
 

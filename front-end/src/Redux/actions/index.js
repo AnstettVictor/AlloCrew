@@ -401,9 +401,9 @@ export const postMessage = (id) => (dispatch, getState) => {
   .catch((err) => console.log(err))
 };
 
-// export const mitraillette = (id) => (dispatch) => {
-//   setInterval(() => {dispatch(fetchDiscussionList(id))}, [2000])
-// }
+export const mitraillette = (id) => (dispatch) => {
+  setInterval(() => {dispatch(fetchDiscussionList(id))}, [2000])
+}
 
 export const postDiscussion = ({announcement_id, user_id}) => (dispatch, getState, fds) => {
   axios({
@@ -421,6 +421,35 @@ export const postDiscussion = ({announcement_id, user_id}) => (dispatch, getStat
   })
   // <Redirect to={`/tchat-room/${getState().login.userId}`} />
   .then((res) => {console.log('la res', res); dispatch(redirect(true)) })
+  .catch((err) => console.log(err.response))
+};
+
+
+
+export const deleteDiscussion = (id) => () => {
+  axios({
+    headers: {
+      Authorization: `bearer ${token()}`,
+    },
+    method: 'delete',
+    url: `http://3.86.88.23/api/discussions/${id}`,    
+  })
+  // <Redirect to={`/tchat-room/${getState().login.userId}`} />
+  .then((res) => console.log('la res', res))
+  .catch((err) => console.log(err.response))
+};
+
+
+export const deleteAnnouncement = (id) => () => {
+  axios({
+    headers: {
+      Authorization: `bearer ${token()}`,
+    },
+    method: 'delete',
+    url: `http://3.86.88.23/api/announcements/${id}`,   
+  })
+  
+  .then((res) => console.log('la res', res))
   .catch((err) => console.log(err.response))
 };
 

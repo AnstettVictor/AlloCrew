@@ -1,5 +1,5 @@
 import TchatRoom from '../components/TchatRoom';
-import {fetchDiscussionList, inputMessage, postMessage, mitraillette, redirect, passId} from '../Redux/actions'
+import {fetchDiscussionList, deleteDiscussion, inputMessage, postMessage, mitraillette, redirect, passId} from '../Redux/actions'
 import {connect} from 'react-redux';
 
 const mapStateToProps = ({messagerie, login}) => {
@@ -22,9 +22,14 @@ const mapDispatchToProps = (dispatch, {match}) => ({
   handleMessage: (e) => dispatch(inputMessage({["content"]: e.target.value})),
   onMessageSubmit: (e) => {
     e.preventDefault();
-    console.log("ACTIONSSUBIMIT ID",e.target.name);
+    console.log("ACTIONSSUBIMIT ID",e.target);
     dispatch(postMessage(e.target.name)); 
     dispatch(inputMessage({["content"]: ""}))     
+  },
+  deleteD: (e) => {
+    e.preventDefault();
+    console.log("ACTIONSSUBIMIT ID",e.target);
+    dispatch(deleteDiscussion(e.target.name));
   },
   refresh :dispatch(fetchDiscussionList(match.params.id)) 
 })

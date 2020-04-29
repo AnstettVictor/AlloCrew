@@ -22,6 +22,7 @@
 }
 
 .announce {
+  position:relative;
   line-height: 1.6;
   min-height: fit-content;
   font-size: 1rem;
@@ -64,8 +65,22 @@
   font-style: italic;
 }
 
+.discussion__delete{
+  position: absolute;        
+  width: 2rem;
+  height: 2em;
+  color: black;
+  text-align: center;    
+  background-color: #FA425A;
+  font-size:1rem;
+  font-weight: 600;   
+  border-radius: 50%;
+  transform: rotate(225deg);   
+}
+
 
 .announce__bot {
+  position:relative;
   padding: 1em;
   display: flex;
   h2 {
