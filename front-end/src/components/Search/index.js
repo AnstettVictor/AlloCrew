@@ -4,12 +4,19 @@ import './style.scss';
 import searchlogo from 'images/svg/search.svg';
 import AnnouncementList from '../AnnouncementList';
 import ProfileList from './ProfileList';
+import slugify from 'slugify';
 
 const Search = ( { announceList, profileList }) => {
   const [searchSwitch, setSearchSwitch] = useState(true);
   const [filter, setFilter] = useState();
+
+  //filtres de recherche 
+  const filteredAnnounce = announceList.filter(e => slugify(Object.values(e).join(), {lower:true}).includes(filter))
+
+  const filteredProfile = profileList.filter(e => slugify(Object.values(e).join(), {lower:true}).includes(filter))
+  
   return (
-    <div>
+    <div className="search__container">
       <div className="search__header">
         {/* switcher betwheen Search annonce and Search profile  */}
         <button className="button" type="button" onClick={() => setSearchSwitch(true)}>Rechercher une annonce</button>
@@ -23,10 +30,19 @@ const Search = ( { announceList, profileList }) => {
 
       {/* if SearchSwitch is true, Search an annonce, if false, search an profile */}
       <div className="announcementList">
-        {console.log("announceList", announceList)}
-        {searchSwitch && <AnnouncementList list={filter ? announceList.filter((one) => one.title.toLowerCase().includes(filter.toLowerCase())) : announceList} />}
-        {console.log("ProfileList", profileList)}
-        {!searchSwitch && <ProfileList list={filter ? profileList.filter((one) => one.firstname.toLowerCase().includes(filter.toLowerCase())) : profileList} />}
+       
+        {searchSwitch && <AnnouncementList list={
+        filter? 
+        filteredAnnounce:
+        announceList} 
+        />}
+        
+        {!searchSwitch && <ProfileList list={
+        filter?
+        filteredProfile:
+        profileList} 
+        />}
+
       </div>
     </div>
   );

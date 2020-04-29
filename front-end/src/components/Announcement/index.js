@@ -9,7 +9,7 @@ import arrow from 'images/svg/arrow.svg';
 const Announcement = ({title, location, description, picture, voluntary, id, dateEnd, dateStart, active, user, sendingMessage, createdAt, userId, redirect }) => {
 
 
-if(redirect){
+if(redirect == 'tchat'){
   return <Redirect to={`/tchat-room/${userId}`} />
 }
 return (
