@@ -149,7 +149,7 @@ const CreateAnnouncement = ({ handleChange, title, location, description, volunt
           <Link to="/home">
             <button type="submit" className="createAnnouncement__button button">Retour</button>
           </Link>
-          <button onClick={deleteD} name={id} className="editAnnouncement__button discussion__delete button" type="submit" method="delete">Supprimer</button> 
+          <button   className="editAnnouncement__button discussion__delete button" type="submit" method="delete">Supprimer</button> 
 
         </div>
       </form>
