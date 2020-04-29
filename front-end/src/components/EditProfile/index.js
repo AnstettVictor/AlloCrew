@@ -6,7 +6,7 @@ import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 
-const EditProfile = ({id, onEditProfileSubmit, title, firstname, lastname, age, location, description, experience, portfolio, bannerpicture, picture, handleChange, handleChangeEditor1, handleChangeEditor2, redirect }) => {
+const EditProfile = ({id, onEditProfileSubmit, title, firstname, lastname, age, location, description, experience, portfolio, bannerpicture, picture, handleChange, handleChangeEditor1, handleChangeEditor2, redirect, appendImage, notification, uploadImage, uploadAvatar, appendAvatar }) => {
 
   if(redirect) {
     return <Redirect to="/profile" />
@@ -21,24 +21,28 @@ return  (
             <button className="editProfile__buttonRetour button">Retour</button>
           </Link>          
 
-          <div className="editProfile__pict__cover" style={{backgroundImage: `url(${bannerpicture})`}}>
-          <input 
-            type="text" 
-            className="editProfile__pict__cover_input input" 
-            onChange={handleChange}
-            name="bannerpicture"  
-            value={bannerpicture} 
+          <div className="input editProfile__pict__cover" style={{backgroundImage: `url(${bannerpicture})`}}>
+          <input
+            type="file"
+            className="input"
+            name="bannerpicture"
+            onChange={appendImage}
           />
+          <div onClick={uploadImage} className="button">Importer</div>
+          {notification && <strong>{notification}</strong>}
+          <p>Image de l'annonce</p>
           </div>
 
           <div className="editProfile__pict__editProfile" style={{backgroundImage: `url(${picture})`}}>
-          <input 
-            type="text" 
-            className="editProfile__pict__cover_input input" 
-            onChange={handleChange}
-            name="picture"  
-            value={picture} 
+          <input
+            type="file"
+            className="input"
+            name="picture"
+            onChange={appendAvatar}
           />
+            <div onClick={uploadAvatar} className="button">Importer</div>
+          {notification && <strong>{notification}</strong>}
+          <p>Image de l'annonce</p>
           </div>
         </div>
         <div className="editProfile__mainInfos"> 

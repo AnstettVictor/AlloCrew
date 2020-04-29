@@ -6,9 +6,9 @@ import PropTypes from 'prop-types';
 import DatePicker from 'react-datepicker';
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 
-const CreateAnnouncement = ({ handleChange, title, location, description, voluntary, picture, id, onCreateAnnouncementSubmit, handleChangeEditor, handleDateChange, dateStart, dateEnd, handleChecked, handleNotChecked, appendImage, uploadImage, notification, onEditAnnouncementSubmit, userId, ownerId }) => {
+
+const CreateAnnouncement = ({ handleChange, title, location, description, voluntary, picture, onCreateAnnouncementSubmit, handleChangeEditor, handleDateChange, dateStart, dateEnd, handleChecked, handleNotChecked, appendImage, uploadImage, notification, onEditAnnouncementSubmit, userId, ownerId }) => {
 
  
   const newStartDate = new Date(dateStart);
