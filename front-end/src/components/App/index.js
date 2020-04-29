@@ -67,11 +67,12 @@ return(
         <NonMembersRoute path="/register" exact component={Register} />
         <NonMembersRoute path="/login" exact component={Login} />
         <MembersRoute path="/home" component={Home} />
+        <MembersRoute path="/profile" exact component={Profile} />
         <MembersRoute path="/profile/:id" exact component={Profile} />
-        <MembersRoute path="/edit-user/:id" exact component={EditUser} />
+        <MembersRoute path="/edit-user" exact component={EditUser} />
         <MembersRoute path="/edit-announcement/:id" exact component={CreateAnnouncement} />
         <MembersRoute path="/create-announcement" exact component={CreateAnnouncement} />
-        <MembersRoute path="/edit-profile/:id" exact component={EditProfile} />
+        <MembersRoute path="/edit-profile" exact component={EditProfile} />
         <MembersRoute path="/my-announcements" exact component={MyAnnouncements} />
         <MembersRoute path="/search" exact component={Search} />
         <MembersRoute path="/tchat-room/:id" exact component={TchatRoom} />

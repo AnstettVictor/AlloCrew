@@ -16,7 +16,11 @@ export const LOGIN_OK = 'LOGIN_OK';
 export const LOGOUT = 'LOGOUT';
 export const UPDATE_ANNOUNCEMENT = 'UPDATE_ANNOUNCEMENT';
 export const UPDATE_PROFILE= 'UPDATE_PROFILE';
+
 export const UPDATE_PROFILES= 'UPDATE_PROFILES';
+
+export const UPDATE_USER= 'UPDATE_USER';
+
 export const INPUT_LOGIN_CHANGE= 'INPUT_LOGIN_CHANGE';
 export const INPUT_ANNOUNCEMENT_CHANGE= 'INPUT_ANNOUNCEMENT_CHANGE';
 export const INPUT_EDITANNOUNCEMENT_CHANGE = 'INPUT_EDITANNOUNCEMENT_CHANGE';
@@ -72,6 +76,12 @@ export const logout = () => ({
 
 export const updateAnnouncement = (payload) => ({
   type: UPDATE_ANNOUNCEMENT,
+  payload: payload
+})
+;
+
+export const updateUser = (payload) => ({
+  type: UPDATE_USER,
   payload: payload
 })
 ;
@@ -142,12 +152,12 @@ export const register = () => (dispatch, getState) => {
     })
     .then(res => {
       dispatch(notification('Votre compte à bien été créé!'))
-      setTimeout(() => {dispatch(registerSuccess())}, 3000)
+      setTimeout(() => {dispatch(registerSuccess())}, 2000)
     }) 
     .catch(err => {console.log(err.response); dispatch(notification('Veuillez saisir une adresse mail valide'))})
   }else{
     dispatch(notification('Champs non identiques'))
-    setTimeout(() => {dispatch(clearNotification())}, 3000)
+    setTimeout(() => {dispatch(clearNotification())}, 2000)
   }
 }
 
@@ -227,16 +237,17 @@ export const fetchAnnouncement = (id, key) => (dispatch) => {
 
 
 // For finding one profile with id
-export const fetchProfile = (id) => (dispatch) => {
+export const fetchProfile = (id) => (dispatch, getState) => {
   axios({
     headers: {
       Authorization: `bearer ${token()}`,
     },
     method: 'get',
-    url: `http://3.86.88.23/api/users/${id}`, 
+    url: id? `http://3.86.88.23/api/users/${id}`: `http://3.86.88.23/api/users/${getState().login.userId}`,  
   })
-  .then((res) => { 
+  .then((res) => {
     console.log(res)   
+    if(res.data.id == getState().login.userId){dispatch(updateUser(res.data))} 
     dispatch(updateProfile(res.data))
   })
   .catch((err) => {
@@ -281,27 +292,16 @@ export const fetchProfileList = () => (dispatch) => {
 };
 
 export const patchEditProfile = (id) => (dispatch, getState) => {
+  const {id, ...data} = getState().login.userInfo;
   axios({
     headers: {
       Authorization: `bearer ${token()}`,
     },
     method: 'patch',
     url: `http://3.86.88.23/api/users/${id}`, 
-    data: 
-    {
-      firstname: getState().data.profiles[0].firstname,
-      lastname: getState().data.profiles[0].lastname,
-      age: getState().data.profiles[0].age,
-      location: getState().data.profiles[0].location,
-      title: getState().data.profiles[0].title,
-      description: getState().data.profiles[0].description,
-      experience: getState().data.profiles[0].experience,
-      portfolio: getState().data.profiles[0].portfolio,
-      picture: getState().data.profiles[0].picture,
-      bannerpicture: getState().data.profiles[0].bannerpicture,     
-    }
+    data
   })
-  .then((res) => console.log(res))
+  .then((res) => {console.log(res); dispatch(redirect(true))})
   .catch((err) => console.log(err))
 };
 
@@ -325,15 +325,16 @@ export const patchEditAnnouncement = (id) => (dispatch, getState) => {
 };
 
 export const postCreateAnnouncement = () => (dispatch, getState) => {
+  const {user, ...data} = getState().data.create
   axios({
     headers: {
       Authorization: `bearer ${token()}`,
     },
     method: 'post',
     url: `http://3.86.88.23/api/announcements/`, 
-    data: { 
+    data: {
       user: getState().login.userId,
-      ...getState().data.create
+      ...data
     }
   })
   .then((res) => console.log(res))
@@ -348,22 +349,6 @@ export const passId = (func) => (dispatch, getState) => {
   dispatch(func(getState().login.userId))
 }
 
-
-//image upload 
-export const sendImage = () => (dispatch, getState) => {
-  dispatch(notification('Chargement de l\'image, veuillez patienter...'));
-  const data = new FormData;
-  data.append('file', getState().login.data.fileToUpload);
-  data.append('upload_preset', 'allocrew');
-
-  axios.post('https://api.cloudinary.com/v1_1/dmpokkwma/image/upload', data)
-  .then(res => {dispatch(clearNotification()); dispatch(inputCreateAnnouncement({picture: res.data.url}))})
-  .catch(err => {dispatch(notification('une erreur s\'est produite'));console.log(err)})
-}
-
-export const storeImage = (e) => (dispatch) => {
-  dispatch(inputLoginChange({ fileToUpload: e.target.files[0]}))
-}
 
 export const fetchDiscussionList = (id) => (dispatch) => {
   axios({

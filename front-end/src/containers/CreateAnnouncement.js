@@ -1,5 +1,6 @@
 import CreateAnnouncement from '../components/CreateAnnouncement';
-import { inputCreateAnnouncement, updateAnnouncement, fetchAnnouncement,  postCreateAnnouncement, patchEditAnnouncement, storeImage, sendImage} from '../Redux/actions'
+import { inputCreateAnnouncement, updateAnnouncement, fetchAnnouncement,  postCreateAnnouncement, patchEditAnnouncement } from '../Redux/actions';
+import {storeImage, sendImage} from '../Redux/actions/imageUpload';
 import {connect} from 'react-redux';
 
 const mapStateToProps = ({data, login}) => {
@@ -48,7 +49,8 @@ const mapDispatchToProps = (dispatch, {match}) => ({
 
   appendImage: (e) => dispatch(storeImage(e)),
 
-  uploadImage: () => dispatch(sendImage()),
+  uploadImage: () => dispatch(sendImage(inputCreateAnnouncement, 'picture')) 
+
 
 })
 ;
