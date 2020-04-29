@@ -12,8 +12,8 @@ const HomeProfile = ({logout, picture, firstname, lastname, title, id , }) => (
       <p className="homeprofile__text--name">{firstname} {lastname}</p>
       <p className="homeprofile__text--role">{title}</p>
       <ul>
-        <Link to={`/profile/${id}`}><li>Voir mon profil</li></Link>
-        <Link to={`/edit-profile/${id}`}><li>Modifier mon profil</li></Link>
+        <Link to={`/profile`}><li>Voir mon profil</li></Link>
+        <Link to={`/edit-profile`}><li>Modifier mon profil</li></Link>
         <Link to={`/my-announcements`}><li>Mes annonces</li></Link>
         <Link to={`/tchat-room/${id}`}><li>Messagerie</li></Link>
         <Link to="/"><li onClick={logout}>Deconnexion</li></Link>

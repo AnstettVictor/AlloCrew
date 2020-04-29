@@ -1,9 +1,13 @@
 import Profile from '../components/Profile';
-import {fetchProfile} from '../Redux/actions'
+import {fetchProfile, redirect} from '../Redux/actions'
 import {connect} from 'react-redux';
 
-const mapStateToProps = ({ data }) => {
-  const profile = data.profiles[0];
+const mapStateToProps = ({ data, login }, {match}) => {
+  if(!match.params.id){
+    console.log('WOW')
+  }
+  
+  const profile = login.userInfo;
   return({
     id: profile.id,
     firstname: profile.firstname,
@@ -20,8 +24,8 @@ const mapStateToProps = ({ data }) => {
 };
 
 const mapDispatchToProps = (dispatch, {match}) => ({
-    
-  fetchData: dispatch(fetchProfile(match.params.id))
+  redirect: dispatch(redirect(false))
+  // fetchData: dispatch(fetchProfile(match.params.id))
 })
 ;
 

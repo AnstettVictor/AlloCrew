@@ -168,8 +168,8 @@ CreateAnnouncement.propTypes = {
   description: PropTypes.string.isRequired,
   picture: PropTypes.string.isRequired,
   voluntary: PropTypes.bool.isRequired,
-  dateStart: PropTypes.string.isRequired,
-  dateEnd: PropTypes.string.isRequired,
+  // dateStart: PropTypes.string.isRequired,
+  // dateEnd: PropTypes.string.isRequired,
   active: PropTypes.bool.isRequired,
   handleChecked: PropTypes.func.isRequired,
   handleNotChecked: PropTypes.func.isRequired

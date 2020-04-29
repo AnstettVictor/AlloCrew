@@ -1,12 +1,17 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import './style.scss';
 import PropTypes from 'prop-types';
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 
-const EditProfile = ({id, onEditProfileSubmit, title, firstname, lastname, age, location, description, experience, portfolio, bannerpicture, picture, handleChange, handleChangeEditor1, handleChangeEditor2 }) => (
+const EditProfile = ({id, onEditProfileSubmit, title, firstname, lastname, age, location, description, experience, portfolio, bannerpicture, picture, handleChange, handleChangeEditor1, handleChangeEditor2, redirect }) => {
+
+  if(redirect) {
+    return <Redirect to="/profile" />
+  }
+return  (
   <div className="editProfile__container">
     <form onSubmit={onEditProfileSubmit} method="patch" >
       <div className="editProfile__container">    
@@ -100,6 +105,7 @@ const EditProfile = ({id, onEditProfileSubmit, title, firstname, lastname, age, 
   </div>
   
 )
+}
 ;
 
 // EditProfile.propTypes = {
