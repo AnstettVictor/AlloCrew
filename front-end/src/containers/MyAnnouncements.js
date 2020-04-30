@@ -1,5 +1,5 @@
 import MyAnnouncements from '../components/MyAnnouncements';
-import {fetchAnnouncementList, deleteAnnouncement} from '../Redux/actions'
+import {fetchAnnouncementList, deleteAnnouncement, redirect} from '../Redux/actions'
 import {connect} from 'react-redux';
 
 const mapStateToProps = ({ data, login }) => {
@@ -10,7 +10,7 @@ const mapStateToProps = ({ data, login }) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    
+  redirect: dispatch(redirect(false)),
   fetchData: dispatch(fetchAnnouncementList()),
 
 })
