@@ -50,7 +50,9 @@
 
 .card--6 .card__img, .card--6 .card__img--hover {
   background-image: url('https://scontent-cdt1-1.xx.fbcdn.net/v/t1.0-9/90269027_10219874362462782_7705753962812538880_o.jpg?_nc_cat=106&_nc_sid=09cbfe&_nc_ohc=VR6L7BAN0QUAX9DWYz8&_nc_ht=scontent-cdt1-1.xx&oh=ad03eb068b222f2ea73280cc3f0f0b92&oe=5ECEDBD4');
- 
+}
+.card--6 {
+  margin-bottom: 20px;
 }
 
 
@@ -170,4 +172,26 @@ border-bottom-right-radius: 12px;
 
 .card:hover .card__info-hover {
     opacity: 1;
+}
+
+@media only screen and (max-width: 1103px) {
+  .information {
+   margin: 0
+  }
+
+  .cards {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+  }
+  .card {
+    width: 100%;
+    margin: 5px 0 5px 0;
+    
+  }
+  .card--6 {
+    width: 95%;
+    margin: auto;
+    margin-bottom: 20px;
+  }
 }
