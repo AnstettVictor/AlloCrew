@@ -134,6 +134,7 @@ const CreateAnnouncement = ({ handleChange, title, location, description, volunt
               onChange={handleChangeEditor}
               config={{
                 removePlugins: ['EasyImage', 'Image', 'ImageCaption', 'ImageStyle', 'ImageToolbar', 'ImageUpload', 'MediaEmbed', 'TableToolbar', 'Table', 'Indent'],
+                toolbarLocation: 'bottom'
               }}
             />
           </div>

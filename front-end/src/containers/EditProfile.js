@@ -7,6 +7,7 @@ const mapStateToProps = ({login}) => {
   const data = login.userInfo
 
   return({
+    id: data.id,
     firstname: data.firstname,
     lastname: data.lastname,
     age: data.age,
