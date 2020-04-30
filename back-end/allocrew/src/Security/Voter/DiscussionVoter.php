@@ -51,6 +51,15 @@ class DiscussionVoter extends Voter
                 if (in_array('ROLE_ADMIN', $user->getRoles())) {
                     return true;
                 }
+
+                if ( $user == $subject->getCreator()) {
+                    return true;
+                }
+
+
+                if ($user == $subject->getReceiver()) {
+                    return true;
+                }
                
                 break;
         }
