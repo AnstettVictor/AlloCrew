@@ -368,7 +368,7 @@ export const fetchDiscussionList = (id) => (dispatch) => {
 };
 
 
-export const postMessage = (id) => (dispatch, getState) => {
+export const postMessage = (id) => (dispatch, getState, {match}) => {
   console.log("axios", id)
   axios({
     headers: {
@@ -383,7 +383,7 @@ export const postMessage = (id) => (dispatch, getState) => {
       content: getState().messagerie.message.content
     }
   })
-  .then((res) => console.log(res))
+  .then((res) => dispatch(fetchDiscussionList(getState().login.userId)))
   .catch((err) => console.log(err))
 };
 
@@ -412,7 +412,7 @@ export const postDiscussion = ({announcement_id, user_id}) => (dispatch, getStat
 
 
 
-export const deleteDiscussion = (id) => () => {
+export const deleteDiscussion = (id, userId) => (dispatch) => {
   axios({
     headers: {
       Authorization: `bearer ${token()}`,
@@ -421,7 +421,7 @@ export const deleteDiscussion = (id) => () => {
     url: `http://3.86.88.23/api/discussions/${id}`,    
   })
   // <Redirect to={`/tchat-room/${getState().login.userId}`} />
-  .then((res) => console.log('la res', res))
+  .then((res) =>  dispatch(fetchDiscussionList(userId)))
   .catch((err) => console.log(err.response))
 };
 

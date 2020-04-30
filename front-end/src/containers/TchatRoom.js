@@ -27,7 +27,7 @@ const mapDispatchToProps = (dispatch, {match}) => ({
   deleteD: (e) => {
     e.preventDefault();
     console.log("ACTIONSSUBIMIT ID",e.target);
-    dispatch(deleteDiscussion(e.target.name));
+    dispatch(deleteDiscussion(e.target.name, match.params.id ));
   },
   refresh :dispatch(fetchDiscussionList(match.params.id)) 
 })
