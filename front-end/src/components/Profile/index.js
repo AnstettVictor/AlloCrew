@@ -14,10 +14,12 @@ const Profile = ({id, age, location, firstname, lastname, title, description, ex
       <div className="profile__info">      
         <h4 className="profile__age">{age} ans </h4>
         <h4 className="profile__place">{location}</h4>        
-      </div>    
-    <h3 className="profile__name">{firstname} {lastname}</h3>
-    <h4 className="profile__age desktops">{age} ans - {location} </h4>
-    <h2 className="profile__title">{title}</h2>
+      </div>
+      <div className="flex">    
+        <h3 className="profile__name">{firstname} {lastname}</h3>
+        <h4 className="profile__ages desktops">{age} ans - {location} </h4>
+        <h2 className="profile__title">{title}</h2>
+      </div>
     <div className="profile__text">    
     </div>
       <div>
