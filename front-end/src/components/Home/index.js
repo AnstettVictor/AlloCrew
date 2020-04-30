@@ -20,7 +20,7 @@ return (
         <TwitterTimelineEmbed
           sourceType="profile"
           screenName="crewallo"
-          options={{height: 280}}
+          options={{height: 350}}
         />
       </div>
     </div>
