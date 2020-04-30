@@ -135,13 +135,25 @@
 
   .profile__age, .profile__place{
     display:none;
+    
   }
+
+  .flex {
+    display:flex;    
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .profile__ages{
+    display:inline-block;
+    font-size: 1rem;    
+    font-weight: 400;   
+  }
+  
 
   .desktops{
     display:inherit;
     text-align: center;
   }
-
-
-
+  
 }

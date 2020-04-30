@@ -13,8 +13,6 @@ const mapStateToProps = ({messagerie, login}) => {
 }
 ;
 
-
-
 const mapDispatchToProps = (dispatch, {match}) => ({
 
   killRedirect: dispatch(redirect(false)), 
