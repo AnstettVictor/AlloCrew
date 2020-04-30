@@ -16,13 +16,14 @@ const ScrollTop = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    console.log(pathname)
   }, [pathname]);
 
   return null;
 }
 
 const rootComponent = (
-  <Router>
+  <Router >
     <Provider store={store}>
       <ScrollTop /> 
         <App />

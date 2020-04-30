@@ -10,7 +10,7 @@
 .legalNotice__article {
     margin: 5px;
     padding: 10px;
-    border-bottom: 1px solid lightgrey;
+    //border-bottom: 1px solid lightgrey;
 }
 
 .legalNotice__titleArticle {
@@ -18,5 +18,11 @@
 }
 
 .legalNotice__pArticle {
+    //display: none;
     margin: 1px;
+    text-align: justify;
 }
+
+// .legalNotice__article:hover p {
+//     display: block;
+//   }

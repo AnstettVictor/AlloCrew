@@ -37,7 +37,7 @@ import PAGE404 from '../PAGE404';
 
 
 
-const App = ({isLogged, loading, fonction}) => {
+const App = ({isLogged, loading}) => {
 
 // Custom Route for connected user
 const MembersRoute = (props) => {
