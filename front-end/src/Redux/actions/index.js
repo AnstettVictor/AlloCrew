@@ -447,7 +447,7 @@ export const changeEmail = () => (dispatch, getState) => {
       Authorization: `bearer ${token()}`,
     },
     method: 'patch',
-    url: `http://3.86.88.23/api/users/account/13`, 
+    url: `http://3.86.88.23/api/users/account/${getState().login.userId}`, 
     data:{
       email:getState().data.email
     } 
@@ -468,7 +468,7 @@ export const changePassword = () => (dispatch, getState) => {
       password:getState().data.password
     } 
   })
-  .then((res) => console.log(res))
+  .then((res) => dispatch(notification(true)))
   .catch((err) => console.log(err))
 };
 
