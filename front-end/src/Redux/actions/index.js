@@ -369,7 +369,7 @@ export const fetchDiscussionList = (id) => (dispatch) => {
 };
 
 
-export const postMessage = (id) => (dispatch, getState, {match}) => {
+export const postMessage = (id) => (dispatch, getState) => {
   console.log("axios", id)
   axios({
     headers: {
