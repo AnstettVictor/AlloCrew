@@ -337,7 +337,7 @@ export const postCreateAnnouncement = () => (dispatch, getState) => {
       ...data
     }
   })
-  .then((res) => console.log(res))
+  .then((res) => {dispatch(redirect('announcement'))})
   .catch((err) => console.log(err.response))
 };
 

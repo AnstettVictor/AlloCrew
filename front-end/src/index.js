@@ -17,8 +17,6 @@ const ScrollTop = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    store.dispatch(redirect(false));
-    console.log(pathname)
   }, [pathname]);
 
   
