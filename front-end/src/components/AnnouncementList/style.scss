@@ -4,11 +4,13 @@
   --thumbnail-size: 70px;
 }
 
+
 .announce__title {
   display: inline-block;
   font-size: 1.3rem;
   font-weight: bold;
   border-bottom:1px dotted #ccc;
+  
 }
 
 .see {
@@ -20,6 +22,7 @@
 }
 
 .announce {
+  position:relative;
   line-height: 1.6;
   min-height: fit-content;
   font-size: 1rem;
@@ -53,6 +56,8 @@
   margin-left: calc(var(--thumbnail-size) + 2%);
   margin-top: 1%;
   color: black;
+  text-align: left;
+  
 }
 
 .announce__creation {
@@ -60,8 +65,22 @@
   font-style: italic;
 }
 
+.discussion__delete{
+  position: absolute;        
+  width: 2rem;
+  height: 2em;
+  color: black;
+  text-align: center;    
+  background-color: #FA425A;
+  font-size:1rem;
+  font-weight: 600;   
+  border-radius: 50%;
+  transform: rotate(225deg);   
+}
+
 
 .announce__bot {
+  position:relative;
   padding: 1em;
   display: flex;
   h2 {
@@ -83,6 +102,7 @@
 .announce__details {
   padding-left: 1rem;
   border-left: 1px solid #bbb;
+  text-align: left;
 }
 
 .announce__button {
@@ -95,12 +115,15 @@
 
 .announce__description {
   display: none;
+  text-align: left;
 }
 
 @media (min-width: 900px) and (min-height: 500px) {
   .announce__description {
     display: block;
     margin-top: .5rem;
+    
   }
+
 }
  

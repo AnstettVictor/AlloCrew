@@ -1,10 +1,11 @@
 .searchProfiles {
     font-family: 'Rubik', sans-serif;
     width: 100%;
-    display: flex;
+    display: inline-block;
     justify-content: center;
     width: 100%;
     margin-top: 1rem;
+
 }
 
 .searchProfile__img {
@@ -41,6 +42,7 @@
 }
 
 .searchProfile {
+    height: 350px;
     font-family: 'Rubik', sans-serif;
     margin-right: 25px;
     transition: all .4s cubic-bezier(0.175, 0.885, 0, 1);
@@ -59,6 +61,7 @@
 
 .searchProfile__info {
     z-index: 2;
+    max-width:100%;
     background-color: #fff;
     border-bottom-left-radius: 12px;
     border-bottom-right-radius: 12px;

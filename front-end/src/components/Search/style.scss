@@ -1,42 +1,28 @@
 @import 'style/vars.scss';
 
-@mixin customInput {
-  border: 2px solid rgba(150, 150, 150, 0.144);
-  background-color: #efefef;
-  font-size: 1rem;
+.search__container {
   padding: .5rem;
-  border-radius: 0.4rem;
-  opacity: .8;
-  &:hover {
-    cursor: pointer;
-  }
 }
+
+.search__header{
+  padding: .5rem;
+  text-align: center;
+}
+
 .search {
-  display: flex;
-}
-:root {
-  --thumbnail-size: 70px;
-}
-
-
-.see {
-  display: none;
-}
-
-.seeAndEdit {
-  display: block;
-}
-
-
-.search__input, .search__button {
-  height: 2rem;
-  background-color: #fff;
-  border: none;
-  font-size: 1.2rem;
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-gap: 1rem;
 }
 
 .search__input {
   padding-left: .5rem;
+}
+
+.search__form {
+  input {
+    margin: 0;
+  }
 }
 
 .search__button {
@@ -45,59 +31,35 @@
   background-position: center;
   color: transparent;
 }
-.search__form {
-  border: 2px solid #ddd;
+
+.search__input, .search__button {
+  height: 2rem;
   background-color: #fff;
-  margin: 1rem;
-  border-radius: .5rem;
-  overflow: hidden;
-  &:hover {
-    border-color: $blue;
-  }
+  border: none;
+  font-size: 1.2rem;
+  margin:0.5rem; 
 }
+
+
+
+@media (min-width: 900px) and (min-height: 500px) {}
+
 
 .search__header {
-  position: sticky;
-  top: 3rem;
-  z-index: 999;
-  background-color: #F3F4F8;
-  border-bottom: 2px solid rgba(0,0,0, .3);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-    button {
-    padding: .5rem;
-    border-radius: 100vmax;
-    margin: .3rem;
-    background-color: white;
-    color: black;
-    &:hover {
-      color: #fff;
-      background-color: $blue;
-      cursor: pointer;
-    }
-    &:focus {
-      color: #fff;
-      background-color: $blue;
-      cursor: pointer;
-    }
+  button {
+    margin: 1rem;
   }
 }
 
-.announcementList {
-  padding: 1rem;
-}
-
-@media (min-width: 900px) and (min-height: 500px) {
-
-  .announcementList {
-    max-width: unset;
-    display: grid;
-    align-items: center;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-    grid-gap: 1rem;
+.search__container {
+  .announcementList__container {
+  margin-top: 1rem;
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  grid-gap: 1rem;
+  .announce {
+    width: 100%;
+    height: 100%;
   }
-  .search {
-    grid: none;
   }
 }

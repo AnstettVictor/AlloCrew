@@ -1,5 +1,6 @@
 import CreateAnnouncement from '../components/CreateAnnouncement';
-import { inputCreateAnnouncement, updateAnnouncement, fetchAnnouncement,  postCreateAnnouncement, patchEditAnnouncement, storeImage, sendImage} from '../Redux/actions'
+import { inputCreateAnnouncement, updateAnnouncement, fetchAnnouncement,  postCreateAnnouncement, patchEditAnnouncement } from '../Redux/actions';
+import {storeImage, sendImage} from '../Redux/actions/imageUpload';
 import {connect} from 'react-redux';
 
 const mapStateToProps = ({data, login}) => {
@@ -16,7 +17,8 @@ const mapStateToProps = ({data, login}) => {
     title: data.create.title,
     description: data.create.description,
     picture: data.create.picture,
-    notification: login.notification  
+    notification: login.notification,
+    redirect: login.redirect  
   })
 };
 
@@ -40,15 +42,21 @@ const mapDispatchToProps = (dispatch, {match}) => ({
 )),
   handleDateChange: (date, evt) => dispatch(inputCreateAnnouncement({[evt.target.classList[1]]: date})),
 
-  handleChecked: (e) => {console.log(e.target.checked); dispatch(inputCreateAnnouncement({'voluntary': e.target.checked}))},
-  handleNotChecked: (e) => {console.log(e.target.checked); dispatch(inputCreateAnnouncement({'voluntary': !e.target.checked}))},
+  handleChecked: (e) => { if(e.target.checked && e.target.value == ('paid')){
+    dispatch(inputCreateAnnouncement({'voluntary': false}))
+    }else{
+      dispatch(inputCreateAnnouncement({'voluntary': true}))
+    }
+  },
 
   onCreateAnnouncementSubmit: (e) => {e.preventDefault(); dispatch(postCreateAnnouncement())},
   onEditAnnouncementSubmit: (e) => {e.preventDefault();dispatch(patchEditAnnouncement(match.params.id))},
 
   appendImage: (e) => dispatch(storeImage(e)),
 
-  uploadImage: () => dispatch(sendImage()) 
+
+  uploadImage: () => dispatch(sendImage(inputCreateAnnouncement, 'picture')) 
+
 
 })
 ;

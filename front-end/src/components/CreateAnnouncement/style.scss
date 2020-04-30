@@ -1,8 +1,11 @@
 @import 'style/vars.scss';
 
+
+
 .createAnnouncement__container{  
   font-size:1rem;
   font-weight: 400;
+  
 } 
 
 .createAnnouncement__desktop--Title{
@@ -111,21 +114,15 @@
   }
 
   .create__bannerPicture {
+    position: relative;
     width: 790px;
     height: 250px;
     margin: 0 auto;
+    background-size: cover;
     input {
       margin: 0;
     }
-    div {
-      padding: 10px;
-      margin-top: .5rem;
-      border-radius: 100vmax;
-      background-color: #fff;
-      color: #000;
-      display: inline-block;
-
-    }
+   
   }
 
   .create__mainInfos {

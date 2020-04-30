@@ -23,7 +23,8 @@
     display: inline-block;
     background-position: center;
     width: 100vw;
-    height:18vh;    
+    height:18vh;  
+    background-color: $blue;  
 }  
 
 .announcement__title{
@@ -161,6 +162,7 @@
       }
     }
   }
+  
 
   .announcement__textInfo-2 {
     p {

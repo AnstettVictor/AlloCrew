@@ -3,6 +3,7 @@ import React, {useEffect} from 'react';
 import { render } from 'react-dom';
 import {BrowserRouter as Router, useLocation} from 'react-router-dom';
 import { Provider } from 'react-redux';
+import {redirect} from './Redux/actions';
 
 // == Import : local
 // Composants
@@ -16,11 +17,13 @@ const ScrollTop = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    console.log(pathname)
   }, [pathname]);
 
+  
   return null;
 }
+
+
 
 const rootComponent = (
   <Router >

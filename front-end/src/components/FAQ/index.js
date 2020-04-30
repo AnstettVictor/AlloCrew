@@ -7,28 +7,28 @@ const FAQ = () => (
     <p className="faq__introduction"> AlloCrew is about usce sed felis condimentum, aliquet neque tristique, aliquam justo. Fusce eu aliquam erat. Proin sed malesuada tortor, ac laoreet ipsum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
 
     <article className="faq__article ">
-    <h2 className="faq__titleArticle">In rutrum elit orci?</h2>
-    <p className="faq__pArticle">Vestibulum purus risus, bibendum et turpis ut, ornare dignissim elit. Nulla vestibulum, tellus id auctor tincidunt, ante enim accumsan erat, laoreet sollicitudin nibh mi et lectus. Fusce et auctor turpis. Donec laoreet euismod varius. Ut eros nisi, varius ut commodo eu, pulvinar quis dui. In rutrum elit orci, ac mattis nisi tincidunt ut. Nullam fermentum nisi et neque hendrerit varius. Ut consectetur pretium risus sed pulvinar. Fusce consequat risus ut lacus placerat, elementum porttitor enim rhoncus. Nullam at nisl ac libero congue sagittis nec et eros. Curabitur quis felis lectus. Donec facilisis rhoncus mi eu faucibus. Sed pellentesque sapien non tortor fermentum, in commodo odio finibus. Praesent et aliquam nunc. Vestibulum nec arcu ac lorem finibus pretium.</p>
+      <h2 className="faq__titleArticle">Comment déposer une annonce ?</h2>
+      <p className="faq__pArticle">Pour déposer une annonce : Cliquez sur « Déposer une annonce ». Renseignez le formulaire en respectant les informations demandées.Choisissez avec soin le titre et le descriptif de votre annonce pour optimiser votre vente.</p>
     </article>
 
     <article className="faq__article ">
-    <h2 className="faq__titleArticle">Praesent eu arcu?</h2>
-    <p className="faq__pArticle">Donec non consectetur metus, non mattis felis. Duis porttitor hendrerit diam, ut pharetra turpis tincidunt non. Praesent eu arcu sit amet lorem congue fringilla a eu ligula. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum efficitur enim mi, et scelerisque tortor sodales non. Nulla a turpis rutrum sapien sagittis lacinia. Praesent et gravida risus. Sed ex nisi, feugiat eget dolor id, finibus hendrerit nunc. Aenean eu quam sit amet metus fermentum hendrerit. Donec a interdum sem. Maecenas egestas aliquet lacus quis dictum. Integer a velit eros.</p>
+      <h2 className="faq__titleArticle">Que mettre dans le texte de mon annonce ?</h2>
+      <p className="faq__pArticle">Afin que les utilisateurs disposent d'un maximum d'informations, nous vous conseillons de détailler précisément le bien à vendre dans le texte de votre annonce. Choisissez avec soin le titre de votre annonce et renseignez l’ensemble des critères proposés. Lors du dépôt, des bulles d’informations vous indiquent les éléments à fournir pour réussir le dépôt d’annonce. Il n'est pas possible d'utiliser du code et des étiquettes HTML. Celui-ci sera automatiquement effacé. Enfin, veillez à respecter les règles de diffusion de la catégorie dans laquelle votre annonce est déposée afin qu'elle ne soit pas refusée.</p>
     </article>
 
     <article className="faq__article ">
-    <h2 className="faq__titleArticle">Aliquam arcu nibh?</h2>
-    <p className="faq__pArticle">Pellentesque vitae dictum risus, sit amet facilisis nunc. Praesent aliquam tincidunt accumsan. In quis libero non odio interdum fringilla. Sed blandit volutpat ex, eget ornare libero. Aliquam arcu nibh, dictum eget metus sed, consectetur consequat lacus. Aenean vel mauris nunc. Aenean augue quam, lobortis at venenatis non, commodo vel turpis. Aliquam at lectus commodo, gravida purus a, pulvinar sapien. Nulla facilisi.</p>
+      <h2 className="faq__titleArticle">Comment insérer des photos dans mon annonce ?</h2>
+      <p className="faq__pArticle">Les formats acceptés: En cas difficulté pour insérer une photo dans votre annonce, nous vous invitons à vérifier le format de votre photo. Les photos doivent être au format GIF, BMP, PNG ou JPEG.</p>
     </article>
 
     <article className="faq__article ">
-    <h2 className="faq__titleArticle">Vestibulum sodales, magna at eleifend bibendum?</h2>
-    <p className="faq__pArticle">Nullam non pharetra eros. Suspendisse ac bibendum metus, ut porttitor diam. Morbi pellentesque nulla eget dolor placerat ullamcorper. Cras rutrum neque sit amet aliquet euismod. Aenean luctus turpis dui, quis pellentesque orci luctus eget. Vestibulum sodales, magna at eleifend bibendum, velit lorem euismod ligula, id sodales sapien arcu eu nibh. Nulla sit amet dictum magna, vel pellentesque urna. Etiam lacinia, elit in efficitur molestie, urna nisi placerat ligula, ut consequat erat lectus ut nibh. Sed ut accumsan orci, aliquam accumsan metus.</p>
+      <h2 className="faq__titleArticle">Puis-je déposer une annonce pour un tiers ?</h2>
+      <p className="faq__pArticle">Si quelqu’un vous demande de déposer une annonce pour lui via un réseau social, méfiez-vous ! Le compte de cette personne a peut-être été piraté. Il s’agit probablement d’une annonce frauduleuse, n’y donnez pas suite. Si l’annonce a déjà été confirmée, nous vous invitons à nous la signaler via le bouton « signaler un abus » en bas de la page de l’annonce concernée.</p>
     </article>
 
     <article className="faq__article ">
-    <h2 className="faq__titleArticle">Nullam ac eros aliquet, ornare mi ac, ornare est?</h2>
-    <p className="faq__pArticle">In maximus suscipit aliquam. Cras malesuada dapibus nunc, ac euismod leo luctus sit amet. Phasellus laoreet pharetra tortor, in viverra quam facilisis non. Etiam vehicula ac arcu non dignissim. Ut eleifend auctor volutpat. Ut interdum lorem sollicitudin, pellentesque enim ut, pharetra lectus. Nulla finibus sed augue sit amet gravida. Phasellus vestibulum turpis nec ligula efficitur, eget tristique leo iaculis. Nullam ac eros aliquet, ornare mi ac, ornare est. In consequat augue eget pulvinar rutrum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec accumsan tincidunt sem quis laoreet. Vivamus a finibus erat, vitae aliquet tellus. Aenean et purus egestas, gravida urna quis, molestie leo. Etiam feugiat justo at nisl sodales, sed imperdiet est aliquet.</p>
+      <h2 className="faq__titleArticle">Règles de diffusion</h2>
+      <p className="faq__pArticle">Toute annonce contenant des éléments de texte (mots, expressions, phrases… etc.) qui sembleraient contraires aux dispositions légales ou réglementaires, aux bonnes mœurs, aux règles de diffusion de notre site ou susceptible de troubler ou choquer les lecteurs sera refusée par leboncoin, donc non référencée sur notre site, sans que cela ne fasse naître au profit de l'annonceur un quelconque droit à indemnité.</p>
     </article>
   </div>
 );

@@ -10,6 +10,7 @@
     margin: 5px;
     padding: 10px;
     border-bottom: 1px solid lightgrey;
+    text-align: justify;
 }
 
 .faq__article {
@@ -24,4 +25,11 @@
 
 .faq__pArticle {
     margin: 1px;
+    display: none;
+    text-align: justify;
 }
+
+
+.faq__article:hover p {
+    display: block;
+  }

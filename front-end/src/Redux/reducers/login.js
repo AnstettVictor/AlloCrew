@@ -1,11 +1,22 @@
-import {LOADING, REDIRECT, LOGIN_OK, LOGOUT, INPUT_LOGIN_CHANGE, NOTIFICATION, CLEAR_NOTIFICATION, REGISTER_SUCCESS} from '../actions';
+import {LOADING, REDIRECT, LOGIN_OK, LOGOUT, INPUT_LOGIN_CHANGE, NOTIFICATION, CLEAR_NOTIFICATION, REGISTER_SUCCESS, UPDATE_USER, INPUT_PROFILE_CHANGE} from '../actions';
 
 const initialState = {
   registerSuccess: false,
   isLogged:true,
   userId: -1,
   notification: "",
-  userInfo: {},
+  userInfo: {
+    firstname: "",
+    lastname: "",
+    age: 0,
+    location: "",
+    title: "",
+    description: "",
+    experience: "",
+    portfolio: "",
+    picture: "",
+    bannerpicture: ""
+  },
   data: {
     username:"",
     password:"",
@@ -18,6 +29,11 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   console.log('mon actio',action.payload)
   switch (action.type) {
+    case INPUT_PROFILE_CHANGE:
+      return {
+        ...state,
+        userInfo: {...state.userInfo, ...action.payload}, 
+      };
     case LOADING:
       return {
         ...state,
@@ -26,7 +42,8 @@ const reducer = (state = initialState, action) => {
     case REDIRECT:
       return {
         ...state,
-        redirect: action.payload
+        redirect: action.payload,
+        notification: ""
       };
     case REGISTER_SUCCESS:
       return {
@@ -42,6 +59,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         notification: action.payload,
+      };
+    case UPDATE_USER:
+      return {
+        ...state,
+        userInfo: action.payload[0],
       };
     case LOGIN_OK:
       return {

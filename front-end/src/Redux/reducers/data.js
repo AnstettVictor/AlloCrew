@@ -1,4 +1,8 @@
-import {UPDATE_ANNOUNCEMENT, UPDATE_PROFILE, INPUT_PROFILE_CHANGE, INPUT_ANNOUNCEMENT_CHANGE, INPUT_EDITPROFILE_CHANGE, INPUT_EDITANNOUNCEMENT_CHANGE, INPUT_CREATE_ANNOUNCEMENT, RESET_DATA, LOADING, LOADED} from '../actions';
+
+import {UPDATE_ANNOUNCEMENT, UPDATE_PROFILE, UPDATE_PROFILES, INPUT_PROFILE_CHANGE, INPUT_ANNOUNCEMENT_CHANGE, INPUT_EDITANNOUNCEMENT_CHANGE,  INPUT_CREATE_ANNOUNCEMENT, RESET_DATA, LOADING, LOADED} from '../actions';
+
+import {IMAGE_IN_STATE} from '../actions/imageUpload'
+
 
 const initialState = {
   isloading: false,
@@ -70,7 +74,7 @@ const initialState = {
       firstname:"",
       lastname: "",
       age: 0,
-      location: "gffd",  
+      location: "",  
       title: "",
       description: "",
       experience: "",
@@ -85,6 +89,13 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   console.log(action.payload)
   switch (action.type) {
+
+
+    case IMAGE_IN_STATE:
+      return {
+        ...state,
+        ...action.payload
+      };
 
     case LOADED:
       return {
@@ -122,13 +133,22 @@ const reducer = (state = initialState, action) => {
     case UPDATE_PROFILE:
       return {
         ...state,
-        profiles: [{...state.profiles, ...action.payload[0]}], 
+        profiles: action.payload, 
       };
+
+    
+
+      case UPDATE_PROFILES:
+        return {
+          ...state,
+          ...action.payload, 
+        };
     case INPUT_PROFILE_CHANGE:
       return {
         ...state,
         profiles: [{...state.profiles[0], ...action.payload}], 
       };
+
   
     
     case INPUT_ANNOUNCEMENT_CHANGE:
@@ -136,6 +156,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         announcements:[...state.data.announcements], 
       };
+
+    
       default:
         return state;
   }

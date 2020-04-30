@@ -6,7 +6,7 @@ const ProfileList = ({ list }) => (
   <div className="search">
     {/* Bogdan Codes here */}
     {
-      list.map((profile) => <Profile {...profile}/>)
+      list.map((profile) => <Profile key={profile.id} {...profile}/>)
     }
   </div>
 )

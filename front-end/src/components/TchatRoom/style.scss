@@ -81,6 +81,24 @@
     padding: 0.2rem;
     font-weight: 600;
 }
+
+.discussion__absolute{
+    position:relative;
+}
+.discussion__delete{
+    position: absolute;
+    right:5rem;
+    top:-1rem;    
+    width: 2rem;
+    height: 2em;
+    color: black;
+    text-align: center;    
+    background-color: #FA425A;
+    font-size:1rem;
+    font-weight: 600;   
+    border-radius: 50%;
+    transform: rotate(225deg);   
+}
 @media only screen and (max-width: 800px) {
 
     .tchatRoom__Container {

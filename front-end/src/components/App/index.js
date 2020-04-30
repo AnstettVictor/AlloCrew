@@ -67,20 +67,22 @@ return(
         <NonMembersRoute path="/register" exact component={Register} />
         <NonMembersRoute path="/login" exact component={Login} />
         <MembersRoute path="/home" component={Home} />
+        <MembersRoute path="/profile" exact component={Profile} />
         <MembersRoute path="/profile/:id" exact component={Profile} />
-        <MembersRoute path="/edit-user/:id" exact component={EditUser} />
+        <MembersRoute path="/edit-user" exact component={EditUser} />
         <MembersRoute path="/edit-announcement/:id" exact component={CreateAnnouncement} />
         <MembersRoute path="/create-announcement" exact component={CreateAnnouncement} />
-        <MembersRoute path="/edit-profile/:id" exact component={EditProfile} />
+        <MembersRoute path="/edit-profile" exact component={EditProfile} />
         <MembersRoute path="/my-announcements" exact component={MyAnnouncements} />
         <MembersRoute path="/search" exact component={Search} />
         <MembersRoute path="/tchat-room/:id" exact component={TchatRoom} />
-        <MembersRoute path="/legal-notice" exact component={LegalNotice} />
-        <MembersRoute path="/contact" exact component={Contact} />
-        <MembersRoute path="/information" exact component={Information} />
+        <Route path="/legal-notice" exact component={LegalNotice} />
+        <Route path="/contact" exact component={Contact} />
+        <Route path="/information" exact component={Information} />
         <MembersRoute path="/announcement/:id" exact component={Announcement} /> 
-        <MembersRoute path="/faq" exact component={FAQ} />
+        <Route path="/faq" exact component={FAQ} />
         <Route path="/*" component={PAGE404} />
+        
       </Switch>
     </div>
     <div className="app__footer">
