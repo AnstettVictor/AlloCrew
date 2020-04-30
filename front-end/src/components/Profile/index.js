@@ -7,7 +7,6 @@ import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from
 const Profile = ({id, age, location, firstname, lastname, title, description, experience, portfolio, picture, bannerpicture}) => (
   <div className="profile__container">    
       <div className="profile__pict">
-      <Link to={`/edit-profile`}><button className="profile__button button">Modifier</button></Link>
         <div className="profile__pict__cover" style={{backgroundImage: `url(${bannerpicture})`}} />
         <img className="profile__pict__profile" src={picture} />
       </div>

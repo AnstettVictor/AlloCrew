@@ -246,8 +246,9 @@ export const fetchProfile = (id) => (dispatch, getState) => {
     url: id? `http://3.86.88.23/api/users/${id}`: `http://3.86.88.23/api/users/${getState().login.userId}`,  
   })
   .then((res) => {
-    console.log(res)   
-    if(res.data.id == getState().login.userId){dispatch(updateUser(res.data))} 
+    console.log('reponse profiles', res)   
+    res.data.id == getState().login.userId?
+    dispatch(updateUser(res.data)): 
     dispatch(updateProfile(res.data))
   })
   .catch((err) => {
@@ -405,7 +406,7 @@ export const postDiscussion = ({announcement_id, user_id}) => (dispatch, getStat
     }
   })
   // <Redirect to={`/tchat-room/${getState().login.userId}`} />
-  .then((res) => {console.log('la res', res); dispatch(redirect(true)) })
+  .then((res) => {console.log('la res', res); dispatch(redirect('tchat')) })
   .catch((err) => console.log(err.response))
 };
 
