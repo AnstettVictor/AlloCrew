@@ -2,10 +2,11 @@ import React, { useRef, useEffect, useState } from "react";
 import './style.scss';
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
+import logo from 'images/svg/logo.png';
 
 
 
-const Header = ({userId, logout, isLogged}) => {
+const Header = ({userId, logout, isLogged, openParams}) => {
 
   const ref = useRef(null)
   //State du menu burger
@@ -30,7 +31,7 @@ const Header = ({userId, logout, isLogged}) => {
     <nav className="header__nav">
       <div  className="transparent"/>
       <Link to="/home">
-        <img className="header__logo_img" src="../../src/assets/images/favicon.png"  />     
+        <img className="header__logo_img" src={logo}  />     
         <div className="header__logo">AlloCrew</div> 
       </Link>
       {isLogged && (
@@ -56,7 +57,7 @@ const Header = ({userId, logout, isLogged}) => {
           <ul className="header__links">
             <Link to={`/profile`}><li>Voir mon profil</li></Link>
             <Link to={`/edit-profile`}><li>Modifier mon profil</li></Link>
-            <Link to={`/edit-user`}><li>Paramètres</li></Link>
+            <Link to="" ><li onClick={openParams}>Paramètres</li></Link>
             <Link to="/"><li onClick={logout} >Déconnexion</li></Link>
           </ul>
         </div> 

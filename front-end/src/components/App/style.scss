@@ -54,18 +54,52 @@ body {
   }
 }
 
-.loading {
+.app__modal {
   position: fixed;
   top: 0;
   left: 0;
   height: 100vh;
   width: 100vw;
-  background-color: #fff;
+  background-color:rgba(0,0,0, .5);
   display: flex;
   justify-content: center;
   align-items: center;
   color: #000;
-  font-size: 3rem;
+  font-size: 1rem;
   z-index: 9999;
+
+  
+  .modal__container {
+    position: relative;
+    text-align: center;
+    background-color: #fff;
+    width: 400px;
+    height: 400px;
+    .closing {
+      cursor: pointer;
+      right: .5rem;
+      top: .3rem;
+      position: absolute;
+      float: right;
+      transform: rotate(45deg);
+      font-size: 3rem;
+    }
+    .notification {
+      position: unset;
+      margin: 0 auto;
+      border-radius: 100vmax;
+    }
+    p {
+      margin-top: 2rem;
+      justify-self: start;
+      font-size: 1.5rem;
+    }
+    .modal_input {
+      margin-top: 2rem;
+      input {
+        margin: .5rem;
+      }
+    }
+  }
 }
 

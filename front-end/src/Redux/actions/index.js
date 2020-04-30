@@ -11,7 +11,7 @@ const userId =  () => {
 };
 
 export const LOADED = 'LOADED';
-export const LOADING = 'LOADING';
+export const SET_USER_PARAMS = 'SET_USER_PARAMS';
 export const LOGIN_OK = 'LOGIN_OK';
 export const LOGOUT = 'LOGOUT';
 export const UPDATE_ANNOUNCEMENT = 'UPDATE_ANNOUNCEMENT';
@@ -41,8 +41,9 @@ export const redirect = (payload) => ({
   payload
 })
 
-export const loading = () => ({
-  type: LOADING,
+export const setUserParams = (payload) => ({
+  type: SET_USER_PARAMS,
+  payload
 })
 
 export const resetData = () => ({
@@ -368,7 +369,7 @@ export const fetchDiscussionList = (id) => (dispatch) => {
 };
 
 
-export const postMessage = (id) => (dispatch, getState) => {
+export const postMessage = (id) => (dispatch, getState, {match}) => {
   console.log("axios", id)
   axios({
     headers: {
@@ -383,7 +384,7 @@ export const postMessage = (id) => (dispatch, getState) => {
       content: getState().messagerie.message.content
     }
   })
-  .then((res) => console.log(res))
+  .then((res) => dispatch(fetchDiscussionList(getState().login.userId)))
   .catch((err) => console.log(err))
 };
 
@@ -412,7 +413,7 @@ export const postDiscussion = ({announcement_id, user_id}) => (dispatch, getStat
 
 
 
-export const deleteDiscussion = (id) => () => {
+export const deleteDiscussion = (id, userId) => (dispatch) => {
   axios({
     headers: {
       Authorization: `bearer ${token()}`,
@@ -421,7 +422,7 @@ export const deleteDiscussion = (id) => () => {
     url: `http://3.86.88.23/api/discussions/${id}`,    
   })
   // <Redirect to={`/tchat-room/${getState().login.userId}`} />
-  .then((res) => console.log('la res', res))
+  .then((res) =>  dispatch(fetchDiscussionList(userId)))
   .catch((err) => console.log(err.response))
 };
 
@@ -437,6 +438,38 @@ export const deleteAnnouncement = (id) => (dispatch) => {
   
   .then((res) => {dispatch(redirect('myannouncement'))})
   .catch((err) => console.log(err.response))
+};
+
+export const changeEmail = () => (dispatch, getState) => {
+  
+  axios({
+    headers: {
+      Authorization: `bearer ${token()}`,
+    },
+    method: 'patch',
+    url: `http://3.86.88.23/api/users/account/${getState().login.userId}`, 
+    data:{
+      email:getState().data.email
+    } 
+  })
+  .then((res) => dispatch(notification(true)))
+  .catch((err) => console.log(err))
+};
+
+export const changePassword = () => (dispatch, getState) => {
+  
+  axios({
+    headers: {
+      Authorization: `bearer ${token()}`,
+    },
+    method: 'patch',
+    url: `http://3.86.88.23/api/users/password/${getState().login.userId}`, 
+    data:{
+      password:getState().data.password
+    } 
+  })
+  .then((res) => dispatch(notification(true)))
+  .catch((err) => console.log(err))
 };
 
 
