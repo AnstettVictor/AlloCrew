@@ -383,7 +383,7 @@ export const postMessage = (id) => (dispatch, getState) => {
       content: getState().messagerie.message.content
     }
   })
-  .then((res) => console.log(res))
+  .then((res) => dispatch(fetchDiscussionList(getState().login.userId)))
   .catch((err) => console.log(err))
 };
 
