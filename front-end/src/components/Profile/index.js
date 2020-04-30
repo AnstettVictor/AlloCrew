@@ -31,7 +31,7 @@ const Profile = ({id, age, location, firstname, lastname, title, description, ex
         <p className="profile__text">{ReactHtmlParser(experience)}</p>
       </div>
       <p className="profile__portfolio">Portfolio:</p>
-      <a className="profile__link" href="#">{portfolio}</a>
+      <a className="profile__link" href={portfolio}>{portfolio}</a>
   </div>
 )
 ;
