@@ -77,16 +77,21 @@
     text-align: left;    
   }
 
-  .desktop{
+  .desktops{
     display:none;
   }
   
   @media (min-width: 900px) and (min-height: 500px) {
+    .desktops{
+      display:inline;
+    }
   
     .editUser__pict__cover{
       height: 37.5vh;
       background-position-y:center ;
     }
+
+    
     .editUser__pict__profile{
       left:5%;
       bottom:-4.5rem;    
@@ -102,7 +107,7 @@
    
   
     .editUser__titles{
-        margin-top: 0.8rem;
+        margin-top: 1.2rem;
         margin-left:0.8rem;
         font-size: 1rem;
         font-weight: 500;
@@ -112,6 +117,7 @@
      
     .editUser__input{
         margin-left: 0.8rem;
+        margin-bottom: 1rem;
     }
     
   

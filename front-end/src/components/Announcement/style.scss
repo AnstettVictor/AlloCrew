@@ -192,6 +192,19 @@
     }
   }
 
+  .announcement__conditionButton2 {
+    border:1px solid #FA425A;
+    background-color: #fff;
+    color: #FA425A;
+    position: absolute;
+    right: 1rem;
+    top: 3.7rem;
+    &:hover {
+      background-color: #FA425A;
+      color: #fff;
+    }
+  }
+
   .announcement__text {
     margin: 0;
   }

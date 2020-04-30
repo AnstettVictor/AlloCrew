@@ -246,8 +246,9 @@ export const fetchProfile = (id) => (dispatch, getState) => {
     url: id? `http://3.86.88.23/api/users/${id}`: `http://3.86.88.23/api/users/${getState().login.userId}`,  
   })
   .then((res) => {
-    console.log(res)   
-    if(res.data.id == getState().login.userId){dispatch(updateUser(res.data))} 
+    console.log('reponse profiles', res)   
+    res.data.id == getState().login.userId?
+    dispatch(updateUser(res.data)): 
     dispatch(updateProfile(res.data))
   })
   .catch((err) => {
@@ -405,7 +406,7 @@ export const postDiscussion = ({announcement_id, user_id}) => (dispatch, getStat
     }
   })
   // <Redirect to={`/tchat-room/${getState().login.userId}`} />
-  .then((res) => {console.log('la res', res); dispatch(redirect(true)) })
+  .then((res) => {console.log('la res', res); dispatch(redirect('tchat')) })
   .catch((err) => console.log(err.response))
 };
 
@@ -425,7 +426,7 @@ export const deleteDiscussion = (id) => () => {
 };
 
 
-export const deleteAnnouncement = (id) => () => {
+export const deleteAnnouncement = (id) => (dispatch) => {
   axios({
     headers: {
       Authorization: `bearer ${token()}`,
@@ -434,7 +435,7 @@ export const deleteAnnouncement = (id) => () => {
     url: `http://3.86.88.23/api/announcements/${id}`,   
   })
   
-  .then((res) => console.log('la res', res))
+  .then((res) => {dispatch(redirect('myannouncement'))})
   .catch((err) => console.log(err.response))
 };
 

@@ -34,6 +34,12 @@ const mapDispatchToProps = (dispatch, {match}) => ({
   fetchData: dispatch(checkData(match.params.id)),
 
   sendingMessage: (param) => dispatch(postDiscussion(param)),
+
+  deleteD: (e) => {
+    e.preventDefault();
+    console.log("ACTIONSSUBIMIT ID",e.target);
+    dispatch(deleteAnnouncement(e.target.name));
+  },
   
 })
 

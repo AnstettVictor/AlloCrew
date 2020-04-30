@@ -133,7 +133,7 @@ const reducer = (state = initialState, action) => {
     case UPDATE_PROFILE:
       return {
         ...state,
-        profiles: action.payload, 
+        profiles: [...state.profiles, ...action.payload] 
       };
 
     

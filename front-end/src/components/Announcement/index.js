@@ -6,11 +6,15 @@ import ReactHtmlParser from 'react-html-parser';
 import { date } from 'utils/functions';
 import arrow from 'images/svg/arrow.svg';
 
-const Announcement = ({ title, location, description, picture, voluntary, id, dateEnd, dateStart, active, user, sendingMessage, createdAt, userId, redirect }) => {
+const Announcement = ({ title, location, description, picture, voluntary, id, dateEnd, dateStart, active, user, sendingMessage, createdAt, userId, redirect, deleteD }) => {
 
 
   if (redirect == 'tchat') {
     return <Redirect to={`/tchat-room/${userId}`} />
+  }
+
+  if (redirect == 'myannouncement') {
+    return <Redirect to={`/my-announcements`} />
   }
   return (
     <div className="announcement__container" >
@@ -35,9 +39,6 @@ const Announcement = ({ title, location, description, picture, voluntary, id, da
           <div className="announcement__text">{ReactHtmlParser(description)}</div>
         </div>
 
-
-
-
         {/* Affichage conditionnel du bouton */}
         {
           userId != user.id && (
@@ -45,13 +46,23 @@ const Announcement = ({ title, location, description, picture, voluntary, id, da
             <form onSubmit={(e) => { e.preventDefault(); sendingMessage({ user_id: user.id, announcement_id: id }) }} method="post">
               <button className="button announcement__conditionButton" type="submit" name={user.id}>Envoyer un message</button>
             </form>
+              
 
           )
         }
-        {userId == user.id && (<Link to={`/edit-announcement/${id}`}>
-          <button className="button announcement__conditionButton " name={user.id}>Modifier</button>
-        </Link>)
+
+        {
+        userId == user.id &&  
+          (
+          <Link to={`/edit-announcement/${id}`}>
+            <button className="button announcement__conditionButton " name={user.id}>Modifier</button>
+          </Link>)          
         }
+
+        {userId == user.id && (
+            <button className="button announcement__conditionButton2"  onClick={deleteD} method="delete" name={id}>supprimer</button>)
+        }
+
         <Link className="back__wrapper" to="/home">
           <div className="announcement__back">Retour</div>
         </Link>
