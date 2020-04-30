@@ -426,7 +426,7 @@ export const deleteDiscussion = (id) => () => {
 };
 
 
-export const deleteAnnouncement = (id) => () => {
+export const deleteAnnouncement = (id) => (dispatch) => {
   axios({
     headers: {
       Authorization: `bearer ${token()}`,
@@ -435,7 +435,7 @@ export const deleteAnnouncement = (id) => () => {
     url: `http://3.86.88.23/api/announcements/${id}`,   
   })
   
-  .then((res) => console.log('la res', res))
+  .then((res) => {dispatch(redirect('myannouncement'))})
   .catch((err) => console.log(err.response))
 };
 
