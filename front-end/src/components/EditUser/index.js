@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 
 const EditUser = ({id, title, firstname, lastname, age, location, picture, bannerpicture, handleChange }) => (
-  <div>
+  <div className="editUser__container">
     <div className="editUser__pict">
       <button className="editUser__button button">Enregistrer</button>
       <button className="editUser__buttonRetour button">Retour</button>
