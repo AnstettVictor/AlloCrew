@@ -1,5 +1,5 @@
 
-import {UPDATE_ANNOUNCEMENT, UPDATE_PROFILE, UPDATE_PROFILES, INPUT_PROFILE_CHANGE, INPUT_ANNOUNCEMENT_CHANGE, INPUT_EDITANNOUNCEMENT_CHANGE,  INPUT_CREATE_ANNOUNCEMENT, RESET_DATA, LOADING, LOADED} from '../actions';
+import {UPDATE_ANNOUNCEMENT, UPDATE_PROFILE, UPDATE_PROFILES, INPUT_PROFILE_CHANGE, INPUT_ANNOUNCEMENT_CHANGE, INPUT_EDITANNOUNCEMENT_CHANGE,  INPUT_CREATE_ANNOUNCEMENT, RESET_DATA, LOADED} from '../actions';
 
 import {IMAGE_IN_STATE} from '../actions/imageUpload'
 
@@ -102,11 +102,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         isloading: false,
       };
-    case LOADING:
-      return {
-        ...state,
-        isloading: true, 
-      };
+  
     case INPUT_CREATE_ANNOUNCEMENT:
       return {
         ...state,

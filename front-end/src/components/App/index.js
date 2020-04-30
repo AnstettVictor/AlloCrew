@@ -37,7 +37,8 @@ import PAGE404 from '../PAGE404';
 
 
 
-const App = ({isLogged, loading}) => {
+const App = ({isLogged, userParams, closeParams, notification, email, password, inputChange, changeEmail, changePassword}) => {
+
 
 // Custom Route for connected user
 const MembersRoute = (props) => {
@@ -88,7 +89,25 @@ return(
     <div className="app__footer">
       <Footer />
     </div>
-    {loading && <div className="loading"><p>Chargement...</p></div>}
+    {
+      userParams && 
+    (<div className="app__modal">
+      <div className="modal__container">
+      <p>Paramètres de connexion</p>
+      <div onClick={closeParams} className="closing">+</div>
+        <div className= "modal_input">
+          <input name="email" onChange={inputChange} className="input" type="email"value={email}/>
+
+          <input onClick={changeEmail} className="button" value="Modifier l'adresse de contact" type="button"/>
+
+          <input name="password" onChange={inputChange} className="input" type="password" value={password}/>
+
+          <input onClick={changePassword} className="button" value="Modifier le mot de passe" type="button"/>
+        </div>
+        {notification && <div className="notification">Changements pris en compte</div>}
+      </div>
+    </div>)
+    }
   </>
 )
 };

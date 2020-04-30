@@ -11,7 +11,7 @@ const userId =  () => {
 };
 
 export const LOADED = 'LOADED';
-export const LOADING = 'LOADING';
+export const SET_USER_PARAMS = 'SET_USER_PARAMS';
 export const LOGIN_OK = 'LOGIN_OK';
 export const LOGOUT = 'LOGOUT';
 export const UPDATE_ANNOUNCEMENT = 'UPDATE_ANNOUNCEMENT';
@@ -41,8 +41,9 @@ export const redirect = (payload) => ({
   payload
 })
 
-export const loading = () => ({
-  type: LOADING,
+export const setUserParams = (payload) => ({
+  type: SET_USER_PARAMS,
+  payload
 })
 
 export const resetData = () => ({
@@ -437,6 +438,38 @@ export const deleteAnnouncement = (id) => () => {
   
   .then((res) => console.log('la res', res))
   .catch((err) => console.log(err.response))
+};
+
+export const changeEmail = () => (dispatch, getState) => {
+  
+  axios({
+    headers: {
+      Authorization: `bearer ${token()}`,
+    },
+    method: 'patch',
+    url: `http://3.86.88.23/api/users/account/13`, 
+    data:{
+      email:getState().data.email
+    } 
+  })
+  .then((res) => dispatch(notification(true)))
+  .catch((err) => console.log(err))
+};
+
+export const changePassword = () => (dispatch, getState) => {
+  
+  axios({
+    headers: {
+      Authorization: `bearer ${token()}`,
+    },
+    method: 'patch',
+    url: `http://3.86.88.23/api/users/password/${getState().login.userId}`, 
+    data:{
+      password:getState().data.password
+    } 
+  })
+  .then((res) => console.log(res))
+  .catch((err) => console.log(err))
 };
 
 
