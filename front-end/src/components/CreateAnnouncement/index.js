@@ -97,7 +97,7 @@ const CreateAnnouncement = ({ handleChange, title, location, description, volunt
 
 
         <div className="createAnnouncement__botPart">
-          <div>
+          <div >
             <input
               className="createAnnouncement__volunteer"
               type="radio"
@@ -110,7 +110,7 @@ const CreateAnnouncement = ({ handleChange, title, location, description, volunt
             <label htmlFor="volonteer" className="createAnnouncement__radio">Bénévole</label>
           </div>
 
-          <div>
+          <div className="createAnnouncement__overDescription">
             <input
               className="createAnnouncement__paid"
               type="radio"
@@ -125,8 +125,8 @@ const CreateAnnouncement = ({ handleChange, title, location, description, volunt
             <label htmlFor="paid" className="createAnnouncement__radio" >Rémunéré</label>
           </div>
 
-          <div className="createAnnouncement__textarea input">
             <label>Description</label>
+          <div className="createAnnouncement__textarea input">
             <CKEditor
               className="editor"
               editor={ClassicEditor}
@@ -152,8 +152,6 @@ const CreateAnnouncement = ({ handleChange, title, location, description, volunt
           <Link to="/home">
             <button className="createAnnouncement__button button">Retour</button>
           </Link>
-          <button   className="editAnnouncement__button discussion__delete button" method="delete">Supprimer</button> 
-
         </div>
       </form>
     </div>

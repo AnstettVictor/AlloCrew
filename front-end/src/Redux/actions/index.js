@@ -9,6 +9,8 @@ const userId =  () => {
   if (token)
   return JSON.parse(atob(token().split('.')[1])).id
 };
+if(token()){console.log('token', atob(token().split('.')[1]))}
+
 
 export const LOADED = 'LOADED';
 export const SET_USER_PARAMS = 'SET_USER_PARAMS';
@@ -352,13 +354,14 @@ export const passId = (func) => (dispatch, getState) => {
 }
 
 
-export const fetchDiscussionList = (id) => (dispatch) => {
+export const fetchDiscussionList = () => (dispatch, getState) => {
+  
   axios({
     headers: {
       Authorization: `bearer ${token()}`,
     },
     method: 'get',
-    url: `http://3.86.88.23/api/discussions/${id}`, 
+    url: `http://3.86.88.23/api/discussions/${userId()}`, 
   })
   .then((res) => {
     console.log("res.data",res.data)
@@ -380,11 +383,11 @@ export const postMessage = (id) => (dispatch, getState) => {
     data: 
     { 
       discussion: id,
-      user: getState().login.userId,
+      user: userId(),
       content: getState().messagerie.message.content
     }
   })
-  .then((res) => dispatch(fetchDiscussionList(getState().login.userId)))
+  .then((res) => dispatch(fetchDiscussionList(userId())))
   .catch((err) => console.log(err))
 };
 
@@ -392,7 +395,7 @@ export const mitraillette = (id) => (dispatch) => {
   setInterval(() => {dispatch(fetchDiscussionList(id))}, [2000])
 }
 
-export const postDiscussion = ({announcement_id, user_id}) => (dispatch, getState, fds) => {
+export const postDiscussion = ({announcement_id, user_id}) => (dispatch, getState) => {
   axios({
     headers: {
       Authorization: `bearer ${token()}`,
@@ -400,7 +403,7 @@ export const postDiscussion = ({announcement_id, user_id}) => (dispatch, getStat
     method: 'post',
     url: `http://3.86.88.23/api/discussions/`, 
     data: 
-    { console: console.log('test'),
+    {
       announcement: announcement_id,
       receiver: user_id,
       creator: getState().login.userId,
@@ -413,7 +416,7 @@ export const postDiscussion = ({announcement_id, user_id}) => (dispatch, getStat
 
 
 
-export const deleteDiscussion = (id, userId) => (dispatch) => {
+export const deleteDiscussion = (id) => (dispatch) => {
   axios({
     headers: {
       Authorization: `bearer ${token()}`,
@@ -421,8 +424,7 @@ export const deleteDiscussion = (id, userId) => (dispatch) => {
     method: 'delete',
     url: `http://3.86.88.23/api/discussions/${id}`,    
   })
-  // <Redirect to={`/tchat-room/${getState().login.userId}`} />
-  .then((res) =>  dispatch(fetchDiscussionList(userId)))
+  .then((res) =>  dispatch(fetchDiscussionList(userId())))
   .catch((err) => console.log(err.response))
 };
 

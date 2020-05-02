@@ -10,7 +10,7 @@ const Announcement = ({ title, location, description, picture, voluntary, id, da
 
 
   if (redirect == 'tchat') {
-    return <Redirect to={`/tchat-room/${userId}`} />
+    return <Redirect to={`/tchat-room`} />
   }
 
   if (redirect == 'myannouncement') {

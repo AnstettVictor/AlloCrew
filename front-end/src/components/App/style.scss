@@ -46,6 +46,11 @@ body {
   @include inputStyle;
 }
 
+.ck {
+  border: none !important;
+  background-color: #f9f9fa !important;
+}
+
 .cursor {
   cursor: pointer;
   border: 1px solid transparent;

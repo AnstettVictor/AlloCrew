@@ -1,116 +1,170 @@
 @import 'style/vars.scss';
-.discussion__flex{
-    display:flex;
-}
 
-.tchatRoom__Container {
-    margin: 0.5rem;
-    padding: 30px;
-}
 
-.tchatRoom__TitlePage {
-    text-align: center;   
-    border-bottom: 1px solid lightgray;
-}
 
-.discussion__container{
-   text-align: center; 
-   width:85%;
-   margin: auto;
-   color: black;
+
+@media (min-width: 900px) and (min-height: 500px) {
+
+  .tchatRoom__title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: normal;
+    margin-top: .5rem;
+  }
+
+  .tchatRoom__container {
+    margin-top: 1.5rem;
+    height: 70vh;
+    display:grid;
+    grid-template-columns: 35% 65%;
+    grid-template-rows: 1fr min-content min-content;
+  }
+
+  .discussion__container {
+    position: relative;
+    overflow-y: auto;
+    flex-direction: column;
+    justify-content: flex-end;
+    grid-row: 1 / 4;
+    padding-right: 1rem;
+    border-right: 1px solid rgba(19, 45, 125, 0.1);
+    .discussion:first-of-type {
+      margin-top: 4rem;
+    }
+    .active {
+    background-color: #fff;
+    opacity: 1;
+    }
+    .sticky {
+      border-radius: 100vmax;
+      position: sticky;
+      width: fit-content;
+      z-index: 2;
+      top: 1px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 1rem;
+      color: #000;
+      box-shadow: 0 3px 10px 0 rgba(0,0,0, .3);
+    }
+  }
+
+
+  .message {
+    grid-row: 2 / 3;
+    overflow: auto;
+    width: 100%;
+    color: #000;
+    padding: .5rem;
+    max-height: 60vh;
+    .userMessage__container {
+      margin-left: auto;
+      text-align: right;
+    }
+    .contactMessage__container {
+      align-self: flex-start;
+    }
+    .userMessage__container, .contactMessage__container {
+      min-width: 40%;
+      max-width: 50%;
+    }
+
+    .userMessage, .contactMessage {
+      border: 1px solid rgba(19, 45, 125, 0.2);
+      margin: .5rem;
+      padding: 1rem;
+      border-radius: 1rem;
+      background-color: #fff;
+      color: #000;
+      font-size: 1.3rem;
+    }
+
+    .emptyChat {
+      padding: 2rem;
+      height: 20rem;
+      margin-bottom: 3rem;
+      border-radius: .5rem;
+      background-color: #fff;
+      border: 1px solid rgba(19, 45, 125, 0.2);
+      text-align: center;
+      margin-left: .5rem;
+      h2 {
+        font-size: 1.7rem;
+        font-weight: normal;
+        margin-bottom: 3rem;
+        
+      }
+      p {
+        color: rgba(0,0,0, .7);
+        font-size: 1.2rem;
+        line-height: 1.6;
+      }
+    } 
+  }
+
+  .message__input {
+    grid-row: 3 / 4;
+    grid-column: 2 / 3;
+    padding: 1rem;
+    margin-top: .5rem;
+    margin-left: 1rem;
+    border-radius: .5rem;
+    border: 1px solid rgba(19, 45, 125, 0.2);
+    background-color: #fff;
+    input {
+      width: 100%;
+      font-size: 1.7rem;
+      background-color: #fff;
+      border: none;    
+      &:focus {
+        border:none;
+        outline: none;
+      }  
+      &::placeholder {
+        color: #bbb;
+      }  
+    }
+    button {
+      display: none;
+    }
+    
+  }
+
+  .discussion {
+    position: relative;
+    background-color: #f3f4f8;
+    width: 100%;
+    height: 6rem;
+    padding: .5rem;
+    border-bottom: 1px solid rgba(19, 45, 125, 0.1);
+    opacity: .5;
+    transition: 600ms;
+    &:hover {
+      background-color:#fff;
+      opacity: 1;
+      cursor: pointer;
+      transition: 200ms;
+    }
+    .discussion__name {
+      height: 100%;
+    }
+    .contactName {
+      font-size: 1.6rem;
+      margin-bottom: .5rem;
+    }
+    .deleteChat {
+      position: absolute;
+      right: .5rem;
+      top: .5rem;
+      display: inline-block;
+      color: $red;
+      &:hover {
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+  }
+
   
-   
-}
 
-.discussion__spaceText{
-    margin: 0.2rem 0.7rem;
-    color:black;
-    font-weight: 600;
-    font-size: 1.3rem;
-}
-
-.discussion__half{
-    width:100%;
-}
-
-.discussion__title{
-    margin: 0.5rem;
-    border-bottom: 1px solid lightgray;
-    font-size: 1rem;
-    padding-bottom: 0.5rem;
-    color: black;
-}
-
-.message__container{
-    margin: auto;
-    padding: 0rem 0.5rem 0rem 0.5rem;
-    border-left: 1px solid lightgray;
-    width: 95%;
-    max-height: 20rem;
-    overflow-y: scroll;
-}
-
-.other {
-    background-color:rgba(211, 211, 211, 0.500);
-    margin-bottom: 0.5rem;
-    padding: 0.5rem;
-    border-radius: 5px;
-    text-align:left;
-}
-
-.you {
-    margin-bottom: 0.5rem;
-    padding: 0.5rem;
-    text-align:left;
-}
-
-.message__textarea{
-    width:70%;
-    height:2.3rem;
-    text-align: left;
-    margin: 0.2rem ;
-}
-
-.button {
-    padding: 0.5rem;
-    margin-bottom: 1rem;    
-}
-
-.discussion_message{
-    width:22%;
-    padding: 0.2rem;
-    font-weight: 600;
-}
-
-.discussion__absolute{
-    position:relative;
-}
-.discussion__delete{
-    position: absolute;
-    right:5rem;
-    top:-1rem;    
-    width: 2rem;
-    height: 2em;
-    color: black;
-    text-align: center;    
-    background-color: #FA425A;
-    font-size:1rem;
-    font-weight: 600;   
-    border-radius: 50%;
-    transform: rotate(225deg);   
-}
-@media only screen and (max-width: 800px) {
-
-    .tchatRoom__Container {
-        margin-top: 0;
-        padding: 15px;
-        border: none
-    }
-    .tchatRoom__TitlePage {
-        display: none;
-    }
-
-    .message__container {
-       width:97%;
-    }
 }

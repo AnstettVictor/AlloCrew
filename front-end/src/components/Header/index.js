@@ -40,7 +40,7 @@ const Header = ({userId, logout, isLogged, openParams}) => {
           <ul className="">
             <Link to="/home" ><li>Accueil</li></Link>
             <Link to="/search" ><li>Rechercher</li></Link>
-            <Link to={`/tchat-room/${userId}`} ><li>Messagerie</li></Link>
+            <Link to={`/tchat-room`} ><li>Messagerie</li></Link>
           </ul>
         </div>
         <div  ref={ref} className="header__menuButton">+</div>

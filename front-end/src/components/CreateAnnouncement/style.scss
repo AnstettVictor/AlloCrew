@@ -144,6 +144,11 @@
   }
 
   .createAnnouncement__textarea {
-    min-height: 13rem;
+    min-height: 8rem;
+    margin: 0 !important;
+  }
+
+  .createAnnouncement__overDescription {
+    margin-bottom: 1rem ;
   }
 }

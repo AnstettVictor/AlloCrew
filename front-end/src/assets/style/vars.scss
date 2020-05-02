@@ -18,8 +18,8 @@ $shadow: 2px 3px 3px 0 rgba(0,0,0, .2);
 
 @mixin inputStyle {
   margin: .5rem .7rem;
-  border: 2px solid rgba(150, 150, 150, 0.788);
-  background-color: #efefef;
+  border: 1px solid rgba(150, 150, 150, 0.788);
+  background-color: #fff;
   font-size: 1rem;
   padding: .5rem;
   border-radius: 0.4rem;
@@ -27,7 +27,6 @@ $shadow: 2px 3px 3px 0 rgba(0,0,0, .2);
   &:hover {
     border-color:rgba(19,45,125,.7);
     opacity: 1;
-    cursor: pointer;
   }
 }
 
@@ -35,7 +34,7 @@ $shadow: 2px 3px 3px 0 rgba(0,0,0, .2);
   text-align: center;
   width: fit-content;
   font-size: 1em;
-  padding: 1em;
+  padding: .5em;
   border-radius: 0.4em;
   appearance: none;
   border: 2px solid transparent;

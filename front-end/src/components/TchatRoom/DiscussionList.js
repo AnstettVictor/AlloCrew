@@ -1,7 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
 import './style.scss';
-
-
 import { Link } from "react-router-dom";
 
 const DiscussionList = ({by_creator, by_receiver, message, handleMessage, onMessageSubmit,deleteD, userId}) => {
@@ -26,7 +24,7 @@ const DiscussionList = ({by_creator, by_receiver, message, handleMessage, onMess
 
   return (
   <div className="discussion__flex"> 
-    <div className="discussion__half">
+    {/* <div className="discussion__half">
       <h2 className="discussion__title">Demandes envoyées</h2>    
     {
       by_creator.map((discussion) =>
@@ -118,7 +116,7 @@ const DiscussionList = ({by_creator, by_receiver, message, handleMessage, onMess
       )}
     </div>
       )}
-    </div>
+    </div> */}
   </div>
   )
 }

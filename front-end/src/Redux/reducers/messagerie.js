@@ -63,7 +63,6 @@ const initialState = {
   
 
   const reducer = (state = initialState, action) => {
-    console.log('messagerie reducers',action.payload)
     switch (action.type) {
         case UPDATE_DISCUSSION:
             return {
@@ -73,7 +72,7 @@ const initialState = {
         case INPUT_MESSAGE:
             return {
                 ...state,
-                message: {...state.message.content, ...action.payload},
+                message: action.payload,
             }
       default:
         return state;

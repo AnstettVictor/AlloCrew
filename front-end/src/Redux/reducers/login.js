@@ -1,6 +1,7 @@
 import {REDIRECT, LOGIN_OK, LOGOUT, INPUT_LOGIN_CHANGE, NOTIFICATION, CLEAR_NOTIFICATION, REGISTER_SUCCESS, UPDATE_USER, INPUT_PROFILE_CHANGE, SET_USER_PARAMS} from '../actions';
 
 const initialState = {
+  redirect:false,
   registerSuccess: false,
   userParams: false,
   isLogged:true,
@@ -44,7 +45,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         redirect: action.payload,
-        notification: ""
+        
       };
     case REGISTER_SUCCESS:
       return {

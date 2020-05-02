@@ -3,33 +3,35 @@ import {fetchDiscussionList, deleteDiscussion, inputMessage, postMessage, mitrai
 import {connect} from 'react-redux';
 
 const mapStateToProps = ({messagerie, login}) => {
-  console.log("containersTCHAT", {messagerie})
+
   return ({
-    by_creator: messagerie.by_creator,
-    by_receiver: messagerie.by_receiver,
-    userId: login.userId,
-    message: messagerie.message.content,  
+    content: messagerie.message.content,
+    chatList: [...messagerie.by_creator, ...messagerie.by_receiver],
+    userId: login.userId
   })
 }
 ;
 
-const mapDispatchToProps = (dispatch, {match}) => ({
+const mapDispatchToProps = (dispatch) => ({
 
-  killRedirect: dispatch(redirect(false)), 
-  fetchData: dispatch(fetchDiscussionList(match.params.id)),
-  handleMessage: (e) => dispatch(inputMessage({["content"]: e.target.value})),
+  redirect: dispatch(redirect("")), 
+
+  fetchData: dispatch(fetchDiscussionList()),
+
+  refreshData: () => dispatch(fetchDiscussionList()),
+  
+  handleMessage: (e) => dispatch(inputMessage({content: e.target.value})),
+
   onMessageSubmit: (e) => {
     e.preventDefault();
-    console.log("ACTIONSSUBIMIT ID",e.target);
-    dispatch(postMessage(e.target.name)); 
-    dispatch(inputMessage({["content"]: ""}))     
+    dispatch(postMessage(+e.target.id));
+    dispatch(inputMessage({content:""}))     
   },
-  deleteD: (e) => {
-    e.preventDefault();
-    console.log("ACTIONSSUBIMIT ID",e.target);
-    dispatch(deleteDiscussion(e.target.name, match.params.id ));
-  },
-  refresh :dispatch(fetchDiscussionList(match.params.id)) 
+
+  deleteD: (chatId) => {
+    console.log(chatId)
+    dispatch(deleteDiscussion(chatId));
+  }, 
 })
 ;
 

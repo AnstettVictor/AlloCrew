@@ -1,5 +1,5 @@
 import Search from '../components/Search';
-import {fetchAnnouncementList, fetchProfileList} from '../Redux/actions'
+import {fetchAnnouncementList, fetchProfileList, redirect} from '../Redux/actions'
 import {connect} from 'react-redux';
 
 const mapStateToProps = ({data}) => ({
